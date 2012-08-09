@@ -1,8 +1,2 @@
-- if current_user
-  %p
-    Hello, #{current_user.name}!
-  %p
-    = link_to "Sign out", destroy_user_session_path
-- else
-  %p
-    = link_to "Sign in with Google", user_omniauth_authorize_path(:google)
+%p
+  = link_to 'View your MyGov Profile', profile_path

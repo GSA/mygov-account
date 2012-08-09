@@ -6,5 +6,11 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    %h1 MyGov
+    %h1 
+      = link_to 'MyGov', root_path
+    - if current_user
+      %p Hello, #{current_user.name}!
+      %p= link_to "Sign out", destroy_user_session_path
+    - else
+      %p= link_to "Sign in with Google", user_omniauth_authorize_path(:google)
     = yield

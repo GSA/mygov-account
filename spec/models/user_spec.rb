@@ -11,7 +11,6 @@ describe User do
   end
   
   describe "#create" do
-    
     it "should create a new User with valid attributes" do
       User.create!(@valid_attributes)
     end
@@ -19,6 +18,14 @@ describe User do
     it "should not create a user without an email" do
       user = User.create(@valid_attributes.reject{|k,v| k == :email })
       user.errors.should_not be_empty
+    end
+    
+    it "should strip all dashes out of social security numbers" do
+      User.create!(@valid_attributes.merge(:ssn => '123-45-6789')).ssn.should == '123456789'
+    end
+    
+    it "should strip all dashes out of phone numbers" do
+      User.create!(@valid_attributes.merge(:phone => '123-456-7890')).phone.should == '1234567890'
     end
   end
   

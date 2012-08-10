@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
     self.marital_status.blank? ? nil : self.marital_status.titleize
   end
   
+  def as_json(options = {})
+    super(:except => [:updated_at, :created_at, :uid, :provider])
+  end
+  
   private
   
   def normalize_ssn

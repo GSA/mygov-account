@@ -3,7 +3,7 @@
     = form.label :first_name
     = form.text_field :first_name
   %p
-    = form.label :middle_intitial
+    = form.label :middle_initial
     = form.text_field :middle_initial
   %p
     = form.label :last_name
@@ -28,7 +28,7 @@
     = form.text_field :ssn
   %p
     = form.label :date_of_birth
-    = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year
+    = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :include_blank => true
   %p
     = form.label :phone
     = form.phone_field :phone
@@ -38,4 +38,4 @@
   %p
     = form.label :marital_status
     = form.select :marital_status, [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic_partnership"], ["Widowed", "widowed"]], :include_blank => true
-  = form.submit
+  = form.submit "Update Profile"

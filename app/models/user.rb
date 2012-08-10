@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :token_authenticatable, :omniauthable, :rememberable, :trackable
 
-  # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :remember_me, :first_name, :last_name, :name, :provider, :uid, :middle_initial, :address, :address2, :city, :state, :zip, :ssn, :date_of_birth, :phone, :gender, :marital_status
 
   class << self
@@ -24,11 +23,19 @@ class User < ActiveRecord::Base
   end
   
   def print_ssn
-    "#{ssn[0..2]}-#{ssn[3..4]}-#{ssn[5..-1]}"
+    self.ssn.blank? ? nil : "#{ssn[0..2]}-#{ssn[3..4]}-#{ssn[5..-1]}"
   end
   
   def print_phone
-    "#{phone[0..2]}-#{phone[3..5]}-#{phone[6..-1]}"
+    self.phone.blank? ? nil : "#{phone[0..2]}-#{phone[3..5]}-#{phone[6..-1]}"
+  end
+  
+  def print_gender
+    self.gender.blank? ? nil : self.gender.capitalize
+  end
+  
+  def print_marital_status
+    self.marital_status.blank? ? nil : self.marital_status.titleize
   end
   
   private

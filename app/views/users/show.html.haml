@@ -23,8 +23,8 @@
 %p
   Phone Number: #{@user.print_phone}
 %p
-  Gender: #{@user.gender.capitalize}
+  Gender: #{@user.print_gender}
 %p
-  Marital Status: #{@user.marital_status.titleize}
+  Marital Status: #{@user.print_marital_status}
 
 = link_to 'Edit your Profile', edit_profile_path

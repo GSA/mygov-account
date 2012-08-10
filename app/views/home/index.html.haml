@@ -1,2 +1,3 @@
-%p
-  = link_to 'View your MyGov Profile', profile_path
+- if current_user
+  %p
+    = link_to 'View your MyGov Profile', profile_path

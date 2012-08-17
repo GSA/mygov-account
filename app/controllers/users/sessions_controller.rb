@@ -1,7 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
   
   def new
-    redirect_to root_path
+    redirect_to session[:user_return_to] || root_path
   end
   
   def destroy

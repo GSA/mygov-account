@@ -16,11 +16,5 @@ class UsersController < ApplicationController
       flash[:error] = "Something went wrong."
       redirect_to :back
     end
-  end
-  
-  private
-  
-  def assign_user
-    @user = current_user
-  end
+  end    
 end

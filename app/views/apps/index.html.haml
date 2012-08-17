@@ -1,0 +1,15 @@
+= link_to 'Register a new Application', new_app_path
+
+%p
+  Your Applications
+  %table
+    - @clients.each do |client|
+      %tr
+        %td
+          = link_to client.name, app_path(client)
+        %td
+          = link_to 'Edit', edit_app_path(client)
+          |
+          = link_to 'Delete', app_path(client), :method => :delete, :data => { :confirm => 'Are you sure you want to delete this app?' }
+        
+      

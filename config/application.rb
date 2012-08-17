@@ -66,3 +66,6 @@ module Mygov
     config.assets.version = '1.0'
   end
 end
+
+OAuth2::Provider.realm = 'MyGov'
+OAuth2::Provider.enforce_ssl = false

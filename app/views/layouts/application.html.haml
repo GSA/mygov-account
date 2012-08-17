@@ -12,5 +12,5 @@
       %p Hello, #{current_user.name}!
       %p= link_to "Sign out", destroy_user_session_path
     - else
-      %p= link_to "Sign in with Google", user_omniauth_authorize_path(:google)
+      %p= sign_in_with_google_link
     = yield

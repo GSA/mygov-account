@@ -1,0 +1,13 @@
+- if user_signed_in?
+  %p
+    #{@oauth2.client.name} wants to access your profile.
+  = form_tag "/oauth/allow" do
+    - @oauth2.params.each do |key, value|
+      = hidden_field_tag key, value
+    = hidden_field_tag :user_id, current_user.id
+    = check_box_tag :allow, "1", :id => "allow"
+    = label_tag :allow, "Allow this application"
+    = submit_tag 'Authorize'
+- else
+  %p
+    Please sign in to continue.

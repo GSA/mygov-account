@@ -1,0 +1,3 @@
+= form_for @client, :url => app_path(@client) do |f|
+  = render :partial => "form", :object => f
+  = f.submit "Update Application"

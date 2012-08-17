@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/songkick/oauth2-provider
+  revision: eccb7c7d8f3739cfb51572e5a0163c66e5654a2e
+  specs:
+    oauth2-provider (0.1.0)
+      activerecord
+      bcrypt-ruby
+      json
+      rack
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -196,6 +206,7 @@ DEPENDENCIES
   json
   launchy
   mysql2
+  oauth2-provider!
   omniauth
   omniauth-openid
   rails (= 3.2.6)

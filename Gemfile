@@ -7,6 +7,7 @@ gem 'haml'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-openid'
+gem 'oauth2-provider', :require => 'oauth2/provider', :git => 'git://github.com/songkick/oauth2-provider'
 
 # Gems used only for assets and not required
 # in production environments by default.

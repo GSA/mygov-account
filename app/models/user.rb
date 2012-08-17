@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  include OAuth2::Model::ResourceOwner
+  include OAuth2::Model::ClientOwner
+  
   validates_presence_of :email
   before_validation :normalize_ssn
   before_validation :normalize_phone

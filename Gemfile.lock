@@ -1,6 +1,7 @@
 GIT
-  remote: git://github.com/songkick/oauth2-provider
-  revision: eccb7c7d8f3739cfb51572e5a0163c66e5654a2e
+  remote: git@github.com:GSA-OCSIT/oauth2-provider.git
+  revision: c0460701eb38960aee67d1835f9126b37fe002bc
+  branch: bearer-header
   specs:
     oauth2-provider (0.1.0)
       activerecord

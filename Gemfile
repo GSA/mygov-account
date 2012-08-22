@@ -9,6 +9,7 @@ gem 'omniauth'
 gem 'omniauth-openid'
 gem 'oauth2-provider', :require => 'oauth2/provider', :git => 'git@github.com:GSA-OCSIT/oauth2-provider.git', :branch => 'bearer-header'
 gem 'rvm-capistrano'
+gem 'bigdecimal'
 
 # Gems used only for assets and not required
 # in production environments by default.

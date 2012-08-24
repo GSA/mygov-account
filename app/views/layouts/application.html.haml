@@ -9,7 +9,8 @@
     %h1 
       = link_to 'MyGov', root_path
     - if current_user
-      %p Hello, #{current_user.name}!
+      %p Hello, #{link_to current_user.name, profile_path}!
+      %p= link_to "You have #{current_user.messages.count} messages.", messages_path
       %p= link_to "Sign out", destroy_user_session_path
     - else
       %p= sign_in_with_google_link

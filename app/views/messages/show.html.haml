@@ -1,0 +1,9 @@
+%h3
+  = @message.subject
+%p
+  Received at: #{time_ago_in_words(@message.received_at)}
+%p
+  From: #{@message.app.name}
+%p
+  = @message.body
+= link_to 'Delete', message_path(@message), :method => :delete

@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   before_validation :normalize_ssn
   before_validation :normalize_phone
   
+  has_many :messages
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable

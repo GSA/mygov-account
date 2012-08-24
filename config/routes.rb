@@ -10,7 +10,7 @@ Mygov::Application.routes.draw do
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/allow' => 'oauth#allow'
-  resources :messages, :only => [:index, :show, :destroy]
+  resources :messages, :only => [:index, :show, :create, :destroy]
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

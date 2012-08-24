@@ -28,6 +28,7 @@ end
 
 group :test, :development do
   gem 'rspec-rails'
+  gem 'oauth2'
 end
 
 group :test do

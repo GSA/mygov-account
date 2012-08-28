@@ -29,6 +29,19 @@ describe "Profiles" do
           parsed_json["user"]["email"].should == "joe@citizen.org"
           parsed_json["user"]["provider"].should be_nil
         end
+        
+        context "when the schema parameter is set" do
+          it "should render the response in a Schema.org hash" do
+            get "/profiles/#{@user.id}.json", {"schema" => "true"}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+            response.code.should == "200"
+            parsed_json = JSON.parse(response.body)
+            parsed_json["status"].should == "OK"
+            parsed_json["user"]["email"].should == "joe@citizen.org"
+            parsed_json["user"]["givenName"].should == "Joe"
+            parsed_json["user"]["familyName"].should == "Citizen"
+            parsed_json["user"]["homeLocation"]["streetAddress"].should be_blank
+          end
+        end
       end
     
       context "when the user does not exist" do

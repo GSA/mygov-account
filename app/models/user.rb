@@ -47,6 +47,10 @@ class User < ActiveRecord::Base
     super(:except => [:updated_at, :created_at, :uid, :provider])
   end
   
+  def to_schema_dot_org_hash
+    {"email" => self.email, "givenName" => self.first_name, "additionalName" => self.middle_initial, "familyName" => self.last_name, "homeLocation" => {"streetAddress" => [self.address, self.address2].reject{|s| s.blank? }.join(','), "addressLocality" => self.city, "addressRegion" => self.state, "postalCode" => self.zip}, "birthDate" => self.date_of_birth.to_s, "telephone" => self.print_phone, "gender" => self.print_gender }
+  end
+  
   private
   
   def normalize_ssn

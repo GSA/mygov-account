@@ -9,7 +9,11 @@ class ProfilesController < ApplicationController
       respond_to do |format|
         format.json {
           if @user
-            render :json => {:status => 'OK', :user => @user }
+            if params[:schema].present?
+              render :json => {:status => 'OK', :user => @user.to_schema_dot_org_hash }
+            else
+              render :json => {:status => 'OK', :user => @user }
+            end
           else
             render :json => {:status => 'Error', :message => 'Profile not found' }, :status => 404
           end

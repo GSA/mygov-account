@@ -23,6 +23,7 @@ describe "Profiles" do
       context "when the user queried exists" do
         it "should return JSON with the profile information for the profile specificed" do
           get "/profiles/#{@user.id}.json", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+          response.code.should == "200"
           parsed_json = JSON.parse(response.body)
           parsed_json["status"].should == "OK"
           parsed_json["user"]["email"].should == "joe@citizen.org"
@@ -33,6 +34,7 @@ describe "Profiles" do
       context "when the user does not exist" do
         it "should return an error message" do
           get "/profiles/#{@user.id + 1}.json", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+          response.code.should == "404"
           parsed_json = JSON.parse(response.body)
           parsed_json["status"].should == "Error"
           parsed_json["message"].should == "Profile not found"
@@ -43,6 +45,7 @@ describe "Profiles" do
     context "when the request does not have a valid token" do
       it "should return an error message" do
         get "/profiles/#{@user.id + 1}.json", nil, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
+        response.code.should == "403"
         parsed_json = JSON.parse(response.body)
         parsed_json["status"].should == "Error"
         parsed_json["message"].should == "You do not have access to read that user's profile."

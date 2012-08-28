@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
     @user = User.find_by_id(params[:id])
     @token = OAuth2::Provider.access_token(@user, [], request)
     unless @token.valid?
-      render :json => {:status => 'Error', :message => "You do not have access to send messages to that user."}
+      render :json => {:status => 'Error', :message => "You do not have access to send messages to that user."}, :status => 403
     else
       message = @user.messages.build(params[:message])
       message.received_at = Time.now
@@ -19,7 +19,7 @@ class MessagesController < ApplicationController
       if message.save
         render :json => {:status => 'OK', :message => 'Your message was successfully created.'}
       else
-        render :json => {:status => 'Error', :message => message.errors}
+        render :json => {:status => 'Error', :message => message.errors}, :status => 400
       end
     end
   end

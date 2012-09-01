@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120822205552) do
+ActiveRecord::Schema.define(:version => 20120831153618) do
 
   create_table "messages", :force => true do |t|
     t.string   "subject"
@@ -56,6 +56,37 @@ ActiveRecord::Schema.define(:version => 20120822205552) do
   end
 
   add_index "oauth2_clients", ["client_id"], :name => "index_oauth2_clients_on_client_id"
+
+  create_table "related_urls", :force => true do |t|
+    t.string   "url"
+    t.string   "other_url"
+    t.integer  "occurence_count", :default => 0
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "related_urls", ["url", "occurence_count"], :name => "index_related_urls_on_url_and_occurence_count"
+
+  create_table "task_items", :force => true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.datetime "completed_at"
+    t.integer  "task_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "task_items", ["task_id"], :name => "index_task_items_on_task_id"
+
+  create_table "tasks", :force => true do |t|
+    t.string   "name"
+    t.datetime "completed_at"
+    t.integer  "user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                :default => "", :null => false

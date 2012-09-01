@@ -1,0 +1,12 @@
+%h3
+  Saved Task List
+- if @user.tasks.any?
+  %ul
+    - @user.tasks.each do |task|
+      %li
+        %p
+          = task.name
+          = link_to 'Remove', task_path(task), :method => :delete
+        %p
+          = link_to "#{task.task_items.count} Forms / Possible Tasks", task_path(task)
+  

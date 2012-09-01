@@ -6,4 +6,9 @@ class ApplicationController < ActionController::Base
   def assign_user
     @user = current_user
   end
+  
+  def oauthorize
+    @user = User.find_by_id(params[:id])
+    @token = OAuth2::Provider.access_token(@user, [], request)
+  end
 end

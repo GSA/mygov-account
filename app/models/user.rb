@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   before_validation :normalize_phone
   
   has_many :messages
+  has_many :tasks
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

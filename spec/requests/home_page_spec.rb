@@ -6,7 +6,6 @@ describe "HomePage" do
   end
   
   describe "GET /" do
-    
     context "when not logged in" do
       it "should prompt the user to login" do
         visit root_path
@@ -22,6 +21,7 @@ describe "HomePage" do
       it "should greet the user and provide a link to view their profile" do
         visit root_path
         page.should have_content "Hello, Joe Citizen!"
+        page.should have_content "Saved Task List"
         click_link 'Joe Citizen'
         page.should have_content 'Your MyGov Profile'
       end

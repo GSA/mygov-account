@@ -1,14 +1,13 @@
 class MessagesController < ApplicationController
   before_filter :authenticate_user!, :except => [:create]
   before_filter :assign_user, :except => [:create]
+  before_filter :oauthorize, :only => [:create]
   
   def index
     @messages = @user.messages.paginate(:page => params[:page], :per_page => 10).order('received_at DESC')
   end
   
   def create
-    @user = User.find_by_id(params[:id])
-    @token = OAuth2::Provider.access_token(@user, [], request)
     unless @token.valid?
       render :json => {:status => 'Error', :message => "You do not have access to send messages to that user."}, :status => 403
     else

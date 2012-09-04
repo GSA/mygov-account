@@ -13,6 +13,7 @@ Mygov::Application.routes.draw do
   resources :messages, :only => [:index, :show, :create, :destroy]
   get 'dashboard' => "home#dashboard"
   resources :tasks, :only => [:create, :show, :destroy]
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831153618) do
+ActiveRecord::Schema.define(:version => 20120904185600) do
 
   create_table "messages", :force => true do |t|
     t.string   "subject"
@@ -56,6 +56,19 @@ ActiveRecord::Schema.define(:version => 20120831153618) do
   end
 
   add_index "oauth2_clients", ["client_id"], :name => "index_oauth2_clients_on_client_id"
+
+  create_table "rails_admin_histories", :force => true do |t|
+    t.text     "message"
+    t.string   "username"
+    t.integer  "item"
+    t.string   "table"
+    t.integer  "month",      :limit => 2
+    t.integer  "year",       :limit => 8
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
   create_table "related_urls", :force => true do |t|
     t.string   "url"
@@ -115,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20120831153618) do
     t.string   "phone"
     t.string   "gender"
     t.string   "marital_status"
+    t.boolean  "is_admin"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

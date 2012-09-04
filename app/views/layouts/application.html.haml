@@ -29,7 +29,7 @@
             %ul.nav.pull-right
               - if current_user
                 %li= link_to current_user.name, profile_path
-                %li= link_to "#{current_user.messages.count} messages.", messages_path
+                %li= link_to "#{current_user.messages.count} messages", messages_path
                 %li= link_to "Sign out", destroy_user_session_path
               - else
                 %li= sign_in_with_google_link

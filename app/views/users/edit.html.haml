@@ -1,41 +1,43 @@
-= form_for @user, :url => profile_path do |form|
-  %p
-    = form.label :first_name
-    = form.text_field :first_name
-  %p
-    = form.label :middle_initial
-    = form.text_field :middle_initial
-  %p
-    = form.label :last_name
-    = form.text_field :last_name
-  %p
-    = form.label :address
-    = form.text_field :address
-  %p
-    = form.label :address2
-    = form.text_field :address2
-  %p
-    = form.label :city
-    = form.text_field :city
-  %p
-    = form.label :state
-    = form.select :state, us_states, :include_blank => true
-  %p
-    = form.label :zip
-    = form.text_field :zip
-  %p
-    = form.label :ssn, "SSN#"
-    = form.text_field :ssn
-  %p
-    = form.label :date_of_birth
-    = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :include_blank => true
-  %p
-    = form.label :phone
-    = form.phone_field :phone
-  %p
-    = form.label :gender
-    = form.select :gender, [["Male", "male"], ["Female", "female"]], :include_blank => true
-  %p
-    = form.label :marital_status
-    = form.select :marital_status, [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic_partnership"], ["Widowed", "widowed"]], :include_blank => true
-  = form.submit "Update Profile"
+.row-fluid
+  .span12
+    = form_for @user, :url => profile_path do |form|
+      %p
+        = form.label :first_name
+        = form.text_field :first_name
+      %p
+        = form.label :middle_initial
+        = form.text_field :middle_initial
+      %p
+        = form.label :last_name
+        = form.text_field :last_name
+      %p
+        = form.label :address
+        = form.text_field :address
+      %p
+        = form.label :address2
+        = form.text_field :address2
+      %p
+        = form.label :city
+        = form.text_field :city
+      %p
+        = form.label :state
+        = form.select :state, us_states, :include_blank => true
+      %p
+        = form.label :zip
+        = form.text_field :zip
+      %p
+        = form.label :ssn, "SSN#"
+        = form.text_field :ssn
+      %p
+        = form.label :date_of_birth
+        = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :include_blank => true
+      %p
+        = form.label :phone
+        = form.phone_field :phone
+      %p
+        = form.label :gender
+        = form.select :gender, [["Male", "male"], ["Female", "female"]], :include_blank => true
+      %p
+        = form.label :marital_status
+        = form.select :marital_status, [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic_partnership"], ["Widowed", "widowed"]], :include_blank => true
+      = form.submit "Update Profile"

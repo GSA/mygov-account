@@ -1,12 +1,19 @@
-%h3
-  Saved Task List
-- if @user.tasks.any?
-  %ul
-    - @user.tasks.each do |task|
-      %li
-        %p
-          = task.name
-          = link_to 'Remove', task_path(task), :method => :delete
-        %p
-          = link_to "#{task.task_items.count} Forms / Possible Tasks", task_path(task)
-  
+.row-fluid
+  .span9
+    %h3
+      Welcome to MyGov, #{@user.first_name}
+    %p
+      Use MyGov to navigate government.  With MyGov, we'll help you find the services and information you need from across government, any time you need us.
+  .span3
+    .well.sidebar-nav
+      - if @user.tasks.any?
+        %ul.nav.nav-list
+          %li.nav-header Saved Task List
+          - @user.tasks.each do |task|
+            %li
+              %p
+                = task.name
+                = link_to 'Remove', task_path(task), :method => :delete
+              %p
+                &nbsp;&nbsp;
+                = link_to "#{task.task_items.count} Forms / Possible Tasks", task_path(task)

@@ -1,24 +1,26 @@
-%h3
-  Your Messages
-%table
-  %tr
-    %th
-      From
-    %th
-      Subject
-    %th
-      Date
-    %th
-      Actions
-  - @messages.each do |message|
-    %tr
-      %td
-        = message.app.name
-      %td
-        = link_to message.subject, message_path(message)
-      %td
-        = time_ago_in_words(message.received_at)
-      %td
-        = link_to 'Delete', message_path(message, :page => params[:page]), :method => :delete
-= will_paginate @messages
+.row-fluid
+  .span12
+    %h3
+      Your Messages
+    %table
+      %tr
+        %th
+          From
+        %th
+          Subject
+        %th
+          Date
+        %th
+          Actions
+      - @messages.each do |message|
+        %tr
+          %td
+            = message.app.name
+          %td
+            = link_to message.subject, message_path(message)
+          %td
+            = time_ago_in_words(message.received_at)
+          %td
+            = link_to 'Delete', message_path(message, :page => params[:page]), :method => :delete
+    = will_paginate @messages
     

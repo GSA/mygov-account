@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :token_authenticatable, :omniauthable, :rememberable, :trackable
 
-  attr_accessible :email, :remember_me, :first_name, :last_name, :name, :provider, :uid, :middle_initial, :address, :address2, :city, :state, :zip, :ssn, :date_of_birth, :phone, :gender, :marital_status
+  attr_accessible :email, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_initial, :address, :address2, :city, :state, :zip, :ssn, :date_of_birth, :phone, :gender, :marital_status
 
   class << self
     

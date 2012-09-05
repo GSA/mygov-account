@@ -2,6 +2,9 @@
   .span12
     = form_for @user, :url => profile_path do |form|
       %p
+        = form.label :title
+        = form.select :title, titles, :include_blank => true
+      %p
         = form.label :first_name
         = form.text_field :first_name
       %p
@@ -10,6 +13,9 @@
       %p
         = form.label :last_name
         = form.text_field :last_name
+      %p
+        = form.label :suffix
+        = form.select :suffix, suffixes, :include_blank => true
       %p
         = form.label :address
         = form.text_field :address

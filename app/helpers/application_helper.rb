@@ -1,5 +1,12 @@
 module ApplicationHelper
-
+  def titles
+    ["Mr.","Mrs.","Miss","Ms."]
+  end
+  
+  def suffixes
+    ["Jr.","Sr.","II","III","IV"]
+  end
+  
   def us_states
     [
       ['Alabama', 'AL'],

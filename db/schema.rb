@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904185600) do
+ActiveRecord::Schema.define(:version => 20120905181026) do
 
   create_table "messages", :force => true do |t|
     t.string   "subject"
@@ -102,22 +102,22 @@ ActiveRecord::Schema.define(:version => 20120904185600) do
   add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                :default => "", :null => false
+    t.string   "email",                              :default => "", :null => false
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",        :default => 0
+    t.integer  "sign_in_count",                      :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
     t.string   "provider"
     t.string   "uid"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "name"
-    t.string   "middle_initial"
+    t.string   "middle_name"
     t.string   "address"
     t.string   "address2"
     t.string   "city"
@@ -129,6 +129,8 @@ ActiveRecord::Schema.define(:version => 20120904185600) do
     t.string   "gender"
     t.string   "marital_status"
     t.boolean  "is_admin"
+    t.string   "title",                :limit => 10
+    t.string   "suffix",               :limit => 10
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

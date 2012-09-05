@@ -24,7 +24,7 @@ describe "Profile" do
         it "should update the profile with new information provided by the user" do
           visit profile_path
           click_link "Edit your Profile"
-          fill_in "Middle initial", :with => "Q"
+          fill_in "Middle name", :with => "Q"
           fill_in "Address", :with => "123 Evergreen Terrace"
           fill_in "City", :with => 'Springfield'
           select "Iowa", :from => 'State'
@@ -34,7 +34,7 @@ describe "Profile" do
           select 'Male', :from => 'Gender'
           select 'Married', :from => "Marital status"
           click_button "Update Profile"
-          page.should have_content "Middle initial: Q"
+          page.should have_content "Middle name: Q"
           page.should have_content "Address: 123 Evergreen Terrace"
           page.should have_content "City: Springfield"
           page.should have_content "State: IA"

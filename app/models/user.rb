@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :token_authenticatable, :omniauthable, :rememberable, :trackable
 
-  attr_accessible :email, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_initial, :address, :address2, :city, :state, :zip, :ssn, :date_of_birth, :phone, :gender, :marital_status
+  attr_accessible :email, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_name, :address, :address2, :city, :state, :zip, :ssn, :date_of_birth, :phone, :gender, :marital_status
 
   class << self
     
@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
   
   def to_schema_dot_org_hash
-    {"email" => self.email, "givenName" => self.first_name, "additionalName" => self.middle_initial, "familyName" => self.last_name, "homeLocation" => {"streetAddress" => [self.address, self.address2].reject{|s| s.blank? }.join(','), "addressLocality" => self.city, "addressRegion" => self.state, "postalCode" => self.zip}, "birthDate" => self.date_of_birth.to_s, "telephone" => self.print_phone, "gender" => self.print_gender }
+    {"email" => self.email, "givenName" => self.first_name, "additionalName" => self.middle_name, "familyName" => self.last_name, "homeLocation" => {"streetAddress" => [self.address, self.address2].reject{|s| s.blank? }.join(','), "addressLocality" => self.city, "addressRegion" => self.state, "postalCode" => self.zip}, "birthDate" => self.date_of_birth.to_s, "telephone" => self.print_phone, "gender" => self.print_gender }
   end
   
   private

@@ -155,7 +155,7 @@ RailsAdmin.config do |config|
   #     configure :first_name, :string 
   #     configure :last_name, :string 
   #     configure :name, :string 
-  #     configure :middle_initial, :string 
+  #     configure :middle_name, :string 
   #     configure :address, :string 
   #     configure :address2, :string 
   #     configure :city, :string 

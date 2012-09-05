@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120905181026) do
+ActiveRecord::Schema.define(:version => 20120905183156) do
 
   create_table "messages", :force => true do |t|
     t.string   "subject"
@@ -121,13 +121,13 @@ ActiveRecord::Schema.define(:version => 20120905181026) do
     t.string   "address"
     t.string   "address2"
     t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "ssn"
+    t.string   "state",                :limit => 5
+    t.string   "zip",                  :limit => 5
+    t.string   "ssn",                  :limit => 9
     t.date     "date_of_birth"
-    t.string   "phone"
-    t.string   "gender"
-    t.string   "marital_status"
+    t.string   "phone",                :limit => 12
+    t.string   "gender",               :limit => 6
+    t.string   "marital_status",       :limit => 15
     t.boolean  "is_admin"
     t.string   "title",                :limit => 10
     t.string   "suffix",               :limit => 10

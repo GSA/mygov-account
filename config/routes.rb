@@ -1,6 +1,5 @@
 Mygov::Application.routes.draw do
   resource :profile, :controller => :users, :only => [:show, :edit, :update]
-  get "profiles/:id" => "profiles#show", :as => "profiles"
   devise_for :users, :controllers => { :sessions => "users/sessions", :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do
     get 'sign_in', :to => 'users/sessions#new', :as => :new_user_session

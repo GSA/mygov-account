@@ -30,7 +30,7 @@ describe "Tasks" do
       page.should have_content "Task Item 2"
       visit dashboard_path
       click_link("Remove")
-      page.should have_content "Saved Task List"
+      page.should_not have_content "Saved Task List"
       page.should_not have_content "My Task"
     end
   end

@@ -20,8 +20,7 @@ describe "HomePage" do
       
       it "should greet the user and provide a link to view their profile" do
         visit root_path
-        page.should have_content "Hello, Joe Citizen!"
-        page.should have_content "Saved Task List"
+        page.should have_content "Welcome to MyGov, Joe"
         click_link 'Joe Citizen'
         page.should have_content 'Your MyGov Profile'
       end

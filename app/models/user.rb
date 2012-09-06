@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
   include OAuth2::Model::ClientOwner
   
   validates_presence_of :email
-  before_validation :normalize_ssn
   before_validation :normalize_phone
   
   has_many :messages
@@ -14,7 +13,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :token_authenticatable, :omniauthable, :rememberable, :trackable
 
-  attr_accessible :email, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_name, :address, :address2, :city, :state, :zip, :ssn, :date_of_birth, :phone, :gender, :marital_status
+  attr_accessible :email, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone, :gender, :marital_status
 
   class << self
     
@@ -27,11 +26,7 @@ class User < ActiveRecord::Base
       end
     end  
   end
-  
-  def print_ssn
-    self.ssn.blank? ? nil : "#{ssn[0..2]}-#{ssn[3..4]}-#{ssn[5..-1]}"
-  end
-  
+    
   def print_phone
     self.phone.blank? ? nil : "#{phone[0..2]}-#{phone[3..5]}-#{phone[6..-1]}"
   end
@@ -53,10 +48,6 @@ class User < ActiveRecord::Base
   end
   
   private
-  
-  def normalize_ssn
-    self.ssn.gsub!(/-/, '') if self.ssn
-  end
   
   def normalize_phone
     self.phone.gsub!(/-/, '') if self.phone

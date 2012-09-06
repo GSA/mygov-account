@@ -83,7 +83,6 @@ describe "Profile" do
             fill_in "City", :with => 'Springfield'
             select "Iowa", :from => 'State'
             fill_in "Zip", :with => '12345'
-            fill_in 'SSN', :with => '123456789'
             fill_in "Phone", :with => '123-456-7890'
             select 'Male', :from => 'Gender'
             select 'Married', :from => "Marital status"
@@ -93,7 +92,6 @@ describe "Profile" do
             page.should have_content "City: Springfield"
             page.should have_content "State: IA"
             page.should have_content "Zip: 12345"
-            page.should have_content "SSN: 123-45-6789"
             page.should have_content "Phone: 123-456-7890"
             page.should have_content "Gender: Male"
             page.should have_content "Marital status: Married"

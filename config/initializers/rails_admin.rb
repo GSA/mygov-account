@@ -161,7 +161,6 @@ RailsAdmin.config do |config|
   #     configure :city, :string 
   #     configure :state, :string 
   #     configure :zip, :string 
-  #     configure :ssn, :string 
   #     configure :date_of_birth, :date 
   #     configure :phone, :string 
   #     configure :gender, :string 

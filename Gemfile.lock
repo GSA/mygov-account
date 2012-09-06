@@ -264,7 +264,6 @@ DEPENDENCIES
   jquery-rails
   json
   launchy
-  libv8
   mysql2
   oauth2
   oauth2-provider!

@@ -13,7 +13,6 @@ gem 'bigdecimal'
 gem 'will_paginate', '~> 3.0'
 gem 'rails_admin'
 gem 'cancan'
-gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'static'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,6 +24,7 @@ group :assets do
   gem 'libv8', '~> 3.11.8'
   gem 'execjs'
   gem 'uglifier', '>= 1.0.3'
+  gem 'twitter-bootstrap-rails'
 end
 
 group :development do

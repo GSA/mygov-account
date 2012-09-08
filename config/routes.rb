@@ -5,7 +5,7 @@ Mygov::Application.routes.draw do
     get 'sign_in', :to => 'users/sessions#new', :as => :new_user_session
     get 'sign_out', :to => 'users/sessions#destroy', :as => :destroy_user_session
   end
-  resources :apps
+  resources :oauth_apps
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/allow' => 'oauth#allow'
@@ -13,6 +13,11 @@ Mygov::Application.routes.draw do
   get 'dashboard' => "home#dashboard"
   resources :tasks, :only => [:create, :show, :destroy]
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+  resources :apps, :only => [:show] do
+    member do
+      get :print_forms
+    end
+  end
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

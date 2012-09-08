@@ -1,0 +1,24 @@
+%table
+  %tr
+    %td
+      Name
+    %td
+      = @client.name
+  %tr
+    %td
+      Redirect URI
+    %td
+      = @client.redirect_uri
+  %tr
+    %td
+      Client ID
+    %td
+      = @client.client_id
+  %tr
+    %td
+      Client Secret (make sure to write this down)
+    %td
+      = @client.client_secret
+= link_to 'Edit', edit_oauth_app_path(@client)
+|
+= link_to 'Delete', oauth_app_path(@client), :method => :delete, :data => { :confirm => 'Are you sure you want to delete this app?' }

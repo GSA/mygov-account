@@ -4,6 +4,8 @@ class App < ActiveRecord::Base
   validates_uniqueness_of :slug
   before_validation :generate_slug
   
+  has_many :criteria, :dependent => :destroy
+  
   def to_param
     self.slug
   end

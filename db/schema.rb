@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120908045211) do
+ActiveRecord::Schema.define(:version => 20120909005855) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(:version => 20120908045211) do
   end
 
   add_index "apps", ["slug"], :name => "index_apps_on_slug"
+
+  create_table "criteria", :force => true do |t|
+    t.string   "label"
+    t.integer  "app_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "criteria", ["app_id"], :name => "index_criteria_on_app_id"
 
   create_table "messages", :force => true do |t|
     t.string   "subject"

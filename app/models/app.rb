@@ -1,11 +1,12 @@
 class App < ActiveRecord::Base
-  attr_accessible :name
+  has_many :criteria, :dependent => :destroy
+  has_many :forms, :dependent => :destroy
   validates_presence_of :name, :slug
   validates_uniqueness_of :slug
   before_validation :generate_slug
-  
-  has_many :criteria, :dependent => :destroy
-  
+
+  attr_accessible :name
+    
   def to_param
     self.slug
   end

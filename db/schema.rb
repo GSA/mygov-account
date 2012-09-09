@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120909005855) do
+ActiveRecord::Schema.define(:version => 20120909131426) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -30,6 +30,26 @@ ActiveRecord::Schema.define(:version => 20120909005855) do
   end
 
   add_index "criteria", ["app_id"], :name => "index_criteria_on_app_id"
+
+  create_table "criteria_forms", :id => false, :force => true do |t|
+    t.integer "criterium_id"
+    t.integer "form_id"
+  end
+
+  add_index "criteria_forms", ["criterium_id", "form_id"], :name => "index_criteria_forms_on_criterium_id_and_form_id"
+  add_index "criteria_forms", ["criterium_id"], :name => "index_criteria_forms_on_criterium_id"
+  add_index "criteria_forms", ["form_id"], :name => "index_criteria_forms_on_form_id"
+
+  create_table "forms", :force => true do |t|
+    t.string   "url"
+    t.string   "name"
+    t.string   "call_to_action"
+    t.integer  "app_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "forms", ["app_id"], :name => "index_forms_on_app_id"
 
   create_table "messages", :force => true do |t|
     t.string   "subject"

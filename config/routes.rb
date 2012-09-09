@@ -16,6 +16,10 @@ Mygov::Application.routes.draw do
   resources :apps, :only => [:show] do
     member do
       get :print_forms
+      post :info
+      post :address
+      post :birthdate
+      post :contact_info
     end
   end
   

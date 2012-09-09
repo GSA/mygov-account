@@ -1,4 +1,16 @@
 .row-fluid
   .span12
-    %h3
+    %legend
       = @app.name
+    %h4
+      To help us find the right forms for you, tell us a little about yourself.
+    %p
+      What are your reasons for wanting to #{@app.name.downcase}?
+      = form_tag info_app_path(@app) do
+        - @app.criteria.each do |criterium|
+          %label.checkbox
+            = check_box_tag "app[#{criterium.label.parameterize}]"
+            = criterium.label
+        %br
+        = submit_tag 'Continue' 
+    

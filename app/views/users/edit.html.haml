@@ -3,7 +3,7 @@
     = form_for @user, :url => profile_path do |form|
       %p
         = form.label :title
-        = form.select :title, titles, :include_blank => true
+        = form.select :title, title_options, :include_blank => true
       %p
         = form.label :first_name
         = form.text_field :first_name
@@ -15,7 +15,7 @@
         = form.text_field :last_name
       %p
         = form.label :suffix
-        = form.select :suffix, suffixes, :include_blank => true
+        = form.select :suffix, suffix_options, :include_blank => true
       %p
         = form.label :address
         = form.text_field :address
@@ -27,7 +27,7 @@
         = form.text_field :city
       %p
         = form.label :state
-        = form.select :state, us_states, :include_blank => true
+        = form.select :state, us_state_options, :include_blank => true
       %p
         = form.label :zip
         = form.text_field :zip
@@ -38,9 +38,12 @@
         = form.label :phone
         = form.phone_field :phone
       %p
+        = form.label :mobile
+        = form.phone_field :mobile
+      %p
         = form.label :gender
-        = form.select :gender, [["Male", "male"], ["Female", "female"]], :include_blank => true
+        = form.select :gender, gender_options, :include_blank => true
       %p
         = form.label :marital_status
-        = form.select :marital_status, [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic_partnership"], ["Widowed", "widowed"]], :include_blank => true
+        = form.select :marital_status, marital_status_options, :include_blank => true
       = form.submit "Update Profile"

@@ -1,0 +1,32 @@
+.row-fluid
+  .span12
+    %legend
+      = @app.name
+    %p
+      You're 35% done!
+      .progress
+        .bar{:style => 'width: 35%;'}
+    %h5
+      Your primary address (where you live most of the time).
+    = form_for @user, :url => birthdate_app_path(@app) do |form|
+      = form.hidden_field :title
+      = form.hidden_field :first_name
+      = form.hidden_field :middle_name
+      = form.hidden_field :last_name
+      = form.hidden_field :suffix
+      %p
+        = form.label :address, "Street Address (first line)"
+        = form.text_field :address
+      %p
+        = form.label :address2, "Street Address (second line)"
+        = form.text_field :address2
+      %p
+        = form.label :city, "City or town"
+        = form.text_field :city
+      %p
+        = form.label :state
+        = form.select :state, us_state_options, :prompt => 'Select one...'
+      %p
+        = form.label :zip
+        = form.text_field :zip
+      = submit_tag 'Continue'

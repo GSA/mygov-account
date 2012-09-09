@@ -15,7 +15,8 @@ Mygov::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   resources :apps, :only => [:show] do
     member do
-      get :print_forms
+      get :forms
+      post :forms
       post :info
       post :address
       post :birthdate

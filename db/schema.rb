@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120909131426) do
+ActiveRecord::Schema.define(:version => 20120909225105) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -168,6 +168,7 @@ ActiveRecord::Schema.define(:version => 20120909131426) do
     t.boolean  "is_admin"
     t.string   "title",                :limit => 10
     t.string   "suffix",               :limit => 10
+    t.string   "mobile",               :limit => 12
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

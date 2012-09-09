@@ -1,13 +1,13 @@
 module ApplicationHelper
-  def titles
+  def title_options
     ["Mr.","Mrs.","Miss","Ms."]
   end
   
-  def suffixes
+  def suffix_options
     ["Jr.","Sr.","II","III","IV"]
   end
   
-  def us_states
+  def us_state_options
     [
       ['Alabama', 'AL'],
       ['Alaska', 'AK'],
@@ -64,11 +64,11 @@ module ApplicationHelper
     ]
   end
   
-  def genders
+  def gender_options
     [["Male", "male"], ["Female", "female"]]
   end
   
-  def martial_statuses
+  def martial_status_options
     [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic_partnership"], ["Widowed", "widowed"]]
   end
   

@@ -1,0 +1,32 @@
+.row-fluid
+  .span12
+    %legend
+      = @app.name
+    %p
+      Home stretch!
+      .progress
+        .bar{:style => 'width: 75%;'}
+    %h5
+      Contact information
+    = form_for @user, :url => forms_app_path(@app) do |form|
+      = form.hidden_field :title
+      = form.hidden_field :first_name
+      = form.hidden_field :middle_name
+      = form.hidden_field :last_name
+      = form.hidden_field :suffix
+      = form.hidden_field :address
+      = form.hidden_field :address2
+      = form.hidden_field :city
+      = form.hidden_field :state
+      = form.hidden_field :zip
+      = form.hidden_field :date_of_birth
+      %p
+        = form.label :email
+        = form.text_field :email
+      %p
+        = form.label :phone
+        = form.text_field :phone
+      %p
+        = form.label :mobile
+        = form.text_field :mobile
+      = submit_tag 'Continue'

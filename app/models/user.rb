@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
     number.blank? ? nil : "#{number[0..2]}-#{number[3..5]}-#{number[6..-1]}"
   end
   
-  def normalize_phone
+  def normalize_phone_numbers
     self.phone.gsub!(/-/, '') if self.phone
     self.mobile.gsub!(/-/, '') if self.mobile
   end

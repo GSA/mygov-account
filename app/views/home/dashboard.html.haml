@@ -12,7 +12,7 @@
           - @user.tasks.each do |task|
             %li
               %p
-                = task.name
+                = task.app.name
                 = link_to 'Remove', task_path(task), :method => :delete
               %p
                 &nbsp;&nbsp;

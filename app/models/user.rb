@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   before_validation :normalize_phone_numbers
   
-  has_many :messages
-  has_many :tasks
+  has_many :messages, :dependent => :destroy
+  has_many :tasks, :dependent => :destroy
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

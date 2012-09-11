@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show]
-  before_filter :assign_user, :except => [:show]
+  before_filter :authenticate_user!, :except => [:show, :new]
+  before_filter :assign_user, :except => [:show, :new]
+  
+  def new
+    redirect_to dashboard_path if current_user  
+  end
   
   def show
     respond_to do |format|

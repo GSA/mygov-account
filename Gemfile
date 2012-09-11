@@ -29,6 +29,7 @@ end
 
 group :development do
   gem 'haml-rails'
+  gem 'quiet_assets'
 end
 
 group :test, :development do

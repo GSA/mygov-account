@@ -2,10 +2,6 @@
   .span12
     %legend
       = @app.name
-    %p
-      You're 35% done!
-      .progress
-        .bar{:style => 'width: 35%;'}
     %h5
       Your primary address (where you live most of the time).
     = form_for @user, :url => birthdate_app_path(@app) do |form|

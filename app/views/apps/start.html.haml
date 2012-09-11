@@ -1,0 +1,16 @@
+.row-fluid
+  .span12
+    %legend
+      = @app.name
+.row-fluid
+  .span9
+    %p
+      Here are the places you'll have to change your name.  We'll walk you through getting as much done online as possible.
+    %ul
+      - @app.find_forms_by_criteria(@criteria).each do |form|
+        %li
+          = form.call_to_action
+    = link_to submit_tag('Continue'), info_app_path(@app)
+    = link_to "No thanks, I'd rather print out the forms >", forms_app_path(@app)
+  .span3
+    = render :partial => 'sidebar'  

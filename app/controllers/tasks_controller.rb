@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_filter :oauthorize, :only => [:create]
   
   def show
-    @task = Task.find_by_id(params[:id])
+    @task = @user.tasks.find_by_id(params[:id])
   end
   
   def create
@@ -22,7 +22,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find_by_id(params[:id])
+    @task = @user.tasks.find_by_id(params[:id])
     @task.destroy
     redirect_to :back
   end

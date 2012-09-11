@@ -2,10 +2,6 @@
   .span12
     %legend
       = @app.name
-    %p
-      Home stretch!
-      .progress
-        .bar{:style => 'width: 75%;'}
     %h5
       Contact information
     = form_for @user, :url => forms_app_path(@app) do |form|

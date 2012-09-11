@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120909225105) do
+ActiveRecord::Schema.define(:version => 20120911142243) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20120909225105) do
     t.integer  "app_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "agency"
   end
 
   add_index "forms", ["app_id"], :name => "index_forms_on_app_id"
@@ -125,8 +126,10 @@ ActiveRecord::Schema.define(:version => 20120909225105) do
     t.integer  "task_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "form_id"
   end
 
+  add_index "task_items", ["form_id"], :name => "index_task_items_on_form_id"
   add_index "task_items", ["task_id"], :name => "index_task_items_on_task_id"
 
   create_table "tasks", :force => true do |t|
@@ -135,8 +138,10 @@ ActiveRecord::Schema.define(:version => 20120909225105) do
     t.integer  "user_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "app_id"
   end
 
+  add_index "tasks", ["app_id"], :name => "index_tasks_on_app_id"
   add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
 
   create_table "users", :force => true do |t|

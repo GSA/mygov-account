@@ -2,10 +2,6 @@
   .span12
     %legend
       = @app.name
-    %p
-      Great job - you're halfway home!
-      .progress
-        .bar{:style => 'width: 50%;'}
     %h5
       When were you born?
     = form_for @user, :url => contact_info_app_path(@app) do |form|

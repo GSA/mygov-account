@@ -11,6 +11,10 @@ class App < ActiveRecord::Base
     self.slug
   end
   
+  def find_forms_by_criteria(criteria_list)
+    self.forms.reject{|form| !form.valid_for_criteria(criteria_list) }
+  end
+  
   private
   
   def generate_slug

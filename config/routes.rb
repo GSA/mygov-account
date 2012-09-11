@@ -23,6 +23,8 @@ Mygov::Application.routes.draw do
       post :address
       post :birthdate
       post :contact_info
+      get :save
+      get :finish
     end
   end
   

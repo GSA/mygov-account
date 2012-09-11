@@ -2,19 +2,20 @@ require 'spec_helper'
 
 describe Task do
   before do
-    @valid_attributes = {
-      :name => 'Task name'
-    }
     @user = User.create!(:email => 'joe@citizen.org', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    @app = App.create!(:name => 'Test App')
+    @valid_attributes = {
+      :user_id => @user.id,
+      :app_id => @app.id
+    }
   end
   
-  it { should validate_presence_of :name }
+  it { should validate_presence_of :app_id }
   it { should validate_presence_of :user_id }
   it { should belong_to :user }
+  it { should belong_to :app }
   
   it "should create a new instance given valid attributes" do
-    task = Task.new(@valid_attributes)
-    task.user = @user
-    task.save!
+    Task.create!(@valid_attributes)
   end
 end

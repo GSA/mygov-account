@@ -1,9 +1,9 @@
 class AppsController < ApplicationController
   before_filter :assign_app
   before_filter :save_session_info, :except => [:show]
+  before_filter :assign_user, :only => [:finish]
   
   def show
-    session["app_name"] = @app.slug
   end
   
   def start
@@ -40,10 +40,27 @@ class AppsController < ApplicationController
     end
   end
   
+  def save
+    session[:user_return_to] = finish_app_path(@app)
+  end
+  
+  def finish
+    user_attributes = session["user"].reject{|k,v| k == "email"}
+    @user.update_attributes(user_attributes)
+    task = @user.tasks.create(:app_id => @app.id)
+    criteria = session["app"].collect{|k,v| k }
+    forms = @app.find_forms_by_criteria(criteria)
+    forms.each do |form|
+      task.task_items.create(:form_id => form.id)
+    end
+    redirect_to dashboard_path
+  end
+  
   private
   
   def assign_app
     @app = App.find_by_slug(params[:id])
+    session["app_name"] = @app.slug
   end
   
   def save_session_info

@@ -7,8 +7,5 @@ class HomeController < ApplicationController
   end
   
   def dashboard
-  end
-  
-  def save
-  end
+  end  
 end

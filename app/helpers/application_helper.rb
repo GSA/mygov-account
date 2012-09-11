@@ -68,7 +68,7 @@ module ApplicationHelper
     [["Male", "male"], ["Female", "female"]]
   end
   
-  def martial_status_options
+  def marital_status_options
     [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic_partnership"], ["Widowed", "widowed"]]
   end
   

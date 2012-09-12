@@ -56,7 +56,7 @@ describe "Apps" do
         
         visit finish_app_path(@app)
         page.should have_content "Change your name"
-        page.should have_content "1 Forms / Possible Tasks"
+        page.should have_content "Get Married!"
         click_link '/profile'
         page.should have_content '123 Evergreen Terr'
         page.should_not have_content 'joe.q.citizen@gmail.com'

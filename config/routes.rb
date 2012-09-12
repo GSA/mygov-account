@@ -27,6 +27,7 @@ Mygov::Application.routes.draw do
       get :finish
     end
   end
+  resources :task_items, :only => [:destroy]
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

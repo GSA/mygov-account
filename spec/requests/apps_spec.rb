@@ -50,7 +50,7 @@ describe "Apps" do
         page.should have_content 'Save your information'
         page.should have_content 'Introducing MyGov, your online guide to to navigating government'
 
-        # fake login the user
+        # fake-login the user
         @user = User.create!(:email => 'joe@citizen.org', :first_name => 'Joe', :last_name => 'Citizen', :provider => 'Google', :uid => 'joe@citizen.org')
         create_logged_in_user(@user)
         

@@ -1,7 +1,6 @@
+= render :partial => 'header'
 .row-fluid
-  .span12
-    %legend
-      = @app.name
+  .span9
     %h5
       Your primary address (where you live most of the time).
     = form_for @user, :url => birthdate_app_path(@app) do |form|

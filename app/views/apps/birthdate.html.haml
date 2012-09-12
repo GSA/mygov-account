@@ -1,7 +1,6 @@
+= render :partial => 'header'
 .row-fluid
-  .span12
-    %legend
-      = @app.name
+  .span9
     %h5
       When were you born?
     = form_for @user, :url => contact_info_app_path(@app) do |form|

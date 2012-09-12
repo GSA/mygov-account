@@ -1,19 +1,25 @@
 .row-fluid
+  .span12
+    .page-header
+      %h1
+        MyGov
+        %small
+          Dashboard
+.row-fluid
   .span9
-    %h3
-      Welcome to MyGov, #{@user.first_name}
     %p
-      Use MyGov to navigate government.  With MyGov, we'll help you find the services and information you need from across government, any time you need us.
-  .span3
-    .well.sidebar-nav
-      - if @user.tasks.any?
-        %ul.nav.nav-list
-          %li.nav-header Saved Task List
-          - @user.tasks.each do |task|
-            %li
-              %p
-                = task.app.name
-                = link_to 'Remove', task_path(task), :method => :delete
-              %p
-                &nbsp;&nbsp;
-                = link_to "#{task.task_items.count} Forms / Possible Tasks", task_path(task)
+      Navigating government just got easier.  MyGov helps you find the services and information you need from across the federal government, whenever you need it.
+    - @uncompleted_tasks.each do |task|
+      .well
+        %h4
+          You're almost done #{task.app.name}!
+        %p
+          Complete the tasks you need, pre-filled with the information you've already saved.
+          - task.task_items.uncompleted.each do |task_item|
+            .row-fluid
+              .span6
+                .alert.alert-info
+                  = link_to task_item.form.call_to_action, "#", :target => "_blank"
+              .span3{:style => 'padding-top: 8px;'}
+                = link_to 'x Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}
+          = link_to "You're privacy and security are really important to us >", "#"

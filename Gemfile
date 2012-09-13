@@ -13,6 +13,8 @@ gem 'bigdecimal'
 gem 'will_paginate', '~> 3.0'
 gem 'rails_admin'
 gem 'cancan'
+gem 'prawn'
+gem 'pdf-forms'
 
 # Gems used only for assets and not required
 # in production environments by default.

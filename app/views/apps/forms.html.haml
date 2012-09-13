@@ -21,6 +21,9 @@
       Don't want to create an account?  You can still download the forms with some information pre-filled.
     - @app.find_forms_by_criteria(@criteria).each do |form|
       %p
-        = link_to "Download #{form.name} (PDF)", "#"
+        = link_to "Download #{form.name} (PDF)", fill_pdf_path(form.pdf, :format => :pdf), :method => :post, :class => "pdf_form", :target => "_blank"
         %br
         (Partially filled out for you)
+
+:javascript 
+  var form_data = {"profile": #{@user.to_json} };

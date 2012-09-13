@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone, :mobile, :gender, :marital_status
 
+  PROFILE_ATTRIBUTES = [:email, :title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone, :mobile, :gender, :marital_status]
+  
   class << self
     
     def find_for_open_id(access_token, signed_in_resource=nil)
@@ -25,6 +27,10 @@ class User < ActiveRecord::Base
         User.create!(data.merge(:provider => access_token.provider, :uid => access_token.uid))
       end
     end  
+  end
+  
+  def profile_attributes
+    self.attributes.reject{|k,v| !PROFILE_ATTRIBUTES.include?(k.to_sym) }
   end
     
   def print_phone

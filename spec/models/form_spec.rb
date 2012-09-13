@@ -10,6 +10,7 @@ describe Form do
   end
   
   it { should belong_to :app }
+  it { should have_one :pdf }
   it { should validate_presence_of :url }
   it { should validate_presence_of :name }
   it { should validate_presence_of :call_to_action }

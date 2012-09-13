@@ -5,7 +5,9 @@ describe "Apps" do
     before do
       @app = App.create!(:name => 'Change your name')
       @married_form = @app.forms.create!(:call_to_action => 'Get Married!', :name => 'Getting Married Form', :url => 'http://example.gov/married.pdf')
+      @married_pdf = Pdf.create!(:name => 'Form 123 - Getting Married', :url => 'http://example.gov/married.pdf', :form_id => @married_form.id)
       @divorced_form = @app.forms.create!(:call_to_action => 'Get Divorced!', :name => 'Getting Divorced Form', :url => 'http://example.gov/divorced.pdf')
+      @divorced_pdf = Pdf.create!(:name => 'Form 789 - Getting Divorced', :url => 'http://example.gov/divorced.pdf', :form_id => @divorced_form.id)
       @married_form.criteria << @app.criteria.create!(:label => 'Getting Married')
       @divorced_form.criteria << @app.criteria.create!(:label => 'Getting Divorced')
     end
@@ -23,7 +25,7 @@ describe "Apps" do
         check 'Getting Married'
         click_button 'Continue'
         page.should have_content @married_form.call_to_action
-        page.should_not have_content @divorced_form.call_to_action
+        page.should have_no_content @divorced_form.call_to_action
         click_button 'Continue'
         page.should have_content "Let's begin with a few simple questions."
         fill_in 'First name', :with => 'Joe'
@@ -61,7 +63,7 @@ describe "Apps" do
         page.should have_content "Get Married!"
         click_link '/profile'
         page.should have_content '123 Evergreen Terr'
-        page.should_not have_content 'joe.q.citizen@gmail.com'
+        page.should have_no_content 'joe.q.citizen@gmail.com'
       end
       
       it "should allow a user to go back and edit the information they filled out" do
@@ -71,7 +73,7 @@ describe "Apps" do
         check 'Getting Married'
         click_button 'Continue'
         page.should have_content @married_form.call_to_action
-        page.should_not have_content @divorced_form.call_to_action
+        page.should have_no_content @divorced_form.call_to_action
         click_button 'Continue'
         page.should have_content "Let's begin with a few simple questions."
         fill_in 'First name', :with => 'Joe'
@@ -102,7 +104,7 @@ describe "Apps" do
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content 'John'
-        page.should_not have_content 'Joe'
+        page.should have_no_content 'Joe'
         
         # Edit your address
         click_button 'Edit Address'
@@ -111,7 +113,7 @@ describe "Apps" do
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content'23456'
-        page.should_not have_content '12345'
+        page.should have_no_content '12345'
         
         # Edit date of birth
         click_button 'Edit Date of Birth'
@@ -120,7 +122,7 @@ describe "Apps" do
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content '1991'
-        page.should_not have_content '1990'
+        page.should have_no_content '1990'
         
         # Edit contact info
         click_button 'Edit Contact Information'
@@ -129,7 +131,32 @@ describe "Apps" do
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content 'joe.q.citizen@yahoo.com'
-        page.should_not have_content 'joe.q.citizen@gmail.com'
+        page.should have_no_content 'joe.q.citizen@gmail.com'
+      end
+      
+      it "should allow a user to download a PDF pre-filled with profile information they provided" do
+        visit app_path(@app)
+        check 'Getting Married'
+        click_button 'Continue'
+        click_button 'Continue'
+        fill_in 'First name', :with => 'Joe'
+        fill_in 'Middle name', :with => 'Q.'
+        fill_in 'Last name', :with => 'Citizen'
+        click_button 'Continue'
+        fill_in 'Street Address (first line)', :with => '123 Evergreen Terr'
+        fill_in 'City or town', :with => 'Springfield'
+        select 'Illinois', :from => 'State'
+        fill_in 'Zip', :with => '12345'
+        click_button 'Continue'
+        select "1990", :from => 'user_date_of_birth_1i'
+        select "January", :from => 'user_date_of_birth_2i'
+        select "1", :form => 'user_date_of_birth_3i'
+        click_button 'Continue'
+        fill_in 'Email', :with => 'joe.q.citizen@gmail.com'
+        fill_in 'Phone', :with => '123-345-5667'
+        click_button 'Continue'
+        click_button 'Continue to Download Forms'
+        page.should have_content "Download Getting Married Form (PDF)"
       end
     end
     
@@ -146,7 +173,7 @@ describe "Apps" do
         check 'Getting Married'
         click_button 'Continue'
         page.should have_content @married_form.call_to_action
-        page.should_not have_content @divorced_form.call_to_action
+        page.should have_no_content @divorced_form.call_to_action
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content 'Joe'
@@ -162,7 +189,7 @@ describe "Apps" do
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content 'John'
-        page.should_not have_content 'Joe'
+        page.should have_no_content 'Joe'
         
         # Edit your address
         click_button 'Edit Address'
@@ -171,7 +198,7 @@ describe "Apps" do
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content'23456'
-        page.should_not have_content '12345'
+        page.should have_no_content '12345'
         
         # Edit date of birth
         click_button 'Edit Date of Birth'
@@ -180,7 +207,7 @@ describe "Apps" do
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content '1991'
-        page.should_not have_content '1990'
+        page.should have_no_content '1990'
         
         # Edit contact info
         click_button 'Edit Contact Information'
@@ -189,7 +216,7 @@ describe "Apps" do
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content 'joe.q.citizen@yahoo.com'
-        page.should_not have_content 'joe@citizen.org'
+        page.should have_no_content 'joe@citizen.org'
         
         uncheck 'Save this to your MyGov Profile'
         click_button 'Continue to Download Forms'
@@ -199,8 +226,8 @@ describe "Apps" do
         page.should have_content "Get Married!"
         click_link '/profile'
         page.should have_content '12345'
-        page.should_not have_content '23456'
-        page.should_not have_content 'joe@citizen.org'
+        page.should have_no_content '23456'
+        page.should have_no_content 'joe@citizen.org'
       end
       
       it "should save the updated information to the user's profile if they select to save" do
@@ -210,7 +237,7 @@ describe "Apps" do
         check 'Getting Married'
         click_button 'Continue'
         page.should have_content @married_form.call_to_action
-        page.should_not have_content @divorced_form.call_to_action
+        page.should have_no_content @divorced_form.call_to_action
         click_button 'Continue'
         page.should have_content 'Review your information'
         
@@ -221,7 +248,7 @@ describe "Apps" do
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content'23456'
-        page.should_not have_content '12345'
+        page.should have_no_content '12345'
         
         click_button 'Continue to Download Forms'
         page.should have_content "Good job! Now we're going to take all that info you gave us and pre-fill as much of the form(s) as we can."
@@ -230,8 +257,17 @@ describe "Apps" do
         page.should have_content "Get Married!"
         click_link '/profile'
         page.should have_content'23456'
-        page.should_not have_content '12345'
-        page.should_not have_content 'joe@citizen.org'
+        page.should have_no_content '12345'
+        page.should have_no_content 'joe@citizen.org'
+      end
+      
+      it "should provide a link to a PDF with the user's information" do
+        visit app_path(@app)
+        check 'Getting Married'
+        click_button 'Continue'
+        click_button 'Continue'
+        click_button 'Continue to Download Forms'
+        page.should have_content "Download Getting Married Form (PDF)"
       end
     end
   end

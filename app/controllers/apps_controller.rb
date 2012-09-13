@@ -1,13 +1,15 @@
 class AppsController < ApplicationController
   before_filter :assign_app
-  before_filter :save_session_info
-  before_filter :assign_user, :only => [:review, :finish]
+  before_filter :set_app_session_data, :only => [:start]
+  before_filter :set_user_session_data
   before_filter :set_form_action, :only => [:info, :address, :birthdate, :contact_info]
+  before_filter :assign_user, :only => :finish
   
   def show
   end
   
   def start
+    session["user"] = nil
     if params[:app].nil?
       flash[:error] = "Please select at least one reason."
       redirect_to :back
@@ -34,16 +36,12 @@ class AppsController < ApplicationController
   end
   
   def review
-    if @user
-      @user.assign_attributes(session["user"].reject{|k,v| v.blank? })
-    else
-      @user = User.new(session["user"])
-    end
+    @user = User.new(session["user"])
   end
   
   def forms
-    @user = User.new(params[:user])
-    @criteria = session[:app].collect{|param| param.first }
+    @user = User.new(session["user"]) 
+    @criteria = session["app"].collect{|param| param.first }
     @update_profile = params[:update_profile]
   end
   
@@ -76,11 +74,17 @@ class AppsController < ApplicationController
     session["app_name"] = @app.slug
   end
   
-  def save_session_info
-    session["app"] = {} unless session["app"]
+  def set_app_session_data
+    session["app"] = {}
     session["app"].merge!(params[:app]) if params[:app]
-    session["user"] = {} unless session["user"]
-    session["user"].merge!(params[:user]) if params[:user]
+  end
+
+  def set_user_session_data
+    if session["user"].nil?
+      session["user"] = (current_user ? current_user.profile_attributes : {})
+    else
+      session["user"].merge!(params[:user]) if params[:user]
+    end
   end
   
   def set_form_action

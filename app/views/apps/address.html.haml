@@ -3,12 +3,8 @@
   .span9
     %h5
       Your primary address (where you live most of the time).
-    = form_for @user, :url => birthdate_app_path(@app) do |form|
-      = form.hidden_field :title
-      = form.hidden_field :first_name
-      = form.hidden_field :middle_name
-      = form.hidden_field :last_name
-      = form.hidden_field :suffix
+    = form_for @user, :url => @action_path || birthdate_app_path(@app) do |form|
+      = render 'hidden_info_fields', :form => form
       %p
         = form.label :address, "Street Address (first line)"
         = form.text_field :address

@@ -1,0 +1,35 @@
+.row-fluid
+  .span9
+    %legend
+      Name
+      .pull-right
+        = form_for @user, :url => info_app_path(@app) do |form|
+          = render 'hidden_info_fields', :form => form
+          = submit_tag 'Edit Name'
+    %table.table-bordered
+      %tbody
+        %tr
+          %td
+            Title
+          %td
+            = @user.title
+        %tr
+          %td
+            First name
+          %td
+            = @user.first_name
+        %tr
+          %td
+            Middle name
+          %td
+            = @user.middle_name
+        %tr
+          %td
+            Last name
+          %td
+            = @user.last_name
+        %tr
+          %td
+            Suffix
+          %td
+            = @user.suffix

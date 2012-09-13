@@ -1,7 +1,8 @@
 class AppsController < ApplicationController
   before_filter :assign_app
-  before_filter :save_session_info, :except => [:show]
+  before_filter :save_session_info
   before_filter :assign_user, :only => [:finish]
+  before_filter :set_form_action, :only => [:info, :address, :birthdate, :contact_info]
   
   def show
   end
@@ -16,7 +17,7 @@ class AppsController < ApplicationController
   end
   
   def info
-    @user = User.new
+    @user = User.new(params[:user])
   end
   
   def address
@@ -31,9 +32,13 @@ class AppsController < ApplicationController
     @user = User.new(params[:user])
   end
   
+  def review
+    @user = User.new(session["user"])
+  end
+  
   def forms
     if current_user
-      redirect_to dashboard_path
+      redirect_to finish_app_path(@app)
     else
       @user = User.new(params[:user])
       @criteria = session[:app].collect{|param| param.first }
@@ -68,5 +73,9 @@ class AppsController < ApplicationController
     session["app"].merge!(params[:app]) if params[:app]
     session["user"] = {} unless session["user"]
     session["user"].merge!(params[:user]) if params[:user]
+  end
+  
+  def set_form_action
+    @action_path = review_app_path(@app) if request.env['HTTP_REFERER'] =~ /^.*\/#{@app.slug}\/review$/
   end
 end

@@ -45,6 +45,8 @@ describe "Apps" do
         fill_in 'Email', :with => 'joe.q.citizen@gmail.com'
         fill_in 'Phone', :with => '123-345-5667'
         click_button 'Continue'
+        page.should have_content 'Review your information'
+        click_link 'Continue to Download Forms'
         page.should have_content "Good job! Now we're going to take all that info you gave us and pre-fill as much of the form(s) as we can."
         click_link 'save-button'
         page.should have_content 'Save your information'
@@ -60,7 +62,75 @@ describe "Apps" do
         click_link '/profile'
         page.should have_content '123 Evergreen Terr'
         page.should_not have_content 'joe.q.citizen@gmail.com'
-      end      
+      end
+      
+      it "should allow a user to go back and edit the information they filled out" do
+        visit app_path(@app)
+        page.should have_content 'Getting Married'
+        page.should have_content 'Getting Divorced'
+        check 'Getting Married'
+        click_button 'Continue'
+        page.should have_content @married_form.call_to_action
+        page.should_not have_content @divorced_form.call_to_action
+        click_button 'Continue'
+        page.should have_content "Let's begin with a few simple questions."
+        fill_in 'First name', :with => 'Joe'
+        fill_in 'Middle name', :with => 'Q.'
+        fill_in 'Last name', :with => 'Citizen'
+        click_button 'Continue'
+        page.should have_content "Your primary address (where you live most of the time)."
+        fill_in 'Street Address (first line)', :with => '123 Evergreen Terr'
+        fill_in 'City or town', :with => 'Springfield'
+        select 'Illinois', :from => 'State'
+        fill_in 'Zip', :with => '12345'
+        click_button 'Continue'
+        page.should have_content "When were you born?"
+        select "1990", :from => 'user_date_of_birth_1i'
+        select "January", :from => 'user_date_of_birth_2i'
+        select "1", :form => 'user_date_of_birth_3i'
+        click_button 'Continue'
+        page.should have_content 'Contact information'
+        fill_in 'Email', :with => 'joe.q.citizen@gmail.com'
+        fill_in 'Phone', :with => '123-345-5667'
+        click_button 'Continue'
+        page.should have_content 'Review your information'
+        
+        # Edit your name
+        click_button 'Edit Name'
+        page.should have_field 'First name', :with => 'Joe'
+        fill_in 'First name', :with => 'John'
+        click_button 'Continue'
+        page.should have_content 'Review your information'
+        page.should have_content 'John'
+        page.should_not have_content 'Joe'
+        
+        # Edit your address
+        click_button 'Edit Address'
+        page.should have_field 'Zip', :with => '12345'
+        fill_in 'Zip', with: '23456'
+        click_button 'Continue'
+        page.should have_content 'Review your information'
+        page.should have_content'23456'
+        page.should_not have_content '12345'
+        
+        # Edit date of birth
+        click_button 'Edit Date of Birth'
+        page.should have_field 'user_date_of_birth_1i', :with => '1990'
+        select '1991', :from => 'user_date_of_birth_1i'
+        click_button 'Continue'
+        page.should have_content 'Review your information'
+        page.should have_content '1991'
+        page.should_not have_content '1990'
+        
+        # Edit contact info
+        click_button 'Edit Contact Information'
+        page.body.should =~ /joe.q.citizen@gmail.com/
+        fill_in 'Email', :with => 'joe.q.citizen@yahoo.com'
+        click_button 'Continue'
+        page.should have_content 'Review your information'
+        page.should have_content 'joe.q.citizen@yahoo.com'
+        page.should_not have_content 'joe.q.citizen@gmail.com'
+      end
     end 
   end
 end

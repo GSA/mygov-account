@@ -1,0 +1,10 @@
+= render :partial => 'header'
+.row-fluid
+  .span9
+    %h4
+      Review your information
+= render 'info_review'
+= render 'address_review'
+= render 'birthdate_review'
+= render 'contact_info_review'
+= link_to 'Continue to Download Forms', forms_app_path(@app), :class => 'btn'

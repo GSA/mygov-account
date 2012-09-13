@@ -7,7 +7,7 @@
       - @app.find_forms_by_criteria(@criteria).each do |form|
         %li
           = form.call_to_action
-    = button_to 'Continue', info_app_path(@app), :method => :get
+    = button_to 'Continue', info_app_path(@app)
     = link_to "No thanks, I'd rather print out the forms >", forms_app_path(@app)
   .span3
     = render :partial => 'sidebar'  

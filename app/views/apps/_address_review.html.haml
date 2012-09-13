@@ -1,0 +1,36 @@
+.row-fluid
+  .span9
+    %legend
+      Address
+      .pull-right
+        = form_for @user, :url => address_app_path(@app) do |form|
+          = render 'hidden_info_fields', :form => form
+          = render 'hidden_address_fields', :form => form
+          = submit_tag 'Edit Address'
+    %table.table-bordered
+      %tbody
+        %tr
+          %td
+            Address
+          %td
+            = @user.address
+        %tr
+          %td
+            Address 2
+          %td
+            = @user.address2
+        %tr
+          %td
+            City
+          %td
+            = @user.city
+        %tr
+          %td
+            State
+          %td
+            = @user.state
+        %tr
+          %td
+            Zip
+          %td
+            = @user.zip

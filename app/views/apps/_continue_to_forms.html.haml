@@ -1,0 +1,4 @@
+= form_tag forms_app_path(@app) do
+  = check_box_tag 'update_profile', '1', true
+  = label_tag 'update_profile', 'Save this to your MyGov Profile'
+  = submit_tag 'Continue to Download Forms'

@@ -21,6 +21,7 @@ Mygov::Application.routes.draw do
       post :address
       post :birthdate
       post :contact_info
+      get :review
       post :review
       get :forms
       post :forms

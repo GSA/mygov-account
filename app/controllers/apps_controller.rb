@@ -1,7 +1,7 @@
 class AppsController < ApplicationController
   before_filter :assign_app
   before_filter :save_session_info
-  before_filter :assign_user, :only => [:finish]
+  before_filter :assign_user, :only => [:review, :finish]
   before_filter :set_form_action, :only => [:info, :address, :birthdate, :contact_info]
   
   def show
@@ -13,6 +13,7 @@ class AppsController < ApplicationController
       redirect_to :back
     else
       @criteria = params[:app].collect{|param| param.first }
+      @button_to_path = current_user ? review_app_path(@app) : info_app_path(@app)
     end
   end
   
@@ -33,25 +34,32 @@ class AppsController < ApplicationController
   end
   
   def review
-    @user = User.new(session["user"])
-  end
-  
-  def forms
-    if current_user
-      redirect_to finish_app_path(@app)
+    if @user
+      @user.assign_attributes(session["user"].reject{|k,v| v.blank? })
     else
-      @user = User.new(params[:user])
-      @criteria = session[:app].collect{|param| param.first }
+      @user = User.new(session["user"])
     end
   end
   
+  def forms
+    @user = User.new(params[:user])
+    @criteria = session[:app].collect{|param| param.first }
+    @update_profile = params[:update_profile]
+  end
+  
   def save
-    session[:user_return_to] = finish_app_path(@app)
+    if current_user
+      redirect_to finish_app_path(@app, :update_profile => params[:update_profile])
+    else
+      session[:user_return_to] = finish_app_path(@app, :update_profile => "1")
+    end
   end
   
   def finish
-    user_attributes = session["user"].reject{|k,v| k == "email"}
-    @user.update_attributes(user_attributes)
+    if params[:update_profile] == "1"
+      user_attributes = session["user"].reject{|k,v| k == "email"}
+      @user.update_attributes(user_attributes)
+    end
     task = @user.tasks.create(:app_id => @app.id)
     criteria = session["app"].collect{|k,v| k }
     forms = @app.find_forms_by_criteria(criteria)

@@ -3,7 +3,7 @@
     %legend
       Date of Birth
       .pull-right
-        = form_for @user, :url => birthdate_app_path(@app) do |form|
+        = form_for @user, :url => birthdate_app_path(@app), :method => :post do |form|
           = render 'hidden_info_fields', :form => form
           = render 'hidden_address_fields', :form => form
           = form.hidden_field :date_of_birth

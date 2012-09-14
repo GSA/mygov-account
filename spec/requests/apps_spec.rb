@@ -46,7 +46,7 @@ describe "Apps" do
         fill_in 'Phone', :with => '123-345-5667'
         click_button 'Continue'
         page.should have_content 'Review your information'
-        click_link 'Continue to Download Forms'
+        click_button 'Continue to Download Forms'
         page.should have_content "Good job! Now we're going to take all that info you gave us and pre-fill as much of the form(s) as we can."
         click_link 'save-button'
         page.should have_content 'Save your information'
@@ -56,7 +56,7 @@ describe "Apps" do
         @user = User.create!(:email => 'joe@citizen.org', :first_name => 'Joe', :last_name => 'Citizen', :provider => 'Google', :uid => 'joe@citizen.org')
         create_logged_in_user(@user)
         
-        visit finish_app_path(@app)
+        visit finish_app_path(@app, :update_profile => "1")
         page.should have_content "Change your name"
         page.should have_content "Get Married!"
         click_link '/profile'
@@ -131,6 +131,108 @@ describe "Apps" do
         page.should have_content 'joe.q.citizen@yahoo.com'
         page.should_not have_content 'joe.q.citizen@gmail.com'
       end
-    end 
+    end
+    
+    context "when logged in" do
+      before do
+        @user = User.create!(:email => 'joe@citizen.org', :first_name => 'Joe', :last_name => 'Citizen', :provider => 'Google', :uid => 'joe@citizen.org', :zip => '12345', :date_of_birth => Date.parse('1990-01-01'))
+        create_logged_in_user(@user)
+      end
+
+      it "should take the user right to the summary page, filled with data from their profile, and allow them to jump back and edit" do
+        visit app_path(@app)
+        page.should have_content 'Getting Married'
+        page.should have_content 'Getting Divorced'
+        check 'Getting Married'
+        click_button 'Continue'
+        page.should have_content @married_form.call_to_action
+        page.should_not have_content @divorced_form.call_to_action
+        click_button 'Continue'
+        page.should have_content 'Review your information'
+        page.should have_content 'Joe'
+        page.should have_content 'Citizen'
+        page.should have_content '12345'
+        page.should have_content '1990-01-01'
+        page.should have_content 'joe@citizen.org'
+        
+        # Edit your name
+        click_button 'Edit Name'
+        page.should have_field 'First name', :with => 'Joe'
+        fill_in 'First name', :with => 'John'
+        click_button 'Continue'
+        page.should have_content 'Review your information'
+        page.should have_content 'John'
+        page.should_not have_content 'Joe'
+        
+        # Edit your address
+        click_button 'Edit Address'
+        page.should have_field 'Zip', :with => '12345'
+        fill_in 'Zip', with: '23456'
+        click_button 'Continue'
+        page.should have_content 'Review your information'
+        page.should have_content'23456'
+        page.should_not have_content '12345'
+        
+        # Edit date of birth
+        click_button 'Edit Date of Birth'
+        page.should have_field 'user_date_of_birth_1i', :with => '1990'
+        select '1991', :from => 'user_date_of_birth_1i'
+        click_button 'Continue'
+        page.should have_content 'Review your information'
+        page.should have_content '1991'
+        page.should_not have_content '1990'
+        
+        # Edit contact info
+        click_button 'Edit Contact Information'
+        page.body.should =~ /joe@citizen.org/
+        fill_in 'Email', :with => 'joe.q.citizen@yahoo.com'
+        click_button 'Continue'
+        page.should have_content 'Review your information'
+        page.should have_content 'joe.q.citizen@yahoo.com'
+        page.should_not have_content 'joe@citizen.org'
+        
+        uncheck 'Save this to your MyGov Profile'
+        click_button 'Continue to Download Forms'
+        page.should have_content "Good job! Now we're going to take all that info you gave us and pre-fill as much of the form(s) as we can."
+        click_link 'save-button'
+        page.should have_content "Change your name"
+        page.should have_content "Get Married!"
+        click_link '/profile'
+        page.should have_content '12345'
+        page.should_not have_content '23456'
+        page.should_not have_content 'joe@citizen.org'
+      end
+      
+      it "should save the updated information to the user's profile if they select to save" do
+        visit app_path(@app)
+        page.should have_content 'Getting Married'
+        page.should have_content 'Getting Divorced'
+        check 'Getting Married'
+        click_button 'Continue'
+        page.should have_content @married_form.call_to_action
+        page.should_not have_content @divorced_form.call_to_action
+        click_button 'Continue'
+        page.should have_content 'Review your information'
+        
+        # Edit your address
+        click_button 'Edit Address'
+        page.should have_field 'Zip', :with => '12345'
+        fill_in 'Zip', with: '23456'
+        click_button 'Continue'
+        page.should have_content 'Review your information'
+        page.should have_content'23456'
+        page.should_not have_content '12345'
+        
+        click_button 'Continue to Download Forms'
+        page.should have_content "Good job! Now we're going to take all that info you gave us and pre-fill as much of the form(s) as we can."
+        click_link 'save-button'
+        page.should have_content "Change your name"
+        page.should have_content "Get Married!"
+        click_link '/profile'
+        page.should have_content'23456'
+        page.should_not have_content '12345'
+        page.should_not have_content 'joe@citizen.org'
+      end
+    end
   end
 end

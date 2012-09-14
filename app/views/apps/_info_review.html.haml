@@ -3,7 +3,7 @@
     %legend
       Name
       .pull-right
-        = form_for @user, :url => info_app_path(@app) do |form|
+        = form_for @user, :url => info_app_path(@app), :method => :post do |form|
           = render 'hidden_info_fields', :form => form
           = submit_tag 'Edit Name'
     %table.table-bordered

@@ -13,7 +13,7 @@
       %p
         Get this stuff done when it's convenient to you: work on it later from your computer, smartphone, or tablet.  We'll save both your info and your form(s).  #{ link_to 'Learn more about our security and privacy >', "#" }
         %br
-        = link_to raw("<i class=\"icon-lock\" style=\"font-style: normal;\"> Save and continue to forms</i>"), save_app_path(@app), :class => "btn", :id => 'save-button' 
+        = link_to raw("<i class=\"icon-lock\" style=\"font-style: normal;\"> Save and continue to forms</i>"), save_app_path(@app, :update_profile => @update_profile), :class => "btn", :id => 'save-button' 
 .row-fluid
   .span12
     %h5

@@ -1,13 +1,14 @@
 = render :partial => 'header'
-.row-fluid
-  .span9
+.row
+  .nine.columns
     %p
       Here are the places you'll have to change your name.  We'll walk you through getting as much done online as possible.
-    %ul
-      - @app.find_forms_by_criteria(@criteria).each do |form|
-        %li
-          = form.call_to_action
-    = button_to 'Continue', @button_to_path
+    .panel
+      %ul
+        - @app.find_forms_by_criteria(@criteria).each do |form|
+          %li
+            = form.call_to_action
+    = button_to 'Continue', @button_to_path, :class => 'large button'
     = link_to "No thanks, I'd rather print out the forms >", forms_app_path(@app)
-  .span3
+  .three.columns
     = render :partial => 'sidebar'  

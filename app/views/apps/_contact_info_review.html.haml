@@ -1,15 +1,16 @@
-.row-fluid
-  .span9
-    %legend
-      Contact Info
-      .pull-right
-        = form_for @user, :url => contact_info_app_path(@app), :method => :post do |form|
-          = render 'hidden_info_fields', :form => form
-          = render 'hidden_address_fields', :form => form
-          = form.hidden_field :date_of_birth
-          = render 'hidden_contact_info_fields', :form => form
-          = submit_tag 'Edit Contact Information'
-    %table.table-bordered
+.row
+  .nine.columns
+    %h5
+      Contact Info  
+    = form_for @user, :url => contact_info_app_path(@app), :method => :post do |form|
+      = render 'hidden_info_fields', :form => form
+      = render 'hidden_address_fields', :form => form
+      = form.hidden_field :date_of_birth
+      = render 'hidden_contact_info_fields', :form => form
+      = submit_tag 'Edit Contact Information', :class => 'small button'
+.row
+  .six.columns
+    %table.responsive
       %tbody
         %tr
           %td

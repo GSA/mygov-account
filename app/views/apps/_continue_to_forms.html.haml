@@ -1,4 +1,8 @@
-= form_tag forms_app_path(@app) do
-  = check_box_tag 'update_profile', '1', true
-  = label_tag 'update_profile', 'Save this to your MyGov Profile'
-  = submit_tag 'Continue to Download Forms'
+.row
+  .twelve.columns
+    = form_tag forms_app_path(@app) do
+      = label_tag 'update_profile' do
+        = check_box_tag 'update_profile', '1', true
+        %span.custom.checkbox
+          Save this to your MyGov Profile
+      = submit_tag 'Continue to Download Forms', :class => 'large button'

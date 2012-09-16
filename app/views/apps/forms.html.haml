@@ -1,21 +1,22 @@
 = render :partial => 'header'
-.row-fluid
-  .span9
+.row
+  .nine.columns
     %h5
       Good job!  Now we're going to take all that info you gave us and pre-fill as much of the form(s) as we can.
     %p
       Based on what you've told us, here's the list of forms to complete. (It's probably smart to look over each of these to double check whether it's right for you.)
-.row-fluid
-  .span9
-    .well
+.row
+  .nine.columns
+    .panel
       %h4
         Save your information and continue completing your forms online
       %p
         Get this stuff done when it's convenient to you: work on it later from your computer, smartphone, or tablet.  We'll save both your info and your form(s).  #{ link_to 'Learn more about our security and privacy >', "#" }
         %br
-        = link_to raw("<i class=\"icon-lock\" style=\"font-style: normal;\"> Save and continue to forms</i>"), save_app_path(@app, :update_profile => @update_profile), :class => "btn", :id => 'save-button' 
-.row-fluid
-  .span12
+        %br
+        = link_to "Save and continue to forms", save_app_path(@app, :update_profile => @update_profile), :class => "large button", :id => 'save-button' 
+.row
+  .twelve.columns
     %h5
       Don't want to create an account?  You can still download the forms with some information pre-filled.
     - @app.find_forms_by_criteria(@criteria).each do |form|

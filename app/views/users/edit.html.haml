@@ -1,5 +1,5 @@
-.row-fluid
-  .span12
+.row
+  .four.columns
     = form_for @user, :url => profile_path do |form|
       %p
         = form.label :title
@@ -46,4 +46,4 @@
       %p
         = form.label :marital_status
         = form.select :marital_status, marital_status_options, :include_blank => true
-      = form.submit "Update Profile"
+      = form.submit "Update Profile", :class => 'large button'

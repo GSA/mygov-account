@@ -1,8 +1,10 @@
 = render :partial => 'header'
-.row-fluid
-  .span9
+.row
+  .twelve.columns
     %h5
       Contact information
+.row
+  .three.columns
     = form_for @user, :url => @action_path || review_app_path(@app) do |form|
       = render 'hidden_info_fields', :form => form
       = render 'hidden_address_fields', :form => form
@@ -16,4 +18,4 @@
       %p
         = form.label :mobile
         = form.text_field :mobile
-      = submit_tag 'Continue'
+      = submit_tag 'Continue', :class => 'large button'

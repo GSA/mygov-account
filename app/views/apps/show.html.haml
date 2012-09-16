@@ -1,6 +1,6 @@
 = render :partial => 'header'
-.row-fluid
-  .span9
+.row
+  .nine.columns
     %h4
       We're going to help you fill out the forms you need to #{@app.name.downcase}.
     %p
@@ -10,14 +10,14 @@
       What are your reasons for wanting to #{@app.name.downcase}?
       = form_tag start_app_path(@app) do
         - unless flash[:error].nil?
-          .alert.alert-error
+          = label_tag 'error', :class => 'error' do
             = flash[:error]
         - @app.criteria.each do |criterium|
-          %label.checkbox
+          = label_tag "app[#{criterium.label}]" do
             = check_box_tag "app[#{criterium.label}]"
             = criterium.label
         %br
-        = submit_tag 'Continue'
+        = submit_tag 'Continue', :class => 'large button'
         = link_to "No thanks, I'd rather print out the forms >", forms_app_path(@app)
-  .span3
+  .three.columns
     = render :partial => 'sidebar'  

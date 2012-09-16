@@ -1,8 +1,10 @@
 = render :partial => 'header'
-.row-fluid
-  .span9
+.row
+  .twelve.columns
     %h5
       Your primary address (where you live most of the time).
+.row
+  .three.columns
     = form_for @user, :url => @action_path || birthdate_app_path(@app) do |form|
       = render 'hidden_info_fields', :form => form
       %p
@@ -20,4 +22,4 @@
       %p
         = form.label :zip
         = form.text_field :zip
-      = submit_tag 'Continue'
+      = submit_tag 'Continue', :class => 'large button'

@@ -24,7 +24,6 @@ group :assets do
   gem 'libv8', '~> 3.11.8'
   gem 'execjs'
   gem 'uglifier', '>= 1.0.3'
-  gem 'twitter-bootstrap-rails'
 end
 
 group :development do

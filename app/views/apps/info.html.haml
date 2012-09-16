@@ -1,10 +1,12 @@
 = render :partial => 'header'
-.row-fluid
-  .span9
+.row
+  .twelve.columns
     %h4
       Let's begin with a few simple questions.
     %p
       We're going to help you fill out the forms you need for #{@app.name}.  By answering a few simple questions up front, we'll automatically fill out as much of the forms as we can for you - which saves you time!  (We won't share your info with anyone, Scout's honor.)
+.row
+  .three.columns
     %h5
       Your name
     = form_for @user, :url => @action_path || address_app_path(@app) do |form|
@@ -23,6 +25,6 @@
       %p
         = form.label :suffix
         = form.select :suffix, suffix_options, :include_blank => true
-      = submit_tag 'Continue'
+      = submit_tag 'Continue', :class => 'large button'
 
       

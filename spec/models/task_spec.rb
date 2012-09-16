@@ -18,4 +18,14 @@ describe Task do
   it "should create a new instance given valid attributes" do
     Task.create!(@valid_attributes)
   end
+  
+  describe "#completed?" do
+    it "should return true if completed_at is not nil" do
+      Task.new(:completed_at => Time.now).completed?.should be_true
+    end
+    
+    it "should return false if completed_at is nil" do
+      Task.new.completed?.should be_false
+    end
+  end
 end

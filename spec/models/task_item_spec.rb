@@ -22,4 +22,14 @@ describe TaskItem do
     TaskItem.create!(@valid_attributes)
     should validate_uniqueness_of(:form_id).scoped_to(:task_id)
   end
+  
+  describe "#completed?" do
+    it "should return true if completed_at is not nil" do
+      TaskItem.new(:completed_at => Time.now).completed?.should be_true
+    end
+    
+    it "should return false if completed_at is nil" do
+      TaskItem.new.completed?.should be_false
+    end
+  end
 end

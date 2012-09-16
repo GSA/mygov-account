@@ -6,4 +6,9 @@ class TaskItem < ActiveRecord::Base
   validates_uniqueness_of :form_id, :scope => :task_id
   
   scope :uncompleted, where('ISNULL(completed_at)')
+  scope :completed, where('NOT ISNULL(completed_at)')
+  
+  def completed?
+    self.completed_at.nil? ? false : true
+  end
 end

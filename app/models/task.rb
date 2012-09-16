@@ -7,4 +7,8 @@ class Task < ActiveRecord::Base
   validates_presence_of :app_id, :user_id
   
   scope :uncompleted, where('ISNULL(completed_at)')
+  
+  def completed?
+    self.completed_at.nil? ? false : true
+  end
 end

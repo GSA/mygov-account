@@ -6,6 +6,17 @@ class TasksController < ApplicationController
     @task = @user.tasks.find_by_id(params[:id])
   end
   
+  def update
+    @task = @user.tasks.find_by_id(params[:id])
+    @task.update_attributes(params[:task])
+    if params[:completed]
+      completed_at = Time.now
+      @task.update_attributes(:completed_at => completed_at)
+      @task.task_items.each{|task_item| task_item.update_attributes(:completed_at => completed_at)}
+    end
+    redirect_to dashboard_path
+  end
+  
   def destroy
     @task = @user.tasks.find_by_id(params[:id])
     @task.destroy

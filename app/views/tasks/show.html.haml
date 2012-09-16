@@ -1,0 +1,40 @@
+.row
+  .twelve.columns
+    %h3
+      Task: #{@task.app.name}
+.row
+  .six.columns
+    %h4
+      #{@task.task_items.completed.size} of #{@task.task_items.size} items complete.
+  .six.columns
+    - if @task.completed?
+      %h6
+        Task completed at #{@task.completed_at}
+    - else
+      = button_to 'Mark All Items Complete', task_path(@task, :completed => true), :method => :put, :class => 'button'
+.row
+  .nine.columns
+    %h5
+      Task Items
+.row
+  .nine.columns
+    %table
+      %tbody
+        - @task.task_items.each do |task_item|
+          %tr
+            %td
+              = task_item.form.call_to_action
+            - if task_item.completed?
+              %td
+              %td
+              %td
+                Item completed at: #{task_item.completed_at}
+            - else
+              %td
+                = button_to 'Download Pre-filled PDF form', '#', :class => 'tiny button'
+              %td
+                = button_to 'Mark Complete', task_item_path(task_item, :completed => true), :method => :put, :class => 'tiny success button'
+              %td
+                = button_to 'Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'tiny alert button'
+      
+  

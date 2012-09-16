@@ -66,7 +66,7 @@ class AppsController < ApplicationController
     forms.each do |form|
       task.task_items.create(:form_id => form.id)
     end
-    redirect_to dashboard_path
+    redirect_to task_path(task)
   end
   
   private

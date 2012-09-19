@@ -8,11 +8,11 @@ To get your Rails development environment setup, here's the steps to follow.  We
 
   1.  Install RVM
 
-    curl -L https://get.rvm.io | bash -s stable --ruby
+      curl -L https://get.rvm.io | bash -s stable --ruby
 
   2.  Install the Ruby 1.9.3 rvm instance
 
-    rvm install ruby-1.9.3
+      rvm install ruby-1.9.3
 
   3.  Clone the mygov-dashboard project
 
@@ -22,14 +22,16 @@ To get your Rails development environment setup, here's the steps to follow.  We
 
   4.  bundle install
 
-    bundle install
+    Change into the directory (it would be 'cd mygov' from wherever you executed the above command) and do the following:
+    
+      bundle install
 
-  5.  Create the development database
+  5.  Create the development and test databases
 
-    bundle exec rake db:create
-    bundle exec rake db:schema:load
-    bundle exec rake db:create RAILS_ENV=test
-    bundle exec rake db:schema:load RAILS_ENV=test
+      bundle exec rake db:create
+      bundle exec rake db:schema:load
+      bundle exec rake db:create RAILS_ENV=test
+      bundle exec rake db:schema:load RAILS_ENV=test
 
 That should be it!  You are ready to develop.
 

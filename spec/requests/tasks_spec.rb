@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Tasks" do
   describe "GET /task/:id" do
     before do
-      @user = User.create!(:email => 'joe@citizen.org', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+      @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
 
       @app = App.create!(:name => 'Change your name')
       @married_form = @app.forms.create!(:call_to_action => 'Get Married!', :name => 'Getting Married Form', :url => 'http://example.gov/married.pdf')

@@ -37,4 +37,6 @@ Mygov::Application.configure do
   
   # Turn on/off asset logging in rails server; it defaults to off, so turn it on here.
   # config.quiet_assets = false
+  
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 end

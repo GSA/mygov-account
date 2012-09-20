@@ -1,15 +1,15 @@
 Mygov::Application.routes.draw do
-  resource :profile, :controller => :users, :only => [:show, :edit, :update]
-  get 'save', :to => 'users#new'
-  devise_for :users, :controllers => { :sessions => "users/sessions", :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do
-    get 'sign_in', :to => 'users/sessions#new', :as => :new_user_session
-    get 'sign_out', :to => 'users/sessions#destroy', :as => :destroy_user_session
+    get 'sign_up', :to => 'devise/registrations#new', :as => :sign_up
+    get 'sign_in', :to => 'devise/sessions#new', :as => :sign_in
+    get 'sign_out', :to => 'devise/sessions#destroy', :as => :sign_out
   end
   resources :oauth_apps
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/allow' => 'oauth#allow'
+  resource :profile, :controller => :users, :only => [:show, :edit, :update]
   resources :messages, :only => [:index, :show, :create, :destroy]
   get 'dashboard' => "home#dashboard"
   resources :tasks, :only => [:show, :update, :destroy]

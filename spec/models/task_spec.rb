@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Task do
   before do
-    @user = User.create!(:email => 'joe@citizen.org', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @app = App.create!(:name => 'Test App')
     @valid_attributes = {
       :user_id => @user.id,

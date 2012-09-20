@@ -70,9 +70,5 @@ module ApplicationHelper
   
   def marital_status_options
     [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic_partnership"], ["Widowed", "widowed"]]
-  end
-  
-  def sign_in_with_google_link
-    link_to 'Sign in with Google', user_omniauth_authorize_path(:google)
-  end
+  end  
 end

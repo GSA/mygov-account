@@ -7,7 +7,7 @@ describe Message do
       :received_at => Time.now,
       :body => 'This is a test message'
     }
-    @user = User.create!(:email => 'joe@citizen.org', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @app = OAuth2::Model::Client.new(:name => 'App1', :redirect_uri => 'http://localhost/')
     @app.oauth2_client_owner_type = 'User'
     @app.oauth2_client_owner_id = @user.id

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Profile" do
   before do
-    @user = User.create!(:email => 'joe@citizen.org', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
   end
 
   describe "GET /profile" do

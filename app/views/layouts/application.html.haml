@@ -19,7 +19,6 @@
           .row
             .twelve.columns
               
-    
         .container.group
           = yield
       
@@ -33,7 +32,7 @@
           %li{:class => 'right'}= link_to "Sign out", destroy_user_session_path
           %li{:class => 'right'}= link_to current_user.name, profile_path
         - else
-          %li{:style => 'float: right;'}= sign_in_with_google_link
+          %li{:style => 'float: right;'}= link_to 'Sign in', sign_in_path
           
       /
         Javascripts

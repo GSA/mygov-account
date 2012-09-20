@@ -4,6 +4,7 @@ describe User do
   before do
     @valid_attributes = {
       :email => 'citizen@mygov.gov',
+      :password => 'random',
       :name => 'Joe Citizen',
       :first_name => 'Joe',
       :last_name => 'Citizen'

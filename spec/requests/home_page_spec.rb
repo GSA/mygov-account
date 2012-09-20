@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe "HomePage" do
   before do
-    @user = User.create!(:email => 'joe@citizen.org', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
   end
   
   describe "GET /" do
     context "when not logged in" do
       it "should prompt the user to login" do
         visit root_path
-        page.should have_content("Sign in with Google")
+        page.should have_content("Sign in")
       end
     end
     

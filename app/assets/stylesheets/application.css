@@ -58,6 +58,8 @@ fieldset li:last-child, form li:last-child {
 
 .nav-bar li.right {float: right; display: inline-block; }
 
+.align-right {float: right; text-align: right;}
+
 /*** Sticky footer http://www.cssstickyfooter.com ***/
 
 html, body {height: 100%;}
@@ -80,6 +82,9 @@ margin-top:-32767px;/* thank you Erik J - negate effect of float*/
 .container {clear: both;}
 
 /*** End Sticky footer ***/
+
+.panel.secondary {background: rgba(0,0,0,.02); margin: 0 0 1em 0; border: 2px solid #ccc;}
+
 
 @media only screen and (max-width: 767px) {
   

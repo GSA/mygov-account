@@ -4,14 +4,17 @@
       
 .row
   .eight.columns
-    %fieldset
-      %legend
-        Contact information
-      %ol
-        = form_for @user, :url => @action_path || review_app_path(@app) do |form|
-          = render 'hidden_info_fields', :form => form
-          = render 'hidden_address_fields', :form => form
-          = form.hidden_field :date_of_birth
+    
+    
+    = form_for @user, :url => @action_path || review_app_path(@app) do |form|
+      = render 'hidden_info_fields', :form => form
+      = render 'hidden_address_fields', :form => form
+      = form.hidden_field :date_of_birth
+      
+      %fieldset
+        %legend
+          Contact information
+        %ol
           %li
             = form.label :email
             = form.text_field :email
@@ -21,5 +24,5 @@
           %li
             = form.label :mobile
             = form.text_field :mobile
-    %div.clear.actions
-      = submit_tag 'Continue', :class => 'large button'
+      %div.clear.actions
+        = submit_tag 'Continue', :class => 'large button'

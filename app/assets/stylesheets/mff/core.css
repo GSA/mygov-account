@@ -279,6 +279,7 @@ fieldset li, forms li {
 
 fieldset li ul {margin: 0; padding: 0; display: block;}
 
+.panel li span {font-weight: bold;}
 
 /* Quotes
 ---------------------------------------- */
@@ -327,6 +328,10 @@ dl dd {
 ul.disc li, ul.square li {margin: 0 0 1em 1em;}
 
 ul.square li {list-style-type: square;}
+
+ul.plain {list-style: none; margin: 0;}
+ul.plain li {border-bottom: 1px solid #ddd; padding: 0 0 .5em 0; margin: 0 0 .35em 0;}
+ul.plain li:last-child {border-bottom: none;}
 
 /* Links
 ---------------------------------------- */

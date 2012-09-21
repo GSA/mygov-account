@@ -7,10 +7,12 @@
       We're going to help you fill out the forms you need for #{@app.name}.  By answering a few simple questions up front, we'll automatically fill out as much of the forms as we can for you - which saves you time!  (We won't share your info with anyone, Scout's honor.)
 .row
   .eight.columns
-    %fieldset
-      %legend
-        Your name
-      = form_for @user, :url => @action_path || address_app_path(@app) do |form|
+    = form_for @user, :url => @action_path || address_app_path(@app) do |form|
+      %fieldset
+        %legend
+          Your name
+        
+        
         %p
           = form.label :title, "Title / Prefix"
           = form.select :title, title_options, :include_blank => true
@@ -26,7 +28,7 @@
         %p
           = form.label :suffix
           = form.select :suffix, suffix_options, :include_blank => true
-    %div.actions
-      = submit_tag 'Continue', :class => 'large button positive'
+      %div.actions
+        = submit_tag 'Continue', :class => 'large button positive'
 
       

@@ -2,26 +2,27 @@
 .row
 
   .eight.columns
-    %fieldset
-      %legend
-        Your primary address <span>(where you live most of the time).</span>
-
-      = form_for @user, :url => @action_path || birthdate_app_path(@app) do |form|
-        = render 'hidden_info_fields', :form => form
-        %p
-          = form.label :address, "Street Address (first line)"
-          = form.text_field :address
-        %p
-          = form.label :address2, "Street Address (second line)"
-          = form.text_field :address2
-        %p
-          = form.label :city, "City or town"
-          = form.text_field :city
-        %p
-          = form.label :state
-          = form.select :state, us_state_options, :prompt => 'Select one...'
-        %p
-          = form.label :"Zip Code"
-          = form.text_field :zip
-    %div.actions
-      = submit_tag 'Continue', :class => 'large button'
+    = form_for @user, :url => @action_path || birthdate_app_path(@app) do |form|
+      = render 'hidden_info_fields', :form => form
+      
+      %fieldset
+        %legend
+          Your primary address <span>(where you live most of the time).</span>
+        %ol  
+          %li
+            = form.label :address, "Street Address (first line)"
+            = form.text_field :address
+          %li
+            = form.label :address2, "Street Address (second line)"
+            = form.text_field :address2
+          %li
+            = form.label :city, "City or town"
+            = form.text_field :city
+          %li
+            = form.label :state
+            = form.select :state, us_state_options, :prompt => 'Select one...'
+          %li
+            = form.label :"Zip Code"
+            = form.text_field :zip
+      %div.actions
+        = submit_tag 'Continue', :class => 'large button'

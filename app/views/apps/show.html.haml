@@ -8,21 +8,23 @@
     %p
       To help us find the right forms, please tell us your reason for wanting to #{@app.name.downcase}.
       
-    %fieldset  
-      %legend  
-        What are your reasons for wanting to #{@app.name.downcase}?
+     
+      
       = form_tag start_app_path(@app) do
         - unless flash[:error].nil?
           = label_tag 'error', :class => 'error' do
             = flash[:error]
-        %ol
-          - @app.criteria.each do |criterium|
-            %li.full
-              = label_tag "app[#{criterium.label}]" do
-                = check_box_tag "app[#{criterium.label}]"
-                = criterium.label
-    %div.actions
-      = submit_tag 'Continue', :class => 'large button positive'
-      = link_to "No thanks, I'd rather print out the forms", forms_app_path(@app) 
+        %fieldset 
+          %legend  
+          What are your reasons for wanting to #{@app.name.downcase}?
+          %ol
+            - @app.criteria.each do |criterium|
+              %li.full
+                = label_tag "app[#{criterium.label}]" do
+                  = check_box_tag "app[#{criterium.label}]"
+                  = criterium.label
+        %div.actions
+          = submit_tag 'Continue', :class => 'large button positive'
+          = link_to "No thanks, I'd rather print out the forms", forms_app_path(@app) 
   .four.columns
     = render :partial => 'sidebar'  

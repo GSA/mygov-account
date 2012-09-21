@@ -1,14 +1,14 @@
 = render :partial => 'header'
 .row
-  .nine.columns
+  .eight.columns
     %p
       Here are the places you'll have to change your name.  We'll walk you through getting as much done online as possible.
-    .panel
-      %ul
+    .panel.listing
+      %ul.summary
         - @app.find_forms_by_criteria(@criteria).each do |form|
           %li
             = form.call_to_action
-    = button_to 'Continue', @button_to_path, :class => 'large button'
-    = link_to "No thanks, I'd rather print out the forms >", forms_app_path(@app)
-  .three.columns
+    = button_to 'Continue', @button_to_path, :class => 'large button positive'
+    = link_to "No thanks, I'd rather print out the forms", forms_app_path(@app)
+  .four.columns
     = render :partial => 'sidebar'  

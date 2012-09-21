@@ -72,7 +72,7 @@ body {
 
 /* Fonts settings based on the 100E2R standard: http://www.informationarchitects.jp/en/100e2r/ */
 body, button, input, select, textarea {
-	font: 1em/1.625 Georgia, serif;
+	font: 1em/1.625 "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: #222; /* Full black on white is too much contrast, #222 is a better default */
 }
 
@@ -118,7 +118,7 @@ h3 {
 
 h4 {
 	font-size: 1.428em; /* Font Size: 20 Line Height: 34 */
-	line-height: 1.7em;
+	line-height: 1.3em;
   margin: 0 0 .5em 0; 
 }
 
@@ -270,9 +270,10 @@ table button, table input {
 }
 
 
-fieldset li {
+fieldset li, forms li {
   display: block;
   margin: 0 0 1em 0;
+  list-style: none;
 }
 
 
@@ -310,11 +311,14 @@ blockquote > p {
 ul, ol {
 	list-style-position: outside;
 	padding: 0;
+	margin: 0 0 0 1.5em;
 }
 
 li ul, li ol {
 	margin: 0 1.625em;
 }
+
+ul li, ol li {margin: 0 0 1em 0;}
 
 dl dd {
 	margin-left: 1.625em;
@@ -431,7 +435,7 @@ body { background: white; font-family: "Helvetica Neue", "Helvetica", Helvetica,
 .left { float: left; }
 .right { float: right; }
 
-.clear {clear: both; width: 100%; background: red; border-top: 2px solid blue;}
+.clear {clear: both; width: 100%; }
 
 
 .text-left { text-align: left; }
@@ -467,8 +471,7 @@ fieldset { border: solid 1px #ddd; padding: 1em; margin: .5em 0; }
 
 
 /* Standard Forms ---------------------- */
-form { margin: 0 0 19.41641px; }
-
+form { margin: 0 0 19.41641px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .row form .row { margin: 0 -6px; }
 .row form .row .column, .row form .row .columns { padding: 0 6px; }
 .row form .row.collapse { margin: 0; }
@@ -594,7 +597,7 @@ input[type="text"][disabled], input[type="password"][disabled], input[type="date
 
 textarea { height: auto; }
 
-select { width: 100%; }
+select { width: 100%; font-size: 1.5em; padding: .5em; }
 
 /* Fieldsets */
 fieldset { border: solid 1px #ddd; padding: 1em; margin: 1em 0; }
@@ -620,7 +623,7 @@ fieldset legend { font-weight: bold; background: white; padding: 0 3px; margin: 
   input[type="text"].eleven, .row input[type="text"].eleven, input[type="password"].eleven, .row input[type="password"].eleven, input[type="date"].eleven, .row input[type="date"].eleven, input[type="datetime"].eleven, .row input[type="datetime"].eleven, input[type="email"].eleven, .row input[type="email"].eleven, input[type="number"].eleven, .row input[type="number"].eleven, input[type="search"].eleven, .row input[type="search"].eleven, input[type="tel"].eleven, .row input[type="tel"].eleven, input[type="time"].eleven, .row input[type="time"].eleven, input[type="url"].eleven, .row input[type="url"].eleven, textarea.eleven, .row textarea.eleven { width: 100% !important; }
   input[type="text"].twelve, .row input[type="text"].twelve, input[type="password"].twelve, .row input[type="password"].twelve, input[type="date"].twelve, .row input[type="date"].twelve, input[type="datetime"].twelve, .row input[type="datetime"].twelve, input[type="email"].twelve, .row input[type="email"].twelve, input[type="number"].twelve, .row input[type="number"].twelve, input[type="search"].twelve, .row input[type="search"].twelve, input[type="tel"].twelve, .row input[type="tel"].twelve, input[type="time"].twelve, .row input[type="time"].twelve, input[type="url"].twelve, .row input[type="url"].twelve, textarea.twelve, .row textarea.twelve { width: 100% !important; } 
   
-  fieldset {border: none; border-bottom: solid 1px #555; padding: 1em 0; margin: 1em 0; }
+  fieldset {border: none; border: none; padding: 1em 0; margin: 1em 0; }
 
   }
 /* Custom Forms ---------------------- */
@@ -774,11 +777,8 @@ input[type=submit].button, button.button { -webkit-appearance: none; }
   .hide-for-portrait, .show-for-landscape { display: none !important; } }
 /* Touch-enabled device targeting */
 .show-for-touch { display: none !important; }
-
 .hide-for-touch { display: block !important; }
-
 .touch .show-for-touch { display: block !important; }
-
 .touch .hide-for-touch { display: none !important; }
 
 /* Specific overrides for elements that require something other than display: block */

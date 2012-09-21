@@ -109,16 +109,6 @@ ActiveRecord::Schema.define(:version => 20120911142243) do
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
-  create_table "related_urls", :force => true do |t|
-    t.string   "url"
-    t.string   "other_url"
-    t.integer  "occurence_count", :default => 0
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-  end
-
-  add_index "related_urls", ["url", "occurence_count"], :name => "index_related_urls_on_url_and_occurence_count"
-
   create_table "task_items", :force => true do |t|
     t.string   "name"
     t.string   "url"
@@ -160,7 +150,7 @@ ActiveRecord::Schema.define(:version => 20120911142243) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "name"
-    t.string   "middle_name"
+    t.string   "middle_name",          :limit => 1
     t.string   "address"
     t.string   "address2"
     t.string   "city"
@@ -176,6 +166,7 @@ ActiveRecord::Schema.define(:version => 20120911142243) do
     t.string   "mobile",               :limit => 12
   end
 
+  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end

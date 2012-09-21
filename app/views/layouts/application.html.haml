@@ -13,28 +13,30 @@
     %link(href="/favicon.ico" rel="shortcut icon")
 
   %body
-    .nav-container.group
-      .row
-        .twelve.columns
-          %ul.nav-bar
-            %li.active{:style => 'padding: 0px 10px 0px 10px;'}
-              = link_to 'MyGov', root_path
-            - if current_user
-              %li{:style => 'float: right;'}= link_to "Sign out", destroy_user_session_path
-              %li{:style => 'float: right;'}= link_to "#{current_user.messages.count} messages", messages_path
-              %li{:style => 'float: right;'}= link_to current_user.name, profile_path
-            - else
-              %li{:style => 'float: right;'}= sign_in_with_google_link
-
-    .container
-      = yield
+    %div#wrap
+      %div#main
+        .nav-container.group
+          .row
+            .twelve.columns
+              
     
-      .row
-        .twelve.columns
-          %p 
-            USA.gov 2012
-    /
-      Javascripts
-      \==================================================
-    / Placed at the end of the document so the pages load faster
-    = javascript_include_tag "application"
+        .container.group
+          = yield
+      
+    .discovery-bar  
+      %ul.nav-bar
+        %li.active{:style => 'padding: 0px 10px 0px 10px;'}
+          = link_to 'MyGov', root_path
+        - if current_user
+          
+          %li{:class => 'left'}= link_to "#{current_user.messages.count} messages", messages_path
+          %li{:class => 'right'}= link_to "Sign out", destroy_user_session_path
+          %li{:class => 'right'}= link_to current_user.name, profile_path
+        - else
+          %li{:style => 'float: right;'}= sign_in_with_google_link
+          
+      /
+        Javascripts
+        \==================================================
+      / Placed at the end of the document so the pages load faster
+      = javascript_include_tag "application"

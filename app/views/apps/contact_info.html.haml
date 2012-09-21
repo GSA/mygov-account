@@ -1,21 +1,25 @@
 = render :partial => 'header'
 .row
   .twelve.columns
-    %h5
-      Contact information
+      
 .row
-  .three.columns
-    = form_for @user, :url => @action_path || review_app_path(@app) do |form|
-      = render 'hidden_info_fields', :form => form
-      = render 'hidden_address_fields', :form => form
-      = form.hidden_field :date_of_birth
-      %p
-        = form.label :email
-        = form.text_field :email
-      %p
-        = form.label :phone
-        = form.text_field :phone
-      %p
-        = form.label :mobile
-        = form.text_field :mobile
+  .eight.columns
+    %fieldset
+      %legend
+        Contact information
+      %ol
+        = form_for @user, :url => @action_path || review_app_path(@app) do |form|
+          = render 'hidden_info_fields', :form => form
+          = render 'hidden_address_fields', :form => form
+          = form.hidden_field :date_of_birth
+          %li
+            = form.label :email
+            = form.text_field :email
+          %li
+            = form.label :phone
+            = form.text_field :phone
+          %li
+            = form.label :mobile
+            = form.text_field :mobile
+    %div.clear.actions
       = submit_tag 'Continue', :class => 'large button'

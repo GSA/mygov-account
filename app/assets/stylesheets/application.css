@@ -11,3 +11,113 @@
  *= require_self
  *= require_tree .
  */
+
+.actions {margin: 0 0 1em 0;}
+
+legend {font-size: 1.3em; padding: .5em; display: inline-block;}
+
+.button.positive {margin-right: 1em; margin-bottom: 1em;}
+
+fieldset span {
+  display: block;
+  font-weight: normal;
+  color: #444;
+  font-size: .9em;
+  padding: .3em 0;
+}
+
+form ol, fieldset ol {margin: 0 0 0 0; padding: 0;
+}
+
+fieldset li, form li {
+  display: block;
+  margin: 0 0 1em 0;
+  padding: 0 0 .5em 0;
+  list-style: none;
+  border-bottom: 1px solid #ddd;
+  display: block;
+}
+
+fieldset li:last-child, form li:last-child {
+  border-bottom: none;
+}
+
+.discovery-bar {
+  border-top: 1px solid #ccc;
+  display: block;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  -webkit-box-shadow: 0 0 0 0 rgba(0,0,0,.4);
+  -moz-box-shadow: 0 0 0 0 #000000;
+  box-shadow: 0 0 8px 0 #000000;
+  height: 3em;
+  margin-top: -3em; /* negative value of footer height */
+	clear:both;
+}
+
+.nav-bar li.right {float: right; display: inline-block; }
+
+/*** Sticky footer http://www.cssstickyfooter.com ***/
+
+html, body {height: 100%;}
+
+#wrap {min-height: 100%;}
+
+#main {overflow:auto;
+	padding-bottom: 3em;}  /* must be same height as the footer */
+
+
+/*Opera Fix*/
+body:before {/* thanks to Maleika (Kohoutec)*/
+content:"";
+height:100%;
+float:left;
+width:0;
+margin-top:-32767px;/* thank you Erik J - negate effect of float*/
+}
+
+.container {clear: both;}
+
+/*** End Sticky footer ***/
+
+@media only screen and (max-width: 767px) {
+  
+  #wrap {min-height: auto;
+  }
+  
+  #main {
+    padding-bottom: 0;
+    clear: both;
+  }
+  
+  .discovery-bar {
+   position: inherit;
+   bottom: auto; 
+   margin-top; 0;
+   clear: both;
+  }
+  
+
+  form li.full label {
+    background: #eee;
+    padding: .5em;
+    border-radius: .2em;
+    border: 1px solid #ccc;
+  }
+  
+  fieldset li, form li {
+    border-bottom: none;
+    padding: 0;
+  }
+  
+  .sidebar {
+    margin-top: 1em; 
+    clear: both;
+  }
+  
+  #wrap fieldset {padding: 1em 0 0 0; margin: 0;}
+  
+  
+  .actions {padding: 0;}
+}

@@ -4,11 +4,14 @@
     %h5
       When were you born?
 .row
-  .three.columns      
+  .eight.columns      
     = form_for @user, :url => @action_path || contact_info_app_path(@app) do |form|
       = render 'hidden_info_fields', :form => form
       = render 'hidden_address_fields', :form => form
-      %p
-        = form.label :date_of_birth
-        = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :prompt => {:day => 'Choose day', :month => 'Choose month', :year => 'Choose year'}
-      = submit_tag 'Continue', :class => 'large button'
+      %fieldset
+        %legend
+          = form.label :date_of_birth
+        %li  
+          = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :prompt => {:day => 'Day', :month => 'Choose month', :year => 'Year'}
+      %div.actions
+        = submit_tag 'Continue', :class => 'large button'

@@ -7,30 +7,10 @@
       = submit_tag 'Edit Name', :class => 'small button'
 .row
   .six.columns
-    %table.responsive
-      %tbody
-        %tr
-          %td
-            Title
-          %td
-            = @user.title
-        %tr
-          %td
-            First name
-          %td
-            = @user.first_name
-        %tr
-          %td
-            Middle name
-          %td
-            = @user.middle_name
-        %tr
-          %td
-            Last name
-          %td
-            = @user.last_name
-        %tr
-          %td
-            Suffix
-          %td
-            = @user.suffix
+    %ul.listing
+      = @user.title 
+      %li 
+        = @user.first_name
+        = @user.middle_name
+        = @user.last_name
+        = @user.suffix

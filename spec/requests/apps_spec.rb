@@ -34,7 +34,7 @@ describe "Apps" do
         fill_in 'Street Address (first line)', :with => '123 Evergreen Terr'
         fill_in 'City or town', :with => 'Springfield'
         select 'Illinois', :from => 'State'
-        fill_in 'Zip', :with => '12345'
+        fill_in 'Zip code', :with => '12345'
         click_button 'Continue'
         page.should have_content "When were you born?"
         select "1990", :from => 'user_date_of_birth_1i'
@@ -82,7 +82,7 @@ describe "Apps" do
         fill_in 'Street Address (first line)', :with => '123 Evergreen Terr'
         fill_in 'City or town', :with => 'Springfield'
         select 'Illinois', :from => 'State'
-        fill_in 'Zip', :with => '12345'
+        fill_in 'Zip code', :with => '12345'
         click_button 'Continue'
         page.should have_content "When were you born?"
         select "1990", :from => 'user_date_of_birth_1i'
@@ -106,8 +106,8 @@ describe "Apps" do
         
         # Edit your address
         click_button 'Edit Address'
-        page.should have_field 'Zip', :with => '12345'
-        fill_in 'Zip', with: '23456'
+        page.should have_field 'Zip code', :with => '12345'
+        fill_in 'Zip code', with: '23456'
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content'23456'
@@ -166,8 +166,8 @@ describe "Apps" do
         
         # Edit your address
         click_button 'Edit Address'
-        page.should have_field 'Zip', :with => '12345'
-        fill_in 'Zip', with: '23456'
+        page.should have_field 'Zip code', :with => '12345'
+        fill_in 'Zip code', with: '23456'
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content'23456'
@@ -216,8 +216,8 @@ describe "Apps" do
         
         # Edit your address
         click_button 'Edit Address'
-        page.should have_field 'Zip', :with => '12345'
-        fill_in 'Zip', with: '23456'
+        page.should have_field 'Zip code', :with => '12345'
+        fill_in 'Zip code', with: '23456'
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content'23456'

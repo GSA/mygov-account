@@ -22,7 +22,7 @@
             = form.label :state
             = form.select :state, us_state_options, :prompt => 'Select one...'
           %li
-            = form.label :"Zip Code"
+            = form.label :zip, "Zip code"
             = form.text_field :zip
       %div.actions
         = submit_tag 'Continue', :class => 'large button'

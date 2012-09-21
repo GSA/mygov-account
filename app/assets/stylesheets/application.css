@@ -99,7 +99,7 @@ margin-top:-32767px;/* thank you Erik J - negate effect of float*/
   .discovery-bar {
    position: inherit;
    bottom: auto; 
-   margin-top; 0;
+   margin-top: 0;
    clear: both;
   }
   

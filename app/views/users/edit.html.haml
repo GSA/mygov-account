@@ -35,11 +35,11 @@
         = form.label :date_of_birth
         = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :include_blank => true
       %p
-        = form.label :phone
-        = form.phone_field :phone
+        = form.label :phone_number
+        = form.phone_field :phone_number
       %p
-        = form.label :mobile
-        = form.phone_field :mobile
+        = form.label :mobile_number
+        = form.phone_field :mobile_number
       %p
         = form.label :gender
         = form.select :gender, gender_options, :include_blank => true

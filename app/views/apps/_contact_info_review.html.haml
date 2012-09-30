@@ -8,11 +8,11 @@
       %li
         %span
           Home phone:
-        = @user.phone
+        = @user.phone_number
       %li
         %span
           Mobile phone:
-        = @user.mobile
+        = @user.mobile_number
     
   .four.columns.align-right
     = form_for @user, :url => contact_info_app_path(@app), :method => :post do |form|

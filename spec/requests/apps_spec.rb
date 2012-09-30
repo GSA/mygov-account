@@ -93,7 +93,8 @@ describe "Apps" do
         click_button 'Continue'
         page.should have_content 'Contact information'
         fill_in 'Email', :with => 'joe.q.citizen@gmail.com'
-        fill_in 'Phone', :with => '123-345-5667'
+        fill_in 'Phone', :with => '123-456-7890'
+        fill_in 'Mobile', :with => '234-5678900'
         click_button 'Continue'
         page.should have_content 'Review your information'
         
@@ -127,11 +128,15 @@ describe "Apps" do
         # Edit contact info
         click_button 'Edit Contact Information'
         page.body.should =~ /joe.q.citizen@gmail.com/
+        page.should have_field 'Phone', :with => '123-456-7890'
+        page.should have_field 'Mobile', :with => '234-567-8900'
         fill_in 'Email', :with => 'joe.q.citizen@yahoo.com'
+        fill_in 'Mobile', :with => '2345678901'
         click_button 'Continue'
         page.should have_content 'Review your information'
         page.should have_content 'joe.q.citizen@yahoo.com'
         page.should have_no_content 'joe.q.citizen@gmail.com'
+        page.should have_content '234-567-8901'
       end
       
       it "should allow a user to download a PDF pre-filled with profile information they provided" do

@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
   include OAuth2::Model::ClientOwner
   
   validates_presence_of :email
-  before_validation :normalize_phone_numbers
   
   has_many :messages, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
@@ -13,9 +12,9 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :token_authenticatable, :omniauthable, :rememberable, :trackable
 
-  attr_accessible :email, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone, :mobile, :gender, :marital_status
+  attr_accessible :email, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_name, :address, :address2, :city, :state, :zip, :date_of_birth, :gender, :marital_status, :phone_number, :mobile_number
 
-  PROFILE_ATTRIBUTES = [:email, :title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone, :mobile, :gender, :marital_status]
+  PROFILE_ATTRIBUTES = [:email, :title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status]
   
   class << self
     
@@ -32,12 +31,20 @@ class User < ActiveRecord::Base
   def profile_attributes
     self.attributes.reject{|k,v| !PROFILE_ATTRIBUTES.include?(k.to_sym) }
   end
-    
-  def print_phone
+
+  def phone_number=(value)
+    self.phone = normalize_phone_number(value)
+  end
+  
+  def phone_number
     pretty_print_phone(self.phone)
   end
   
-  def print_mobile
+  def mobile_number=(value)
+    self.mobile = normalize_phone_number(value)
+  end
+  
+  def mobile_number
     pretty_print_phone(self.mobile)
   end
 
@@ -54,7 +61,7 @@ class User < ActiveRecord::Base
   end
   
   def to_schema_dot_org_hash
-    {"email" => self.email, "givenName" => self.first_name, "additionalName" => self.middle_name, "familyName" => self.last_name, "homeLocation" => {"streetAddress" => [self.address, self.address2].reject{|s| s.blank? }.join(','), "addressLocality" => self.city, "addressRegion" => self.state, "postalCode" => self.zip}, "birthDate" => self.date_of_birth.to_s, "telephone" => self.print_phone, "gender" => self.print_gender }
+    {"email" => self.email, "givenName" => self.first_name, "additionalName" => self.middle_name, "familyName" => self.last_name, "homeLocation" => {"streetAddress" => [self.address, self.address2].reject{|s| s.blank? }.join(','), "addressLocality" => self.city, "addressRegion" => self.state, "postalCode" => self.zip}, "birthDate" => self.date_of_birth.to_s, "telephone" => self.phone, "gender" => self.print_gender }
   end
   
   private
@@ -63,8 +70,7 @@ class User < ActiveRecord::Base
     number.blank? ? nil : "#{number[0..2]}-#{number[3..5]}-#{number[6..-1]}"
   end
   
-  def normalize_phone_numbers
-    self.phone.gsub!(/-/, '') if self.phone
-    self.mobile.gsub!(/-/, '') if self.mobile
+  def normalize_phone_number(number)
+    number.gsub(/-/, '') if number
   end
 end

@@ -31,10 +31,12 @@
                 Item completed at: #{task_item.completed_at}
             - else
               %td
-                = button_to 'Download Pre-filled PDF form', '#', :class => 'tiny button'
+                = link_to "Download Pre-filled PDF form", fill_pdf_path(task_item.form.pdf, :format => :pdf), :method => :post, :class => "pdf_form tiny button", :target => "_blank", :style => 'text-decoration: none;'
               %td
                 = button_to 'Mark Complete', task_item_path(task_item, :completed => true), :method => :put, :class => 'tiny success button'
               %td
                 = button_to 'Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'tiny alert button'
+
+= render :partial => 'apps/pdf_data', :locals => {:user => @user}
       
   

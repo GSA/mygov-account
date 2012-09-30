@@ -44,6 +44,7 @@ class Pdf < ActiveRecord::Base
   end
 
   def map_profile_data_to_fillable_fields(profile_data)
+    puts profile_data
     data = {}
     self.pdf_fields.each do |pdf_field|
       unless pdf_field.profile_field_name.nil? and profile_data[pdf_field.profile_field_name].present?

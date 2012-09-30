@@ -25,5 +25,4 @@
         %br
         (Partially filled out for you)
 
-:javascript 
-  var form_data = {"profile": #{@user.to_json} };
+= render :partial => 'pdf_data', :locals => {:user => @user}

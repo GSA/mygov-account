@@ -10,6 +10,8 @@ describe "Tasks" do
       @divorced_form = @app.forms.create!(:call_to_action => 'Get Divorced!', :name => 'Getting Divorced Form', :url => 'http://example.gov/divorced.pdf')
       @married_form.criteria << @app.criteria.create!(:label => 'Getting Married')
       @divorced_form.criteria << @app.criteria.create!(:label => 'Getting Divorced')
+      @married_pdf = Pdf.create!(:name => 'Form 123 - Getting Married', :url => 'http://example.gov/married.pdf', :form_id => @married_form.id)
+      @divorced_pdf = Pdf.create!(:name => 'Form 789 - Getting Divorced', :url => 'http://example.gov/divorced.pdf', :form_id => @divorced_form.id)
       
       @user.tasks.create!(:app_id => @app.id)
       @user.tasks.first.task_items.create!(:form_id => @married_form.id)
@@ -19,10 +21,11 @@ describe "Tasks" do
       visit task_path(@task)
     end
     
-    it "should display a task" do
+    it "should display a task with links to download pdfs" do
       page.should have_content(@task.app.name)
       @task.task_items.each{|task_item| page.should have_content(task_item.form.call_to_action) }
       page.should have_content "0 of 2 items complete."
+      page.should have_link "Download Pre-filled PDF form"
     end
     
     it "should let a user mark all items as complete" do
@@ -32,19 +35,19 @@ describe "Tasks" do
       page.should have_content "2 of 2 items complete."
       page.should have_content "Task completed at"
       page.should have_content "Item completed at"
-      page.should_not have_button "Mark All Items Complete"
-      page.should_not have_button "Mark Complete"
-      page.should_not have_button "Download Pre-filled PDF form"
+      page.should have_no_button "Mark All Items Complete"
+      page.should have_no_button "Mark Complete"
+      page.should have_no_link "Download Pre-filled PDF form"
     end
     
     it "should let a user mark an individual task item as complete" do
       click_button 'Mark Complete'
       page.should have_content "1 of 2 items complete."
       page.should have_button "Mark All Items Complete"
-      page.should_not have_content "Task completed at"
+      page.should have_no_content "Task completed at"
       page.should have_content "Item completed at"
       page.should have_button "Mark Complete"
-      page.should have_button "Download Pre-filled PDF form"
+      page.should have_link "Download Pre-filled PDF form"
     end
     
     it "should let a user remove an individual task item" do
@@ -58,9 +61,9 @@ describe "Tasks" do
       page.should have_content "2 of 2 items complete."
       page.should have_content "Task completed at"
       page.should have_content "Item completed at"
-      page.should_not have_button "Mark All Items Complete"
-      page.should_not have_button "Mark Complete"
-      page.should_not have_button "Download Pre-filled PDF form"
+      page.should have_no_button "Mark All Items Complete"
+      page.should have_no_button "Mark Complete"
+      page.should have_no_button "Download Pre-filled PDF form"
     end
     
     it "should complete the task if the user removes all the items" do
@@ -68,10 +71,10 @@ describe "Tasks" do
       click_button "Remove"
       page.should have_content "0 of 0 items complete."
       page.should have_content "Task completed at"
-      page.should_not have_content "Item completed at"
-      page.should_not have_button "Mark All Items Complete"
-      page.should_not have_button "Mark Complete"
-      page.should_not have_button "Download Pre-filled PDF form"
+      page.should have_no_content "Item completed at"
+      page.should have_no_button "Mark All Items Complete"
+      page.should have_no_button "Mark Complete"
+      page.should have_no_button "Download Pre-filled PDF form"
     end
   end
 end

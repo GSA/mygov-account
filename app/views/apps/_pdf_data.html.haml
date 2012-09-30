@@ -1,2 +1,2 @@
 :javascript 
-  var form_data = {"profile": #{@user.to_json} };
+  var form_data = {"profile": #{@user.to_json}, "authenticity_token": "#{form_authenticity_token}" };

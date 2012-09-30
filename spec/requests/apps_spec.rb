@@ -139,6 +139,25 @@ describe "Apps" do
         page.should have_content '234-567-8901'
       end
       
+      it "should prompt the user to enter an address if they have not put in any address info" do
+        visit app_path(@app)
+        check 'Getting Married'
+        click_button 'Continue'
+        click_button 'Continue'
+        click_button 'Continue'
+        click_button 'Continue'
+        click_button 'Continue'
+        click_button 'Continue'
+        page.should have_button "+ Add"
+        click_button '+ Add'
+        fill_in 'Street Address (first line)', :with => '123 Evergreen Terr'
+        fill_in 'City or town', :with => 'Springfield'
+        select 'Illinois', :from => 'State'
+        fill_in 'Zip', :with => '12345'
+        click_button 'Continue'
+        page.should have_no_button '+ Add'
+      end
+      
       it "should allow a user to download a PDF pre-filled with profile information they provided" do
         visit app_path(@app)
         check 'Getting Married'

@@ -3,16 +3,21 @@
     %h5
       Address
     %ul.plain
-      %li
-        = @user.address
-      %li
-        = @user.address2
-      %li
-        = @user.city
-      %li
-        = @user.state
-      %li
-        = @user.zip
+      - if @user.address_as_array.empty?
+        = form_for @user, :url => address_app_path(@app), :method => :post do |form|
+          = render 'hidden_info_fields', :form => form
+          = render 'hidden_address_fields', :form => form
+          = submit_tag '+ Add', :class => 'small secondary button'
+      - else
+        - unless @user.address.blank?
+          %li
+            = @user.address
+        - unless @user.address2.blank?
+          %li
+            = @user.address2 if @user.address2
+        - unless @user.city.blank? and @user.state.blank? and @user.zip.blank?
+          %li
+            #{@user.city}, #{@user.state} #{@user.zip}
   .four.columns.align-right
     = form_for @user, :url => address_app_path(@app), :method => :post do |form|
       = render 'hidden_info_fields', :form => form

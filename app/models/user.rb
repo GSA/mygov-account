@@ -56,6 +56,14 @@ class User < ActiveRecord::Base
     self.marital_status.blank? ? nil : self.marital_status.titleize
   end
   
+  def address_as_array
+    result = []
+    result << self.address unless self.address.blank?
+    result << self.address2 unless self.address2.blank?
+    result << "#{[self.city, self.state].join(", ")} #{self.zip}" unless self.city.blank? and self.state.blank? and self.zip.blank?
+    result
+  end
+  
   def as_json(options = {})
     super(:except => [:updated_at, :created_at, :uid, :provider])
   end

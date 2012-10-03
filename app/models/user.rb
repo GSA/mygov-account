@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
       if user = User.where(:email => data["email"]).first
         user
       else
-        User.create!(data.merge(:provider => access_token.provider, :uid => access_token.uid, :password => Devise.friendly_token[0,20]))
+        User.create!(data.reject{|k| !PROFILE_ATTRIBUTES.include?(k.to_sym)}.merge(:provider => access_token.provider, :uid => access_token.uid, :password => Devise.friendly_token[0,20]))
       end
     end  
   end

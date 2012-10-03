@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   
   class << self
     
-    def find_for_open_id(access_token, signed_in_resource=nil)
+    def find_for_open_id(access_token, signed_in_resource = nil)
       data = access_token.info
       if user = User.where(:email => data["email"]).first
         user

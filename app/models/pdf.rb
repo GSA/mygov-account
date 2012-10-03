@@ -14,7 +14,7 @@ class Pdf < ActiveRecord::Base
   end
   
   def fill_in(profile_data)
-    template_pdf_file = download_pdf_to_temp_file    
+    template_pdf_file = open(self.url)    
     filled_in_pdf_file = Tempfile.new( ['pdf', '.pdf'] )
     if self.is_fillable?
       pdftk = PdfForms.new(PDFTK_PATH)
@@ -35,12 +35,6 @@ class Pdf < ActiveRecord::Base
   
   def generate_slug
   	self.slug = self.name.parameterize if self.name
-  end
-
-  def download_pdf_to_temp_file
-    file = Tempfile.new( ['pdf', '.pdf'], nil , :encoding => 'ASCII-8BIT' )
-    file << open(self.url).read
-    file
   end
 
   def map_profile_data_to_fillable_fields(profile_data)

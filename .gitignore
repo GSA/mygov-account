@@ -16,3 +16,4 @@
 dump.rdb
 .DS_store
 config/database.yml
+coverage

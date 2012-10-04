@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "OauthApps" do
   before do
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen', :is_approved => true)
   end
 
   describe "GET /oauth_apps" do

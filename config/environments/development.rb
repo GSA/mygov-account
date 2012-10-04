@@ -14,7 +14,9 @@ Mygov::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
+  config.action_mailer.default_url_options = { :host => 'localhost', :port => '3000' }
   config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_deliveries = true
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -37,6 +39,4 @@ Mygov::Application.configure do
   
   # Turn on/off asset logging in rails server; it defaults to off, so turn it on here.
   # config.quiet_assets = false
-  
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 end

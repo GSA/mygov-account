@@ -92,6 +92,7 @@ GEM
     hashie (1.2.0)
     highline (1.6.15)
     hike (1.2.1)
+    hpricot (0.8.6)
     httpauth (0.2.0)
     i18n (0.6.1)
     journey (1.0.4)
@@ -216,6 +217,8 @@ GEM
       rspec (~> 2.11.0)
     ruby-openid (2.2.1)
     ruby-rc4 (0.1.5)
+    ruby_parser (2.3.1)
+      sexp_processor (~> 3.0)
     rubyzip (0.9.9)
     rvm-capistrano (1.2.7)
       capistrano (>= 2.0.0)
@@ -229,6 +232,7 @@ GEM
       libwebsocket (~> 0.1.3)
       multi_json (~> 1.0)
       rubyzip
+    sexp_processor (3.2.0)
     shoulda-matchers (1.3.0)
       activesupport (>= 3.0.0)
     simplecov (0.6.4)
@@ -271,6 +275,7 @@ DEPENDENCIES
   execjs
   haml
   haml-rails
+  hpricot
   jquery-rails
   json
   launchy
@@ -286,6 +291,7 @@ DEPENDENCIES
   rails (= 3.2.6)
   rails_admin
   rspec-rails
+  ruby_parser
   rvm-capistrano
   sass-rails (~> 3.2.3)
   shoulda-matchers

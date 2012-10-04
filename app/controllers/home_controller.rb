@@ -8,5 +8,8 @@ class HomeController < ApplicationController
   
   def dashboard
     @uncompleted_tasks = @user.tasks.uncompleted.order('created_at DESC')
-  end  
+  end
+
+  def thank_you
+  end
 end

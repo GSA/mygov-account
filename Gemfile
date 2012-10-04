@@ -31,6 +31,8 @@ end
 group :development do
   gem 'haml-rails'
   gem 'quiet_assets'
+  gem 'hpricot'
+  gem 'ruby_parser'
 end
 
 group :test, :development do

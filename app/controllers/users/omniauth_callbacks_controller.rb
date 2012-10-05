@@ -19,6 +19,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.find_for_open_id(request.env["omniauth.auth"], current_user)
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => provider_name.capitalize
+      @user.update_attributes(:is_approved => true) if session[:user_return_to] =~ /^\/app.*$/
       if !@user.is_approved? and @user.just_created
         redirect_to thank_you_path
       else

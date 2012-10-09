@@ -55,6 +55,28 @@ describe "HomePage" do
           page.should_not have_content "Get Divorced!"
         end
       end
+    
+      context "when it is a US Holiday" do
+        before do
+          UsHoliday.create!(:name => "Pretend US Holiday", :observed_on => Date.current, :uid => 'pretend-us-holiday')
+        end
+        
+        it "should show a US holiday notice on the dashboard sidebar" do
+          visit root_path
+          page.should have_content "Today is Pretend US Holiday"
+        end
+      end
+      
+      context "when historical events occured on that day in the past" do
+        before do
+          UsHistoricalEvent.create!(:summary => 'Pretend Historical Event', :uid => 'pretend-historical-event', :day => Date.current.day, :month => Date.current.month, :description => 'Something historical happened today.')
+        end
+        
+        it "should show the event summary and description on the dashboard sidebar" do
+          visit root_path
+          page.should have_content "Pretend Historical Event - Something historical happened today."
+        end
+      end
     end
   end
 end

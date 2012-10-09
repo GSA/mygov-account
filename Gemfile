@@ -15,6 +15,7 @@ gem 'rails_admin'
 gem 'cancan'
 gem 'prawn'
 gem 'pdf-forms'
+gem 'ri_cal'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121003212035) do
+ActiveRecord::Schema.define(:version => 20121009122815) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -136,6 +136,16 @@ ActiveRecord::Schema.define(:version => 20121003212035) do
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
+  create_table "related_urls", :force => true do |t|
+    t.string   "url"
+    t.string   "other_url"
+    t.integer  "occurence_count", :default => 0
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "related_urls", ["url", "occurence_count"], :name => "index_related_urls_on_url_and_occurence_count"
+
   create_table "task_items", :force => true do |t|
     t.string   "name"
     t.string   "url"
@@ -161,6 +171,33 @@ ActiveRecord::Schema.define(:version => 20121003212035) do
   add_index "tasks", ["app_id"], :name => "index_tasks_on_app_id"
   add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
 
+  create_table "us_historical_events", :force => true do |t|
+    t.string   "summary"
+    t.string   "uid"
+    t.integer  "day"
+    t.integer  "month"
+    t.string   "categories"
+    t.string   "location"
+    t.string   "description"
+    t.string   "url"
+    t.string   "event_type"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "us_historical_events", ["day", "month"], :name => "index_us_historical_events_on_day_and_month"
+
+  create_table "us_holidays", :force => true do |t|
+    t.string   "name"
+    t.date     "observed_on"
+    t.string   "uid"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "us_holidays", ["observed_on"], :name => "index_us_holidays_on_observed_on"
+  add_index "us_holidays", ["uid"], :name => "index_us_holidays_on_uid"
+
   create_table "users", :force => true do |t|
     t.string   "email",                                :default => "",    :null => false
     t.datetime "remember_created_at"
@@ -177,7 +214,7 @@ ActiveRecord::Schema.define(:version => 20121003212035) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "name"
-    t.string   "middle_name",            :limit => 1
+    t.string   "middle_name"
     t.string   "address"
     t.string   "address2"
     t.string   "city"
@@ -204,7 +241,6 @@ ActiveRecord::Schema.define(:version => 20121003212035) do
     t.boolean  "is_approved",                          :default => false, :null => false
   end
 
-  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["is_approved"], :name => "index_users_on_is_approved"

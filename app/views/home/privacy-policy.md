@@ -1,5 +1,7 @@
 # Privacy Policy
 
+## TL;DR 
+
 We hold your privacy in the highest regard. MyGov collects some anonymous information automatically to help us improve the service (such as what components are being used when), and offers the opportunity for you to provide us with basic personal information (such as your name or address) to help customize your experience and simplify many common tasks. Project MyGov has a few fundamental principles:
 
 1. Your personal information should only be used to improve or customize your experience.

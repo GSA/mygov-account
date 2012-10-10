@@ -1,6 +1,8 @@
 #MyGov Terms of Service
 
-**The gist:** We (the folks on [Project MyGov](http://presidential-innovation-fellows.github.com/mygov/team/)) created a cool new website to simplify the process of interacting with government services online called "MyGov", and would *love* for you to use it. The service is entirely free and although it integrates with other government and non-government websites, is designed to give you as much control and ownership over what goes on as possible. 
+## TL;DR
+
+We (the folks on [Project MyGov](http://presidential-innovation-fellows.github.com/mygov/team/)) created a cool new website to simplify the process of interacting with government services online called "MyGov", and would *love* for you to use it. The service is entirely free and although it integrates with other government and non-government websites, is designed to give you as much control and ownership over what goes on as possible. 
 
 That said, we're still working some of the kinks out, and ultimately you're responsible for ensuring that the information you submit to agencies is accurate. We'd hope that you'd use MyGov as much as possible, but please remember that MyGov is a shared service, so don't do anything that might interfere with it's ability to serve other users.
 

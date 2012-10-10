@@ -21,7 +21,7 @@
               = link_to task_item.form.call_to_action, "#", :target => "_blank"
               %small
                 = link_to 'x Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}
-  - if @us_holiday or @events.any?
+  - if @us_holiday or @events.any? or @uv_index
     .four.columns
       .panel.sidebar
         - if @us_holiday
@@ -34,3 +34,6 @@
             - @events.each do |event|
               %li
                 #{event.summary} - #{event.description}
+        - if @uv_index
+          %h5
+            The current UV index for #{@user.zip} is: #{@uv_index}

@@ -77,6 +77,32 @@ describe "HomePage" do
           page.should have_content "Pretend Historical Event - Something historical happened today."
         end
       end
+      
+      context "when the user has a zip code in their profile" do
+        before do
+          @user.update_attributes(:zip => '21209')
+        end
+        
+        context "when the UV Index for the user's profile is available" do
+          before do
+            epa_response = [{"UV_INDEX" => 11, "ZIP_CODE" => 21209, "UV_ALERT" => 0}]
+            EpaUvIndex::Client.should_receive(:daily_for).with(:zip => @user.zip).and_return epa_response
+          end
+        
+          it "should display the UV index on the dashboard" do
+            visit root_path
+            page.should have_content "The current UV index for 21209 is: 11"
+          end
+        end
+      end
+      
+      context "when the user does not have a zip code" do
+        it "should not check for the UV index" do
+          EpaUvIndex::Client.should_not_receive(:daily_for)
+          visit root_path
+        end
+      end
+      
     end
   end
 end

@@ -1,0 +1,8 @@
+.row
+  .three.columns.offset-by-four
+    #signup-form
+      Sign up for the MyGov Beta!
+      = form_for @beta_signup, :remote => true do |form|
+        = form.label :email
+        = form.text_field :email
+        = form.submit 'Sign up'

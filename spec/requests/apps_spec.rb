@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe "Apps" do
+  before do
+    BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
+  end
+  
   describe "GET /apps/:slug" do
     before do
       @app = App.create!(:name => 'Change your name')
@@ -56,7 +60,7 @@ describe "Apps" do
         page.should have_content 'Introducing MyGov, your online guide to to navigating government'
 
         # fake-login the user
-        @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :provider => 'Google', :uid => 'joe@citizen.org', :is_approved => true)
+        @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :provider => 'Google', :uid => 'joe@citizen.org')
         create_logged_in_user(@user)
         
         visit finish_app_path(@app, :update_profile => "1")
@@ -188,7 +192,7 @@ describe "Apps" do
     
     context "when logged in" do
       before do
-        @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :provider => 'Google', :uid => 'joe@citizen.org', :zip => '12345', :date_of_birth => Date.parse('1990-01-01'), :is_approved => true)
+        @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :provider => 'Google', :uid => 'joe@citizen.org', :zip => '12345', :date_of_birth => Date.parse('1990-01-01'))
         create_logged_in_user(@user)
       end
 

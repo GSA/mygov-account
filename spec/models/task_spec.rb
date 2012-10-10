@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Task do
   before do
+    BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @app = App.create!(:name => 'Test App')
     @valid_attributes = {

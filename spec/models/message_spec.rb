@@ -7,6 +7,7 @@ describe Message do
       :received_at => Time.now,
       :body => 'This is a test message'
     }
+    BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @app = OAuth2::Model::Client.new(:name => 'App1', :redirect_uri => 'http://localhost/')
     @app.oauth2_client_owner_type = 'User'

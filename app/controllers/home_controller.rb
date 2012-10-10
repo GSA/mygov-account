@@ -4,6 +4,7 @@ class HomeController < ApplicationController
   
   def index
     redirect_to :dashboard if current_user
+    @beta_signup = BetaSignup.new
   end
   
   def dashboard
@@ -15,8 +16,5 @@ class HomeController < ApplicationController
       daily_uv_response = EpaUvIndex::Client.daily_for(:zip => @user.zip) rescue nil
       @uv_index = daily_uv_response.first["UV_INDEX"] if daily_uv_response
     end
-  end
-
-  def thank_you
   end
 end

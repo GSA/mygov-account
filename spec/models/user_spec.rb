@@ -3,12 +3,13 @@ require 'spec_helper'
 describe User do
   before do
     @valid_attributes = {
-      :email => 'citizen@mygov.gov',
+      :email => 'joe@citizen.org',
       :password => 'random',
       :name => 'Joe Citizen',
       :first_name => 'Joe',
       :last_name => 'Citizen'
     }
+    BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
   end
   
   describe "#create" do
@@ -19,6 +20,20 @@ describe User do
     it "should not create a user without an email" do
       user = User.create(@valid_attributes.reject{|k,v| k == :email })
       user.errors.should_not be_empty
+    end
+    
+    context "when no beta signup exists for the user's email" do
+      before do
+        BetaSignup.destroy_all
+      end
+      
+      it "should not create the user and fill the errors" do
+        user = User.create(@valid_attributes)
+        user.id.should be_nil
+        user.errors.should_not be_empty
+        user.errors.first.first.should == :email
+        user.errors.first.last.should == "I'm sorry, your account hasn't been approved yet."
+      end
     end
     
     it "should strip all dashes out of phone numbers" do

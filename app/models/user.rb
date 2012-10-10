@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   include OAuth2::Model::ClientOwner
   
   validates_presence_of :email
+  validate :email_is_whitelisted
   
   has_many :messages, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
@@ -12,12 +13,9 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :omniauthable, :lockable, :timeoutable
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status, :is_approved
-  attr_accessor :just_created
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status
 
   PROFILE_ATTRIBUTES = [:email, :title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status]
-  
-  after_update :send_welcome_email
   
   class << self
     
@@ -26,29 +24,9 @@ class User < ActiveRecord::Base
       if user = User.where(:email => data["email"]).first
         user
       else
-        user = User.create!(data.reject{|k| !PROFILE_ATTRIBUTES.include?(k.to_sym)}.merge(:provider => access_token.provider, :uid => access_token.uid, :password => Devise.friendly_token[0,20]))
-        user.just_created = true
-        user
+        User.create(data.reject{|k| !PROFILE_ATTRIBUTES.include?(k.to_sym)}.merge(:provider => access_token.provider, :uid => access_token.uid, :password => Devise.friendly_token[0,20]))
       end
     end  
-  end
-  
-  def active_for_authentication?
-    super && is_approved? 
-  end
-  
-  def inactive_message
-    is_approved? ? super : :not_approved
-  end
-  
-  def self.send_reset_password_instructions(attributes={})
-    recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)
-    if !recoverable.is_approved?
-      recoverable.errors[:base] << I18n.t("devise.failure.not_approved")
-    elsif recoverable.persisted?
-      recoverable.send_reset_password_instructions
-    end
-    recoverable
   end
   
   def profile_attributes
@@ -95,11 +73,11 @@ class User < ActiveRecord::Base
     {"email" => self.email, "givenName" => self.first_name, "additionalName" => self.middle_name, "familyName" => self.last_name, "homeLocation" => {"streetAddress" => [self.address, self.address2].reject{|s| s.blank? }.join(','), "addressLocality" => self.city, "addressRegion" => self.state, "postalCode" => self.zip}, "birthDate" => self.date_of_birth.to_s, "telephone" => self.phone, "gender" => self.print_gender }
   end
   
-  def send_welcome_email
-    UserMailer.welcome_email(self).deliver if is_approved_changed? && is_approved == true
-  end
-  
   private
+  
+  def email_is_whitelisted    
+    errors.add(:email, "I'm sorry, your account hasn't been approved yet.") if BetaSignup.find_by_email_and_is_approved(self.email, true).nil?
+  end
   
   def pretty_print_phone(number)
     number.blank? ? nil : "#{number[0..2]}-#{number[3..5]}-#{number[6..-1]}"

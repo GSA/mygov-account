@@ -1,0 +1,1 @@
+$("#signup-form").html("Thanks for signing up for MyGov!  We'll send you an email when you're account is ready.");

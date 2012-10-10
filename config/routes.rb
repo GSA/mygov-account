@@ -1,5 +1,5 @@
 Mygov::Application.routes.draw do
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "users/registrations" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do
     get 'sign_up', :to => 'devise/registrations#new', :as => :sign_up
     get 'sign_in', :to => 'devise/sessions#new', :as => :sign_in
@@ -12,7 +12,6 @@ Mygov::Application.routes.draw do
   resource :profile, :controller => :users, :only => [:show, :edit, :update]
   resources :messages, :only => [:index, :show, :create, :destroy]
   get 'dashboard' => "home#dashboard"
-  get 'thank-you', :to => 'home#thank_you', :as => 'thank_you'
   resources :tasks, :only => [:show, :update, :destroy]
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   resources :apps, :only => [:show] do
@@ -32,6 +31,7 @@ Mygov::Application.routes.draw do
   end
   resources :task_items, :only => [:update, :destroy]
   post '/pdfs/:id', :to => 'pdfs#show', :as => :fill_pdf
+  resources :beta_signups, :only => [:create]
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

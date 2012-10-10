@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe "HomePage" do
   before do
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen', :is_approved => true)
+    BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
   end
   
   describe "GET /" do
@@ -10,6 +11,22 @@ describe "HomePage" do
       it "should prompt the user to login" do
         visit root_path
         page.should have_content("Sign in")
+      end
+      
+      context "when signing up for the beta" do
+        before do
+          BetaSignup.destroy_all
+        end
+        
+        it "should let a user sign up for the beta by providing their email address" do
+          visit root_path
+          page.should have_content("Sign up for the MyGov Beta!")
+          fill_in 'Email', :with => 'joe@citizen.org'
+          click_button 'Sign up'
+          BetaSignup.find_by_email('joe@citizen.org').should_not be_nil
+          ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
+          ActionMailer::Base.deliveries.last.subject.should == 'Thanks for signing up for MyGov!'
+        end
       end
     end
     

@@ -1,8 +1,11 @@
 class UserMailer < ActionMailer::Base
   default from: "mygov-no-reply@gsa.gov"
 
-  def welcome_email(user)
-    @user = user
-    mail(:to => user.email, :subject => 'Welcome to MyGov!')
+  def beta_welcome_email(email)
+    mail(:to => email, :subject => 'Thanks for signing up for MyGov!')
+  end
+  
+  def beta_invite(email)
+    mail(:to => email, :subject => 'Your MyGov account is ready!')
   end
 end

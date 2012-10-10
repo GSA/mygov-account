@@ -1,30 +1,64 @@
 require 'spec_helper'
 
 describe "Users" do
-  describe "sign up process" do
-    it "should allow a user to sign up with an email and password, and redirect them to a thank you page, and then not allow them to log in" do
-      visit sign_up_path
-      fill_in 'Email', :with => 'joe@citizen.org'
-      fill_in 'Password', :with => 'password'
-      fill_in 'Password confirmation', :with => 'password'
-      click_button 'Sign up'
-      page.should have_content 'Thank you for signing up for MyGov!'
-      visit sign_in_path
-      fill_in 'Email', :with => 'joe@citizen.org'
-      fill_in 'Password', :with => 'password'
-      click_button 'Sign in'
-      page.should have_content 'Your account has not been approved by your administrator yet.'
+  describe "beta sign up process" do
+    before do
+      BetaSignup.destroy_all
     end
     
-    it "should send an email to a user when their account is approved" do
-      visit sign_up_path
+    it "should allow a user add their email to the beta list, and send them an email when they do" do
+      visit root_path
+      page.should have_content "Sign up for the MyGov Beta!"
       fill_in 'Email', :with => 'joe@citizen.org'
-      fill_in 'Password', :with => 'password'
-      fill_in 'Password confirmation', :with => 'password'
       click_button 'Sign up'
-      User.find_by_email('joe@citizen.org').update_attributes(:is_approved => true)
+      beta_signup = BetaSignup.find_by_email("joe@citizen.org")
+      beta_signup.should_not be_nil
+      beta_signup.is_approved.should be_false
       ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-      ActionMailer::Base.deliveries.last.subject.should == 'Welcome to MyGov!'
+      ActionMailer::Base.deliveries.last.subject.should == 'Thanks for signing up for MyGov!'
     end
+  end
+      
+  describe "sign up process" do
+    context "when a user is not in the beta signup list" do
+      it "should not let the user create an account" do
+        visit sign_up_path
+        fill_in 'Email', :with => 'joe@citizen.org'
+        fill_in 'Password', :with => 'password'
+        fill_in 'Password confirmation', :with => 'password'
+        click_button 'Sign up'
+        page.should have_content "I'm sorry, your account hasn't been approved yet."
+      end
+    end
+    
+    context "when a user is in the beta signup list, but hasn't been approved" do
+      before do
+        BetaSignup.create!(:email => 'joe@citizen.org')
+      end
+      
+      it "should not let the user create an account" do
+        visit sign_up_path
+        fill_in 'Email', :with => 'joe@citizen.org'
+        fill_in 'Password', :with => 'password'
+        fill_in 'Password confirmation', :with => 'password'
+        click_button 'Sign up'
+        page.should have_content "I'm sorry, your account hasn't been approved yet."
+      end
+    end
+    
+    context "when a user is in the beta signup list and has been approved" do
+      before do
+        BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
+      end
+      
+      it "should not let the user create an account" do
+        visit sign_up_path
+        fill_in 'Email', :with => 'joe@citizen.org'
+        fill_in 'Password', :with => 'password'
+        fill_in 'Password confirmation', :with => 'password'
+        click_button 'Sign up'
+        page.should have_content 'MyGov Dashboard'
+      end
+    end    
   end
 end

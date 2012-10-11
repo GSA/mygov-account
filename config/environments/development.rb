@@ -40,3 +40,5 @@ Mygov::Application.configure do
   # Turn on/off asset logging in rails server; it defaults to off, so turn it on here.
   # config.quiet_assets = false
 end
+
+PDFTK_PATH = "/usr/local/bin/pdftk"

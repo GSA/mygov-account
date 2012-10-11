@@ -69,5 +69,3 @@ end
 
 OAuth2::Provider.realm = 'MyGov'
 OAuth2::Provider.enforce_ssl = false
-
-PDFTK_PATH = "/usr/local/bin/pdftk"

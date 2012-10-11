@@ -3,16 +3,12 @@
   .twelve.columns
     %h4
       Let's begin with a few simple questions.
-    %p
-      We're going to help you fill out the forms you need for #{@app.name}.  By answering a few simple questions up front, we'll automatically fill out as much of the forms as we can for you - which saves you time!  (We won't share your info with anyone, Scout's honor.)
 .row
   .eight.columns
     = form_for @user, :url => @action_path || address_app_path(@app) do |form|
       %fieldset
         %legend
-          Your name
-        
-        
+          Your current name        
         %p
           = form.label :title, "Title / Prefix"
           = form.select :title, title_options, :include_blank => true

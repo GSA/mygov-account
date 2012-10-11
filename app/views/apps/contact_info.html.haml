@@ -9,16 +9,16 @@
       = form.hidden_field :date_of_birth
       %fieldset
         %legend
-          Contact information
+          What's the best way to reach you?
         %ol
           %li
-            = form.label :email
+            = form.label :email, "Email address"
             = form.text_field :email
           %li
-            = form.label :phone_number, 'Phone'
+            = form.label :phone_number, 'Home phone'
             = form.text_field :phone_number
           %li
-            = form.label :mobile_number, 'Mobile'
+            = form.label :mobile_number, 'Mobile phone'
             = form.text_field :mobile_number
       %div.clear.actions
         = submit_tag 'Continue', :class => 'large button'

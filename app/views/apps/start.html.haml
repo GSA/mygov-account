@@ -7,7 +7,9 @@
       %ul.summary
         - @app.find_forms_by_criteria(@criteria).each do |form|
           %li
-            = form.call_to_action
+            %strong
+              = form.call_to_action
+            with the #{form.agency}
     = button_to 'Continue', @button_to_path, :class => 'large button positive'
     = link_to "No thanks, I'd rather print out the forms", forms_app_path(@app)
   .four.columns

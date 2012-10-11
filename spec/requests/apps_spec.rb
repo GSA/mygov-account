@@ -32,7 +32,8 @@ describe "Apps" do
         fill_in 'Middle name', :with => 'Q.'
         fill_in 'Last name', :with => 'Citizen'
         click_button 'Continue'
-        page.should have_content "Your primary address (where you live most of the time)."
+        page.should have_content "Your primary address"
+        page.should have_content "where you live most of the time"
         fill_in 'Street Address (first line)', :with => '123 Evergreen Terr'
         fill_in 'City or town', :with => 'Springfield'
         select 'Illinois', :from => 'State'
@@ -43,9 +44,9 @@ describe "Apps" do
         select "January", :from => 'user_date_of_birth_2i'
         select "1", :form => 'user_date_of_birth_3i'
         click_button 'Continue'
-        page.should have_content 'Contact information'
+        page.should have_content "What's the best way to reach you?"
         fill_in 'Email', :with => 'joe.q.citizen@gmail.com'
-        fill_in 'Phone', :with => '123-345-5667'
+        fill_in 'Home phone', :with => '123-345-5667'
         click_button 'Continue'
         page.should have_content 'Review your information'
         click_button 'Continue to Download Forms'
@@ -80,7 +81,8 @@ describe "Apps" do
         fill_in 'Middle name', :with => 'Q.'
         fill_in 'Last name', :with => 'Citizen'
         click_button 'Continue'
-        page.should have_content "Your primary address (where you live most of the time)."
+        page.should have_content "Your primary address"
+        page.should have_content "where you live most of the time"
         fill_in 'Street Address (first line)', :with => '123 Evergreen Terr'
         fill_in 'City or town', :with => 'Springfield'
         select 'Illinois', :from => 'State'
@@ -91,9 +93,9 @@ describe "Apps" do
         select "January", :from => 'user_date_of_birth_2i'
         select "1", :form => 'user_date_of_birth_3i'
         click_button 'Continue'
-        page.should have_content 'Contact information'
+        page.should have_content "What's the best way to reach you?"
         fill_in 'Email', :with => 'joe.q.citizen@gmail.com'
-        fill_in 'Phone', :with => '123-456-7890'
+        fill_in 'Home phone', :with => '123-456-7890'
         fill_in 'Mobile', :with => '234-5678900'
         click_button 'Continue'
         page.should have_content 'Review your information'
@@ -128,7 +130,7 @@ describe "Apps" do
         # Edit contact info
         click_button 'Edit Contact Information'
         page.body.should =~ /joe.q.citizen@gmail.com/
-        page.should have_field 'Phone', :with => '123-456-7890'
+        page.should have_field 'Home phone', :with => '123-456-7890'
         page.should have_field 'Mobile', :with => '234-567-8900'
         fill_in 'Email', :with => 'joe.q.citizen@yahoo.com'
         fill_in 'Mobile', :with => '2345678901'
@@ -177,7 +179,7 @@ describe "Apps" do
         select "1", :form => 'user_date_of_birth_3i'
         click_button 'Continue'
         fill_in 'Email', :with => 'joe.q.citizen@gmail.com'
-        fill_in 'Phone', :with => '123-345-5667'
+        fill_in 'Home phone', :with => '123-345-5667'
         click_button 'Continue'
         click_button 'Continue to Download Forms'
         page.should have_content "Download Getting Married Form (PDF)"

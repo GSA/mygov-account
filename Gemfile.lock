@@ -85,6 +85,7 @@ GEM
     faraday (0.8.4)
       multipart-post (~> 1.1)
     ffi (1.1.5)
+    google-analytics-rails (0.0.3)
     haml (3.1.7)
     haml-rails (0.3.5)
       actionpack (>= 3.1, < 4.1)
@@ -282,6 +283,7 @@ DEPENDENCIES
   devise
   epa_uv_index
   execjs
+  google-analytics-rails
   haml
   haml-rails
   hpricot

@@ -17,6 +17,7 @@ gem 'prawn'
 gem 'pdf-forms'
 gem 'ri_cal'
 gem 'epa_uv_index'
+gem 'google-analytics-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

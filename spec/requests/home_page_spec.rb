@@ -120,6 +120,16 @@ describe "HomePage" do
         end
       end
       
+      context "when the user views any page" do
+        before do 
+            Kernel.stub!(:rand) .and_return 0
+        end
+        it "should set the GA custom var for the segment" do
+            visit root_path
+            page.should have_content "_gaq.push(['_setCustomVar',1,'Segment','A', 2]);"
+        end
+      end
+      
     end
   end
 end

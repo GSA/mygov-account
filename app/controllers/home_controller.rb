@@ -17,4 +17,9 @@ class HomeController < ApplicationController
       @uv_index = daily_uv_response.first["UV_INDEX"] if daily_uv_response
     end
   end
+  
+  def render_page
+    render params[:page]
+  end
+  
 end

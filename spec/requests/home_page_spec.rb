@@ -29,6 +29,18 @@ describe "HomePage" do
           ActionMailer::Base.deliveries.last.subject.should == 'Thanks for signing up for the MyGov beta!'
         end
       end
+      
+      context "when the user views a static page" do
+        it "should serve the terms of service" do
+            visit terms_of_service_path
+            page.should have_content "Terms of Service"
+        end
+        
+        it "should serve the privacy policy" do
+            visit privacy_policy_path
+            page.should have_content "Privacy Policy"
+        end
+      end
     end
     
     context "when already logged in" do

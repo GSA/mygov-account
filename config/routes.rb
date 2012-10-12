@@ -33,6 +33,9 @@ Mygov::Application.routes.draw do
   post '/pdfs/:id', :to => 'pdfs#show', :as => :fill_pdf
   resources :beta_signups, :only => [:create]
   
+  match  'terms-of-service', :controller => 'home', :action => 'render_page', :page => 'terms-of-service', :as => 'terms_of_service'
+  match  'privacy-policy', :controller => 'home', :action => 'render_page', :page => 'privacy-policy', :as => 'privacy_policy'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

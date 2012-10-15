@@ -5,7 +5,7 @@ class App < ActiveRecord::Base
   validates_uniqueness_of :slug
   before_validation :generate_slug
 
-  attr_accessible :name
+  attr_accessible :name, :action_phrase
     
   def to_param
     self.slug

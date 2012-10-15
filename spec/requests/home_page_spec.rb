@@ -44,7 +44,7 @@ describe "HomePage" do
       
       context "when the user has tasks with task items" do
         before do
-          @app = App.create!(:name => 'Change your name')
+          @app = App.create!(:name => 'Change your name', :action_phrase => 'changing your name')
           @married_form = @app.forms.create!(:call_to_action => 'Get Married!', :name => 'Getting Married Form', :url => 'http://example.gov/married.pdf')
           @divorced_form = @app.forms.create!(:call_to_action => 'Get Divorced!', :name => 'Getting Divorced Form', :url => 'http://example.gov/divorced.pdf')
           @married_form.criteria << @app.criteria.create!(:label => 'Getting Married')
@@ -58,16 +58,16 @@ describe "HomePage" do
         it "should show the tasks on the dashboard and allow the user to remove tasks" do
           visit root_path
           page.should have_content "MyGov Dashboard"
-          page.should have_content "You're almost done #{@user.tasks.first.app.name}!"
+          page.should have_content "You're almost done #{@user.tasks.first.app.action_phrase}!"
           page.should have_content "Get Married!"
           page.should have_content "Get Divorced!"
           click_link "x Remove"
-          page.should have_content "You're almost done #{@user.tasks.first.app.name}!"
+          page.should have_content "You're almost done #{@user.tasks.first.app.action_phrase}!"
           page.should_not have_content "Get Married!"
           page.should have_content "Get Divorced!"
           click_link "x Remove"
           page.should have_content "MyGov Dashboard"
-          page.should_not have_content "You're almost done #{@user.tasks.first.app.name}!"
+          page.should_not have_content "You're almost done #{@user.tasks.first.app.action_phrase}!"
           page.should_not have_content "Get Married!"
           page.should_not have_content "Get Divorced!"
         end

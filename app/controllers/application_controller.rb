@@ -15,10 +15,8 @@ class ApplicationController < ActionController::Base
   
   def set_segment
     if !session[:segment]
-        session[:segment] = rand(2) == 0 ? "A" : "B"
+      session[:segment] = rand(2) == 0 ? "A" : "B"
     end
-    
     @segment = session[:segment]
   end
-  
 end

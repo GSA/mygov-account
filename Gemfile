@@ -19,6 +19,7 @@ gem 'ri_cal'
 gem 'epa_uv_index'
 gem 'google-analytics-rails'
 gem 'coffee-rails', '~> 3.2.1'
+gem "airbrake"
 
 # Gems used only for assets and not required
 # in production environments by default.

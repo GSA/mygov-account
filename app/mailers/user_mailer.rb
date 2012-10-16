@@ -6,6 +6,7 @@ class UserMailer < ActionMailer::Base
   end
   
   def beta_invite(email)
+    @email = email
     mail(:to => email, :subject => 'Your MyGov account is ready!')
   end
 end

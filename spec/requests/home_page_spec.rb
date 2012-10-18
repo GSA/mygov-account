@@ -20,12 +20,13 @@ describe "HomePage" do
         
         it "should let a user sign up for the beta by providing their email address" do
           visit root_path
-          page.should have_content("Sign up for the MyGov Beta!")
+          page.should have_content("We're launching the MyGov private beta soon. Tell us your email address, and the second it's ready we'll let you kick the tires.")
           fill_in 'Email', :with => 'joe@citizen.org'
-          click_button 'Sign up'
+          click_button "Sign up"
           BetaSignup.find_by_email('joe@citizen.org').should_not be_nil
           ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-          ActionMailer::Base.deliveries.last.subject.should == 'Thanks for signing up for MyGov!'
+          ActionMailer::Base.deliveries.last.from.should == ["no-reply@my.usa.gov"]
+          ActionMailer::Base.deliveries.last.subject.should == 'Thanks for signing up for the MyGov beta!'
         end
       end
     end

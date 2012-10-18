@@ -1,24 +1,6 @@
 require 'spec_helper'
 
-describe "Users" do
-  describe "beta sign up process" do
-    before do
-      BetaSignup.destroy_all
-    end
-    
-    it "should allow a user add their email to the beta list, and send them an email when they do" do
-      visit root_path
-      page.should have_content "Sign up for the MyGov Beta!"
-      fill_in 'Email', :with => 'joe@citizen.org'
-      click_button 'Sign up'
-      beta_signup = BetaSignup.find_by_email("joe@citizen.org")
-      beta_signup.should_not be_nil
-      beta_signup.is_approved.should be_false
-      ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-      ActionMailer::Base.deliveries.last.subject.should == 'Thanks for signing up for MyGov!'
-    end
-  end
-      
+describe "Users" do      
   describe "sign up process" do
     context "when a user is not in the beta signup list" do
       it "should not let the user create an account" do

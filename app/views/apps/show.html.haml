@@ -2,7 +2,7 @@
 .row
   .eight.columns
     %h4
-      We're going to help you fill out the forms you need for #{@app.action_phrase}.
+      We're going to help you fill out the forms you need.
     %p
       By answering a few simple questions up front, we'll automatically fill out as much of form(s) as we can for you.
       = form_tag start_app_path(@app) do
@@ -11,7 +11,7 @@
             = flash[:error]
         %fieldset 
           %legend  
-            To help us find the right form(s), please tell us your reasons for #{@app.action_phrase}.
+            Please tell us your reasons for #{@app.action_phrase}.
           %ol
             - @app.criteria.each do |criterium|
               %li.full

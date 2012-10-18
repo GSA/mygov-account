@@ -20,6 +20,6 @@
                   = criterium.label
         %div.actions
           = submit_tag 'Continue', :class => 'large button positive'
-          = link_to "No thanks, I'd rather print out the forms", forms_app_path(@app) 
+          = link_to "No thanks, I'd rather print out the forms", forms_app_path(@app),  :class => 'button large negative' 
   .four.columns
     = render :partial => 'sidebar'  

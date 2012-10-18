@@ -1,0 +1,296 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_tree ./mff
+ *= require_self
+ *= require_tree .
+ */
+
+/*** Type ***/
+
+@font-face {
+  font-family: 'GoudyBookLetter';
+  src: font-url('goudy_bookletter_1911-webfont.eot');
+  src: font-url('goudy_bookletter_1911-webfont.eot?#iefix') format('eot'),
+  font-url('goudy_bookletter_1911-webfont.woff') format('woff'),
+  font-url('goudy_bookletter_1911-webfont.ttf') format('truetype'),
+  font-url('goudy_bookletter_1911-webfont.svg#webfontSlc9PA76') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+ #wrap {
+      min-height: auto;
+      
+  }
+
+
+body {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
+
+/*
+body {background: image-url("favicon.png") top center repeat;}
+*/
+
+#header {
+  background: #fff;
+  padding: 0 3%;
+  border-bottom: 3px solid #911A1E;
+  -webkit-box-shadow: 0 5px 5px rgba(0,0,0,.1);
+}
+
+#header h1 {
+  font-size: 2em; 
+  font-weight: bold; 
+  text-transform: uppercase; 
+  letter-spacing: -.05em;
+  display: block;
+  margin: 0;
+  padding: .75em 2em .5em 45px;
+
+  background: #fff asset-url('logo.png', image) center left no-repeat;
+}
+
+#header h1 span {font-weight: normal;}
+
+.row {border: none;}
+
+
+
+
+
+p, ul, ol, legend, input[type="text"] {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; text-shadow: 0 1px 0 rgba(255,255,255,.9);}
+
+input[type="text"] {font-weight: bold; color: #0C2237; padding: 1.1em .5em;}
+
+input[type="text"]:focus {border-color: #0C2237; }
+
+h1 {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
+
+h2, h3, h4, h5, h6, input {font-family: 'GoudyBookLetter', Georgia, 'Times New Roman', serif;}
+
+
+h1 {color: #112137; text-shadow: 0 1px 0 rgba(255,255,255,.9); font-weight: normal; margin-top: .5em;}
+
+
+h1:last-word {font-weight: bold;}
+
+.actions {margin: 0 0 1em 0;}
+
+
+
+fieldset legend {
+  font-size: 1.3em; 
+  padding: .5em; 
+  display: inline-block; 
+  background: none; 
+  display: block; 
+  margin: 0;
+  clear: both;
+  font-weight: bold;
+  background: transparent;
+}
+
+fieldset label {font-weight: bold;}
+
+.error label, label.error {
+  color: #fff;
+  background: #911A1D;
+  padding: 1em;
+  font-weight: bold;
+}
+
+.button {
+  font-family: 'GoudyBookLetter', Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  margin: 0 1em 1em 0;
+  cursor: hand;
+}
+
+.button:hover, .button:active {-webkit-box-shadow: 0 0 6px rgba(0,0,0,.5);}
+
+
+.button.positive, .button {
+  background: #112137; 
+  color: #fff; 
+  text-shadow: 0 -1px 0 rgba(0,0,0,.7); 
+  border: none; margin: 0 1em 0 0;
+  text-transform: none;
+  letter-spacing: none;
+  font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.button:hover, 
+.button:active {
+  background: #1A6485;
+}
+
+#wrap .button.negative {
+  background: #D8D4C5;
+  color: #0C2237; 
+  text-shadow: 0 1px 0 rgba(255,255,255,.9); 
+  border: none;
+  text-transform: none;
+  letter-spacing: none;
+  font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#wrap .button.negative a {
+  display: block;
+}
+
+.small.button {
+  font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+  text-transform: none;
+  background: #fff;
+  text-shadow: none;
+  
+}
+
+.button.secondary {
+  background: #20703E;
+  color: #fff;
+  border: none;
+}
+
+.button.secondary:hover,
+.button.secondary:active {
+  background: #20703E;
+}
+
+
+fieldset span {
+  display: block;
+  font-weight: normal;
+  color: #444;
+  font-size: .9em;
+  padding: .3em 0;
+}
+
+form ol, fieldset ol {margin: 0 0 0 0; padding: 0;}
+
+fieldset li, form li {
+  display: block;
+  margin: 0 0 1em 0;
+  padding: 0 0 .5em 0;
+  list-style: none;
+  border-bottom: 1px solid #ddd;
+  display: block;
+}
+
+fieldset li:last-child, form li:last-child {
+  border-bottom: none;
+}
+
+.panel {background: #fff; background: rgba(255,255,255,.85);}
+
+.panel h1, 
+.panel h2, 
+.panel h3, 
+.panel h4, 
+.panel h5, 
+.panel h6
+{color: #1A6485;}
+
+.discovery-bar {
+  border-top: 1px solid #fff;
+  display: block;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  -webkit-box-shadow: 0 0 0 0 rgba(0,0,0,.5);
+  -moz-box-shadow: 0 0 0 0 rgba(0,0,0,.5);
+  box-shadow: 0 0 8px 0 rgba(0,0,0,.5);
+  height: 3em;
+  margin-top: -3em; /* negative value of footer height */
+	clear:both;
+}
+
+.nav-bar {background: rgba(255,255,255,.7); }
+.nav-bar > li.active {background: #1A6485;}
+
+.nav-bar > li > a {color: #333;}
+
+.nav-bar li.right {float: right; display: inline-block; }
+
+.align-right {float: right; text-align: right;}
+
+/*** Sticky footer http://www.cssstickyfooter.com ***/
+
+html, body {height: 100%;  background: #F2F2F2;}
+
+#wrap {min-height: 100%;}
+
+#main {overflow:auto;
+	padding-bottom: 3em;}  /* must be same height as the footer */
+
+
+/*Opera Fix*/
+body:before {/* thanks to Maleika (Kohoutec)*/
+content:"";
+height:100%;
+float:left;
+width:0;
+margin-top:-32767px;/* thank you Erik J - negate effect of float*/
+}
+
+.container {clear: both;}
+
+/*** End Sticky footer ***/
+
+.panel.secondary {background: rgba(0,0,0,.02); margin: 0 0 1em 0; border: 2px solid #ccc;}
+
+
+@media only screen and (max-width: 767px) {
+  
+
+  
+  #main {
+    padding-bottom: 0;
+    clear: both;
+  }
+  
+  .discovery-bar {
+   position: inherit;
+   bottom: auto; 
+   margin-top: 0;
+   clear: both;
+  }
+  
+
+  form li.full label {
+    background: #fff;
+    padding: .5em;
+    border-radius: .2em;
+    border: 1px solid #ccc;
+  }
+  
+  fieldset li, form li {
+    border-bottom: none;
+    padding: 0;
+  }
+  
+  .sidebar {
+    margin-top: 1em; 
+    clear: both;
+  }
+  
+  #wrap fieldset {padding: 1em 0 0 0; margin: 0;}
+  
+  
+  .actions {padding: 0;}
+
+}
+
+@media only screen and (min-width: 768px) { 
+
+ fieldset {background: #fff;}
+
+}

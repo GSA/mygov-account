@@ -83,11 +83,11 @@ h1:last-word {font-weight: bold;}
 
 .actions {margin: 0 0 1em 0;}
 
-
+fieldset {background: #fff;}
 
 fieldset legend {
   font-size: 1.3em; 
-  padding: .5em; 
+  padding: .5em .5em .25em 2%; 
   display: inline-block; 
   background: none; 
   display: block; 
@@ -95,6 +95,8 @@ fieldset legend {
   clear: both;
   font-weight: bold;
   background: transparent;
+  float: left;
+  width: 96%;
 }
 
 fieldset label {font-weight: bold;}
@@ -111,12 +113,14 @@ fieldset label {font-weight: bold;}
   font-weight: 400;
   margin: 0 1em 1em 0;
   cursor: hand;
+  display: inline-block;
 }
 
 .button:hover, .button:active {-webkit-box-shadow: 0 0 6px rgba(0,0,0,.5);}
 
+#wrap .button {padding: .35em 1em;}
 
-.button.positive, .button {
+.button.positive, a.button.positive, .button {
   background: #112137; 
   color: #fff; 
   text-shadow: 0 -1px 0 rgba(0,0,0,.7); 
@@ -124,7 +128,16 @@ fieldset label {font-weight: bold;}
   text-transform: none;
   letter-spacing: none;
   font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  border-style: solid;
+  border-width: 11px;
+  -moz-border-image: url(positive-button.png) 11 repeat;
+  -webkit-border-image: url(positive-button.png) 11 repeat;
+  -o-border-image: url(positive-button.png) 11 repeat;
+  border-image: url(positive-button.png) 11 fill repeat;
 }
+
+.button.positive:visited {background: #112137; }
 
 .button:hover, 
 .button:active {
@@ -132,13 +145,19 @@ fieldset label {font-weight: bold;}
 }
 
 #wrap .button.negative {
-  background: #D8D4C5;
-  color: #0C2237; 
-  text-shadow: 0 1px 0 rgba(255,255,255,.9); 
+  background: #CFA473;
+  color: #333; 
+  text-shadow: 0 1px 0 rgba(255,255,255,.8); 
   border: none;
   text-transform: none;
   letter-spacing: none;
   font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border-style: solid;
+  border-width: 11px;
+  -moz-border-image: url(negative-button.png) 11 repeat;
+  -webkit-border-image: url(negative-button.png) 11 repeat;
+  -o-border-image: url(negative-button.png) 11 repeat;
+  border-image: url(negative-button.png) 11 fill repeat;
 }
 
 #wrap .button.negative a {
@@ -154,10 +173,11 @@ fieldset label {font-weight: bold;}
   
 }
 
-.button.secondary {
+#wrap .button.secondary {
   background: #20703E;
   color: #fff;
   border: none;
+  padding: .75em;
 }
 
 .button.secondary:hover,
@@ -213,14 +233,14 @@ fieldset li:last-child, form li:last-child {
 	clear:both;
 }
 
-.nav-bar {background: rgba(255,255,255,.7); }
+.nav-bar {background: #fff; background: rgba(255,255,255,.7); }
 .nav-bar > li.active {background: #1A6485;}
 
 .nav-bar > li > a {color: #333;}
 
 .nav-bar li.right {float: right; display: inline-block; }
 
-.align-right {float: right; text-align: right;}
+
 
 /*** Sticky footer http://www.cssstickyfooter.com ***/
 
@@ -292,5 +312,8 @@ margin-top:-32767px;/* thank you Erik J - negate effect of float*/
 @media only screen and (min-width: 768px) { 
 
  fieldset {background: #fff;}
+ .align-right {float: right; text-align: right;}
+
+ fieldset legend {width: 100%; padding: 0 .5em 1em 0;}
 
 }

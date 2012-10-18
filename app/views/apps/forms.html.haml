@@ -4,17 +4,17 @@
     %h5
       Good job!  Now we're going to take all that info you gave us and pre-fill as much of the form(s) as we can.
     %p
-      Based on what you've told us, here's the list of forms to complete. (It's probably smart to look over each of these to double check whether it's right for you.)
+      Based on what you've told us, here's the list of forms to complete. (It&rsquo;s probably smart to look over each of these to double check whether it&rsquo;s right for you.)
 .row
   .nine.columns
     .panel
       %h4
         Save your information and continue completing your forms online
       %p
-        Get this stuff done when it's convenient to you: work on it later from your computer, smartphone, or tablet.  We'll save both your info and your form(s).  #{ link_to 'Learn more about our security and privacy >', "#" }
+        Get this stuff done when it&rsquo;s convenient to you: work on it later from your computer, smartphone, or tablet.  We'll save both your info and your form(s).  #{ link_to 'Learn more about our security and privacy.', "#" }
         %br
         %br
-        = link_to "Save and continue to forms", save_app_path(@app, :update_profile => @update_profile), :class => "large button", :id => 'save-button' 
+        = link_to "Save and continue to forms", save_app_path(@app, :update_profile => @update_profile), :class => "large button positive", :id => 'save-button' 
 .row
   .twelve.columns
     %h5

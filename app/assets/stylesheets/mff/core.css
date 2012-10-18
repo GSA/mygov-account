@@ -277,6 +277,8 @@ fieldset li, forms li {
 }
 
 
+fieldset li:last-child, forms li:last-child {margin: 0;}
+
 fieldset li ul {margin: 0; padding: 0; display: block;}
 
 .panel li span {font-weight: bold;}

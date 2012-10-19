@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   end
   
   def as_json(options = {})
-    super(:except => [:updated_at, :created_at, :uid, :provider])
+    super(:only => PROFILE_ATTRIBUTES, :methods => [:phone_number, :mobile_number])
   end
   
   def to_schema_dot_org_hash

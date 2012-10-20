@@ -6,61 +6,7 @@ describe "Profile" do
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
   end
 
-  describe "GET /profile" do
-    context "when using the API" do
-      before do
-        @app = OAuth2::Model::Client.new(:name => 'App1', :redirect_uri => 'http://localhost/')
-        @app.oauth2_client_owner_type = 'User'
-        @app.oauth2_client_owner_id = @user.id
-        @app.save!
-      end
-      
-      context "when the request has a valid token" do
-        before do
-          authorization = OAuth2::Model::Authorization.new
-          authorization.client = @app
-          authorization.owner = @user
-          access_token = authorization.generate_access_token
-          client = OAuth2::Client.new(@app.client_id, @app.client_secret, :site => 'http://localhost/', :token_url => "/oauth/authorize")
-          @token = OAuth2::AccessToken.new(client, access_token)
-        end
-        
-        context "when the user queried exists" do
-          it "should return JSON with the profile information for the profile specificed" do
-            get "/profile.json", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-            response.code.should == "200"
-            parsed_json = JSON.parse(response.body)
-            parsed_json["status"].should == "OK"
-            parsed_json["user"]["email"].should == "joe@citizen.org"
-            parsed_json["user"]["provider"].should be_nil
-          end
-        
-          context "when the schema parameter is set" do
-            it "should render the response in a Schema.org hash" do
-              get "/profile.json", {"schema" => "true"}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-              response.code.should == "200"
-              parsed_json = JSON.parse(response.body)
-              parsed_json["status"].should == "OK"
-              parsed_json["user"]["email"].should == "joe@citizen.org"
-              parsed_json["user"]["givenName"].should == "Joe"
-              parsed_json["user"]["familyName"].should == "Citizen"
-              parsed_json["user"]["homeLocation"]["streetAddress"].should be_blank
-            end
-          end
-        end
-      end
-      
-      context "when the request does not have a valid token" do
-        it "should return an error message" do
-          get "/profile.json", nil, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
-          response.code.should == "403"
-          parsed_json = JSON.parse(response.body)
-          parsed_json["status"].should == "Error"
-          parsed_json["message"].should == "You do not have access to read that user's profile."
-        end
-      end
-    end
-    
+  describe "GET /profile" do    
     context "when visiting the web site via a browser" do
       context "when logged in" do
         before do

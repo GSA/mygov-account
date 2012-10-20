@@ -8,11 +8,6 @@ class ApplicationController < ActionController::Base
     @user = current_user
   end
   
-  def oauthorize
-    @user = User.find_by_id(params[:id])
-    @token = OAuth2::Provider.access_token(@user, [], request)
-  end
-  
   def set_segment
     if !session[:segment]
       session[:segment] = rand(2) == 0 ? "A" : "B"

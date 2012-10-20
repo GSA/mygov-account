@@ -62,53 +62,5 @@ describe "Messages" do
       page.should have_content "Message #2"
       page.should_not have_content "Message #9"
     end
-  end
-  
-  describe "POST /messages" do
-    before do
-      @user.messages.destroy_all
-    end
-
-    context "when the user has a valid token" do
-      before do
-        authorization = OAuth2::Model::Authorization.new
-        authorization.client = @app1
-        authorization.owner = @user
-        access_token = authorization.generate_access_token
-        client = OAuth2::Client.new(@app1.client_id, @app1_client_secret, :site => 'http://localhost/', :token_url => "/oauth/authorize")
-        @token = OAuth2::AccessToken.new(client, access_token)
-      end
-    
-      context "when the message attributes are valid" do
-        it "should create a new message when the message info is valid" do
-          @user.messages.size.should == 0
-          post "/messages", {:id => @user.id, :message => {:subject => 'Project MyGov', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-          response.code.should == "200"
-          @user.messages.reload
-          @user.messages.size.should == 1
-          @user.messages.first.subject.should == "Project MyGov"
-        end
-      end
-      
-      context "when the message attributes are not valid" do
-        it "should return an error message" do
-          post "/messages", {:id => @user.id, :message => {:body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-          response.code.should == "400"
-          parsed_response = JSON.parse(response.body)
-          parsed_response["status"].should == "Error"
-          parsed_response["message"]["subject"].should == ["can't be blank"]
-        end
-      end
-    end
-  end
-  
-  context "when the user has an invalid token" do
-    it "should return an error message" do
-      post "/messages", {:id => @user.id, :message => {:subject => 'Project MyGov', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer fake_token"}
-      response.code.should == "403"
-      parsed_response = JSON.parse(response.body)
-      parsed_response["status"].should == "Error"
-      parsed_response["message"].should == "You do not have access to send messages to that user."
-    end
-  end
+  end  
 end

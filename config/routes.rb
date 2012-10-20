@@ -36,6 +36,11 @@ Mygov::Application.routes.draw do
   match  'terms-of-service', :controller => 'home', :action => 'render_page', :page => 'terms-of-service', :as => 'terms_of_service'
   match  'privacy-policy', :controller => 'home', :action => 'render_page', :page => 'privacy-policy', :as => 'privacy_policy'
   
+  namespace :api do
+    resource :profile, :only => [:show]
+    resources :notifications, :only => [:create]
+  end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

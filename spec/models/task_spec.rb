@@ -4,13 +4,15 @@ describe Task do
   before do
     BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
-    @app = App.create!(:name => 'Test App')
+    @app = App.create!(:name => 'Test App'){|app| app.redirect_uri = "http://localhost:3000/"}
     @valid_attributes = {
       :user_id => @user.id,
-      :app_id => @app.id
+      :app_id => @app.id,
+      :name => 'Test task'
     }
   end
   
+  it { should validate_presence_of :name }
   it { should validate_presence_of :app_id }
   it { should validate_presence_of :user_id }
   it { should belong_to :user }

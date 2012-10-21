@@ -58,7 +58,7 @@ class AppsController < ApplicationController
       user_attributes = session["user"].reject{|k,v| k == "email"}
       @user.update_attributes(user_attributes)
     end
-    task = @user.tasks.create(:app_id => @app.id)
+    task = @user.tasks.create(:app_id => @app.id, :name => @app.name)
     criteria = session["app"].collect{|k,v| k }
     forms = @app.find_forms_by_criteria(criteria)
     forms.each do |form|

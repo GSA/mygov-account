@@ -7,7 +7,7 @@ describe "Apps" do
   
   describe "GET /apps/:slug" do
     before do
-      @app = App.create!(:name => 'Change your name')
+      @app = App.create!(:name => 'Change your name'){|app| app.redirect_uri = "http://localhost:3000/"}
       @married_form = @app.forms.create!(:call_to_action => 'Get Married!', :name => 'Getting Married Form', :url => 'http://example.gov/married.pdf')
       @married_pdf = Pdf.create!(:name => 'Form 123 - Getting Married', :url => 'http://example.gov/married.pdf', :form_id => @married_form.id)
       @divorced_form = @app.forms.create!(:call_to_action => 'Get Divorced!', :name => 'Getting Divorced Form', :url => 'http://example.gov/divorced.pdf')

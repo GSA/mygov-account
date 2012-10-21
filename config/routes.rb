@@ -39,6 +39,7 @@ Mygov::Application.routes.draw do
   namespace :api do
     resource :profile, :only => [:show]
     resources :notifications, :only => [:create]
+    resources :tasks, :only => [:index, :create, :show]
   end
   
   # The priority is based upon order of creation:

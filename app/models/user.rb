@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   include OAuth2::Model::ResourceOwner
-  include OAuth2::Model::ClientOwner
   
   validates_presence_of :email
   validate :email_is_whitelisted

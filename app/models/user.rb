@@ -28,10 +28,6 @@ class User < ActiveRecord::Base
     end  
   end
   
-  def profile_attributes
-    self.attributes.reject{|k,v| !PROFILE_ATTRIBUTES.include?(k.to_sym) }
-  end
-
   def phone_number=(value)
     self.phone = normalize_phone_number(value)
   end
@@ -54,14 +50,6 @@ class User < ActiveRecord::Base
   
   def print_marital_status
     self.marital_status.blank? ? nil : self.marital_status.titleize
-  end
-  
-  def address_as_array
-    result = []
-    result << self.address unless self.address.blank?
-    result << self.address2 unless self.address2.blank?
-    result << "#{[self.city, self.state].join(", ")} #{self.zip}" unless self.city.blank? and self.state.blank? and self.zip.blank?
-    result
   end
   
   def as_json(options = {})

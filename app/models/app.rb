@@ -1,7 +1,5 @@
 class App < ActiveRecord::Base
   include OAuth2::Model::ClientOwner
-  has_many :criteria, :dependent => :destroy
-  has_many :forms, :dependent => :destroy
   validates_presence_of :name, :slug
   validates_uniqueness_of :slug
   before_validation :generate_slug
@@ -15,10 +13,6 @@ class App < ActiveRecord::Base
   
   def redirect_uri=(uri)
     @redirect_uri = uri
-  end
-  
-  def find_forms_by_criteria(criteria_list)
-    self.forms.reject{|form| !form.valid_for_criteria(criteria_list) }
   end
   
   def to_param

@@ -2,7 +2,6 @@ require 'open-uri'
 require 'pdf_forms'
 
 class Pdf < ActiveRecord::Base  
-  belongs_to :form
   has_many :pdf_fields
   before_validation :generate_slug
   validates_presence_of :name, :slug, :url

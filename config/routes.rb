@@ -15,28 +15,13 @@ Mygov::Application.routes.draw do
   get 'dashboard' => "home#dashboard"
   resources :tasks, :only => [:show, :update, :destroy]
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-  resources :apps, :only => [:show] do
-    member do
-      post :start
-      post :info
-      post :address
-      post :birthdate
-      post :contact_info
-      get :review
-      post :review
-      get :forms
-      post :forms
-      get :save
-      get :finish
-    end
-  end
+  resources :apps
   resources :task_items, :only => [:update, :destroy]
-  get '/pdfs/fill', :to => 'pdfs#fill'
+  get '/pdfs/fill', :to => 'pdfs#fill', :as => :fill_pdf
   resources :beta_signups, :only => [:create]
   match '/welcome', :to => 'welcome#index', :as => :welcome
   match  'terms-of-service', :controller => 'home', :action => 'render_page', :page => 'terms-of-service', :as => 'terms_of_service'
   match  'privacy-policy', :controller => 'home', :action => 'render_page', :page => 'privacy-policy', :as => 'privacy_policy'
-  
   namespace :api do
     resource :profile, :only => [:show]
     resources :notifications, :only => [:create]

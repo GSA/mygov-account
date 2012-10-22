@@ -32,36 +32,6 @@ ActiveRecord::Schema.define(:version => 20121025124850) do
     t.boolean  "is_approved", :default => false
   end
 
-  create_table "criteria", :force => true do |t|
-    t.string   "label"
-    t.integer  "app_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "criteria", ["app_id"], :name => "index_criteria_on_app_id"
-
-  create_table "criteria_forms", :id => false, :force => true do |t|
-    t.integer "criterium_id"
-    t.integer "form_id"
-  end
-
-  add_index "criteria_forms", ["criterium_id", "form_id"], :name => "index_criteria_forms_on_criterium_id_and_form_id"
-  add_index "criteria_forms", ["criterium_id"], :name => "index_criteria_forms_on_criterium_id"
-  add_index "criteria_forms", ["form_id"], :name => "index_criteria_forms_on_form_id"
-
-  create_table "forms", :force => true do |t|
-    t.string   "url"
-    t.string   "name"
-    t.string   "call_to_action"
-    t.integer  "app_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.string   "agency"
-  end
-
-  add_index "forms", ["app_id"], :name => "index_forms_on_app_id"
-
   create_table "messages", :force => true do |t|
     t.string   "subject"
     t.text     "body"
@@ -127,11 +97,8 @@ ActiveRecord::Schema.define(:version => 20121025124850) do
     t.integer  "y_offset",    :default => 0
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
-    t.integer  "form_id"
     t.boolean  "is_fillable"
   end
-
-  add_index "pdfs", ["form_id"], :name => "index_pdfs_on_form_id"
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
@@ -153,10 +120,8 @@ ActiveRecord::Schema.define(:version => 20121025124850) do
     t.integer  "task_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.integer  "form_id"
   end
 
-  add_index "task_items", ["form_id"], :name => "index_task_items_on_form_id"
   add_index "task_items", ["task_id"], :name => "index_task_items_on_task_id"
 
   create_table "tasks", :force => true do |t|
@@ -214,7 +179,7 @@ ActiveRecord::Schema.define(:version => 20121025124850) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "name"
-    t.string   "middle_name",            :limit => 1
+    t.string   "middle_name"
     t.string   "address"
     t.string   "address2"
     t.string   "city"
@@ -244,7 +209,6 @@ ActiveRecord::Schema.define(:version => 20121025124850) do
     t.boolean  "is_retired"
   end
 
-  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true

@@ -16,8 +16,9 @@ describe "Tasks" do
       @divorced_pdf = Pdf.create!(:name => 'Form 789 - Getting Divorced', :url => 'http://example.gov/divorced.pdf', :form_id => @divorced_form.id)
       
       @user.tasks.create!(:app_id => @app.id, :name => 'Change your name')
-      @user.tasks.first.task_items.create!(:form_id => @married_form.id)
-      @user.tasks.first.task_items.create!(:form_id => @divorced_form.id)
+      @user.tasks.first.task_items.create!(:name => 'Get Married!')
+      @user.tasks.first.task_items.create!(:name => 'Get Divorced!')
+      
       @task = @user.tasks.first
       create_logged_in_user(@user)
       visit task_path(@task)
@@ -25,7 +26,7 @@ describe "Tasks" do
     
     it "should display a task with links to download pdfs" do
       page.should have_content(@task.app.name)
-      @task.task_items.each{|task_item| page.should have_content(task_item.form.call_to_action) }
+      @task.task_items.each{|task_item| page.should have_content(task_item.name) }
       page.should have_content "0 of 2 items complete."
       page.should have_link "Download Pre-filled PDF form"
     end

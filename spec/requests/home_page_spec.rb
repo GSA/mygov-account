@@ -67,14 +67,9 @@ describe "HomePage" do
       context "when the user has tasks with task items" do
         before do
           @app = App.create!(:name => 'Change your name', :action_phrase => 'changing your name'){|app| app.redirect_uri = "http://localhost:3000/"}
-          @married_form = @app.forms.create!(:call_to_action => 'Get Married!', :name => 'Getting Married Form', :url => 'http://example.gov/married.pdf')
-          @divorced_form = @app.forms.create!(:call_to_action => 'Get Divorced!', :name => 'Getting Divorced Form', :url => 'http://example.gov/divorced.pdf')
-          @married_form.criteria << @app.criteria.create!(:label => 'Getting Married')
-          @divorced_form.criteria << @app.criteria.create!(:label => 'Getting Divorced')
-          
           @user.tasks.create!(:name => 'Change your name', :app_id => @app.id)
-          @user.tasks.first.task_items.create!(:form_id => @married_form.id)
-          @user.tasks.first.task_items.create!(:form_id => @divorced_form.id)
+          @user.tasks.first.task_items.create!(:name => 'Get Married!')
+          @user.tasks.first.task_items.create!(:name => 'Get Divorced!')
         end
         
         it "should show the tasks on the dashboard and allow the user to remove tasks" do

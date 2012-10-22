@@ -170,9 +170,5 @@ RailsAdmin.config do |config|
   #   edit do; end
   #   create do; end
   #   update do; end
-  # end
-  
-  config.model Criterium do
-    object_label_method :label
-  end
+  # end  
 end

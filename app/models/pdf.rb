@@ -1,17 +1,13 @@
-class Pdf < ActiveRecord::Base
-  require 'open-uri'
-  require 'pdf_forms'
-  
-  attr_accessible :name, :slug, :url, :x_offset, :y_offset, :form_id, :is_fillable, :page_number
+require 'open-uri'
+require 'pdf_forms'
+
+class Pdf < ActiveRecord::Base  
   belongs_to :form
   has_many :pdf_fields
   before_validation :generate_slug
   validates_presence_of :name, :slug, :url
   validates_uniqueness_of :slug, :url
-  
-  def to_param
-  	self.slug
-  end
+  attr_accessible :name, :slug, :url, :x_offset, :y_offset, :form_id, :is_fillable, :page_number
   
   def fill_in(profile_data)
     template_pdf_file = open(self.url)    

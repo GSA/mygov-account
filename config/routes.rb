@@ -31,7 +31,7 @@ Mygov::Application.routes.draw do
     end
   end
   resources :task_items, :only => [:update, :destroy]
-  post '/pdfs/:id', :to => 'pdfs#show', :as => :fill_pdf
+  get '/pdfs/fill', :to => 'pdfs#fill'
   resources :beta_signups, :only => [:create]
   match '/welcome', :to => 'welcome#index', :as => :welcome
   match  'terms-of-service', :controller => 'home', :action => 'render_page', :page => 'terms-of-service', :as => 'terms_of_service'

@@ -61,10 +61,6 @@ body {background: image-url("favicon.png") top center repeat;}
 
 .row {border: none;}
 
-
-
-
-
 p, ul, ol, legend, input[type="text"] {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; text-shadow: 0 1px 0 rgba(255,255,255,.9);}
 
 input[type="text"] {font-weight: bold; color: #0C2237; padding: 1.1em .5em;}
@@ -128,16 +124,21 @@ fieldset label {font-weight: bold;}
   text-transform: none;
   letter-spacing: none;
   font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
   border-style: solid;
-  border-width: 11px;
-  -moz-border-image: url(positive-button.png) 11 repeat;
-  -webkit-border-image: url(positive-button.png) 11 repeat;
-  -o-border-image: url(positive-button.png) 11 repeat;
-  border-image: url(positive-button.png) 11 fill repeat;
+border-width: 11px;
+padding: .5em 1em;
+
+
 }
 
-.button.positive:visited {background: #112137; }
+.borderimage .button.positive, .borderimage .button  {
+  border-style: solid;
+  border-width: 12px;
+  -moz-border-image: url(button-positive.png) 12 repeat;
+  -webkit-border-image: url(button-positive.png) 12 repeat;
+  -o-border-image: url(button-positive.png) 12 repeat;
+  border-image: url(button-positive.png) 12 fill repeat;
+}
 
 .button:hover, 
 .button:active {
@@ -262,6 +263,104 @@ margin-top:-32767px;/* thank you Erik J - negate effect of float*/
 }
 
 .container {clear: both;}
+
+/*** Sign up form - move to seperate style sheet ***/
+
+body.sign-up {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #1C6485 image-url("glow.png") 50% 60% no-repeat;
+}
+
+@media (device-width: 320px) and (orientation: landscape) {
+
+  body.sign-up {
+    font-size: .65em;
+  }
+
+}
+
+
+.sign-up .button.positive {
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+
+.sign-up #main, .sign-up #wrap, .sign-up .container {padding: 0; margin: 0;}
+
+.logo {
+  display: block;
+  background: #fff;
+  padding: 1em 0;
+}
+
+.signup-form {
+  border-top: 10px solid #D8D8D7;
+  padding: 1em 3% 0 3%;
+
+}
+
+.signup-form label {
+  font-weight: bold;
+  color: #fff;
+  display: inline-block;
+  padding: .3em 0;
+}
+
+.signup-form p {
+  color: #fff;
+  margin: 1em 0;
+  font-size: 1.15em;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+}
+
+.signup-form input[type="email"]{
+  border: 2px solid #112136;
+  font-size: 1.5em;
+  padding: 1em .5em;
+  display: inline-block;
+  font-weight: normal;
+  font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.logo h1 {
+  text-indent: -9999em;
+  width: 343px;
+  max-width: 80%;
+  margin: 0 auto;
+  height: auto;
+  max-height: 90px;
+  display: block;
+  background: image-url("signup-logo.png") top center no-repeat;
+  background-size: contain;
+}
+
+@media only screen and (min-width: 768px) { 
+  
+  .logo h1 {
+     margin: 1em auto;
+     height: 148px;
+     max-height: none;
+  }
+  
+  .signup-form {
+    border-top: 10px solid #D8D8D7;
+    padding: 1em 3% 8em 3%;
+}
+
+
+
+}
+
+@media only screen and (min-width: 768px) { 
+  
+  logo h1 {
+  
+  }
+
+}
 
 /*** End Sticky footer ***/
 

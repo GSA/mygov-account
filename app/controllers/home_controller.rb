@@ -5,6 +5,7 @@ class HomeController < ApplicationController
   def index
     redirect_to :dashboard if current_user
     @beta_signup = BetaSignup.new
+    render :layout => 'signup'
   end
   
   def dashboard

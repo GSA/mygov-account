@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "\"MyGov Team\" <no-reply@my.usa.gov>"
+  default from: "\"MyGov Team\" <projectmygov@gsa.gov>"
   
   def beta_invite_a(email)
     @email = email

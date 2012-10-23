@@ -3,9 +3,12 @@ class HomeController < ApplicationController
   before_filter :assign_user, :only => [:dashboard]
   
   def index
-    redirect_to :dashboard if current_user
-    @beta_signup = BetaSignup.new
-    render :layout => 'signup'
+    if current_user
+      redirect_to :dashboard 
+    else
+      @beta_signup = BetaSignup.new
+      render :layout => 'signup'
+    end
   end
   
   def dashboard

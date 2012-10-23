@@ -8,11 +8,6 @@ describe "HomePage" do
   
   describe "GET /" do
     context "when not logged in" do
-      it "should prompt the user to login" do
-        visit root_path
-        page.should have_content("Sign in")
-      end
-      
       context "when signing up for the beta" do
         before do
           BetaSignup.destroy_all
@@ -20,7 +15,7 @@ describe "HomePage" do
         
         it "should let a user sign up for the beta by providing their email address" do
           visit root_path
-          page.should have_content("We're launching the MyGov private beta soon. Tell us your email address, and the second it's ready we'll let you kick the tires.")
+          page.should have_content("We're getting ready to launch the MyGov private beta. Want to kick the tires? Give us your email address, and the second it's ready we'll let you know.")
           fill_in 'Email', :with => 'joe@citizen.org'
           click_button "Sign up"
           BetaSignup.find_by_email('joe@citizen.org').should_not be_nil

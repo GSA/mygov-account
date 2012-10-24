@@ -58,15 +58,10 @@ describe "Apps" do
         click_link 'save-button'
         page.should have_content 'Save your information'
         page.should have_content 'Introducing MyGov, your online guide to to navigating government'
-
-        # fake-login the user
-        @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :provider => 'Google', :uid => 'joe@citizen.org')
-        create_logged_in_user(@user)
-        
-        visit finish_app_path(@app, :update_profile => "1")
+        click_link 'Google'
         page.should have_content "Change your name"
         page.should have_content "Get Married!"
-        click_link '/profile'
+        click_link 'Joe Citizen'
         page.should have_content '123 Evergreen Terr'
         page.should have_no_content 'joe.q.citizen@gmail.com'
       end
@@ -193,6 +188,7 @@ describe "Apps" do
     context "when logged in" do
       before do
         @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :provider => 'Google', :uid => 'joe@citizen.org', :zip => '12345', :date_of_birth => Date.parse('1990-01-01'))
+        @user.confirm!
         create_logged_in_user(@user)
       end
 

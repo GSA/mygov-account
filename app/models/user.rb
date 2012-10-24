@@ -1,16 +1,13 @@
 class User < ActiveRecord::Base
-  include OAuth2::Model::ResourceOwner
-  
-  validates_presence_of :email
+  include OAuth2::Model::ResourceOwner  
   validate :email_is_whitelisted
-  
   has_many :messages, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :omniauthable, :lockable, :timeoutable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :omniauthable, :lockable, :timeoutable, :confirmable
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status
 

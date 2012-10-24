@@ -5,6 +5,7 @@ describe "Tasks" do
     before do
       BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
       @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+      @user.confirm!
 
       @app = App.create!(:name => 'Change your name'){|app| app.redirect_uri = "http://localhost:3000/"}
       @married_form = @app.forms.create!(:call_to_action => 'Get Married!', :name => 'Getting Married Form', :url => 'http://example.gov/married.pdf')

@@ -28,17 +28,14 @@
         .container.group
           = yield
       
-    .discovery-bar  
-      %ul.nav-bar
-        %li.active{:style => 'padding: 0px 10px 0px 10px;'}
-          = link_to 'MyGov', root_path
-        - if current_user
-          
+    - if current_user
+      .discovery-bar  
+        %ul.nav-bar
+          %li.active{:style => 'padding: 0px 10px 0px 10px;'}
+            = link_to 'MyGov', root_path
           %li{:class => 'left'}= link_to "#{current_user.messages.count} messages", messages_path
           %li{:class => 'right'}= link_to "Sign out", destroy_user_session_path
           %li{:class => 'right'}= link_to current_user.name, profile_path
-        - else
-          %li{:style => 'float: right;'}= link_to 'Sign in', sign_in_path
           
       /
         Javascripts

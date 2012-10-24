@@ -39,7 +39,9 @@ describe "Users" do
         fill_in 'Password', :with => 'password'
         fill_in 'Password confirmation', :with => 'password'
         click_button 'Sign up'
-        page.should have_content 'MyGov Dashboard'
+        page.should have_content 'Thanks for signing up!'
+        ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
+        ActionMailer::Base.deliveries.last.from.should == ["no-reply@my.usa.gov"]
       end
     end    
   end

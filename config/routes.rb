@@ -1,7 +1,8 @@
 Mygov::Application.routes.draw do
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => 'users/registrations' }
   devise_scope :user do
-    get 'sign_up', :to => 'devise/registrations#new', :as => :sign_up
+    get 'sign_up', :to => 'users/registrations#new', :as => :sign_up
+    get 'thank_you', :to => 'users/registrations#thank_you', :as => :thank_you
     get 'sign_in', :to => 'devise/sessions#new', :as => :sign_in
     get 'sign_out', :to => 'devise/sessions#destroy', :as => :sign_out
   end

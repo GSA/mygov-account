@@ -51,4 +51,17 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+  
+  config.include IntegrationSpecHelper, :type => :request
 end
+
+Capybara.default_host = "http://citizen.org"
+
+OmniAuth.config.test_mode = true
+OmniAuth.config.add_mock(:google, {
+  :info => {
+    :email => 'joe@citizen.org',
+    :name => 'Joe Citizen'
+  },
+  :uid => '12345',
+})

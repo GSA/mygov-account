@@ -4,4 +4,5 @@ msg = "<p>Thanks for signing up for MyGov! We'll send you an email when you're a
 el.fadeOut( 'slow', ->
     el.html msg
     el.fadeIn()
+    el.focus() #508
 )

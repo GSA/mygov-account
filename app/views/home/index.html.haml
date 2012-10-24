@@ -1,16 +1,18 @@
-.logo
-  %h1
-    Project MyGov
-
 .signup-form
 
   .row
     .six.columns.offset-by-three
       #signup-form
         %p
-          We're getting ready to launch the MyGov private beta. Want to kick the tires? Give us your email address, and the second it's ready we'll let you know.
+          We're getting ready to launch the MyGov private beta. Sign up to kick the tires.
         #fieldset
-          = form_for @beta_signup, :remote => true do |form|
+          = form_for @beta_signup do |form|
             = form.label :email
             = form.email_field :email
             = form.submit 'Sign up', :class => 'large button positive ' 
+
+%script{:type => "text/template", :id => "beta_signup_confirmation"}
+  = render :partial => "/beta_signups/confirmation"
+    
+%script{:type => "text/template", :id => "beta_signup_failure"}
+  = render :partial => "/beta_signups/failure"

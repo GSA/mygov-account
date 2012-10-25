@@ -1,5 +1,5 @@
 Mygov::Application.routes.draw do
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => 'users/registrations' }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => 'users/registrations', :confirmations => 'users/confirmations' }
   devise_scope :user do
     get 'sign_up', :to => 'users/registrations#new', :as => :sign_up
     get 'thank_you', :to => 'users/registrations#thank_you', :as => :thank_you
@@ -33,7 +33,7 @@ Mygov::Application.routes.draw do
   resources :task_items, :only => [:update, :destroy]
   post '/pdfs/:id', :to => 'pdfs#show', :as => :fill_pdf
   resources :beta_signups, :only => [:create]
-  
+  match '/welcome', :to => 'welcome#index', :as => :welcome
   match  'terms-of-service', :controller => 'home', :action => 'render_page', :page => 'terms-of-service', :as => 'terms_of_service'
   match  'privacy-policy', :controller => 'home', :action => 'render_page', :page => 'privacy-policy', :as => 'privacy_policy'
   

@@ -1,0 +1,24 @@
+= form_for @user, :url => welcome_path(:step => 'last') do |form|
+  %fieldset
+    %legend
+      Tell us a little about yourself
+    %p
+      = form.label :marital_status, "Married"
+      = form.check_box :marital_status, {}, 'Married', nil
+    %p
+      = form.label :is_parent, "Parent"
+      = form.check_box :is_parent, {}, '1', nil
+    %p
+      = form.label :is_veteran, "Veteran"
+      = form.check_box :is_veteran, {}, '1', nil
+    %p
+      = form.label :is_student, "Student"
+      = form.check_box :is_student, {}, '1', nil
+    %p
+      = form.label :is_retired, "Retired"
+      = form.check_box :is_retired, {}, '1', nil
+    %p
+      = label_tag "Rather not say"
+      = check_box_tag "rather_not_say"
+  = form.submit 'Continue'
+  = link_to 'Skip this step', welcome_path(:step => 'last')

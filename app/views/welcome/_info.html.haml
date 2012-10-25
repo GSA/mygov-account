@@ -1,0 +1,14 @@
+= form_for @user, :url => welcome_path(:step => 'about_you') do |form|
+  %fieldset
+    %legend
+      Tell us a little about yourself
+    %p
+      = form.label :zip, "Zip code"
+      = form.text_field :zip
+    %p
+      = form.label :date_of_birth, "When were you born?"
+    %ul
+      %li
+        = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :date_separator => "</li><li>".html_safe, :default => { :year => 1998, :month => 1, :day => 1 }
+  = form.submit 'Continue'
+  = link_to 'Skip this step', welcome_path(:step => 'about_you')

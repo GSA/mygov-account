@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121015133821) do
+ActiveRecord::Schema.define(:version => 20121025124850) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -238,6 +238,10 @@ ActiveRecord::Schema.define(:version => 20121015133821) do
     t.integer  "failed_attempts",                      :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.boolean  "is_parent"
+    t.boolean  "is_veteran"
+    t.boolean  "is_student"
+    t.boolean  "is_retired"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

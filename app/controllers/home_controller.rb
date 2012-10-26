@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
-  before_filter :authenticate_user!, :only => [:dashboard]
-  before_filter :assign_user, :only => [:dashboard]
+  before_filter :authenticate_user!, :except => [:index, :privacy_policy, :terms_of_service]
+  before_filter :assign_user, :except => [:index, :privacy_policy, :terms_of_service]
   
   def index
     if current_user
@@ -20,10 +20,16 @@ class HomeController < ApplicationController
       daily_uv_response = EpaUvIndex::Client.daily_for(:zip => @user.zip) rescue nil
       @uv_index = daily_uv_response.first["UV_INDEX"] if daily_uv_response and daily_uv_response.first
     end
+    @local_info = @user.local_info
   end
   
-  def render_page
-    render params[:page]
+  def privacy_policy
   end
   
+  def terms_of_service
+  end
+  
+  def your_government
+    @local_info = @user.local_info
+  end
 end

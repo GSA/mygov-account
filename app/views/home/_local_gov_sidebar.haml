@@ -1,0 +1,11 @@
+.panel.sidebar        
+  %h5 Your communities
+  .jurisdiction
+    - @local_info['jurisdictions'].each do |jurisdiction|
+      - if jurisdiction['type'] == 'government'
+        %h6
+          = link_to your_government_path(:anchor => "#{jurisdiction['level']}-#{jurisdiction['type']}") do
+            %span.level
+              #{jurisdiction['level_name']}: 
+            %span.name
+              = jurisdiction['name']

@@ -1,0 +1,15 @@
+%h3.ticker
+  %i{:class => "foundicon-inbox"}
+  Tasks
+.panel.task
+  %span.bookmark
+  - @uncompleted_tasks.each do |task|
+    %div
+      %h3
+        = link_to task.name, task_path(task)
+      - task.task_items.uncompleted.each do |task_item|
+        %ol.inline
+          %li.full
+            = link_to task_item.name, task_item.url, :class => 'large button alternate task'
+            %i{:class => "foundicon-remove"}
+            = link_to 'Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}

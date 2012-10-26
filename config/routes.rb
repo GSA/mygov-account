@@ -13,6 +13,9 @@ Mygov::Application.routes.draw do
   resource :profile, :controller => :users, :only => [:show, :edit, :update, :destroy]
   resources :notifications, :only => [:index, :show, :create, :destroy]
   get 'dashboard' => "home#dashboard"
+  get 'your-government' => "home#your_government", :as => :your_government
+  get 'privacy-policy' => "home#privacy_policy", :as => :privacy_policy
+  get 'terms-of-service' => "home#terms_of_service", :as => :terms_of_service
   resources :tasks, :only => [:show, :update, :destroy]
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   resources :apps
@@ -20,8 +23,6 @@ Mygov::Application.routes.draw do
   get '/pdfs/fill', :to => 'pdfs#fill', :as => :fill_pdf
   resources :beta_signups, :only => [:create]
   match '/welcome', :to => 'welcome#index', :as => :welcome
-  match  'terms-of-service', :controller => 'home', :action => 'render_page', :page => 'terms-of-service', :as => 'terms_of_service'
-  match  'privacy-policy', :controller => 'home', :action => 'render_page', :page => 'privacy-policy', :as => 'privacy_policy'
   namespace :api do
     resource :profile, :only => [:show]
     resources :notifications, :only => [:create]

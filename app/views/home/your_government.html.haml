@@ -1,0 +1,42 @@
+- if @local_info['jurisdictions']
+  .row
+    .twelve.columns
+      %h2 Your Communities &amp; Representatives
+      - @local_info['jurisdictions'].each do |j|
+        %ul.jurisdiction-list
+          %li.jurisdiction
+            %h3
+              %a{:href => j['url'], :name => "#{j['level']}-#{j['type']}"}  
+                %span.level 
+                  - if j['type'] == 'legislative' and j['level'] == 'regional'
+                    %span.level_name
+                      = "#{j['level_name']} "
+                  %span.type_name
+                    #{j['type_name']}: 
+                  %span.name
+                    #{j['name']}
+            - if j['url']
+              %div{:class => "jurisdiction website"}
+                %a{:href=>j['url']}
+                  = j['url'].gsub(%r[(http:\/\/)|(https:\/\/)], '').chomp("/")              
+            - if j['elected_office']    
+              %ul.elected-list
+                - j['elected_office'].each do |e|
+                  %li.official
+                    %h4
+                      %a{:href=>e['url']}
+                        %span.title                     
+                          = e['title']
+                        %span.name 
+                          = e['name_full']
+                    %div{:class => "official website"}
+                      %a{:href=>e['url']}
+                        = e['url'].gsub(%r[(http:\/\/)|(https:\/\/)], '').chomp("/")
+                    - if e['social_media']
+                      %div.social-media
+                        - e['social_media'].each do |s|                      
+                          %a{:href=>s['url']}
+                            %i{:class => "social foundicon-#{s['type']}"}
+                            %span
+                              = s['description']
+                    %img.elected-official{:src => e['url_photo']}

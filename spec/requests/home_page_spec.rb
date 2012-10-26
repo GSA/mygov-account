@@ -158,10 +158,24 @@ describe "HomePage" do
         it "should log out the user and destroy the account" do
           visit root_path
           click_link "Delete"
-          page.should have_content "We're getting ready to launch the MyGov private beta. Sign up to kick the tires."
+          page.should have_content "Sign in"
           User.find_by_email('joe@citizen.org').should be_nil
         end
       end
+    end
+  end
+
+  describe "GET /privacy-policy" do
+    it "should show the privacy policy" do
+      visit privacy_policy_path
+      page.should have_content "Privacy policy"
+    end
+  end
+  
+  describe "GET /terms-of-service" do
+    it "should show the terms of service" do
+      visit terms_of_service_path
+      page.should have_content "MyGov terms of service"
     end
   end
 end

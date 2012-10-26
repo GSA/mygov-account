@@ -1,0 +1,25 @@
+.panel.sidebar.tertiary
+  %ul.panel-list
+    %li
+      = link_to '#', {:"data-reveal-id" => 'confirm-delete-modal'} do
+        %i{:class => "foundicon-remove"}
+        Delete your account
+    %li
+      = link_to terms_of_service_path do
+        %i{:class => "foundicon-page"}
+        Terms of Service
+    %li
+      = link_to privacy_policy_path do
+        %i{:class => "foundicon-page"}
+        Privacy Policy
+
+#confirm-delete-modal.reveal-modal
+  %h2
+    Are you sure?
+  %p
+    By deleting your account, all information associated with your account will be deleted forever. (You can't undo this later.)
+  %p
+    = link_to "Delete", profile_path, :method => :delete, :class => 'button positive confirm'
+    = link_to "Cancel", "#", :class => 'button negative', :onclick => "$('#confirm-delete-modal').trigger('reveal:close');"
+  %a.close-reveal-modal
+    x

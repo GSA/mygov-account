@@ -1,0 +1,11 @@
+.panel.sidebar.decorative.style-one
+  .flourish
+    %i{:class => "foundicon-calendar"}
+  %div
+    %h5
+      Today in U.S. History
+    
+    %ul.side-nav
+      - @events.each do |event|
+        %li
+          #{event.summary} - #{event.description}

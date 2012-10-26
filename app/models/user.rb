@@ -69,6 +69,19 @@ class User < ActiveRecord::Base
     task2.task_items.create(:name => 'Help us make this service more tailored to your needs.', :url => "/welcome?step=about_you")
   end
   
+  def local_info
+    location_parts = [ 'address', 'city', 'state', 'zip']
+    location = location_parts.collect{|part| self[part]}.compact.join(", ")
+    unless location.blank?
+      url = "/geowebdns/endpoints?location=#{URI.encode(location)}&format=json&fullstack=true"
+      local_info = Rails.cache.fetch('democracy_map_' + url, :expires_in => 24.hours) do
+        response = Net::HTTP.get_response('api.democracymap.org', url)
+        JSON.parse(response.body) rescue nil
+      end
+    end
+    local_info
+  end
+
   private
   
   def email_is_whitelisted    

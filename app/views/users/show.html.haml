@@ -3,56 +3,6 @@
     .panel.listing
       %h3
         Your Profile
-    
-    
-    .panel
-    
-    %ul.profile
-    
-      %li
-        Title: #{@user.title}
-      %li
-        First name: #{@user.first_name}
-      %li
-        Middle name: #{@user.middle_name}
-      %li
-        Last name: #{@user.last_name}
-      %li
-        Suffix: #{@user.suffix}
-      %li
-        Address: #{@user.address}
-      %li
-        Address (Line 2): #{@user.address2}
-      %li
-        City: #{@user.city}
-      %li
-        State: #{@user.state}
-      %li
-        Zip: #{@user.zip}
-      %li
-        Date of Birth: #{@user.date_of_birth}
-      %li
-        Phone: #{@user.phone_number}
-      %li
-        Mobile: #{@user.mobile_number}
-      %li
-        Gender: #{@user.print_gender}
-      %li
-        Marital status: #{@user.print_marital_status}
-      %li
-        Parent: #{yes_or_no(@user.is_parent)}
-      %li
-        Veteran: #{yes_or_no(@user.is_veteran)}
-      %li
-        Student: #{yes_or_no(@user.is_student)}
-      %li
-        Retired: #{yes_or_no(@user.is_retired)}
-  
-      = link_to 'Edit your Profile', edit_profile_path, :class => 'button large'
-
-
-
-
       %ul.profile      
         %li
           Title: #{@user.title}
@@ -84,6 +34,14 @@
           Gender: #{@user.print_gender}
         %li
           Marital status: #{@user.print_marital_status}
-       
+        %li
+          Parent: #{yes_or_no(@user.is_parent)}
+        %li
+          Veteran: #{yes_or_no(@user.is_veteran)}
+        %li
+          Student: #{yes_or_no(@user.is_student)}
+        %li
+          Retired: #{yes_or_no(@user.is_retired)}
+                 
     = link_to 'Edit your Profile', edit_profile_path, :class => 'button positive'
 

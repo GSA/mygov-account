@@ -3,67 +3,6 @@
     %h2
       Edit your profile
     = form_for @user, :url => profile_path do |form|
-
-
-      %p
-        = form.label :title
-        = form.select :title, title_options, :include_blank => true
-      %p
-        = form.label :first_name
-        = form.text_field :first_name
-      %p
-        = form.label :middle_name
-        = form.text_field :middle_name
-      %p
-        = form.label :last_name
-        = form.text_field :last_name
-      %p
-        = form.label :suffix
-        = form.select :suffix, suffix_options, :include_blank => true
-      %p
-        = form.label :address
-        = form.text_field :address
-      %p
-        = form.label :address2
-        = form.text_field :address2
-      %p
-        = form.label :city
-        = form.text_field :city
-      %p
-        = form.label :state
-        = form.select :state, us_state_options, :include_blank => true
-      %p
-        = form.label :zip
-        = form.text_field :zip
-      %p
-        = form.label :date_of_birth
-        = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :include_blank => true, :default => { :year => 1998, :month => 1, :day => 1}
-      %p
-        = form.label :phone_number
-        = form.phone_field :phone_number
-      %p
-        = form.label :mobile_number
-        = form.phone_field :mobile_number
-      %p
-        = form.label :gender
-        = form.select :gender, gender_options, :include_blank => true
-      %p
-        = form.label :marital_status
-        = form.select :marital_status, marital_status_options, :include_blank => true
-      %p
-        = form.label :is_parent, "Parent?"
-        = form.check_box :is_parent
-      %p
-        = form.label :is_veteran, "Veteran?"
-        = form.check_box :is_veteran
-      %p
-        = form.label :is_student, "Student?"
-        = form.check_box :is_student
-      %p
-        = form.label :is_retired, "Retired?"
-        = form.check_box :is_retired
-
-
       %fieldset
         %legend
           Name
@@ -83,8 +22,6 @@
           %li
             = form.label :suffix
             = form.select :suffix, suffix_options, :include_blank => true
-      
-      
       %fieldset
         %legend
           Address
@@ -111,7 +48,6 @@
           %li
             = form.label :date_of_birth
             = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :include_blank => true, :default => { :year => 1998, :month => 1, :day => 1}
-      
       %fieldset
         %legend 
           Phone
@@ -131,10 +67,25 @@
             = form.select :gender, gender_options, :include_blank => true
       %fieldset
         %legend
-          Date of Birth
+          Marital Status
         %ol  
           %li
             = form.label :marital_status
             = form.select :marital_status, marital_status_options, :include_blank => true
-
+      %fieldset
+        %legend
+          About You
+        %ol
+          %li
+            = form.label :is_parent, "Parent?"
+            = form.check_box :is_parent
+          %li
+            = form.label :is_veteran, "Veteran?"
+            = form.check_box :is_veteran
+          %li
+            = form.label :is_student, "Student?"
+            = form.check_box :is_student
+          %li
+            = form.label :is_retired, "Retired?"
+            = form.check_box :is_retired
       = form.submit "Update Profile", :class => 'large button'

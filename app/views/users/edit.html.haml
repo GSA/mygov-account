@@ -1,6 +1,10 @@
 .row
-  .four.columns
+  .eight.columns
+    %h2
+      Edit your profile
     = form_for @user, :url => profile_path do |form|
+
+
       %p
         = form.label :title
         = form.select :title, title_options, :include_blank => true
@@ -58,4 +62,79 @@
       %p
         = form.label :is_retired, "Retired?"
         = form.check_box :is_retired
+
+
+      %fieldset
+        %legend
+          Name
+        %ol
+          %li
+            = form.label :title
+            = form.select :title, title_options, :include_blank => true
+          %li
+            = form.label :first_name
+            = form.text_field :first_name
+          %li
+            = form.label :middle_name
+            = form.text_field :middle_name
+          %li
+            = form.label :last_name
+            = form.text_field :last_name
+          %li
+            = form.label :suffix
+            = form.select :suffix, suffix_options, :include_blank => true
+      
+      
+      %fieldset
+        %legend
+          Address
+        %ol
+          %li
+          = form.label :address1
+          = form.text_field :address
+          %li
+            = form.label :address2
+            = form.text_field :address2
+          %li
+            = form.label :city
+            = form.text_field :city
+          %li
+            = form.label :state
+            = form.select :state, us_state_options, :include_blank => true
+          %li
+            = form.label :zip
+            = form.text_field :zip
+      %fieldset
+        %legend
+          Date of Birth
+        %ol
+          %li
+            = form.label :date_of_birth
+            = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :include_blank => true, :default => { :year => 1998, :month => 1, :day => 1}
+      
+      %fieldset
+        %legend 
+          Phone
+        %ol
+          %li
+            = form.label :phone_number
+            = form.phone_field :phone_number
+          %li
+            = form.label :mobile_number
+            = form.phone_field :mobile_number
+      %fieldset
+        %legend
+          Gender
+        %ol 
+          %li
+            = form.label :gender
+            = form.select :gender, gender_options, :include_blank => true
+      %fieldset
+        %legend
+          Date of Birth
+        %ol  
+          %li
+            = form.label :marital_status
+            = form.select :marital_status, marital_status_options, :include_blank => true
+
       = form.submit "Update Profile", :class => 'large button'

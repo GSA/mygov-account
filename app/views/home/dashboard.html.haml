@@ -1,30 +1,23 @@
 .row
-  .eight.columns
-    .page-header
-      %h1
-        MyGov
-        %span
-          Dashboard
-      %p
-        %strong
-          Navigating government just got easier.  
-        MyGov helps you find the services and information you need from across the federal government, whenever you need it.   
-     
+  .eight.columns.dashboard
+    %h2
+      MyGov
+      %span
+        Dashboard
+      
 
-    .row
-      .eight.columns.end
-        - @uncompleted_tasks.each do |task|
-          .panel
-            %h4
-              You're almost done #{ link_to task.app.action_phrase, task_path(task)}!
-            %p
-              Complete the tasks you need, pre-filled with the information you've already saved.
-            - task.task_items.uncompleted.each do |task_item|
-              %p
-                %h6
-                  = link_to task_item.form.call_to_action, "#", :target => "_blank"
-                  %small
-                    = link_to 'x Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}
+    - @uncompleted_tasks.each do |task|
+      .panel
+        %h4
+          You're almost done #{ link_to task.app.action_phrase, task_path(task)}!
+        %p
+          Complete the tasks you need, pre-filled with the information you've already saved.
+        - task.task_items.uncompleted.each do |task_item|
+          %p
+            %h6
+              = link_to task_item.form.call_to_action, "#", :target => "_blank"
+              %small
+                = link_to 'x Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}
 
   - if @us_holiday or @events.any? or @uv_index
     .four.columns

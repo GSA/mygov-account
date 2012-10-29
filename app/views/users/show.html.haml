@@ -2,35 +2,40 @@
   .twelve.columns
     %h3
       Your MyGov Profile
-    %p
-      Title: #{@user.title}
-    %p
-      First name: #{@user.first_name}
-    %p
-      Middle name: #{@user.middle_name}
-    %p
-      Last name: #{@user.last_name}
-    %p
-      Suffix: #{@user.suffix}
-    %p
-      Address: #{@user.address}
-    %p
-      Address (Line 2): #{@user.address2}
-    %p
-      City: #{@user.city}
-    %p
-      State: #{@user.state}
-    %p
-      Zip: #{@user.zip}
-    %p
-      Date of Birth: #{@user.date_of_birth}
-    %p
-      Phone: #{@user.phone_number}
-    %p
-      Mobile: #{@user.mobile_number}
-    %p
-      Gender: #{@user.print_gender}
-    %p
-      Marital status: #{@user.print_marital_status}
-
-    = link_to 'Edit your Profile', edit_profile_path, :class => 'button large'
+    
+    .panel
+    
+    %ul.profile
+    
+      %li
+        Title: #{@user.title}
+      %li
+        First name: #{@user.first_name}
+      %li
+        Middle name: #{@user.middle_name}
+      %li
+        Last name: #{@user.last_name}
+      %li
+        Suffix: #{@user.suffix}
+      %li
+        Address: #{@user.address}
+      %li
+        Address (Line 2): #{@user.address2}
+      %li
+        City: #{@user.city}
+      %li
+        State: #{@user.state}
+      %li
+        Zip: #{@user.zip}
+      %li
+        Date of Birth: #{@user.date_of_birth}
+      %li
+        Phone: #{@user.phone_number}
+      %li
+        Mobile: #{@user.mobile_number}
+      %li
+        Gender: #{@user.print_gender}
+      %li
+        Marital status: #{@user.print_marital_status}
+  
+      = link_to 'Edit your Profile', edit_profile_path, :class => 'button large'

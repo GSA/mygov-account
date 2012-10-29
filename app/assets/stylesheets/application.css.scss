@@ -65,7 +65,7 @@ p, ul, ol, legend, input[type="text"] {font-family: "Century Gothic", "Helvetica
 
 input[type="text"] {font-weight: bold; color: #0C2237; overflow: scroll;}
 
-input[type="text"]:focus {border-color: #0C2237; }
+input[type="text"]:focus, input[type="text"]:active {border-color: #0C2237; }
 
 h1 {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
 
@@ -79,11 +79,12 @@ h1:last-word {font-weight: bold;}
 
 .actions {margin: 0 0 1em 0;}
 
-fieldset {background: #fff;}
+fieldset {background: #fff; padding: 0 2%; border: 1px solid #ccc;}
 
 fieldset legend {
-  font-size: 1.3em; 
-  padding: .5em .5em .25em 2%; 
+  font-size: 1.75em; 
+  color: #102038;
+  padding: .5em 0 .25em 0; 
   display: inline-block; 
   background: none; 
   display: block; 
@@ -92,7 +93,8 @@ fieldset legend {
   font-weight: bold;
   background: transparent;
   float: left;
-  width: 96%;
+  font-family: 'GoudyBookLetter', Georgia, 'Times New Roman', serif;
+  width: 100%;
 }
 
 fieldset label {font-weight: bold;}
@@ -125,10 +127,8 @@ fieldset label {font-weight: bold;}
   letter-spacing: none;
   font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-style: solid;
-border-width: 11px;
-padding: .5em 1em;
-
-
+  border-width: 11px;
+  padding: .5em 1em;
 }
 
 .button.positive, .button  {
@@ -197,12 +197,13 @@ fieldset span {
 
 form ol, fieldset ol {margin: 0 0 0 0; padding: 0;}
 
+
+
 fieldset li, form li {
   display: block;
-  margin: 0 0 1em 0;
+  margin: 0 0 .55em 0;
   padding: 0 0 .5em 0;
   list-style: none;
-  border-bottom: 1px solid #ddd;
   display: block;
 }
 
@@ -241,19 +242,34 @@ fieldset li:last-child, form li:last-child {
 
 .nav-bar li.right {float: right; display: inline-block; }
 
+/*** Third Party Sign up ***/
+
+.third-party a {
+  display: inline-block;
+  background: #777;
+  display: block;
+  text-align: center;
+  color: #fff;
+  padding: .5em 1em;
+  margin: 0 0 .1em 0;
+  font-weight: bold;
+}
 
 
 /*** Sticky footer http://www.cssstickyfooter.com ***/
 
 html, body {height: 100%;  background: #F2F2F2;
   
-  background: #F2F2F2 image-url("background.png") 50% 40% no-repeat fixed;
+  background: #F2F2F2 image-url("background.png") 50% 40% repeat fixed;
 }
 
 #wrap {min-height: 100%;}
 
-#main {overflow:auto;
-	padding-bottom: 3em;}  /* must be same height as the footer */
+#main {
+  overflow:auto;
+	padding-bottom: 3em; /* must be same height as the footer */
+	padding-top: 1.5em;
+} 
 
 
 /*Opera Fix*/
@@ -402,7 +418,7 @@ body.sign-up {
     clear: both;
   }
   
-  #wrap fieldset {padding: 1em 0 0 0; margin: 0;}
+  #wrap fieldset {margin: 0;}
   
   
   .actions {padding: 0;}
@@ -414,6 +430,5 @@ body.sign-up {
  fieldset {background: #fff;}
  .align-right {float: right; text-align: right;}
 
- fieldset legend {width: 100%; padding: 0 .5em 1em 0;}
 
 }

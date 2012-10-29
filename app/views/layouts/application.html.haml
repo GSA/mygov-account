@@ -34,7 +34,7 @@
           %li.active{:style => 'padding: 0px 10px 0px 10px;'}
             = link_to 'MyGov', root_path
           %li{:class => 'left'}= link_to "#{current_user.messages.count} messages", messages_path
-          %li{:class => 'right'}= link_to "Sign out", destroy_user_session_path
+          %li{:class => 'right'}= link_to "Sign out", sign_out_path
           %li{:class => 'right'}= link_to current_user.name, profile_path
           
       /

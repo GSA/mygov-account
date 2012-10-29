@@ -69,6 +69,32 @@ describe "Users" do
             user.marital_status.should == "Married"
             user.is_parent.should == true
             user.is_veteran.should be_nil
+            
+            visit profile_path
+            page.should have_content "12345"
+          end
+        end
+        
+        context "when a user signs up via a third party" do
+          it "should collect information from the user in welcoming them to MyGov" do
+            visit sign_up_path
+            click_link 'Sign in with Google'
+            page.should have_content "Tell us a little about yourself"
+            fill_in 'Zip code', :with => '12345'
+            click_button 'Continue'
+            page.should have_content "Tell us a little about yourself"
+            check 'Married'
+            check 'Parent'
+            click_button 'Continue'
+            page.should have_content 'MyGov Dashboard'
+            user = User.find_by_email('joe@citizen.org')
+            user.zip.should == "12345"
+            user.marital_status.should == "Married"
+            user.is_parent.should == true
+            user.is_veteran.should be_nil
+            
+            visit profile_path
+            page.should have_content "12345"
           end
         end
       end

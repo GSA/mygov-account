@@ -46,4 +46,16 @@
       %p
         = form.label :marital_status
         = form.select :marital_status, marital_status_options, :include_blank => true
+      %p
+        = form.label :is_parent, "Parent?"
+        = form.check_box :is_parent
+      %p
+        = form.label :is_veteran, "Veteran?"
+        = form.check_box :is_veteran
+      %p
+        = form.label :is_student, "Student?"
+        = form.check_box :is_student
+      %p
+        = form.label :is_retired, "Retired?"
+        = form.check_box :is_retired
       = form.submit "Update Profile", :class => 'large button'

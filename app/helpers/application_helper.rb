@@ -70,5 +70,9 @@ module ApplicationHelper
   
   def marital_status_options
     [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic_partnership"], ["Widowed", "widowed"]]
-  end  
+  end
+  
+  def yes_or_no(value)
+    value ? "Yes" : "No"
+  end
 end

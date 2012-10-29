@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Profile" do
   before do
     BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen', :is_student => true)
     @user.confirm!
   end
 
@@ -20,6 +20,8 @@ describe "Profile" do
           page.should have_content "First name: Joe"
           page.should have_content "Last name: Citizen"
           page.should have_content "Edit your Profile"
+          page.should have_content "Retired: No"
+          page.should have_content "Student: Yes"
         end
       
         context "editing your profile" do
@@ -34,6 +36,8 @@ describe "Profile" do
             fill_in "Phone", :with => '123-456-7890'
             select 'Male', :from => 'Gender'
             select 'Married', :from => "Marital status"
+            check "Parent?"
+            uncheck "Student?"
             click_button "Update Profile"
             page.should have_content "Middle name: Q"
             page.should have_content "Address: 123 Evergreen Terrace"
@@ -43,6 +47,8 @@ describe "Profile" do
             page.should have_content "Phone: 123-456-7890"
             page.should have_content "Gender: Male"
             page.should have_content "Marital status: Married"
+            page.should have_content "Parent: Yes"
+            page.should have_content "Student: No"
           end
         end
       end

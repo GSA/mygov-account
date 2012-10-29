@@ -4,7 +4,7 @@ class Api::TasksController < Api::ApiController
     unless @token.valid?
       render :json => {:status => 'Error', :message => "You do not have access to view tasks for that user."}, :status => 403
     else
-      @tasks = @token.owner.tasks.where(:app_id => @token.authorization.client_id)
+      @tasks = @token.owner.tasks.where(:app_id => @token.authorization.client.owner.id)
       render :json => @tasks
     end
   end
@@ -13,7 +13,7 @@ class Api::TasksController < Api::ApiController
     unless @token.valid?
       render :json => {:status => 'Error', :message => "You do not have access to create tasks for that user."}, :status => 403
     else
-      @task = @token.owner.tasks.build((params[:task] || {}).merge(:app_id => @token.authorization.client_id))
+      @task = @token.owner.tasks.build((params[:task] || {}).merge(:app_id => @token.authorization.client.owner.id))
       if @task.save
         render :json => {:status => "OK", :task => @task }
       else

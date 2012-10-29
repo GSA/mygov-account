@@ -52,7 +52,7 @@ body {background: image-url("favicon.png") top center repeat;}
   letter-spacing: -.05em;
   display: block;
   margin: 0;
-  padding: .75em 2em .5em 45px;
+  padding: .75em 2em .5em 47px;
 
   background: #fff asset-url('logo.png', image) center left no-repeat;
 }
@@ -63,7 +63,7 @@ body {background: image-url("favicon.png") top center repeat;}
 
 p, ul, ol, legend, input[type="text"] {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; text-shadow: 0 1px 0 rgba(255,255,255,.9);}
 
-input[type="text"] {font-weight: bold; color: #0C2237; padding: 1.1em .5em;}
+input[type="text"] {font-weight: bold; color: #0C2237; overflow: scroll;}
 
 input[type="text"]:focus {border-color: #0C2237; }
 
@@ -131,7 +131,7 @@ padding: .5em 1em;
 
 }
 
-.borderimage .button.positive, .borderimage .button  {
+.button.positive, .button  {
   border-style: solid;
   border-width: 12px;
   -moz-border-image: url(button-positive.png) 12 repeat;
@@ -245,7 +245,10 @@ fieldset li:last-child, form li:last-child {
 
 /*** Sticky footer http://www.cssstickyfooter.com ***/
 
-html, body {height: 100%;  background: #F2F2F2;}
+html, body {height: 100%;  background: #F2F2F2;
+  
+  background: #F2F2F2 image-url("background.png") 50% 40% no-repeat fixed;
+}
 
 #wrap {min-height: 100%;}
 
@@ -318,16 +321,19 @@ body.sign-up {
   text-shadow: 0 -1px 0 rgba(0,0,0,.3);
 }
 
-.signup-form input[type="email"]{
+.signup-form input[type="email"] {
   border: 2px solid #112136;
   font-size: 1.5em;
-  padding: 0em .5em;
-  display: inline-block;
+  height: 2.5em;
+  display: block;
+  line-height: 1em;
   font-weight: normal;
   font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.logo h1 {
+
+
+.sign-up .logo h1 {
   text-indent: -9999em;
   width: 343px;
   max-width: 80%;
@@ -341,7 +347,7 @@ body.sign-up {
 
 @media only screen and (min-width: 768px) { 
   
-  .logo h1 {
+  .sign-up .logo h1 {
      margin: 1em auto;
      height: 148px;
      max-height: none;
@@ -356,13 +362,6 @@ body.sign-up {
 
 }
 
-@media only screen and (min-width: 768px) { 
-  
-  logo h1 {
-  
-  }
-
-}
 
 /*** End Sticky footer ***/
 

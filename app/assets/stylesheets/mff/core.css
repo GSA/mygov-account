@@ -59,8 +59,7 @@ html {
 	-webkit-text-size-adjust: 100%; /* Prevent iOS text size adjust on orientation change without disabling user zoom */
 	-ms-text-size-adjust: 100%;
 	margin: 0;
-	padding: 0;
-	
+	padding: 0;	
 }
 
 body {

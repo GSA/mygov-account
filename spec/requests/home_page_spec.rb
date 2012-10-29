@@ -49,6 +49,19 @@ describe "HomePage" do
         page.should have_content 'Your MyGov Profile'
       end
       
+      context "when the user does not have a first, last or any other name" do
+        before do
+          @user.update_attributes(:name => nil)
+        end
+        
+        it "should link to the profile page with 'Your Profile'" do
+          visit root_path
+          page.should have_content "Your Profile"
+          click_link "Your Profile"
+          page.should have_content "Your MyGov Profile"
+        end
+      end
+      
       context "when the user has tasks with task items" do
         before do
           @app = App.create!(:name => 'Change your name', :action_phrase => 'changing your name'){|app| app.redirect_uri = "http://localhost:3000/"}

@@ -250,7 +250,7 @@ describe "Apps" do
         click_link 'save-button'
         page.should have_content "Change your name"
         page.should have_content "Get Married!"
-        click_link '/profile'
+        click_link 'Your Profile'
         page.should have_content '12345'
         page.should have_no_content '23456'
         page.should have_no_content 'joe@citizen.org'
@@ -281,7 +281,7 @@ describe "Apps" do
         click_link 'save-button'
         page.should have_content "Change your name"
         page.should have_content "Get Married!"
-        click_link '/profile'
+        click_link 'Your Profile'
         page.should have_content'23456'
         page.should have_no_content '12345'
         page.should have_no_content 'joe@citizen.org'

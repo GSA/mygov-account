@@ -8,12 +8,8 @@ describe "Tasks" do
       @user.confirm!
 
       @app = App.create!(:name => 'Change your name'){|app| app.redirect_uri = "http://localhost:3000/"}
-      @married_form = @app.forms.create!(:call_to_action => 'Get Married!', :name => 'Getting Married Form', :url => 'http://example.gov/married.pdf')
-      @divorced_form = @app.forms.create!(:call_to_action => 'Get Divorced!', :name => 'Getting Divorced Form', :url => 'http://example.gov/divorced.pdf')
-      @married_form.criteria << @app.criteria.create!(:label => 'Getting Married')
-      @divorced_form.criteria << @app.criteria.create!(:label => 'Getting Divorced')
-      @married_pdf = Pdf.create!(:name => 'Form 123 - Getting Married', :url => 'http://example.gov/married.pdf', :form_id => @married_form.id)
-      @divorced_pdf = Pdf.create!(:name => 'Form 789 - Getting Divorced', :url => 'http://example.gov/divorced.pdf', :form_id => @divorced_form.id)
+      @married_pdf = Pdf.create!(:name => 'Form 123 - Getting Married', :url => 'http://example.gov/married.pdf')
+      @divorced_pdf = Pdf.create!(:name => 'Form 789 - Getting Divorced', :url => 'http://example.gov/divorced.pdf')
       
       @user.tasks.create!(:app_id => @app.id, :name => 'Change your name')
       @user.tasks.first.task_items.create!(:name => 'Get Married!')

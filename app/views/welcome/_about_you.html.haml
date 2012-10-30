@@ -1,31 +1,33 @@
-= form_for @user, :url => welcome_path(:step => 'last') do |form|
-  %fieldset
-    %legend
-      Tell us a little about yourself
-    %ol.inline  
-      %li.full
-        = form.check_box :marital_status, {}, 'Married', nil
-        = form.label :marital_status, "Married"
-        
-      %li.full
-        = form.check_box :is_parent, {}, '1', nil
-        = form.label :is_parent, "Parent"
-        
-      %li.full
-        = form.check_box :is_veteran, {}, '1', nil
-        = form.label :is_veteran, "Veteran"
-      
-      %li.full
-        = form.check_box :is_student, {}, '1', nil
-        = form.label :is_student, "Student"
-        
-      %li.full
-        = form.check_box :is_retired, {}, '1', nil
-        = form.label :is_retired, "Retired"
-        
-      %li.full
-        = check_box_tag "rather_not_say"
-        = label_tag "Rather not say"
-        
-  = form.submit 'Continue', :class => 'large button'
-  = link_to 'Skip this step', welcome_path(:step => 'last')
+.row
+  .eight.columns
+    = form_for @user, :url => welcome_path(:step => 'last') do |form|
+      %fieldset
+        %legend
+          Tell us a little about yourself
+        %ol.inline  
+          %li.full
+            = form.check_box :marital_status, {}, 'Married', nil
+            = form.label :marital_status, "Married"
+            
+          %li.full
+            = form.check_box :is_parent, {}, '1', nil
+            = form.label :is_parent, "Parent"
+            
+          %li.full
+            = form.check_box :is_veteran, {}, '1', nil
+            = form.label :is_veteran, "Veteran"
+          
+          %li.full
+            = form.check_box :is_student, {}, '1', nil
+            = form.label :is_student, "Student"
+            
+          %li.full
+            = form.check_box :is_retired, {}, '1', nil
+            = form.label :is_retired, "Retired"
+            
+          %li.full
+            = check_box_tag "rather_not_say"
+            = label_tag "Rather not say"
+            
+      = form.submit 'Continue', :class => 'large button'
+      = link_to 'Skip this step', welcome_path(:step => 'last')

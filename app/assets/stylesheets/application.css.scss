@@ -69,7 +69,7 @@ input[type="text"]:focus, input[type="text"]:active {border-color: #0C2237; }
 
 h1 {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
 
-h2, h3, h4, h5, h6, input {font-family: 'GoudyBookLetter', Georgia, 'Times New Roman', serif;}
+h2, h3, h4, h5, h6, input {font-family: 'GoudyBookLetter', Georgia, 'Times New Roman', serif; font-weight: normal;}
 
 .dashboard h2 {text-shadow: 0 1px 0 rgba(255,255,255,.9);}
 
@@ -80,7 +80,7 @@ h1:last-word {font-weight: bold;}
 
 .actions {margin: 0 0 1em 0;}
 
-fieldset {background: #fff; padding: 0 2%; border: 1px solid #ccc; margin: 0 0 2em 0; display: block;}
+fieldset {background: #fff; padding: 0 2% 1em 2%; border: 1px solid #ccc; margin: 0 0 2em 0; display: block;}
 
 fieldset legend {
   font-size: 1.85em; 
@@ -91,7 +91,7 @@ fieldset legend {
   display: block; 
   margin: 0;
   clear: both;
-  font-weight: bold;
+  font-weight: normal;
   background: transparent;
   float: left;
   font-family: 'GoudyBookLetter', Georgia, 'Times New Roman', serif;
@@ -117,8 +117,11 @@ fieldset label {font-weight: bold;}
   font-weight: 400;
   margin: 0 1em 1em 0;
   cursor: hand;
+  color: #fff;
   display: inline-block;
 }
+
+a.button:visited {color: #fff;}
 
 .button:hover, .button:active {-webkit-box-shadow: 0 0 6px rgba(0,0,0,.5);}
 
@@ -226,9 +229,13 @@ fieldset li:last-child, form li:last-child {
 #main .listing ul li {
   list-style: none;
   margin: 0; 
-  padding: .35em 0;
+  padding: .45em 0;
   display: block;
-  border-bottom: 1px solid rgba(0,0,0,.035);
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+
+#main .listing ul li:last-child {
+  border-bottom: none;
 }
 
 .panel h1, 
@@ -237,10 +244,10 @@ fieldset li:last-child, form li:last-child {
 .panel h4, 
 .panel h5, 
 .panel h6
-{color: #1A6485;}
+{color: #1A6485; font-weight: normal;}
 
 .discovery-bar {
-  border-top: 1px solid rgba(0,0,0,.3);
+  border-top: 2px solid rgba(0,0,0,.3);
   display: block;
   position: fixed;
   bottom: 0;
@@ -258,7 +265,42 @@ fieldset li:last-child, form li:last-child {
 
 .nav-bar > li > a {color: #333;}
 
+.nav-bar > li > a:hover {background: #eee;}
+
+.nav-bar > li:hover {background: #eee;}
+
 .nav-bar li.right {float: right; display: inline-block; }
+
+.nav-bar > li:last-child {border-right: 1px solid rgba(0,0,0,.1);}
+
+
+.nav-bar li.notifications:hover {background: #eee;}
+
+.nav-bar li.notifications {border-left: 1px solid rgba(0,0,0,.1);}
+
+.nav-bar li.notifications a {
+  display: inline-block;
+  text-indent: -999em;
+  padding: 0;
+  width: 3em;
+  height: 3em;
+  background:  image-url("toolbar-notifications.png") center no-repeat;
+}
+
+.nav-bar li.notifications a:hover {background: #eee image-url("toolbar-notifications.png") center no-repeat;}
+
+@media only screen and (min-width: 768px) {
+  
+  .nav-bar li.notifications {padding-left: 1em; padding-right: 1em;}
+  
+  .nav-bar li.notifications a {padding: 0 .5em 0 3em; height: auto; width: auto; background: image-url("toolbar-notifications.png") center left no-repeat; }
+  .nav-bar li.notifications a:hover {padding: 0 .5em 0 3em; height: auto; width: auto; background: #eee image-url("toolbar-notifications.png") center left no-repeat; }
+  
+  .nav-bar li.notifications a {text-indent: 0em;}
+
+  
+}
+
 
 /*** Third Party Sign up ***/
 
@@ -278,7 +320,7 @@ fieldset li:last-child, form li:last-child {
 
 html, body {height: 100%;  background: #F2F2F2;
   
-  background: #F2F2F2 image-url("background.png") 50% 40% repeat fixed;
+  background: #F2F2F2 image-url("background.png") 50% 50% repeat;
 }
 
 #wrap {min-height: 100%;}

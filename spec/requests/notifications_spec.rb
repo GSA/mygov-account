@@ -7,15 +7,8 @@ describe "Notifications" do
     @user.confirm!
     BetaSignup.create!(:email => 'jane@citizen.org', :is_approved => true)
     @other_user = User.create!(:email => 'jane@citizen.org', :password => 'random', :first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
-    @app1 = OAuth2::Model::Client.new(:name => 'App1', :redirect_uri => 'http://localhost/')
-    @app1.oauth2_client_owner_type = 'User'
-    @app1.oauth2_client_owner_id = @user.id
-    @app1.save!
-    @app1_client_secret = @app1.client_secret
-    @app2 = OAuth2::Model::Client.new(:name => 'App2', :redirect_uri => 'http://localhost/')
-    @app2.oauth2_client_owner_type = 'User'
-    @app2.oauth2_client_owner_id = @user.id
-    @app2.save!
+    @app1 = App.create!(:name => 'App1'){ |app| app.redirect_uri = 'http://localhost/' }
+    @app2 = App.create!(:name => 'App2'){ |app| app.redirect_uri = 'http://localhost/' }
     create_logged_in_user(@user)
   end
 
@@ -30,17 +23,15 @@ describe "Notifications" do
     context "when the user has notifications" do
       before do
         1.upto(14) do |index|
-          @notification = Notification.new(:subject => "Notification ##{index}", :received_at => Time.now - 1.hour, :body => "This is notification ##{index}.")
-          @notification.user_id = @user.id
-          @notification.o_auth2_model_client_id = @app1.id
-          @notification.save!
+          @notification = Notification.create!(:subject => "Notification ##{index}", :received_at => Time.now - 1.hour, :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app1.id)
         end
-        @other_user_notification = Notification.new(:subject => 'Other User Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different user.')
-        @other_user_notification.user_id = @other_user.id
-        @other_user_notification.o_auth2_model_client_id = @app1.id
-        @other_app_notification = Notification.new(:subject => 'Other App Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different app.')
-        @other_app_notification.user_id = @user.id
-        @other_app_notification.o_auth2_model_client_id = @app1.id
+        @other_user_notification = Notification.create!(:subject => 'Other User Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app1.id)
+        @other_app_notification = Notification.create!(:subject => 'Other App Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id)
+      end
+      
+      it "should put indicate such on the dashboard" do
+        visit dashboard_path
+        page.should have_content "Notifications 15"
       end
       
       it "should display a paginated list of user's notifications" do

@@ -8,7 +8,7 @@ class Api::NotificationsController < Api::ApiController
       notification = @user.notifications.build(params[:notification])
       notification.received_at = Time.now
       notification.user_id = @user.id
-      notification.o_auth2_model_client_id = @token.client.id
+      notification.app_id = @token.authorization.client.owner.id
       if notification.save
         render :json => {:status => 'OK', :message => 'Your notification was successfully created.'}
       else

@@ -80,7 +80,7 @@ h1:last-word {font-weight: bold;}
 
 .actions {margin: 0 0 1em 0;}
 
-fieldset {background: #fff; padding: 0 2%; border: 1px solid #ccc;}
+fieldset {background: #fff; padding: 0 2%; border: 1px solid #ccc; margin: 0 0 2em 0; display: block;}
 
 fieldset legend {
   font-size: 1.85em; 
@@ -99,6 +99,11 @@ fieldset legend {
 }
 
 fieldset label {font-weight: bold;}
+
+.inline label {
+  display: inline;
+  padding: 1em 0;
+}
 
 .error label, label.error {
   color: #fff;
@@ -214,7 +219,9 @@ fieldset li:last-child, form li:last-child {
 
 .panel {background: #fff; background: rgba(255,255,255,.85);}
 
-.listing ul {margin: 0 0 1em 0; display: block;}
+.listing ul, .sublist ul {margin: 0 0 1em 0; display: block;}
+
+.sublist .columns {padding-left: 0;}
 
 #main .listing ul li {
   list-style: none;
@@ -233,7 +240,7 @@ fieldset li:last-child, form li:last-child {
 {color: #1A6485;}
 
 .discovery-bar {
-  border-top: 1px solid #fff;
+  border-top: 1px solid rgba(0,0,0,.3);
   display: block;
   position: fixed;
   bottom: 0;
@@ -246,7 +253,7 @@ fieldset li:last-child, form li:last-child {
 	clear:both;
 }
 
-.nav-bar {background: #fff; background: rgba(255,255,255,.7); }
+.nav-bar {background: #fff; background: rgba(255,255,255,.88);}
 .nav-bar > li.active {background: #1A6485;}
 
 .nav-bar > li > a {color: #333;}
@@ -372,6 +379,21 @@ body.sign-up {
   background-size: contain;
 }
 
+
+
+form li.full label {
+  padding: .5em 0;
+}
+
+  form li.full {
+  display: block;
+  margin: .75em 0 .75em 0;
+  border-bottom: 1px solid #dedede;
+}
+
+form li.full:last-child {border-bottom: none;}
+
+
 @media only screen and (min-width: 768px) { 
   
   .sign-up .logo h1 {
@@ -387,6 +409,7 @@ body.sign-up {
 
 
 
+
 }
 
 
@@ -398,6 +421,9 @@ body.sign-up {
 @media only screen and (max-width: 767px) {
   
 
+  .button {display: block;
+    margin: 0 0 1em 0;
+  }
   
   #main {
     padding-bottom: 0;
@@ -412,13 +438,9 @@ body.sign-up {
   }
   
 
-  form li.full label {
-    background: #fff;
-    padding: .5em;
-    border-radius: .2em;
-    border: 1px solid #ccc;
-  }
   
+
+
   fieldset li, form li {
     border-bottom: none;
     padding: 0;
@@ -429,7 +451,7 @@ body.sign-up {
     clear: both;
   }
   
-  #wrap fieldset {margin: 0;}
+ 
   
   
   .actions {padding: 0;}

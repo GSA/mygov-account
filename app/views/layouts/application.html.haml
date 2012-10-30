@@ -16,22 +16,23 @@
     = favicon_link_tag 'touch-icon-iphone4.png', :rel => 'apple-touch-icon', :type => 'image/png'
 
   %body
-    %div#wrap
-      %div#header
+    #wrap
+      #header
         .nav-container.group
           .row
             .twelve.columns
               %h1
                 My<span>Gov</span>
     
-      %div#main
+      #main
         .nav-container.group
           .row
-            .twelve.columns
-              
+            .twelve.columns      
         .container.group
           = yield
-      
+        - unless current_user
+          .no-toolbar
+          
     - if current_user
       .discovery-bar  
         %ul.nav-bar

@@ -38,14 +38,14 @@
         %ul.nav-bar
           %li.active{:style => 'padding: 0px 10px 0px 10px;'}
             = link_to 'MyGov', root_path
-          %li{:class => 'left'}
+          %li.left
             = link_to notifications_path do
               Notifications
               - if current_user.notifications.count > 0
                 %span.label.round.alert{:style => 'white-space: normal;'}
                   = current_user.notifications.count
-          %li{:class => 'right'}= link_to "Sign out", sign_out_path
-          %li{:class => 'right'}= link_to(current_user.name || "Your Profile", profile_path)
+          %li.right= link_to "Sign out", sign_out_path
+          %li.right= link_to(current_user.name || "Your Profile", profile_path)
           
       /
         Javascripts

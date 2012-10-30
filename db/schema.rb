@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025124850) do
+ActiveRecord::Schema.define(:version => 20121030054030) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(:version => 20121025124850) do
     t.boolean  "is_approved", :default => false
   end
 
-  create_table "messages", :force => true do |t|
+  create_table "notifications", :force => true do |t|
     t.string   "subject"
     t.text     "body"
     t.datetime "received_at"
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(:version => 20121025124850) do
     t.datetime "updated_at",              :null => false
   end
 
-  add_index "messages", ["o_auth2_model_client_id"], :name => "index_messages_on_o_auth2_model_client_id"
-  add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
+  add_index "notifications", ["o_auth2_model_client_id"], :name => "index_messages_on_o_auth2_model_client_id"
+  add_index "notifications", ["user_id"], :name => "index_messages_on_user_id"
 
   create_table "oauth2_authorizations", :force => true do |t|
     t.datetime "created_at",                               :null => false

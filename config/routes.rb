@@ -11,7 +11,7 @@ Mygov::Application.routes.draw do
   post 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/allow' => 'oauth#allow'
   resource :profile, :controller => :users, :only => [:show, :edit, :update, :destroy]
-  resources :messages, :only => [:index, :show, :create, :destroy]
+  resources :notifications, :only => [:index, :show, :create, :destroy]
   get 'dashboard' => "home#dashboard"
   resources :tasks, :only => [:show, :update, :destroy]
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'

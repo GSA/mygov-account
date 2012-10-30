@@ -1,0 +1,30 @@
+.row
+  .twelve.columns
+    %h3
+      Your Notifications
+    - if @notifications.empty?
+      %p
+        You currently have no notifications.
+    - else
+      %table
+        %tr
+          %th
+            From
+          %th
+            Subject
+          %th
+            Date
+          %th
+            Actions
+        - @notifications.each do |notification|
+          %tr
+            %td
+              = notification.app.name
+            %td
+              = link_to notification.subject, notification_path(notification)
+            %td
+              = time_ago_in_words(notification.received_at)
+            %td
+              = link_to 'Delete', notification_path(notification, :page => params[:page]), :method => :delete
+      = will_paginate @notifications
+    

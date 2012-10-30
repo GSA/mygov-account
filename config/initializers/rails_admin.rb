@@ -32,10 +32,10 @@ RailsAdmin.config do |config|
 
   #  ==> Included models
   # Add all excluded models here:
-  # config.excluded_models = [Message, Task, TaskItem, User]
+  # config.excluded_models = [Notification, Task, TaskItem, User]
 
   # Add models here if you want to go 'whitelist mode':
-  # config.included_models = [Message, Task, TaskItem, User]
+  # config.included_models = [Notification, Task, TaskItem, User]
 
   # Application wide tried label methods for models' instances
   # config.label_methods << :description # Default is [:name, :title]
@@ -80,7 +80,7 @@ RailsAdmin.config do |config|
 
   # All fields marked as 'hidden' won't be shown anywhere in the rails_admin unless you mark them as visible. (visible(true))
 
-  # config.model Message do
+  # config.model Notification do
   #   # Found associations:
   #     configure :user, :belongs_to_association   #   # Found columns:
   #     configure :id, :integer 
@@ -136,7 +136,7 @@ RailsAdmin.config do |config|
   #   # Found associations:
   #     configure :oauth2_authorizations, :has_many_association         # Hidden 
   #     configure :oauth2_clients, :has_many_association         # Hidden 
-  #     configure :messages, :has_many_association 
+  #     configure :notifications, :has_many_association 
   #     configure :tasks, :has_many_association   #   # Found columns:
   #     configure :id, :integer 
   #     configure :email, :string 

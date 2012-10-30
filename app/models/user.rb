@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include OAuth2::Model::ResourceOwner  
   validate :email_is_whitelisted
-  has_many :messages, :dependent => :destroy
+  has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   
   # Include default devise modules. Others available are:

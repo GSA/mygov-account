@@ -70,35 +70,35 @@ describe "Apis" do
       @app2.save!
       create_logged_in_user(@user)
       1.upto(14) do |index|
-        @message = Message.new(:subject => "Message ##{index}", :received_at => Time.now - 1.hour, :body => "This is message ##{index}.")
-        @message.user_id = @user.id
-        @message.o_auth2_model_client_id = @app1.id
-        @message.save!
+        @notification = Notification.new(:subject => "Notification ##{index}", :received_at => Time.now - 1.hour, :body => "This is notification ##{index}.")
+        @notification.user_id = @user.id
+        @notification.o_auth2_model_client_id = @app1.id
+        @notification.save!
       end
-      @other_user_message = Message.new(:subject => 'Other User Message', :received_at => Time.now - 1.hour, :body => 'This is a message for a different user.')
-      @other_user_message.user_id = @other_user.id
-      @other_user_message.o_auth2_model_client_id = @app1.id
-      @other_app_message = Message.new(:subject => 'Other App Message', :received_at => Time.now - 1.hour, :body => 'This is a message for a different app.')
-      @other_app_message.user_id = @user.id
-      @other_app_message.o_auth2_model_client_id = @app1.id
-      @user.messages.destroy_all
+      @other_user_notification = Notification.new(:subject => 'Other User Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different user.')
+      @other_user_notification.user_id = @other_user.id
+      @other_user_notification.o_auth2_model_client_id = @app1.id
+      @other_app_notification = Notification.new(:subject => 'Other App Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different app.')
+      @other_app_notification.user_id = @user.id
+      @other_app_notification.o_auth2_model_client_id = @app1.id
+      @user.notifications.destroy_all
     end
     
     context "when the user has a valid token" do    
-      context "when the message attributes are valid" do
-        it "should create a new message when the message info is valid" do
-          @user.messages.size.should == 0
-          post "/api/notifications", {:id => @user.id, :message => {:subject => 'Project MyGov', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+      context "when the notification attributes are valid" do
+        it "should create a new notification when the notification info is valid" do
+          @user.notifications.size.should == 0
+          post "/api/notifications", {:id => @user.id, :notification => {:subject => 'Project MyGov', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "200"
-          @user.messages.reload
-          @user.messages.size.should == 1
-          @user.messages.first.subject.should == "Project MyGov"
+          @user.notifications.reload
+          @user.notifications.size.should == 1
+          @user.notifications.first.subject.should == "Project MyGov"
         end
       end
       
-      context "when the message attributes are not valid" do
+      context "when the notification attributes are not valid" do
         it "should return an error message" do
-          post "/api/notifications", {:id => @user.id, :message => {:body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+          post "/api/notifications", {:id => @user.id, :notification => {:body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "400"
           parsed_response = JSON.parse(response.body)
           parsed_response["status"].should == "Error"
@@ -109,11 +109,11 @@ describe "Apis" do
 
     context "when the user has an invalid token" do
       it "should return an error message" do
-        post "/api/notifications", {:id => @user.id, :message => {:subject => 'Project MyGov', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer fake_token"}
+        post "/api/notifications", {:id => @user.id, :notification => {:subject => 'Project MyGov', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer fake_token"}
         response.code.should == "403"
         parsed_response = JSON.parse(response.body)
         parsed_response["status"].should == "Error"
-        parsed_response["message"].should == "You do not have access to send messages to that user."
+        parsed_response["message"].should == "You do not have access to send notifications to that user."
       end
     end
   end

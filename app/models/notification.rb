@@ -1,4 +1,4 @@
-class Message < ActiveRecord::Base
+class Notification < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :subject, :received_at, :o_auth2_model_client_id, :user_id
   attr_accessible :body, :received_at, :subject

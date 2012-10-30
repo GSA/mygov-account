@@ -171,7 +171,7 @@ describe "HomePage" do
       context "when deleting their account" do
         it "should log out the user and destroy the account" do
           visit root_path
-          click_link 'Delete your account'
+          click_link "Delete my account"
           page.should have_content "We're getting ready to launch the MyGov private beta. Sign up to kick the tires."
           User.find_by_email('joe@citizen.org').should be_nil
         end

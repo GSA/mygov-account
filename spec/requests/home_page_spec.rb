@@ -46,7 +46,8 @@ describe "HomePage" do
         visit root_path
         page.should have_content "MyGov Dashboard"
         click_link 'Joe Citizen'
-        page.should have_content 'Your MyGov Profile'
+        page.should have_content 'Your Profile'
+        page.should have_content 'First name'
       end
       
       context "when the user does not have a first, last or any other name" do
@@ -58,7 +59,8 @@ describe "HomePage" do
           visit root_path
           page.should have_content "Your Profile"
           click_link "Your Profile"
-          page.should have_content "Your MyGov Profile"
+          page.should have_content "Your Profile"
+          page.should have_content "First name"
         end
       end
       
@@ -163,6 +165,15 @@ describe "HomePage" do
             visit root_path
             page.should have_content "_gaq.push(['_setCustomVar',1,'Segment','A', 2]);"
           end
+        end
+      end
+    
+      context "when deleting their account" do
+        it "should log out the user and destroy the account" do
+          visit root_path
+          click_link 'Delete your account'
+          page.should have_content "We're getting ready to launch the MyGov private beta. Sign up to kick the tires."
+          User.find_by_email('joe@citizen.org').should be_nil
         end
       end
     end

@@ -4,8 +4,6 @@
       MyGov
       %span
         Dashboard
-      
-
     - @uncompleted_tasks.each do |task|
       .panel
         %h4
@@ -18,9 +16,8 @@
               = link_to task_item.form.call_to_action, "#", :target => "_blank"
               %small
                 = link_to 'x Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}
-
-  - if @us_holiday or @events.any? or @uv_index
-    .four.columns
+  .four.columns
+    - if @us_holiday or @events.any? or @uv_index
       .panel.sidebar
         - if @us_holiday
           %h5
@@ -35,3 +32,8 @@
         - if @uv_index
           %h5
             The current UV index for #{@user.zip} is: #{@uv_index}
+    .panel.sidebar
+      %ul
+        %li= link_to 'Delete your account', profile_path, :method => :delete, :data => { :confirm => 'Are you absolutely sure you want to delete your MyGov account? This will destroy all information associated with this account, and you will not be able to recover it.'}
+        %li= link_to 'Terms of Service', terms_of_service_path
+        %li= link_to 'Privacy Policy', privacy_policy_path

@@ -20,5 +20,10 @@ class UsersController < ApplicationController
       flash[:error] = "Something went wrong."
       redirect_to :back
     end
-  end    
+  end
+  
+  def destroy
+    @user.destroy
+    redirect_to sign_out_path
+  end
 end

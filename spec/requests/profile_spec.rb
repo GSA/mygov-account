@@ -16,7 +16,7 @@ describe "Profile" do
 
         it "should show a user their profile" do
           visit profile_path
-          page.should have_content "Your MyGov Profile"
+          page.should have_content "Your Profile"
           page.should have_content "First name: Joe"
           page.should have_content "Last name: Citizen"
           page.should have_content "Edit your Profile"

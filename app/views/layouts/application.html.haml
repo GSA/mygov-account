@@ -41,19 +41,20 @@
         - unless current_user
           .no-toolbar
           
-    - if current_user
-      .discovery-bar  
-        %ul.nav-bar
-          %li.mygov{:style => 'padding: 0px 10px 0px 10px;'}
-            = link_to 'MyGov', root_path
-          %li.left.notifications
-            = link_to notifications_path do
-              Notifications
-              - if current_user.notifications.count > 0
-                %span.label.round.alert{:style => 'white-space: normal;'}
-                  = current_user.notifications.count
-          %li.right.sign-out= link_to "Sign out", sign_out_path
-          %li.right.profile= link_to(current_user.name || "Your Profile", profile_path)
+      - if current_user
+        .discovery-bar  
+          %ul.nav-bar
+            %li.mygov
+              = link_to 'MyGov', root_path
+            %li.left.notifications
+              = link_to notifications_path do
+                - if current_user.notifications.count > 0
+                  %span.jujitsu
+                    = current_user.notifications.count
+                %span.notification-label
+                  Notifications
+            %li.right.sign-out= link_to "Sign out", sign_out_path
+            %li.right.profile= link_to(current_user.name || "Your Profile", profile_path)
           
       /
         Javascripts

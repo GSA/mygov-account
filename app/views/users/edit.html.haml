@@ -45,9 +45,9 @@
         %legend
           Date of Birth
         %ol
-          %li
+          %li.row
             = form.label :date_of_birth
-            = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :include_blank => true, :default => {:month => 1, :day => 1, :year => 1998 }
+            = form.date_select :date_of_birth, {:start_year => 1900, :end_year => Date.current.year, :prompt => { :month => 'Select month', :day => 'Select day', :year => 'Select year' }, :order => [:month, :day, :year]}, { :class => 'four columns' }
       
       
       %fieldset

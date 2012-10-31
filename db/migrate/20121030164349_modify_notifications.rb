@@ -1,6 +1,6 @@
 class ModifyNotifications < ActiveRecord::Migration
   def up
-    remove_index :notifications, :o_auth2_model_client_id
+    #remove_index :notifications, :o_auth2_model_client_id
     rename_column :notifications, :o_auth2_model_client_id, :app_id
     add_index :notifications, :app_id
   end

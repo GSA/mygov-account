@@ -69,7 +69,7 @@ input[type="text"]:focus, input[type="text"]:active {border-color: #0C2237; }
 
 h1 {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
 
-h2, h3, h4, h5, h6, input {font-family: 'GoudyBookLetter', Georgia, 'Times New Roman', serif; font-weight: normal;}
+h2, h3, h4, h5, h6, input {font-family: 'GoudyBookLetter', Georgia, 'Times New Roman', serif; font-weight: normal; text-shadow: 0 1px 0 rgba(255,255,255,.9);}
 
 .dashboard h2 {text-shadow: 0 1px 0 rgba(255,255,255,.9);}
 
@@ -220,7 +220,7 @@ fieldset li:last-child, form li:last-child {
   border-bottom: none;
 }
 
-.panel {background: #fff; background: rgba(255,255,255,.85);}
+.panel {background: #fff; background: rgba(255,255,255,.85); padding: .5em 1em;}
 
 .listing ul, .sublist ul {margin: 0 0 1em 0; display: block;}
 

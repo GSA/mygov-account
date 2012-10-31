@@ -47,7 +47,9 @@
         %ol
           %li
             = form.label :date_of_birth
-            = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :include_blank => true, :default => { :year => 1998, :month => 1, :day => 1}
+            = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :include_blank => true, :default => {:month => 1, :day => 1, :year => 1998 }
+      
+      
       %fieldset
         %legend 
           Phone
@@ -75,18 +77,22 @@
       %fieldset
         %legend
           About You
-        %ol
-          %li
-            = form.label :is_parent, "Parent?"
+        %ol.inline
+          %li.full
             = form.check_box :is_parent
-          %li
-            = form.label :is_veteran, "Veteran?"
+            = form.label :is_parent, "Parent"
+            
+          %li.full
             = form.check_box :is_veteran
-          %li
-            = form.label :is_student, "Student?"
+            = form.label :is_veteran, "Veteran"
+            
+          %li.full
             = form.check_box :is_student
-          %li
-            = form.label :is_retired, "Retired?"
+            = form.label :is_student, "Student"
+            
+          %li.full
             = form.check_box :is_retired
+            = form.label :is_retired, "Retired"
+            
       = form.submit "Update Profile", :class => 'large button'
       = link_to 'Cancel', profile_path

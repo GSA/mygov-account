@@ -14,7 +14,7 @@ To get your Rails development environment setup, here's the steps to follow.  We
 
       rvm install ruby-1.9.3
 
-  3.  Clone the mygov-dashboard project
+  3.  Clone the mygov project
 
     In some directory where you want to store your development files, do the following:
 

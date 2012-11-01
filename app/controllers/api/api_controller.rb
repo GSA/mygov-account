@@ -3,7 +3,10 @@ class Api::ApiController < ApplicationController
   before_filter :oauthorize
 
   def oauthorize
-    @user = User.find_by_id(params[:id])
     @token = OAuth2::Provider.access_token(@user, [], request)
+    if @token.valid?
+      @app = @token.authorization.client.owner
+      @user = @token.owner
+    end
   end
 end

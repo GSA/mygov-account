@@ -4,11 +4,10 @@ class Api::NotificationsController < Api::ApiController
     unless @token.valid?
       render :json => {:status => 'Error', :message => "You do not have access to send notifications to that user."}, :status => 403
     else
-      @user = @token.owner
       notification = @user.notifications.build(params[:notification])
       notification.received_at = Time.now
       notification.user_id = @user.id
-      notification.app_id = @token.authorization.client.owner.id
+      notification.app_id = @app.id
       if notification.save
         render :json => {:status => 'OK', :message => 'Your notification was successfully created.'}
       else

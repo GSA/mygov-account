@@ -65,7 +65,7 @@ table {width: 100%; margin-bottom: 2em;}
 
 p, ul, ol, legend, input[type="text"], input[type="email"], input[type="tel"] {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; text-shadow: 0 1px 0 rgba(255,255,255,.9);}
 
-input[type="text"] {font-weight: bold; color: #0C2237; overflow: scroll; }
+input[type="text"], input[type="email"], input[type="password"] {font-weight: bold; color: #0C2237; overflow: scroll; }
 
 input[type="text"]:focus, input[type="text"]:active {border-color: #0C2237; }
 

@@ -1,6 +1,6 @@
 !!! 5
 %html(lang="en")
-  %head
+  %head(prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#")
     %meta(charset="utf-8")
     %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
     %meta(name="viewport" content="width=device-width, user-scalable=no")
@@ -11,6 +11,13 @@
     %meta(name="HandheldFriendly" content="True")
     %meta(http-equiv="cleartype" content="on")
     %meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    
+    %meta(property="fb:app_id"               content="MyGov")
+    %meta(property="og:type"                 content="website")
+    %meta(property="og:url"                  content="http://my.usa.gov/assets/touch-icon-iphone4.png") 
+    %meta(property="og:image"                content="URL to an image")
+    %meta(property="og:title"                content="MyGov")
+    %meta(property="og:description"          content="A platform for connecting people and government")
     
     %title= content_for?(:title) ? yield(:title) : "MyGov"
     = csrf_meta_tags

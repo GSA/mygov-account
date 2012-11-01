@@ -1,19 +1,38 @@
-%h2 Sign in
-= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-  - if flash.alert
-    .alert-box
-      = flash.alert
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email
-  %div
-    = f.label :password
-    %br/
-    = f.password_field :password
-  - if devise_mapping.rememberable?
-    %div
-      = f.check_box :remember_me
-      = f.label :remember_me
-  %div= f.submit "Sign in"
-= render "devise/shared/links"
+.row
+  %div.eight.columns.panel
+  
+    %div.eight.columns
+  
+      = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+        - if flash.alert
+          .alert-box
+            = flash.alert
+        
+        %fieldset
+          %legend
+            Sign in 
+          %ol.inline
+            %li
+              = f.label :email
+              = f.email_field :email
+            %li
+              = f.label :password
+              = f.password_field :password
+          - if devise_mapping.rememberable?
+            
+            %li.full
+              = f.check_box :remember_me
+              = f.label :remember_me
+              
+              
+        %div= f.submit "Sign in", :class => 'large button'
+
+    %div.four.columns
+      = render "devise/shared/links"
+
+  %div.four.columns
+    %div.panel.secondary
+      %h4
+        Help
+      = render "devise/shared/help"
+    

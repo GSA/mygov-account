@@ -1,11 +1,16 @@
 .row
-  .four.columns
-    %h3
-      = @notification.subject
-    %p
-      Received at: #{time_ago_in_words(@notification.received_at)}
-    %p
-      From: #{@notification.app.name}
-    %p
-      = @notification.body
-    = link_to 'Delete', notification_path(@notification), :method => :delete
+  .eight.columns
+    .panel
+      %h3
+        = @notification.subject
+      
+      %ul
+      
+        %li
+          Received at: #{time_ago_in_words(@notification.received_at)}
+        %li
+          From: #{@notification.app.name}
+        
+      %p
+        = @notification.body
+      = link_to 'Delete', notification_path(@notification), :method => :delete

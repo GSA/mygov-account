@@ -1,8 +1,14 @@
 .row
-  .twelve.columns
+  .eight.columns
     
     %h2
       Your Profile
+   
+  .four.columns.align-right.actions           
+    = link_to 'Edit your Profile', edit_profile_path, :class => 'medium button'
+      
+    
+      
 .row
   .six.columns
     .panel.listing
@@ -75,6 +81,5 @@
           Retired: #{yes_or_no(@user.is_retired)}
     
 .row
-  .twelve.columns.actions           
-    = link_to 'Edit your Profile', edit_profile_path, :class => 'large button'
+
 

@@ -1,10 +1,15 @@
 .row
+  .twelve.columns
+    %h2
+      Messages &amp; Notifications
+
+.row
   .eight.columns
     .panel
       %h3
         = @notification.subject
       
-      %ul
+      %ul.meta-list
       
         %li
           Received at: #{time_ago_in_words(@notification.received_at)}
@@ -13,4 +18,4 @@
         
       %p
         = @notification.body
-      = link_to 'Delete', notification_path(@notification), :method => :delete
+    = link_to 'x Delete', notification_path(@notification), { :class => 'medium button' }, :method => :delete

@@ -36,8 +36,8 @@ describe "Profile" do
             fill_in "Phone", :with => '123-456-7890'
             select 'Male', :from => 'Gender'
             select 'Married', :from => "Marital status"
-            check "Parent?"
-            uncheck "Student?"
+            check "Parent"
+            uncheck "Student"
             click_button "Update Profile"
             page.should have_content "Middle name: Q"
             page.should have_content "Address: 123 Evergreen Terrace"

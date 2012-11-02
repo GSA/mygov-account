@@ -75,4 +75,20 @@ module ApplicationHelper
   def yes_or_no(value)
     value ? "Yes" : "No"
   end
+    
+  def error_messages(resource)
+    if resource.errors.any?
+      html = ""
+      errors = content_tag :div, :class => 'alert-box alert' do
+        messages = resource.errors.collect do |key, msg|
+          content_tag(:div, resource.errors.full_message(key, msg), :class => key).html_safe
+        end
+        messages.join(" ").html_safe
+      end
+      html << errors
+      html.html_safe
+    else
+      ""
+    end
+  end
 end

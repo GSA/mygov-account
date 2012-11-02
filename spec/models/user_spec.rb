@@ -50,6 +50,12 @@ describe User do
       user.phone.should == '1235674567'
       user.mobile.should == '3456789012'
     end
+    
+    it "should reject zip codes that aren't five digits" do
+      user = User.create(@valid_attributes.merge(:zip => "Greg"))
+      user.id.should be_nil
+      user.errors.messages[:zip].should == ["should be in the form 12345"]
+    end
   end
   
   describe "#find_for_open_id" do

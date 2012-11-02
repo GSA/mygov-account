@@ -75,6 +75,24 @@ describe "Users" do
           end
         end
         
+        context "when a user signs up but enters bad information" do
+          it "should display an error message" do
+            visit sign_up_path
+            fill_in 'Email', :with => 'joe@citizen.org'
+            fill_in 'Password', :with => 'password'
+            fill_in 'Password confirmation', :with => 'password'
+            click_button 'Sign up'
+            page.should have_content 'Thanks for signing up!'
+
+            user = User.find_by_email('joe@citizen.org')
+            visit user_confirmation_path(:confirmation_token => user.confirmation_token)
+            page.should have_content "Tell us a little about yourself"
+            fill_in 'Zip code', :with => '1234523'
+            click_button 'Continue'
+            page.should have_content "Zip should be in the form 12345"
+          end
+        end
+
         context "when a user signs up via a third party" do
           it "should collect information from the user in welcoming them to MyGov" do
             visit sign_up_path

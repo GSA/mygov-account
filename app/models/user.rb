@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include OAuth2::Model::ResourceOwner  
   validate :email_is_whitelisted
+  validates_format_of :zip, :with => /^\d{5}?$/, :message => "should be in the form 12345"
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   

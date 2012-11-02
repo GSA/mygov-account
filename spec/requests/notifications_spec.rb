@@ -31,7 +31,7 @@ describe "Notifications" do
       
       it "should put indicate such on the dashboard" do
         visit dashboard_path
-        page.should have_content "Notifications 15"
+        page.should have_content "15"
       end
       
       it "should display a paginated list of user's notifications" do

@@ -3,8 +3,12 @@ class WelcomeController < ApplicationController
   before_filter :assign_user
   
   def index
-    @user.update_attributes(params[:user]) if params[:user]
     @step = (params[:step] || "info")
+    if params[:user]
+      unless @user.update_attributes(params[:user])
+        @step = (params[:step] == 'last' ? "about_you" : "info")
+      end
+    end
     redirect_to dashboard_path if @step == "last"
   end
 end

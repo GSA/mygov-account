@@ -3,8 +3,11 @@ class BetaSignupsController < ApplicationController
   
   def create
     beta_signup = BetaSignup.create(params[:beta_signup].merge(:ip_address => request.remote_ip, :referrer => request.referer))
-    @result = ( beta_signup.id.nil? ) ? false : true
-
+    if ( beta_signup.errors.messages[:email].nil? )
+      @result = "success"
+    else 
+      @result = beta_signup.errors.messages[:email].first
+    end
     respond_to do |format|
         format.html
         format.json { render :json => { result: @result }  }

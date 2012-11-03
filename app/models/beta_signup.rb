@@ -1,7 +1,8 @@
 class BetaSignup < ActiveRecord::Base
   attr_accessible :email, :ip_address, :referrer, :is_approved
-  validates_presence_of :email
-  validates_uniqueness_of :email
+  validates_presence_of :email, {:message => "blank email"}
+  validates_uniqueness_of :email, {:message => "duplicate email"}
+  validates_email_format_of :email, {:message => "invalid email"}
   after_update :send_beta_invite
   
   private

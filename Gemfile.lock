@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/alexdunae/validates_email_format_of.git
+  revision: 46b832f7c778cc73f45ebc84cffba03c33294928
+  specs:
+    validates_email_format_of (1.5.3)
+
+GIT
   remote: git@github.com:GSA-OCSIT/oauth2-provider.git
   revision: c0460701eb38960aee67d1835f9126b37fe002bc
   branch: bearer-header
@@ -321,4 +327,5 @@ DEPENDENCIES
   simplecov
   therubyracer (~> 0.11.0beta5)
   uglifier (>= 1.0.3)
+  validates_email_format_of!
   will_paginate (~> 3.0)

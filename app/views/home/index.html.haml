@@ -16,3 +16,12 @@
     
 %script{:type => "text/template", :id => "beta_signup_failure"}
   = render :partial => "/beta_signups/failure"
+
+%script{:type => "text/template", :id => "beta_signup_invalid_email"}
+  = render :partial => "/beta_signups/invalid_email"
+
+%script{:type => "text/template", :id => "beta_signup_duplicate_email"}
+  = render :partial => "/beta_signups/duplicate_email"
+  
+%script{:type => "text/template", :id => "beta_signup_blank_email"}
+  = render :partial => "/beta_signups/blank_email"

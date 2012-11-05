@@ -11,11 +11,10 @@
         %p
           Complete the tasks you need, pre-filled with the information you've already saved.
         - task.task_items.uncompleted.each do |task_item|
-          %ul
-            %li
-              = link_to task_item.name, "#", :target => "_blank"
-              %p.align-right
-                = link_to 'x Remove this task', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}
+          %ol.inline
+            %li.full
+              = link_to task_item.name, "#", :class => 'small secondary button', :target => "_blank"
+              = link_to 'x Remove this task', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}
   .four.columns
     - if @us_holiday or @events.any? or @uv_index
       .panel.sidebar

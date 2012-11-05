@@ -18,7 +18,7 @@ class HomeController < ApplicationController
     @events = UsHistoricalEvent.find_all_by_month_and_day(@today.month, @today.day)
     if @user.zip
       daily_uv_response = EpaUvIndex::Client.daily_for(:zip => @user.zip) rescue nil
-      @uv_index = daily_uv_response.first["UV_INDEX"] if daily_uv_response
+      @uv_index = daily_uv_response.first["UV_INDEX"] if daily_uv_response and daily_uv_response.first
     end
   end
   

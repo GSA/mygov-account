@@ -248,15 +248,13 @@ fieldset li:last-child, form li:last-child {border-bottom: none;}
   border-bottom: none;
 }
 
-ul.meta-list {margin: .5em 0 1.25em 0; font-size: .85em; padding: 1em 0 0 0; border-bottom: 1px solid rgba(0,0,0,.1); border-top: 1px solid rgba(0,0,0,.1);}
+ul.meta-list, ul.panel-list {margin: .5em 0 1.25em 0; font-size: .85em; padding: 1em 0 0 0; border-bottom: 1px solid rgba(0,0,0,.1); border-top: 1px solid rgba(0,0,0,.1);}
 
-ul.meta-list li {
-  list-style: none;
-  padding:0;
-  line-height: 1.1em;
-  display: block;
+ul.meta-list li, ul.panel-list {
+   list-style: none;
+   padding:0;
+   line-height: 1.1em;
 }
-
 
 .panel h1, 
 .panel h2, 

@@ -43,7 +43,7 @@
             = form.text_field :zip
       %fieldset
         %legend
-          Date of Birth
+          Date of birth
         %ol
           %li.row
             = form.label :date_of_birth
@@ -69,14 +69,14 @@
             = form.select :gender, gender_options, :include_blank => true
       %fieldset
         %legend
-          Marital Status
+          Marital status
         %ol  
           %li
             = form.label :marital_status
             = form.select :marital_status, marital_status_options, :include_blank => true
       %fieldset
         %legend
-          About You
+          About you
         %ol.inline
           %li.full
             = form.check_box :is_parent
@@ -94,5 +94,5 @@
             = form.check_box :is_retired
             = form.label :is_retired, "Retired"
             
-      = form.submit "Update Profile", :class => 'large button'
+      = form.submit "Update profile", :class => 'large button'
       = link_to 'Cancel', profile_path

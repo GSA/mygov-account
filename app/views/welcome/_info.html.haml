@@ -10,7 +10,7 @@
           = error_messages(@user)
         %p
           = form.label :zip, "Zip code"
-          = form.text_field :zip
+          = form.text_field :zip, :maxlength => 5
         %li
           = form.label :date_of_birth, "When were you born?"
         %li

@@ -3,36 +3,34 @@
     %h3
       Task: #{@task.app.name}
 .row
-  .six.columns
-    %h4
-      #{@task.task_items.completed.size} of #{@task.task_items.size} items complete.
-  .six.columns
-    - if @task.completed?
-      %h6
-        Task completed at #{@task.completed_at}
-    - else
-      = button_to 'Mark All Items Complete', task_path(@task, :completed => true), :method => :put, :class => 'button'
-.row
-  .nine.columns
-    %h5
-      Task Items
-.row
-  .nine.columns
-    %table
-      %tbody
-        - @task.task_items.each do |task_item|
-          %tr
-            %td
+  .twelve.columns
+    .panel.group
+      %h4
+        #{@task.task_items.completed.size} of #{@task.task_items.size} items complete.
+    
+      .six.columns.align-right
+        - if @task.completed?
+          %h6
+            Task completed at #{@task.completed_at}
+        - else
+          %div.align-right
+            = button_to 'Mark All Items Complete', task_path(@task, :completed => true), :method => :put, :class => 'small button'
+      .row
+        .twelve.columns
+          %h5
+            Task Items
+    
+
+          - @task.task_items.each do |task_item|
+            %h5
               = task_item.name
             - if task_item.completed?
-              %td
-              %td
-              %td
+              %div.four.columns
                 Item completed at: #{task_item.completed_at}
-            - else
-              %td
-                = link_to "Download Pre-filled PDF form", fill_pdf_path, :class => "tiny button", :target => "_blank", :style => 'text-decoration: none;'
-              %td
-                = button_to 'Mark Complete', task_item_path(task_item, :completed => true), :method => :put, :class => 'tiny success button'
-              %td
-                = button_to 'Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'tiny alert button'
+              - else
+                %div.four.columns
+                  = link_to "Download Pre-filled PDF form", fill_pdf_path, :class => "medium button", :target => "_blank", :style => 'text-decoration: none;'
+                %div.four.columns
+                  = button_to 'Mark Complete', task_item_path(task_item, :completed => true), :method => :put, :class => 'tiny success button'
+                %div.four.columns.align-right
+                  = button_to 'x Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'tiny alert button'

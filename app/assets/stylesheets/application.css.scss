@@ -53,8 +53,14 @@ body {background: image-url("favicon.png") top center repeat;}
   display: block;
   margin: 0;
   padding: .75em 2em .5em 47px;
-
   background: #fff asset-url('logo.png', image) center left no-repeat;
+}
+
+@media (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {
+  #header h1 { 
+    background: #fff asset-url('logo-2x.png', image) center left no-repeat;
+    background-size: 55px;
+  }
 }
 
 #header h1 span {font-weight: normal;}
@@ -331,17 +337,29 @@ span.jujitsu {
   text-align: center;
   vertical-align: top;
   color: #fff;
-  margin-left: 3em;
+  margin-left: 2em;
   text-align: center;
+  margin-top: .25em;
   font-size: .9em;
   font-weight: bold;
   -webkit-box-shadow: 0 0 3px rgba(0,0,0,.7);
 }
 
-.nav-bar li.mygov a {background:  image-url("sprite.png") 55% 6px no-repeat;  border-right: 1px solid #eee;}
+.nav-bar li.mygov a {background:  image-url("sprite.png") 68% 6px no-repeat;  border-right: 1px solid #eee;}
 .nav-bar li.notifications a {background: image-url("sprite.png") 55% -109px no-repeat; border-left:none;}
-.nav-bar li.profile a {background:  image-url("sprite.png") 55% -229px no-repeat; border-left: 1px solid #eee;}
-.nav-bar li.sign-out a {background: image-url("sprite.png") 55% -350px no-repeat;}
+.nav-bar li.profile a {background:  image-url("sprite.png") 65% -229px no-repeat; border-left: 1px solid #eee;}
+.nav-bar li.sign-out a {background: image-url("sprite.png") 65% -350px no-repeat;}
+
+
+@media (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {
+
+.nav-bar li.mygov a {background-image:  image-url("sprite-2x.png");  background-size: 40px; border-right: 1px solid #eee; }
+.nav-bar li.notifications a {background-image: image-url("sprite-2x.png"); background-size: 40px; border-left:none;}
+.nav-bar li.profile a {background-image:  image-url("sprite-2x.png"); background-size: 40px; border-left: 1px solid #eee; }
+.nav-bar li.sign-out a {background-image: image-url("sprite-2x.png"); background-size: 40px;}
+
+}
+
 
 
 
@@ -364,6 +382,22 @@ span.jujitsu {
   .nav-bar li.sign-out a {background: image-url("sprite.png") 0% -350px no-repeat;}
   
 }
+
+
+@media (min-width: 768px) and (min--moz-device-pixel-ratio: 2), 
+       (min-width: 768px) and (-o-min-device-pixel-ratio: 2/1), 
+       (min-width: 768px) and (-webkit-min-device-pixel-ratio: 2), 
+       (min-width: 768px) and (min-device-pixel-ratio: 2) {
+
+.nav-bar li.mygov a {background-image:  image-url("sprite-2x.png");  border-right: 1px solid #eee; background-size: 40px;}
+.nav-bar li.notifications a {background-image: image-url("sprite-2x.png"); border-left:none; background-size: 40px;}
+.nav-bar li.profile a {background-image:  image-url("sprite-2x.png"); border-left: 1px solid #eee; background-size: 40px;}
+.nav-bar li.sign-out a {background-image: image-url("sprite-2x.png"); background-size: 40px;}
+
+}
+
+
+
 
 
 /*** Third Party Sign up ***/
@@ -422,12 +456,6 @@ body.sign-up {
     font-size: .6em;
   }
 
-}
-
-
-.sign-up .button.positive {
-  text-transform: uppercase;
-  letter-spacing: .1em;
 }
 
 
@@ -532,15 +560,18 @@ form li.full:last-child {border-bottom: none;}
   }
   
   #main {
-    padding-bottom: 0;
     clear: both;
   }
   
   .discovery-bar {
-   position: inherit;
+   /* turning this off for now to test position fixed in iOS 6 position: inherit; 
    bottom: auto; 
    margin-top: 0;
    clear: both;
+   */
+   -webkit-overflow-scrolling:touch;
+   overflow: hidden;
+   
   }
   
 

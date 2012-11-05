@@ -14,8 +14,8 @@
     
     %meta(property="fb:app_id"               content="MyGov")
     %meta(property="og:type"                 content="website")
-    %meta(property="og:url"                  content="http://my.usa.gov/assets/touch-icon-iphone4.png") 
-    %meta(property="og:image"                content="URL to an image")
+    %meta(property="og:url"                  content="http://my.usa.gov/") 
+    %meta(property="og:image"                content="http://my.usa.gov/assets/touch-icon-iphone4.png")
     %meta(property="og:title"                content="MyGov")
     %meta(property="og:description"          content="A platform for connecting people and government")
     
@@ -30,6 +30,7 @@
     = favicon_link_tag 'touch-icon-ipad.png', :rel => 'apple-touch-icon', :type => 'image/png'
     = favicon_link_tag 'touch-icon-iphone4.png', :rel => 'apple-touch-icon', :type => 'image/png'
 
+    %script<(type="application/x-javascript" addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1);})>
 
   %body.sign-up
       

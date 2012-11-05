@@ -28,7 +28,6 @@
     /[if lt IE 9]
       = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
     = stylesheet_link_tag "application", :media => "all"
-    = stylesheet_link_tag controller_name, controller_name + "/" + action_name
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
     = favicon_link_tag 'touch-icon-iphone.png', :rel => 'apple-touch-icon', :type => 'image/png'
     = favicon_link_tag 'touch-icon-ipad.png', :rel => 'apple-touch-icon', :type => 'image/png'
@@ -74,6 +73,6 @@
         Javascripts
         \==================================================
       / Placed at the end of the document so the pages load faster
-      = javascript_include_tag "application", controller_name, controller_name + "/" + action_name
-      = analytics_init if Rails.env.production?
+      = javascript_include_tag "application"
       = render :partial => "shared/ab", :locals => { :segment => @segment }
+      = analytics_init if Rails.env.production?

@@ -81,7 +81,7 @@ module ApplicationHelper
       html = ""
       errors = content_tag :div, :class => 'alert-box alert' do
         messages = resource.errors.collect do |key, msg|
-          content_tag(:div, resource.errors.full_message(key, msg), :class => key).html_safe
+          content_tag(:div, t("#{key}_error".to_sym), :class => key).html_safe
         end
         messages.join(" ").html_safe
       end

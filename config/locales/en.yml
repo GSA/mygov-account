@@ -3,3 +3,4 @@
 
 en:
   hello: "Hello world"
+  zip_error: "Please enter your 5 digit zip code."

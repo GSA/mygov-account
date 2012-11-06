@@ -87,9 +87,9 @@ describe "Users" do
             user = User.find_by_email('joe@citizen.org')
             visit user_confirmation_path(:confirmation_token => user.confirmation_token)
             page.should have_content "Tell us a little about yourself"
-            fill_in 'Zip code', :with => '1234523'
+            fill_in 'Zip code', :with => '1234'
             click_button 'Continue'
-            page.should have_content "Zip should be in the form 12345"
+            page.should have_content "Please enter your 5 digit zip code."
           end
         end
 

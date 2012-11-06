@@ -19,7 +19,7 @@ describe "Profile" do
           page.should have_content "Your Profile"
           page.should have_content "First name: Joe"
           page.should have_content "Last name: Citizen"
-          page.should have_content "Edit your Profile"
+          page.should have_content "Edit profile"
           page.should have_content "Retired: No"
           page.should have_content "Student: Yes"
         end
@@ -27,7 +27,7 @@ describe "Profile" do
         context "editing your profile" do
           it "should update the profile with new information provided by the user" do
             visit profile_path
-            click_link "Edit your Profile"
+            click_link "Edit profile"
             fill_in "Middle name", :with => "Q"
             fill_in "Address", :with => "123 Evergreen Terrace"
             fill_in "City", :with => 'Springfield'
@@ -38,7 +38,7 @@ describe "Profile" do
             select 'Married', :from => "Marital status"
             check "Parent"
             uncheck "Student"
-            click_button "Update Profile"
+            click_button "Update profile"
             page.should have_content "Middle name: Q"
             page.should have_content "Address: 123 Evergreen Terrace"
             page.should have_content "City: Springfield"

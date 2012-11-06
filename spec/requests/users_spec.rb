@@ -107,6 +107,7 @@ describe "Users" do
             page.should have_content 'MyGov Dashboard'
             user = User.find_by_email('joe@citizen.org')
             user.zip.should == "12345"
+            user.date_of_birth.should be_nil
             user.marital_status.should == "Married"
             user.is_parent.should == true
             user.is_veteran.should be_nil

@@ -57,9 +57,9 @@ describe "HomePage" do
         
         it "should link to the profile page with 'Your Profile'" do
           visit root_path
-          page.should have_content "Your Profile"
-          click_link "Your Profile"
-          page.should have_content "Your Profile"
+          page.should have_content "Your profile"
+          click_link "Your profile"
+          page.should have_content "Your profile"
           page.should have_content "First name"
         end
       end

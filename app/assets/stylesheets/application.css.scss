@@ -26,11 +26,7 @@
   font-style: normal;
 }
 
- #wrap {
-      min-height: auto;
-      
-  }
-
+#wrap {min-height: auto;}
 
 body {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
 
@@ -43,6 +39,8 @@ body {background: image-url("favicon.png") top center repeat;}
   padding: 0 3%;
   border-bottom: 3px solid #911A1E;
   -webkit-box-shadow: 0 5px 5px rgba(0,0,0,.1);
+  -moz-box-shadow: 0 5px 5px rgba(0,0,0,.1);
+  box-shadow: 0 5px 5px rgba(0,0,0,.1);
 }
 
 #header h1 {
@@ -133,7 +131,11 @@ fieldset label {font-weight: bold;}
 
 a.button:visited {color: #fff;}
 
-.button:hover, .button:active {-webkit-box-shadow: 0 0 6px rgba(0,0,0,.5);}
+.button:hover, .button:active {
+  -webkit-box-shadow: 0 0 6px rgba(0,0,0,.5);
+  -moz-box-shadow: 0 0 6px rgba(0,0,0,.5);
+  -box-shadow: 0 0 6px rgba(0,0,0,.5);
+  }
 
 #wrap .button {padding: .35em 1em;}
 
@@ -498,7 +500,7 @@ body.sign-up {
 
 
 
-.sign-up .logo h1 {
+html.backgroundsize .sign-up .logo h1 {
   text-indent: -9999em;
   width: 343px;
   max-width: 80%;
@@ -510,6 +512,13 @@ body.sign-up {
   background-size: contain;
 }
 
+html.no-backgroundsize .sign-up .logo h1 {
+  background: image-url("signup-logo-small.png") top center no-repeat;
+  width: 338px;
+  height: 150px;
+  margin: 0 auto;
+  display: block;
+}
 
 
 form li.full label {
@@ -527,7 +536,7 @@ form li.full:last-child {border-bottom: none;}
 
 @media only screen and (min-width: 768px) { 
   
-  .sign-up .logo h1 {
+  html.backgroundsize .sign-up .logo h1 {
      margin: 1em auto;
      height: 148px;
      max-height: none;

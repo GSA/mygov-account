@@ -40,7 +40,7 @@ describe "Users" do
           fill_in 'Password', :with => 'password'
           fill_in 'Password confirmation', :with => 'password'
           click_button 'Sign up'
-          page.should have_content 'Thanks for signing up!'
+          page.should have_content 'Thank you for signing up'
           ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
           ActionMailer::Base.deliveries.last.from.should == ["no-reply@my.usa.gov"]
         end
@@ -52,7 +52,7 @@ describe "Users" do
             fill_in 'Password', :with => 'password'
             fill_in 'Password confirmation', :with => 'password'
             click_button 'Sign up'
-            page.should have_content 'Thanks for signing up!'
+            page.should have_content 'Thank you for signing up'
 
             user = User.find_by_email('joe@citizen.org')
             visit user_confirmation_path(:confirmation_token => user.confirmation_token)
@@ -82,7 +82,7 @@ describe "Users" do
             fill_in 'Password', :with => 'password'
             fill_in 'Password confirmation', :with => 'password'
             click_button 'Sign up'
-            page.should have_content 'Thanks for signing up!'
+            page.should have_content 'Thank you for signing up'
 
             user = User.find_by_email('joe@citizen.org')
             visit user_confirmation_path(:confirmation_token => user.confirmation_token)

@@ -33,9 +33,20 @@
             The current UV index for #{@user.zip} is: #{@uv_index}
     .panel.sidebar
       %ul.side-nav
-        %li= link_to 'Delete your account', profile_path, :method => :delete, :data => { :confirm => "Are you absolutely certain you want to delete your account? All information associated with your account with be permanently deleted, and you will not be able to recover it." }
+        %li= link_to 'Delete your account', "#", :"data-reveal-id" => 'confirm-delete-modal'
         %li= link_to 'Terms of Service', terms_of_service_path
         %li= link_to 'Privacy Policy', privacy_policy_path
 
 = javascript_include_tag "home/dashboard"
 = stylesheet_link_tag "home/dashboard"
+
+#confirm-delete-modal.reveal-modal
+  %h2
+    Are you sure?
+  %p
+    By deleting your account, all information associated with your account will be deleted forever. (You can't undo this later.)
+  %p
+    = link_to "Delete", profile_path, :method => :delete, :class => 'button positive confirm'
+    = link_to "Cancel", "#", :class => 'button negative', :onclick => "$('#confirm-delete-modal').trigger('reveal:close');"
+  %a.close-reveal-modal
+    x

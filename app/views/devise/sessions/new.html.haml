@@ -1,45 +1,54 @@
 .row
+  %div.twelve.columns
+    %h2
+      Sign in
+  
   %div.eight.columns
-    %div.panel.group
-      %div.eight.columns
-    
-        = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-          - if flash.alert
-            .alert-box
-              = flash.alert
-          
-          %fieldset
-            %legend
-              Sign in 
-            
-            %ol.inline
-              %li
-                = f.label :email
-                = f.email_field :email
-              %li
-                = f.label :password
-                = f.password_field :password
-              
-              %li.full
-                = f.check_box :remember_me
-                = f.label :remember_me
-            
-                  - if devise_mapping.rememberable?
-              
-              
-             
-            - if devise_mapping.recoverable? && controller_name != 'passwords'
-              = link_to "Forgot your password?", new_password_path(resource_name)    
-             
-                
-          %div= f.submit "Sign in", :class => 'large button'
+    .panel
 
-      %div.four.columns
-        = render "devise/shared/links"
+      = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+        - if flash.alert
+          .alert-box
+            = flash.alert
+        
+        %fieldset.plain
+          %ol.inline
+            %li
+              = f.label :email
+              = f.email_field :email
+            %li
+              = f.label :password
+              = f.password_field :password
+            
+            %li.full
+              = f.check_box :remember_me
+              = f.label :remember_me
+          
+                - if devise_mapping.rememberable?
+            
+            
+           
+          - if devise_mapping.recoverable? && controller_name != 'passwords'
+            = link_to "Forgot your password?", new_password_path(resource_name)    
+           
+        .actions      
+          = f.submit "Sign in", :class => 'large button'
+        
+          - if devise_mapping.registerable? && controller_name != 'registrations'
+            = link_to "Sign up", new_registration_path(resource_name)
+
+    %div.four.columns
+
 
   %div.four.columns
-    %div.panel.secondary
+    %div.panel.side-panel
+      %h4
+        Sign in with:
+      = render "devise/shared/links"
+  %div.four.columns
+    %div.panel.tertiary
       %h4
         Help
       = render "devise/shared/help"
+      
     

@@ -1,30 +1,13 @@
 .row
-  .seven.columns
-    %h4
-      Navigating government just got easier.  We're here to help you find the services and information you need, whenever you need them.
-    %ul
-      %li
-        %b
-          Save time
-        %p
-          Gone are the days of entering your name into multiple forms over and over again.
-      %li
-        %b
-          Stay informed
-        %p
-          Tell us what's important to you, and we'll send timely alerts and notifications.
-      %li
-        %b
-          Made to order
-        %p
-          We search for and find tailored content that matters to you - both locally and nationally.
-  
-  .five.columns.sidebar.form
-    %fieldset 
+  .ten.columns.centered.banner
+    %h2
+      Navigating government just got easier. 
+.row      
+  .eight.columns.panel
+    %fieldset.plain
       %legend
         Sign up
       %p
-        Please answer some basic questions.
         = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
           - if flash.alert
             .alert-box
@@ -47,6 +30,9 @@
               = f.label :password_confirmation
               = f.password_field :password_confirmation
             %li= f.submit 'Sign up', :class => 'button positive'
-        
-        .third-party
-          = render "devise/shared/provider_links"
+    %p.disclaimer
+      Privacy Policy | Terms of Service
+              
+  .four.columns
+    .panel.side-panel
+      = render "devise/shared/provider_links"

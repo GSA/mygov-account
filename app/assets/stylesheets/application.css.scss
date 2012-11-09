@@ -61,9 +61,9 @@ body {background: image-url("favicon.png") top center repeat;}
   }
 }
 
+.banner h2 {text-align: center; padding: .5em 0;}
+
 #header h1 span {font-weight: normal;}
-
-
 
 table {width: 100%; margin-bottom: 2em;}
 
@@ -88,7 +88,15 @@ h1:last-word {font-weight: bold;}
 
 .actions {margin: 0 0 1em 0;}
 
-fieldset {background: #fff; padding: 0 2% 1em 2%; border: 1px solid #ccc; margin: 0 0 2em 0; display: block;}
+p.disclaimer {font-size: .9em; display: block; padding: 1em 0;}
+
+fieldset {background: #fff; padding: 0 2% 1em 2%; margin: 0 0 2em 0; display: block; border: none;}
+
+fieldset.plain {border: none; background: none; margin: 0 0 2em 0; padding: 0;}
+
+.sign-up fieldset {margin: 0;}
+
+.row fieldset.no-margin {margin: 0;}
 
 fieldset legend {
   font-size: 1.85em; 
@@ -250,12 +258,35 @@ fieldset li:last-child, form li:last-child {border-bottom: none;}
   border-bottom: none;
 }
 
-ul.meta-list, ul.panel-list {margin: .5em 0 1.25em 0; font-size: .85em; padding: 1em 0 0 0; border-bottom: 1px solid rgba(0,0,0,.1); border-top: 1px solid rgba(0,0,0,.1);}
+ul.meta-list, ul.panel-list {margin: .5em 0 1.25em 0; padding: 1em 0 0 0; display: block;}
 
-ul.meta-list li, ul.panel-list {
+ul.meta-list li, ul.panel-list, ul.button-list {
    list-style: none;
    padding:0;
    line-height: 1.1em;
+}
+
+ul.panel-list li a {display: block; border-bottom: 1px solid rgba(0,0,0,.1); padding: .5em 0;}
+
+ul.button-list {
+  margin: 1em 0;
+  padding: .5em 0;
+}
+
+ul.button-list a {
+  display: block;
+  background: rgba(255,255,255,.8);
+  padding: .5em;
+  text-align: center;
+  color: #112137;
+  text-shadow: 0 1px 0 rgba(255,255,255,.9);
+  border: 1px solid rgba(0,0,0,.3);
+  -webkit-box-shadow: 0 0 4px rgba(0,0,0,.3) inset;
+  font-weight: normal;
+}
+
+.side-panel {
+  background: rgba(165,168,138,.3);
 }
 
 .panel h1, 
@@ -556,6 +587,9 @@ form li.full:last-child {border-bottom: none;}
 /*** End Sticky footer ***/
 
 .panel.secondary {background: rgba(0,0,0,.02); margin: 0 0 1em 0; border: 2px solid #ccc;}
+.panel.tertiary {background: none; border-top: 2px solid rgba(0,0,0,.1); padding: 0; padding: .75em 3%; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;} 
+
+.panel.secondary h4 {border-bottom: 1px solid rgba(0,0,0,.15); padding-bottom: .25em;}
 
 
 @media only screen and (max-width: 767px) {
@@ -592,6 +626,7 @@ form li.full:last-child {border-bottom: none;}
   .sidebar {
     margin-top: 1em; 
     clear: both;
+    line-height: 1.6em;
   }
   
  

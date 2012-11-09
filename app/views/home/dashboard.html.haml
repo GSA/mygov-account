@@ -1,9 +1,9 @@
+.row 
+  .twelve.columns.dashboard
+    %h2
+      Dashboard
 .row
   .eight.columns.dashboard
-    %h2
-      MyGov
-      %span
-        Dashboard
     - @uncompleted_tasks.each do |task|
       .panel
         %h3
@@ -17,21 +17,31 @@
               = link_to 'x Remove this task', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}
   .four.columns
     - if @us_holiday or @events.any? or @uv_index
-      .panel.sidebar
-        - if @us_holiday
+      
+        
+      - if @us_holiday
+        .panel.sidebar
           %h5
             Today is #{@us_holiday.name}
-        - if @events.any?
+    
+      
+      - if @events.any?
+        .panel.sidebar
           %h5
             Today in U.S. History
           %ul.side-nav
             - @events.each do |event|
               %li
                 #{event.summary} - #{event.description}
-        - if @uv_index
+        
+
+      - if @uv_index  
+        .panel.sidebar
           %h5
-            The current UV index for #{@user.zip} is: #{@uv_index}
-    .panel.sidebar
+            Your current UV index is: #{@uv_index}
+
+
+    .panel.sidebar.secondary
       %ul.side-nav
         %li= link_to 'Delete your account', "#", :"data-reveal-id" => 'confirm-delete-modal'
         %li= link_to 'Terms of Service', terms_of_service_path

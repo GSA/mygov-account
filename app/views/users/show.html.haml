@@ -1,14 +1,9 @@
 .row
   .eight.columns
-    
     %h2
       Your Profile
-   
   .four.columns.align-right.actions           
-    = link_to 'Edit profile', edit_profile_path, :class => 'small button'
-      
-    
-      
+    = link_to 'Edit profile', edit_profile_path, :class => 'small button'  
 .row
   .six.columns
     .panel.listing
@@ -40,10 +35,6 @@
           State: #{@user.state}
         %li
           Zip: #{@user.zip}
-    
-          
-    
-
   .six.columns        
     .panel.listing
       %h3
@@ -51,9 +42,6 @@
       %ul.profile   
         %li
           #{@user.date_of_birth}
-    
-    
-          
     .panel.listing
       %h3 
         Phone
@@ -61,14 +49,15 @@
         %li
           Phone: #{@user.phone_number}
         %li
-          Mobile: #{@user.mobile_number}
-        %li
-          Gender: #{@user.print_gender}
-    
+          Mobile: #{@user.mobile_number}    
     .panel.listing
       %h3
         Information about you
-      %ul.profile   
+      %ul.profile
+        %li
+          Email: #{@user.email}
+        %li
+          Gender: #{@user.print_gender}
         %li
           Marital status: #{@user.print_marital_status}
         %li
@@ -79,7 +68,6 @@
           Student: #{yes_or_no(@user.is_student)}
         %li
           Retired: #{yes_or_no(@user.is_retired)}
-    
 .row
 
 

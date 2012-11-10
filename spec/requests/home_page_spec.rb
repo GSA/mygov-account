@@ -125,7 +125,7 @@ describe "HomePage" do
         
           it "should display the UV index on the dashboard" do
             visit root_path
-            page.should have_content "The current UV index for 21209 is: 11"
+            page.should have_content "Your current UV index is: 11"
           end
         end
       end

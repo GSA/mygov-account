@@ -6,6 +6,7 @@
   .eight.columns.dashboard
     - @uncompleted_tasks.each do |task|
       .panel.task
+        %span.bookmark
         %h3
           You're almost done #{ link_to task.app.action_phrase, task_path(task)}.
         %p

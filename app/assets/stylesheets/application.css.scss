@@ -603,6 +603,7 @@ form li.full:last-child {border-bottom: none;}
   background: #1A6485 image-url("panel-mediumblue.png") center repeat;
   color: #fff;
   padding: 1em 1.75em;
+  position: relative;
   -webkit-box-shadow: 0 0 10px rgba(0,0,0,.3) inset;
 }
 
@@ -610,24 +611,22 @@ form li.full:last-child {border-bottom: none;}
   color: #fff;
   font-size: 2em;
   margin: 0 0 1em 0;
+  padding-right: 3em;
   border-bottom: 1px solid rgba(255,255,255,.1);
   text-shadow: 0 -1px 0 rgba(0,0,0,.1);
 }
 
 .panel.task a, .panel.task p {color: #fff; text-shadow: none;}
-
 .panel.task a.large.button.alternate {background: #fff; color: #122137; padding: 1em 2em; display: inline-block;}
-#wrap .panel.task a.large.button.alternate.task {background:  #fff image-url("sprite.png") 100% -471px no-repeat; text-transform: uppercase; letter-spacing: .1em; padding: .5em 3em .5em .5em; display: inline-block;}
-
+#wrap .panel.task a.large.button.alternate.task {background:  #fff image-url("sprite.png") 100% -471px no-repeat; background:  rgba(255,255,255,.9) image-url("sprite.png") 100% -471px no-repeat; text-transform: uppercase; letter-spacing: .1em; padding: .5em 3em .5em .5em; display: inline-block;}
 
 .panel.task ol {margin: 0; padding: 0;}
-
 .panel.task ol li {list-style: none; border-bottom: 1px solid rgba(255,255,255,.1);}
-
 .panel.task ol li:last-child {border-bottom: none;}
 
-h5 span {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: .9em; background: rgba(0,0,0,.05); display: inline-block; padding: 0 .75em;
-}
+h5 span {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: .9em; background: rgba(0,0,0,.05); display: inline-block; padding: 0 .75em;}
+
+.panel span.bookmark {display: inline-block; background: image-url("sprite.png") 0% -611px no-repeat; width: 30px; height: 53px; position: absolute; top: 0; right: 2em; }
 
 @media only screen and (max-width: 767px) {
   

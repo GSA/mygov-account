@@ -620,13 +620,18 @@ form li.full:last-child {border-bottom: none;}
 .panel.task a.large.button.alternate {background: #fff; color: #122137; padding: 1em 2em; display: inline-block;}
 #wrap .panel.task a.large.button.alternate.task {background:  #fff image-url("sprite.png") 100% -471px no-repeat; background:  rgba(255,255,255,.9) image-url("sprite.png") 100% -471px no-repeat; text-transform: uppercase; letter-spacing: .1em; padding: .5em 3em .5em .5em; display: inline-block;}
 
+#wrap .panel.task a.large.button.alternate.task:hover, 
+#wrap .panel.task a.large.button.alternate.task:active 
+ {background:  #fff image-url("sprite.png") 100% -471px no-repeat; cursor: hand;}
+
+
 .panel.task ol {margin: 0; padding: 0;}
 .panel.task ol li {list-style: none; border-bottom: 1px solid rgba(255,255,255,.1);}
 .panel.task ol li:last-child {border-bottom: none;}
 
-h5 span {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: .9em; background: rgba(0,0,0,.05); display: inline-block; padding: 0 .75em;}
+h5 span {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: .9em; background: rgba(0,0,0,.05); display: inline-block; padding: 0 .75em; -webkit-box-shadow: 0 0 10px rgba(0,0,0,.1) inset;}
 
-.panel span.bookmark {display: inline-block; background: image-url("sprite.png") 0% -611px no-repeat; width: 30px; height: 53px; position: absolute; top: 0; right: 2em; }
+.panel span.bookmark {display: inline-block; background: image-url("sprite.png") 0% -611px no-repeat; width: 30px; height: 53px; position: absolute; top: 0; right: 2em;  }
 
 @media only screen and (max-width: 767px) {
   

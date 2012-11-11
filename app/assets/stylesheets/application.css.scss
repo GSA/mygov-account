@@ -26,6 +26,7 @@
   font-style: normal;
 }
 
+
 #wrap {min-height: auto;}
 
 body {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
@@ -156,18 +157,17 @@ a.button:visited {color: #fff;}
   border: none; margin: 0 1em 0 0;
   text-transform: none;
   letter-spacing: none;
-  border-style: solid;
-  border-width: 11px;
   padding: .5em 1em;
-}
-
-.button.positive {
   border-style: solid;
   border-width: 12px;
   -moz-border-image: url(button-positive.png) 12 repeat;
   -webkit-border-image: url(button-positive.png) 12 repeat;
   -o-border-image: url(button-positive.png) 12 repeat;
   border-image: url(button-positive.png) 12 fill repeat;
+}
+
+.button.positive {
+
 }
 
 .button:hover, 
@@ -245,7 +245,9 @@ fieldset li, form li {
 
 fieldset li:last-child, form li:last-child {border-bottom: none;}
 
-.panel {background: #fff; background: rgba(255,255,255,.85); padding: .5em 1em;}
+.panel {background: #fff; background: rgba(255,255,255,.85); padding: .75em 1em; line-height: 1.4em;}
+
+.panel li {line-height: 1.4em; margin: 0 0 1em 0;}
 
 .listing ul, .sublist ul {margin: 0 0 1em 0; display: block;}
 
@@ -332,8 +334,8 @@ ul.side-nav {margin: 0; padding: 0;}
 
 ul.side-nav li {
   border-bottom: 1px solid rgba(0,0,0,.07);
-  margin: 0;
-  padding: 0;
+  margin: 0 0 1em 0;
+  padding: 0 0 1em 0;
 }
 
 ul.side-nav li:last-child {border-bottom: none;}
@@ -596,6 +598,36 @@ form li.full:last-child {border-bottom: none;}
 
 .panel.secondary h4 {border-bottom: 1px solid rgba(0,0,0,.15); padding-bottom: .25em;}
 
+
+.panel.task {
+  background: #1A6485 image-url("panel-mediumblue.png") center repeat;
+  color: #fff;
+  padding: 1em 1.75em;
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,.3) inset;
+}
+
+.panel.task h3 {
+  color: #fff;
+  font-size: 2em;
+  margin: 0 0 1em 0;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.1);
+}
+
+.panel.task a, .panel.task p {color: #fff; text-shadow: none;}
+
+.panel.task a.large.button.alternate {background: #fff; color: #122137; padding: 1em 2em; display: inline-block;}
+#wrap .panel.task a.large.button.alternate.task {background:  #fff image-url("sprite.png") 100% -471px no-repeat; text-transform: uppercase; letter-spacing: .1em; padding: .5em 3em .5em .5em; display: inline-block;}
+
+
+.panel.task ol {margin: 0; padding: 0;}
+
+.panel.task ol li {list-style: none; border-bottom: 1px solid rgba(255,255,255,.1);}
+
+.panel.task ol li:last-child {border-bottom: none;}
+
+h5 span {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: .9em; background: rgba(0,0,0,.05); display: inline-block; padding: 0 .75em;
+}
 
 @media only screen and (max-width: 767px) {
   

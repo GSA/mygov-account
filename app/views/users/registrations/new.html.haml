@@ -29,6 +29,10 @@
             %li
               = f.label :password_confirmation
               = f.password_field :password_confirmation
+            %li
+              = label_tag 'accept' do
+                = check_box_tag 'accept'
+                I agree to the MyGov #{link_to 'Terms of Service', terms_of_service_path} and #{link_to 'Privacy Policy', privacy_policy_path}
             %li= f.submit 'Sign up', :class => 'button positive'
     %p.disclaimer
       Privacy Policy | Terms of Service

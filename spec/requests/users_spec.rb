@@ -8,6 +8,7 @@ describe "Users" do
         fill_in 'Email', :with => 'joe@citizen.org'
         fill_in 'Password', :with => 'password'
         fill_in 'Password confirmation', :with => 'password'
+        check 'I agree to the MyGov Terms of Service and Privacy Policy'
         click_button 'Sign up'
         page.should have_content "I'm sorry, your account hasn't been approved yet."
       end
@@ -24,6 +25,7 @@ describe "Users" do
           fill_in 'Email', :with => 'joe@citizen.org'
           fill_in 'Password', :with => 'password'
           fill_in 'Password confirmation', :with => 'password'
+          check 'I agree to the MyGov Terms of Service and Privacy Policy'
           click_button 'Sign up'
           page.should have_content "I'm sorry, your account hasn't been approved yet."
         end
@@ -33,12 +35,24 @@ describe "Users" do
         before do
           BetaSignup.find_by_email('joe@citizen.org').update_attributes(:is_approved => true)
         end
-      
+        
+        context "when the user does not accept the terms of serivce and privacy policy" do
+          it "should not register the user and display an error message" do
+            visit sign_up_path
+            fill_in 'Email', :with => 'joe@citizen.org'
+            fill_in 'Password', :with => 'password'
+            fill_in 'Password confirmation', :with => 'password'
+            click_button 'Sign up'
+            page.should have_content "Please read and accept the MyGov Terms of Service and Privacy Policy."
+          end
+        end
+        
         it "should let the user create an account" do
           visit sign_up_path
           fill_in 'Email', :with => 'joe@citizen.org'
           fill_in 'Password', :with => 'password'
           fill_in 'Password confirmation', :with => 'password'
+          check 'I agree to the MyGov Terms of Service and Privacy Policy'
           click_button 'Sign up'
           page.should have_content 'Thank you for signing up'
           ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
@@ -51,6 +65,7 @@ describe "Users" do
             fill_in 'Email', :with => 'joe@citizen.org'
             fill_in 'Password', :with => 'password'
             fill_in 'Password confirmation', :with => 'password'
+            check 'I agree to the MyGov Terms of Service and Privacy Policy'
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
 
@@ -81,6 +96,7 @@ describe "Users" do
             fill_in 'Email', :with => 'joe@citizen.org'
             fill_in 'Password', :with => 'password'
             fill_in 'Password confirmation', :with => 'password'
+            check 'I agree to the MyGov Terms of Service and Privacy Policy'
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
 

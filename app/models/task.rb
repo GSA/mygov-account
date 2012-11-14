@@ -8,6 +8,11 @@ class Task < ActiveRecord::Base
   
   scope :uncompleted, where('ISNULL(completed_at)')
   
+  def complete!
+    self.task_items.each{|task_item| task_item.complete!}
+    self.update_attributes(:completed_at => Time.now) 
+  end
+  
   def completed?
     self.completed_at.nil? ? false : true
   end

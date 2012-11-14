@@ -20,6 +20,6 @@ class TasksController < ApplicationController
   def destroy
     @task = @user.tasks.find_by_id(params[:id])
     @task.destroy
-    redirect_to :back
+    redirect_to dashboard_path
   end
 end

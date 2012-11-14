@@ -1,12 +1,9 @@
 .row
   .twelve.columns
-    
-.row
-  .twelve.columns
     .panel.task.group
       .six.columns
         %h2
-          #{@task.app.name}
+          #{@task.name}
         %p
           %strong
             #{@task.task_items.completed.size} of #{@task.task_items.size} 
@@ -17,10 +14,10 @@
           %h5
             Task completed at #{@task.completed_at}
         - else
-      .six.columns.align-right
-        = link_to task_path(@task, :completed => true), :method => :put, :class => '' do
-          %i{:class => 'foundicon-checkmark'}
-          Mark all items complete    
+          .six.columns.align-right
+            = link_to task_path(@task, :completed => true), :method => :put, :class => '' do
+              %i{:class => 'foundicon-checkmark'}
+              Mark all items complete    
       
       .twelve.columns
   
@@ -32,9 +29,9 @@
             - if task_item.completed?
               Item completed at: #{task_item.completed_at}
             - else
-              = link_to  task_path(@task, :completed => true), :method => :put, :class => '' do
+              = link_to  task_item_path(task_item, :completed => true), :method => :put, :class => '' do
                 %i{:class => 'foundicon-checkmark'}
-                Mark Complete
+                Mark complete
               = link_to task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'button transparent' do
                 %i{:class => 'foundicon-remove'}
                 Remove                

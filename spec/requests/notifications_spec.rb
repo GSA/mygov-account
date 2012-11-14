@@ -49,7 +49,7 @@ describe "Notifications" do
         11.upto(14) do |index|
           page.should have_content "Notification ##{index}"
         end
-        click_link('Delete')
+        click_link('Remove')
         page.should_not have_content "Notification #9"
         page.should_not have_content "Notification #11"
       end
@@ -59,7 +59,7 @@ describe "Notifications" do
         click_link "Notification #9"
         page.should have_content "Notification #9"
         page.should have_content "This is notification #9"
-        click_link "Delete"
+        click_link "Remove"
         page.should have_content "Notification #2"
         page.should_not have_content "Notification #9"
       end

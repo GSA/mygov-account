@@ -22,7 +22,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => provider_name.capitalize
       if @user.just_created
         sign_in @user, :evenct => :authentication
-        redirect_to welcome_path
+        redirect_to @segment == "A" ? task_path(resource.tasks.first) : dashboard_path
       else
         sign_in_and_redirect @user, :event => :authentication
       end

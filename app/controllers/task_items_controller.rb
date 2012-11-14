@@ -3,8 +3,8 @@ class TaskItemsController < ApplicationController
   
   def update
     @task_item = TaskItem.find_by_id(params[:id])
-    @task_item.update_attributes(:completed_at => Time.now) if params[:completed]
-    redirect_to :back
+    @task_item.complete! if params[:completed]
+    redirect_to task_path(@task_item.task)
   end
   
   def destroy

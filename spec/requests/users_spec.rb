@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Users" do      
+describe "Users" do
   describe "sign up process" do
     context "when a user is not in the beta signup list" do
       it "should not let the user create an account" do
@@ -71,65 +71,15 @@ describe "Users" do
 
             user = User.find_by_email('joe@citizen.org')
             visit user_confirmation_path(:confirmation_token => user.confirmation_token)
-            page.should have_content "Tell us a little about yourself"
-            fill_in 'Zip code', :with => '12345'
-            click_button 'Continue'
-            page.should have_content "Tell us a little about yourself"
-            check 'Married'
-            check 'Parent'
-            click_button 'Continue'
-            page.should have_content 'MyGov Dashboard'
-            user.reload
-            user.zip.should == "12345"
-            user.marital_status.should == "Married"
-            user.is_parent.should == true
-            user.is_veteran.should be_nil
-            
-            visit profile_path
-            page.should have_content "12345"
+            page.should have_content "Tell us more about yourself."
           end
         end
         
-        context "when a user signs up but enters bad information" do
-          it "should display an error message" do
-            visit sign_up_path
-            fill_in 'Email', :with => 'joe@citizen.org'
-            fill_in 'Password', :with => 'password'
-            fill_in 'Password confirmation', :with => 'password'
-            check 'I agree to the MyGov Terms of Service and Privacy Policy'
-            click_button 'Sign up'
-            page.should have_content 'Thank you for signing up'
-
-            user = User.find_by_email('joe@citizen.org')
-            visit user_confirmation_path(:confirmation_token => user.confirmation_token)
-            page.should have_content "Tell us a little about yourself"
-            fill_in 'Zip code', :with => '1234'
-            click_button 'Continue'
-            page.should have_content "Please enter your 5 digit zip code."
-          end
-        end
-
         context "when a user signs up via a third party" do
-          it "should collect information from the user in welcoming them to MyGov" do
+          it "should welcome them to MyGov and prompt them for more information" do
             visit sign_up_path
             click_link 'Sign in with Google'
-            page.should have_content "Tell us a little about yourself"
-            fill_in 'Zip code', :with => '12345'
-            click_button 'Continue'
-            page.should have_content "Tell us a little about yourself"
-            check 'Married'
-            check 'Parent'
-            click_button 'Continue'
-            page.should have_content 'MyGov Dashboard'
-            user = User.find_by_email('joe@citizen.org')
-            user.zip.should == "12345"
-            user.date_of_birth.should be_nil
-            user.marital_status.should == "Married"
-            user.is_parent.should == true
-            user.is_veteran.should be_nil
-            
-            visit profile_path
-            page.should have_content "12345"
+            page.should have_content "Tell us more about yourself"
           end
         end
       end

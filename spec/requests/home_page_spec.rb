@@ -75,18 +75,9 @@ describe "HomePage" do
         it "should show the tasks on the dashboard and allow the user to remove tasks" do
           visit root_path
           page.should have_content "MyGov Dashboard"
-          page.should have_content "You're almost done #{@user.tasks.first.app.action_phrase}!"
           page.should have_content "Get Married!"
           page.should have_content "Get Divorced!"
-          click_link "x Remove"
-          page.should have_content "You're almost done #{@user.tasks.first.app.action_phrase}!"
-          page.should_not have_content "Get Married!"
-          page.should have_content "Get Divorced!"
-          click_link "x Remove"
-          page.should have_content "MyGov Dashboard"
-          page.should_not have_content "You're almost done #{@user.tasks.first.app.action_phrase}!"
-          page.should_not have_content "Get Married!"
-          page.should_not have_content "Get Divorced!"
+          page.should have_link "Remove"
         end
       end
     

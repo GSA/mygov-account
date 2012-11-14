@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   validates_format_of :zip, :with => /^\d{5}?$/, :message => "should be in the form 12345"
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
+  after_create :create_default_tasks
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -59,6 +60,13 @@ class User < ActiveRecord::Base
   
   def to_schema_dot_org_hash
     {"email" => self.email, "givenName" => self.first_name, "additionalName" => self.middle_name, "familyName" => self.last_name, "homeLocation" => {"streetAddress" => [self.address, self.address2].reject{|s| s.blank? }.join(','), "addressLocality" => self.city, "addressRegion" => self.state, "postalCode" => self.zip}, "birthDate" => self.date_of_birth.to_s, "telephone" => self.phone, "gender" => self.print_gender }
+  end
+  
+  def create_default_tasks
+    task1 = self.tasks.create(:name => 'Tell us more about yourself.', :app_id => App.default_app.id)
+    task1.task_items.create(:name => 'Tell us more about yourself.', :url => "/welcome?step=info")
+    task2 = self.tasks.create(:name => 'Help us make this service more tailored to your needs.', :app_id => App.default_app.id)
+    task2.task_items.create(:name => 'Help us make this service more tailored to your needs.', :url => "/welcome?step=about_you")
   end
   
   private

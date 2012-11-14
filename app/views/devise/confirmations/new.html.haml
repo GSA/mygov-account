@@ -1,21 +1,22 @@
 %div.row
-  %div.eight.columns
-    %fieldset
-      %legend
-        Resend confirmation instructions
-      
-= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
-  = devise_error_messages!
+  .twelve.columns
+    %h2
+      Resend confirmation instructions
+  .eight.columns
+    .panel
+      %fieldset.plain
+        = form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
+          = devise_error_messages!
+          
+          %ol
+            %li
+              = f.label :email
+              = f.email_field :email
+          
+          .actions= f.submit "Resend confirmation instructions", :class => 'large button positive'
+          
+    
   
-  %ol
-    %li
-      = f.label :email
-      = f.email_field :email
-  
-  %div.actions= f.submit "Resend confirmation instructions", :class => 'large button'
-  
-  
-  
-  %div.four.columns
-    %div.panel.side-panel
+  .four.columns
+    .panel.side-panel
       = render "devise/shared/links"  

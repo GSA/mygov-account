@@ -15,7 +15,7 @@
           %ol.inline
             %li.full
               = link_to task_item.name, "#", :class => 'large button alternate task', :target => "_blank"
-              <i class="foundicon-remove"></i>
+              %i{:class => "foundicon-remove"}
               = link_to 'Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}
   .four.columns
     - if @us_holiday or @events.any? or @uv_index
@@ -40,15 +40,27 @@
       - if @uv_index  
         .panel.sidebar
           %h5
-            Your current UV index is: 
+            Your current UV index is:
             %span #{@uv_index}
 
 
     .panel.sidebar.tertiary
       %ul.panel-list
-        %li= link_to 'Delete your account', "#", :"data-reveal-id" => 'confirm-delete-modal'
-        %li= link_to 'Terms of Service', terms_of_service_path
-        %li= link_to 'Privacy Policy', privacy_policy_path
+        %li
+          = link_to '#', {:"data-reveal-id" => 'confirm-delete-modal'} do
+            %i{:class => "foundicon-remove"}
+            Delete your account
+        
+        %li
+          = link_to terms_of_service_path do
+            %i{:class => "foundicon-page"}
+            Terms of Service
+        
+        %li
+          = link_to privacy_policy_path do
+            %i{:class => "foundicon-page"}
+            Privacy Policy
+            
 
 = javascript_include_tag "home/dashboard"
 = stylesheet_link_tag "home/dashboard"

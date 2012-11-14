@@ -29,6 +29,8 @@
       = javascript_include_tag "//html5shim.googlecode.com/svn/trunk/html5.js"
     = stylesheet_link_tag "application", :media => "all"
     = stylesheet_link_tag "general_foundicons", :media => "all"
+    /[if lt IE 9]
+      = stylesheet_link_tag "general_foundicons_ie7", :media => "all"
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
     = favicon_link_tag 'touch-icon-iphone.png', :rel => 'apple-touch-icon', :type => 'image/png'
     = favicon_link_tag 'touch-icon-ipad.png', :rel => 'apple-touch-icon', :type => 'image/png'

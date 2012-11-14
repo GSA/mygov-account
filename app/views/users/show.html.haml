@@ -3,7 +3,9 @@
     %h2
       Your Profile
   .four.columns.align-right.actions           
-    = link_to 'Edit profile', edit_profile_path, :class => 'small button'  
+    = link_to edit_profile_path, :class => 'small button' do
+      %i{:class => "foundicon-edit"}
+      Edit profile  
 .row
   .six.columns
     .panel.listing

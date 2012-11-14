@@ -28,16 +28,14 @@
         - @task.task_items.each do |task_item|
           %li
             %h5
-              = task_item.name
+              = link_to task_item.name, task_item.url
             - if task_item.completed?
               Item completed at: #{task_item.completed_at}
             - else
-              = link_to fill_pdf_path, :class => "large button alternate task", :target => "_blank" do
-                %i{:class => 'foundicon-down-arrow'}
-                Download Pre-filled PDF form                  
-            = link_to  task_path(@task, :completed => true), :method => :put, :class => '' do
-              %i{:class => 'foundicon-checkmark'}
-              Mark Complete
-            = button_to 'Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'button transparent'
-                
+              = link_to  task_path(@task, :completed => true), :method => :put, :class => '' do
+                %i{:class => 'foundicon-checkmark'}
+                Mark Complete
+              = link_to task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'button transparent' do
+                %i{:class => 'foundicon-remove'}
+                Remove                
                   

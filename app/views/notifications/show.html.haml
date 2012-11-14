@@ -19,4 +19,6 @@
       %p
         = @notification.body
      
-    = link_to 'Delete', notification_path(@notification), :method => :delete, :class => 'small button'
+      = link_to notification_path(@notification), :method => :delete, :class => 'small button' do
+        %i{:class => 'foundicon-remove'}
+        Remove         

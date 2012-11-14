@@ -51,7 +51,8 @@ body {background: image-url("favicon.png") top center repeat;}
   letter-spacing: -.05em;
   display: block;
   margin: 0;
-  padding: .75em 2em .5em 47px;
+  line-height: 1em;
+  padding: .65em 2em .5em 50px;
   background: #fff asset-url('logo.png', image) center left no-repeat;
 }
 
@@ -62,9 +63,20 @@ body {background: image-url("favicon.png") top center repeat;}
   }
 }
 
+#header h1 span.personal-name {
+  font-size: .56em; 
+  color: #911A1E; 
+  letter-spacing: .05em; 
+  display: block; 
+  margin: 0; 
+  padding: 0;
+  line-height: 1em;
+  font-family: 'GoudyBookLetter', Georgia, 'Times New Roman', serif;
+}
+
 .banner h2 {text-align: center; padding: .5em 0;}
 
-#header h1 span {font-weight: normal;}
+#header h1 span {font-weight: normal; }
 
 table {width: 100%; margin-bottom: 2em;}
 
@@ -265,7 +277,7 @@ fieldset li:last-child, form li:last-child {border-bottom: none;}
 
 .panel li {line-height: 1.4em; margin: 0 0 1em 0; padding: 0;}
 
-.listing ul, .sublist ul {margin: 0 0 1em 0; display: block;}
+.listing ul, .listing ol, .sublist ul, .sublist ol {margin: 0 0 1em 0; display: block;}
 
 .sublist .columns {padding-left: 0;}
 
@@ -650,6 +662,13 @@ form li.full:last-child {border-bottom: none;}
 #wrap .panel.task a.large.button.alternate.task:hover, 
 #wrap .panel.task a.large.button.alternate.task:active 
  {background:  #fff image-url("sprite.png") 100% -474px no-repeat; cursor: hand;}
+
+.panel.task a,
+.panel.task a.button,
+.panel.task a:hover, 
+.panel.task a.button:hover {border-bottom: none; background: transparent; -webkit-box-shadow: none; margin: 0 1em 0 0; }
+
+.panel.task h3 a, .panel.task h3 a:hover {margin: 0;}
 
 #wrap .panel.task form {display: inline-block; margin: 0; padding: 0;}
 @media only screen and (max-width: 767px) {

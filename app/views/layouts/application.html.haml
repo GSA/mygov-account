@@ -33,10 +33,8 @@
       = stylesheet_link_tag "general_foundicons_ie7", :media => "all"
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
     = favicon_link_tag 'touch-icon-iphone.png', :rel => 'apple-touch-icon', :type => 'image/png'
-    = favicon_link_tag 'touch-icon-ipad.png', :rel => 'apple-touch-icon', :type => 'image/png'
-    = favicon_link_tag 'touch-icon-iphone4.png', :rel => 'apple-touch-icon', :type => 'image/png'
-
-
+    = favicon_link_tag 'touch-icon-ipad.png', :sizes => '72x72', :rel => 'apple-touch-icon', :type => 'image/png'
+    = favicon_link_tag 'touch-icon-iphone4.png', :sizes => '114x114', :rel => 'apple-touch-icon', :type => 'image/png'
 
 
   %body
@@ -47,8 +45,10 @@
             .twelve.columns
               %a{ :href => root_url }
                 %h1
-                  My<span>Gov</span>
-                
+                  - if current_user and current_user.first_name.present?
+                    %span.personal-name
+                      #{current_user.first_name}'s
+                  My<span>Gov</span
     
       #main
         .nav-container.group

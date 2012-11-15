@@ -93,6 +93,8 @@ table {width: 100%; margin-bottom: 2em;}
 
 p, ul, ol, legend, input[type="text"], input[type="email"], input[type="tel"] {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-shadow: 0 1px 0 rgba(255,255,255,.9);}
 
+.centered {text-align: center;}
+
 input[type="text"], input[type="email"], input[type="password"] {font-weight: bold; color: #0C2237; overflow: scroll; }
 
 input[type="text"]:focus, input[type="text"]:active {border-color: #0C2237; }
@@ -661,6 +663,8 @@ form li.full:last-child {border-bottom: none;}
 #main h3.ticker {margin: 0 0 .5em 0; padding: 0; line-height: 1em; font-size: 1.5em; color: #555; color: rgba(0,0,0,.85); }
 #main h3.ticker.news {vertical-align: top;}
 
+.pitch {border-bottom: 1px solid rgba(0,0,0,.2); border-top: 1px solid rgba(0,0,0,.2); margin-bottom: 1em; height: .2em;}
+
 .panel.task {
   background: #1A6485 image-url("panel-mediumblue.png") center repeat;
   color: #fff;
@@ -730,13 +734,12 @@ h5 span {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans
 
 /*** Idea blocks ***/
 
-
 .panel.ideas {
   background: #E2E3E1;
   background: rgba(0,0,0,.05);
   color: #fff;
   margin-top: 1em;
-  height: 14em;
+  height: 16em;
   -webkit-box-shadow: 0 0 5px rgba(255,255,255,.5) inset; 
   
 }

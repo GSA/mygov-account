@@ -1,42 +1,72 @@
 .row
   .ten.columns.centered.banner
     %h2
-      Navigating government just got easier. 
+      Navigating government just got easier.
+
+
+
+  .four.columns
+    .panel.decorative.style-one
+      %div
+        %h3
+          Save time
+        %p
+          Gone are the days of entering your name and address into forms over and over again.
+        
+  .four.columns
+    .panel.decorative.style-one
+      %div
+        %h3
+          Stay Informed
+        %p
+          Tell us what matters to you, and we'll send you timely messages.
+
+  .four.columns
+    .panel.decorative.style-one
+      %div
+        %h3
+          Get connected
+        %p
+          Get connected to content and services that matter to you.       
+
+.row
+  .twelve.columns
+    .pitch.group
+
 .row      
-  .eight.columns.panel
-    %fieldset.plain
-      %legend
-        Sign up
-      %p
-        = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-          - if flash.alert
-            .alert-box
-              = flash.alert
-          = devise_error_messages!
-          %ol
-            %li
-              = f.label :first_name
-              = f.text_field :first_name
-            %li
-              = f.label :last_name
-              = f.text_field :last_name
-            %li
-              = f.label :email
-              = f.email_field :email
-            %li
-              = f.label :password
-              = f.password_field :password
-            %li
-              = f.label :password_confirmation
-              = f.password_field :password_confirmation
-            %li
-              = label_tag 'accept' do
-                = check_box_tag 'accept'
-                I agree to the MyGov #{link_to 'Terms of Service', terms_of_service_path} and #{link_to 'Privacy Policy', privacy_policy_path}
-            %li= f.submit 'Sign up', :class => 'button positive'
-    %p.disclaimer
-      Privacy Policy | Terms of Service
-              
+  .eight.columns
+    .panel
+      %fieldset.plain
+        %legend
+          Sign up
+        %p
+          = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+            - if flash.alert
+              .alert-box
+                = flash.alert
+            = devise_error_messages!
+            %ol
+              %li
+                = f.label :first_name
+                = f.text_field :first_name
+              %li
+                = f.label :last_name
+                = f.text_field :last_name
+              %li
+                = f.label :email
+                = f.email_field :email
+              %li
+                = f.label :password
+                = f.password_field :password
+              %li
+                = f.label :password_confirmation
+                = f.password_field :password_confirmation
+              %li
+                = label_tag 'accept' do
+                  = check_box_tag 'accept'
+                  I agree to the MyGov #{link_to 'Terms of Service', terms_of_service_path} and #{link_to 'Privacy Policy', privacy_policy_path}
+              %li= f.submit 'Sign up', :class => 'button positive'
+                   
   .four.columns
     .panel.side-panel
       = render "devise/shared/provider_links"

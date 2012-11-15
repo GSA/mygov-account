@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Profile" do
   before do
-    BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
+    create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen', :is_student => true)
     @user.confirm!
   end

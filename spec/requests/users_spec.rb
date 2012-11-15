@@ -12,6 +12,17 @@ describe "Users" do
         click_button 'Sign up'
         page.should have_content "I'm sorry, your account hasn't been approved yet."
       end
+      
+      it "should not let the user create an approved beta signup record by manipulating the post" do
+        test_email = 'shady@citizen.org'
+        visit sign_up_path
+        begin
+          post beta_signups_path, 'beta_signup' => { 'email' => test_email, 'is_approved' => '1' }
+        rescue ActiveModel::MassAssignmentSecurity::Error
+          nil
+        end
+        BetaSignup.where(email: test_email, is_approved: true).first.should eq nil
+      end
     end
     
     context "when a user is in the beta signup list" do
@@ -33,7 +44,7 @@ describe "Users" do
     
       context "when a user has been approved" do
         before do
-          BetaSignup.find_by_email('joe@citizen.org').update_attributes(:is_approved => true)
+          BetaSignup.find_by_email('joe@citizen.org').update_attribute(:is_approved, true)
         end
         
         context "when the user does not accept the terms of serivce and privacy policy" do

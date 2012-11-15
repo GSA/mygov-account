@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Welcome" do
   before do
-    BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
+    create_approved_beta_signup('joe@citizen.org')
     @user = User.create(:email => 'joe@citizen.org', :password => 'password')
     @user.confirm!
     create_logged_in_user(@user)

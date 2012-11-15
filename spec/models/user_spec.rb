@@ -9,7 +9,7 @@ describe User do
       :first_name => 'Joe',
       :last_name => 'Citizen'
     }
-    BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
+    create_approved_beta_signup('joe@citizen.org')
   end
   
   describe "#create" do

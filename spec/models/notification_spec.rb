@@ -7,7 +7,7 @@ describe Notification do
       :received_at => Time.now,
       :body => 'This is a test notification'
     }
-    BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
+    create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @app = App.create!(:name => 'App1'){ |app| app.redirect_uri = 'http://localhost/' }
   end

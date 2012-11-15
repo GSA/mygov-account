@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Tasks" do
   describe "GET /task/:id" do
     before do
-      BetaSignup.create!(:email => 'joe@citizen.org', :is_approved => true)
+      create_approved_beta_signup('joe@citizen.org')
       @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
       @user.confirm!
 

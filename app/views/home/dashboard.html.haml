@@ -1,24 +1,105 @@
 .row
   .eight.columns.dashboard
     - @uncompleted_tasks.each do |task|
+    %h3.ticker
+      %i{:class => "foundicon-inbox"}
+      Tasks
       .panel.task
         %span.bookmark
         %h3
           = link_to task.name, task_path(task)
         %p
-          Complete the tasks listed here, pre-filled with information you've already saved.
+          Complete the tasks listed here.
         - task.task_items.uncompleted.each do |task_item|
           %ol.inline
             %li.full
               = link_to task_item.name, task_item.url, :class => 'large button alternate task'
               %i{:class => "foundicon-remove"}
               = link_to 'Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}
+  
+    %h3.ticker
+      %i{:class => "foundicon-inbox"}
+      Tasks
+    .panel.task
+      %span.bookmark 
+      %div
+        %h3
+          Tell us some basic preferences about you.
+        
+        %ol.inline
+          %li.full
+            <a href="#" class="large button alternate task">Get started</a>
+            %i{:class => "foundicon-remove"}
+            <a href="#" class="">Remove</a>
+      
+      %div
+        %h3
+          Tell us some basic preferences about you.
+        
+        %ol.inline
+          %li.full
+            <a href="#" class="large button alternate task">Get started</a>
+            %i{:class => "foundicon-remove"}
+            <a href="#" class="">Remove</a>
+      
+    %h3.ticker.news
+      %i{:class => "foundicon-graph"}
+      News
+    
+    .panel.group
+      %h3
+        <span>What's Next:</span> MyGov Apps
+      %p
+        We're proud to announce the next step in the MyGov platform. Think of MyGov apps as simple, streamlined online services centered around citizen needs rather than government beaurocracy. 
+      
+      %h4
+        Here's some of app ideas we're working on:
+        
+      .row
+        .four.columns
+          .panel.ideas
+            %h5
+              Change your name
+            %p
+              A simple application to center the confusing process of changing your name around you.
+        .four.columns
+          .panel.ideas
+            %h5
+              Grants
+            %p
+              Need to apply for grants in multiple places? No problem, we've got your covered.
+        .four.columns
+          .panel.ideas
+            %h5
+              Benefits
+            %p
+              See what benefits are available to you.
+              
+        
   .four.columns
+    .panel.sidebar.decorative.style-one
+      .flourish
+        %i{:class => "foundicon-calendar"}
+      %div   
+        %h5
+          Today in U.S. History
+        %ul.side-nav
+          %li
+            US CTO Todd Park created the Presidential Innovation Fellows program, bringing private sector entrepeneurs to government for the first time.
+
+  
     - if @us_holiday or @events.any? or @uv_index
       - if @us_holiday
-        .panel.sidebar
+        .panel.sidebar.decorative.style-one
+          .flourish
+            %i{:class => "foundicon-calendar"}
+          %div
           %h5
+<<<<<<< HEAD
             Today is #{@us_holiday.name}
+=======
+            Today is #{@us_holiday.name}      
+>>>>>>> 3b9577d... Added app gallery block, updated #main text styles, improved task blocks.
       - if @events.any?
         .panel.sidebar
           %h5
@@ -27,6 +108,11 @@
             - @events.each do |event|
               %li
                 #{event.summary} - #{event.description}
+<<<<<<< HEAD
+=======
+     
+         
+>>>>>>> 3b9577d... Added app gallery block, updated #main text styles, improved task blocks.
       - if @uv_index  
         .panel.sidebar
           %h5

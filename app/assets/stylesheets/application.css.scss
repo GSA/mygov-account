@@ -472,6 +472,15 @@ span.jujitsu {
 }
 
 
+/*** Message bars ***/
+
+div.alert-box {
+  -webkit-border-radius: none;
+  -moz-border-radius: none;
+  border-radius: none;
+  background: #146487;
+}
+
 
 
 
@@ -630,29 +639,51 @@ form li.full:last-child {border-bottom: none;}
 
 /*** End Sticky footer ***/
 
+/*** Various Panels ***/
+
 .panel a {color: #0E2037;}
 .panel a:hover {color: #1D6387; border-bottom: 1px solid rgba(0,0,0,.2);}
 
 .panel.secondary {background: rgba(0,0,0,.02); margin: 0 0 1em 0; border: 2px solid #ccc;}
-.panel.tertiary {background: none; border: none;  -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;} 
-
 .panel.secondary h4 {border-bottom: 1px solid rgba(0,0,0,.15); padding-bottom: .25em;}
 
+.panel.tertiary {background: none; border: none;  -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;} 
+
+.panel.decorative {position: relative;}
+
+.panel.decorative.style-one {background: #fff; background: rgba(255,255,255,.65)}
+.panel.decorative.style-one h5 {text-align: center; text-transform: uppercase; letter-spacing: .1em; border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: .5em;}
+.panel.decorative.style-one div {background: #fff; border: 1px dotted rgba(0,0,0,.2); padding: .5em 1em; margin: .25em 0; -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1) inset;}
+#main .panel.decorative.style-one li {color: #102038; font-size: .95em;}
+
+.panel.decorative div.flourish {border: none; background: none; padding: 0; margin: 0; -webkit-box-shadow: none; margin: 0 auto; font-size: 1.9em; text-align: center; margin-bottom: -.38em; color: #5A4A42; }
+
+#main h3.ticker {margin: 0 0 .5em 0; padding: 0; line-height: 1em; font-size: 1.5em; color: #555; color: rgba(0,0,0,.85); }
+#main h3.ticker.news {vertical-align: top;}
 
 .panel.task {
   background: #1A6485 image-url("panel-mediumblue.png") center repeat;
   color: #fff;
   padding: 1em 1.75em;
   position: relative;
+  margin-bottom: 2em;
   -webkit-box-shadow: 0 0 10px rgba(0,0,0,.3) inset;
 }
+
+.panel.task div {
+  border-bottom: 1px dotted rgba(255,255,255,.4);
+  margin: 0 0 1em 0;
+}
+
+.panel.task div:last-child {border-bottom: none;}
+.panel.task div:first {border-top: none;}
 
 .panel.task h3 {
   color: #fff;
   font-size: 2em;
-  margin: 0 0 1em 0;
+  margin: 0 0 .25em 0;
   padding-right: 3em;
-  border-bottom: 1px solid rgba(255,255,255,.1);
+  /* border-bottom: 1px solid rgba(255,255,255,.1); */
   text-shadow: 0 -1px 0 rgba(0,0,0,.1);
 }
 
@@ -666,11 +697,11 @@ form li.full:last-child {border-bottom: none;}
 
 .panel.task a, .panel.task p {color: #fff; text-shadow: none; }
 .panel.task a.large.button.alternate {background: #fff; font-size: 1.05em; color: #122137; padding: 1em 2em; display: inline-block;}
-#wrap .panel.task a.large.button.alternate.task {background:  #fff image-url("sprite.png") 100% -474px no-repeat; background:  rgba(255,255,255,.9) image-url("sprite.png") 100% -474px no-repeat; text-transform: uppercase; letter-spacing: .1em; padding: .5em 3em .5em .5em; display: inline-block;}
+#wrap .panel.task a.large.button.alternate.task {background:  #fff image-url("sprite.png") 5% -474px no-repeat; background:  rgba(255,255,255,.9) image-url("sprite.png") 5% -474px no-repeat; text-transform: uppercase; letter-spacing: .1em; padding: .5em .75em .5em 2.8em; display: inline-block;}
 
 #wrap .panel.task a.large.button.alternate.task:hover, 
 #wrap .panel.task a.large.button.alternate.task:active 
- {background:  #fff image-url("sprite.png") 100% -474px no-repeat; cursor: hand;}
+ {background:  #fff image-url("sprite.png") 5% -474px no-repeat; cursor: hand;}
 
 .panel.task a,
 .panel.task a.button,
@@ -685,7 +716,7 @@ form li.full:last-child {border-bottom: none;}
   
 }
 
-.panel.task li {list-style: none; margin: 0 0 1em 0; padding: 0 0 .75em 0; border-bottom: 1px solid rgba(255,255,255,.2);}
+.panel.task li {list-style: none; margin: 0 0 1.25em 0; padding: 0 0 1em 0; border-bottom: 1px solid rgba(255,255,255,.2);}
 .panel.task li:last-child {border-bottom: none;}
 
 .panel.task ol.inline {margin: 0; padding: 0; list-style: none;}
@@ -696,6 +727,29 @@ form li.full:last-child {border-bottom: none;}
 h5 span {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: .9em; background: rgba(0,0,0,.05); display: inline-block; padding: 0 .75em; -webkit-box-shadow: 0 0 10px rgba(0,0,0,.1) inset;}
 
 .panel span.bookmark {display: inline-block; background: image-url("sprite.png") 0% -611px no-repeat; width: 30px; height: 53px; position: absolute; top: 0; right: 2em;  }
+
+/*** Idea blocks ***/
+
+
+.panel.ideas {
+  background: #E2E3E1;
+  background: rgba(0,0,0,.05);
+  color: #fff;
+  margin-top: 1em;
+  height: 14em;
+  -webkit-box-shadow: 0 0 5px rgba(255,255,255,.5) inset; 
+  
+}
+
+@media only screen and (max-width: 767px) {
+  .panel.ideas {height: auto;}
+}
+
+
+.panel.ideas h5 {font-weight: bold; font-family: 'Century Gothic', 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.2em; padding-bottom: .5em; margin-bottom: .5em; border-bottom: 1px dotted #fff;}
+.panel.ideas p {color: #444;}
+
+.panel h3 span {color: #555;}
 
 @media only screen and (max-width: 767px) {
   

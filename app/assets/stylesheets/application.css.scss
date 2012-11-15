@@ -137,7 +137,7 @@ fieldset.plain {border: none; background: none; margin: .75em 0 2em 0; padding: 
 fieldset.fancy {margin: .5em 0 0 0; border: 1px dotted rgba(0,0,0,.2); padding-top: .5em;}
 fieldset.fancy legend {color: #126386;text-align: center; font-size: 2em; }
 fieldset.fancy legend i {color: #fff;font-size: .5em; vertical-align: baseline; color: #eee; }
-
+fieldset.fancy legend span {display: inline-block; margin: 0 .5em;}
 
 .sign-up fieldset {margin: 0;}
 
@@ -352,7 +352,7 @@ ul.button-list a {
   background: rgba(255,255,255,.8);
   padding: .5em;
   text-align: center;
-  color: #063F21;
+  color: #5A4A42;
   text-shadow: 0 1px 0 rgba(255,255,255,.9);
   border: 1px solid rgba(0,0,0,.3);
   -webkit-box-shadow: 0 0 4px rgba(0,0,0,.2) inset;

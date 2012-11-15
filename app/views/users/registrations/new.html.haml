@@ -44,15 +44,17 @@
     .panel
       %fieldset.fancy
         %legend
-          %i{:class => "foundicon-star"}
-          %i{:class => "foundicon-star"}
-          %i{:class => "foundicon-star"}
-          %i{:class => "foundicon-star"}
+          %span
+            %i{:class => "foundicon-star"}
+            %i{:class => "foundicon-star"}
+            %i{:class => "foundicon-star"}
+            %i{:class => "foundicon-star"}
           Sign up
-          %i{:class => "foundicon-star"}
-          %i{:class => "foundicon-star"}
-          %i{:class => "foundicon-star"}
-          %i{:class => "foundicon-star"}
+          %span
+            %i{:class => "foundicon-star"}
+            %i{:class => "foundicon-star"}
+            %i{:class => "foundicon-star"}
+            %i{:class => "foundicon-star"}
         %p
           = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
             - if flash.alert

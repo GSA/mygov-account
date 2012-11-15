@@ -83,8 +83,25 @@ body {background: image-url("favicon.png") top center repeat;}
 
 #header h1 .beta {font-weight: normal; position: absolute; bottom: 1.4em; margin: 0 0 0 .15em; font-size: .5em; color: #888;}
 
-#header h3.tagline {display: block; font-size: 1em; margin: 1em 0 1em 0; font-family: 'Century Gothic', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1D6387; }
+#header h3.tagline {display: block; font-size: 1em; margin: 1em 0 .5em 0; font-family: 'Century Gothic', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1D6387; }
 #header h3.tagline em {font-style: normal; font-weight: bold;}
+
+@media only screen and (max-width: 767px) {
+  #header h3.tagline {
+  font-size: .8em;
+  display: block;
+  float: right;
+  width: 35%;
+  position: absolute; 
+  top: 0;
+  right: 0;
+  text-align: right;
+  }
+  
+  #header h3.tagline em {
+    display: block;
+  }
+}
 
 
 table {width: 100%; margin-bottom: 2em;}
@@ -117,6 +134,10 @@ p.disclaimer {font-size: .9em; display: block; padding: 1em 0;}
 fieldset {background: #fff; padding: 0 2% 1em 2%; margin: 0 0 2em 0; display: block; border: none;}
 
 fieldset.plain {border: none; background: none; margin: .75em 0 2em 0; padding: 0;}
+fieldset.fancy {margin: .5em 0 0 0; border: 1px dotted rgba(0,0,0,.2); padding-top: .5em;}
+fieldset.fancy legend {color: #126386;text-align: center; font-size: 2em; }
+fieldset.fancy legend i {color: #fff;font-size: .5em; vertical-align: baseline; color: #eee; }
+
 
 .sign-up fieldset {margin: 0;}
 
@@ -313,7 +334,13 @@ ul.meta-list li, ul.panel-list, ul.button-list {
    line-height: 1.1em;
 }
 
-ul.panel-list li a {display: block; border-bottom: 1px solid rgba(0,0,0,.1); padding: .5em 0; margin: 0; vertical-align: top;}
+ul.panel-list li a {
+  display: block; 
+  border-bottom: 1px solid rgba(0,0,0,.1); 
+  padding: .5em 0; 
+  margin: 0; 
+  vertical-align: top;
+}
 
 ul.button-list {
   margin: 1em 0;
@@ -325,15 +352,16 @@ ul.button-list a {
   background: rgba(255,255,255,.8);
   padding: .5em;
   text-align: center;
-  color: #112137;
+  color: #063F21;
   text-shadow: 0 1px 0 rgba(255,255,255,.9);
   border: 1px solid rgba(0,0,0,.3);
-  -webkit-box-shadow: 0 0 4px rgba(0,0,0,.3) inset;
+  -webkit-box-shadow: 0 0 4px rgba(0,0,0,.2) inset;
   font-weight: normal;
 }
 
 .side-panel {
-  background: rgba(165,168,138,.3);
+  background: #DCE0DA;
+  background: rgba(165,168,138,.15);
 }
 
 .panel h1, 
@@ -342,6 +370,8 @@ ul.button-list a {
 .panel h4, 
 .panel h5, 
 .panel h6 {color: #1A6485; font-weight: normal; padding-bottom: 0; margin-bottom: 0;}
+
+.panel h4 {font-family: 'Century Gothic', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 1.2em;}
 
 .discovery-bar {
   border-top: 2px solid rgba(0,0,0,.3);
@@ -654,16 +684,33 @@ form li.full:last-child {border-bottom: none;}
 .panel.decorative {position: relative;}
 
 .panel.decorative.style-one {background: #fff; background: rgba(255,255,255,.65)}
-.panel.decorative.style-one h5 {text-align: center; text-transform: uppercase; letter-spacing: .1em; border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: .5em;}
-.panel.decorative.style-one div {background: #fff; border: 1px dotted rgba(0,0,0,.2); padding: .5em 1em; margin: .25em 0; -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1) inset;}
+.panel.decorative h3,
+.panel.decorative h4,
+.panel.decorative h5 {text-align: center; text-transform: uppercase; letter-spacing: .1em; border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: .5em;}
+.panel.decorative div {background: #fff; border: 1px dotted rgba(0,0,0,.2); padding: .5em 1em; margin: .25em 0; -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1) inset;}
 #main .panel.decorative.style-one li {color: #102038; font-size: .95em;}
 
+.panel.decorative.style-two {background: #1A6485; background: rgba(18,99,134,.7); color: #fff; text-shadow: 0 -1px 0 rgba(0,0,0,.3);}
+.panel.decorative.style-two div {background: #1A6485; -webkit-box-shadow: none; border: none; -webkit-box-shadow: 0 0 5px rgba(0,0,0,.2) inset;}
+.panel.decorative.style-two p {text-shadow: 0 -1px 0 rgba(0,0,0,.3); text-align: center;}
+
+
+.panel.decorative.style-two h3 {font-size: 1.3em; padding-bottom: .35em; font-family: 'Century Gothic', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #fff; text-shadow: 0 -1px 0 rgba(0,0,0,.2); font-weight: bold;}
+
 .panel.decorative div.flourish {border: none; background: none; padding: 0; margin: 0; -webkit-box-shadow: none; margin: 0 auto; font-size: 1.9em; text-align: center; margin-bottom: -.38em; color: #5A4A42; }
+.panel.decorative.style-two div.flourish {color: #fff;  margin-bottom: -.28em}
+.panel.decorative.style-two div.flourish i {text-shadow: 0 0 4px rgba(0,0,0,.3);}
+
+.panel.decorative div.fixed-height {height: 10em;}
+@media only screen and (max-width: 767px) {
+  .panel.decorative div.fixed-height {height: auto;}
+  
+}
 
 #main h3.ticker {margin: 0 0 .5em 0; padding: 0; line-height: 1em; font-size: 1.5em; color: #555; color: rgba(0,0,0,.85); }
 #main h3.ticker.news {vertical-align: top;}
 
-.pitch {border-bottom: 1px solid rgba(0,0,0,.2); border-top: 1px solid rgba(0,0,0,.2); margin-bottom: 1em; height: .2em;}
+.pitch {border-bottom: 1px solid rgba(0,0,0,.1); border-top: 1px solid rgba(0,0,0,.1); margin-bottom: 1.25em; height: .25em;}
 
 .panel.task {
   background: #1A6485 image-url("panel-mediumblue.png") center repeat;
@@ -684,7 +731,7 @@ form li.full:last-child {border-bottom: none;}
 
 .panel.task h3 {
   color: #fff;
-  font-size: 2em;
+  font-size: 1.8em;
   margin: 0 0 .25em 0;
   padding-right: 3em;
   /* border-bottom: 1px solid rgba(255,255,255,.1); */

@@ -39,6 +39,7 @@ group :development do
   gem 'quiet_assets'
   gem 'hpricot'
   gem 'ruby_parser'
+  gem "letter_opener"
 end
 
 group :test, :development do

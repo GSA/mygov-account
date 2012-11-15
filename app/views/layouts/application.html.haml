@@ -42,13 +42,16 @@
       #header
         .nav-container.group
           .row
-            .twelve.columns
+            .six.columns
               %a{ :href => root_url }
                 %h1
                   - if current_user and current_user.first_name.present?
                     %span.personal-name
                       #{current_user.first_name}'s
-                  My<span>Gov</span
+                  My<span>Gov</span><span class="beta">Beta</span>
+            .six.columns.align-right
+              %h3.tagline
+                <em>Experimental release</em> (for review only)
     
       #main
         .nav-container.group

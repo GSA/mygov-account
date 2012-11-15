@@ -51,8 +51,9 @@ body {background: image-url("favicon.png") top center repeat;}
   letter-spacing: -.05em;
   display: block;
   margin: 0;
+  position: relative;
   line-height: 1em;
-  padding: .65em 2em .5em 50px;
+  padding: .65em 2em .5em 52px;
   background: #fff asset-url('logo.png', image) center left no-repeat;
 }
 
@@ -74,15 +75,23 @@ body {background: image-url("favicon.png") top center repeat;}
   font-family: 'GoudyBookLetter', Georgia, 'Times New Roman', serif;
 }
 
+#header h1 a {color: #0F2137;}
+
 .banner h2 {text-align: center; padding: .5em 0;}
 
 #header h1 span {font-weight: normal; }
+
+#header h1 .beta {font-weight: normal; position: absolute; bottom: 1.4em; margin: 0 0 0 .15em; font-size: .5em; color: #888;}
+
+#header h3.tagline {display: block; font-size: 1em; margin: 1em 0 1em 0; font-family: 'Century Gothic', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1D6387; }
+#header h3.tagline em {font-style: normal; font-weight: bold;}
+
 
 table {width: 100%; margin-bottom: 2em;}
 
 .row {border: none;}
 
-p, ul, ol, legend, input[type="text"], input[type="email"], input[type="tel"] {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; text-shadow: 0 1px 0 rgba(255,255,255,.9);}
+p, ul, ol, legend, input[type="text"], input[type="email"], input[type="tel"] {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-shadow: 0 1px 0 rgba(255,255,255,.9);}
 
 input[type="text"], input[type="email"], input[type="password"] {font-weight: bold; color: #0C2237; overflow: scroll; }
 
@@ -105,7 +114,7 @@ p.disclaimer {font-size: .9em; display: block; padding: 1em 0;}
 
 fieldset {background: #fff; padding: 0 2% 1em 2%; margin: 0 0 2em 0; display: block; border: none;}
 
-fieldset.plain {border: none; background: none; margin: 0 0 2em 0; padding: 0;}
+fieldset.plain {border: none; background: none; margin: .75em 0 2em 0; padding: 0;}
 
 .sign-up fieldset {margin: 0;}
 
@@ -162,7 +171,7 @@ a.button:visited {color: #fff;}
 
 #wrap .align-right a.button {margin: 0;}
 
-.button.positive, a.button.positive{
+.button.positive, a.button.positive {
   background: #112137; 
   color: #fff; 
   text-shadow: 0 -1px 0 rgba(0,0,0,.7); 
@@ -178,9 +187,10 @@ a.button:visited {color: #fff;}
   border-image: url(button-positive.png) 12 fill repeat;
 }
 
-.button.positive {
-
+@media only screen and (max-width: 767px) {
+  .button.positive, a.button.positive {background: red;}
 }
+
 
 .button.success {background: #05723B;}
 .button.success:hover { background-color: #05723B; }
@@ -561,7 +571,6 @@ body.sign-up {
   display: block;
   line-height: 1em;
   font-weight: normal;
-  font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 

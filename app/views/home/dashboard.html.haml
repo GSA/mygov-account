@@ -95,11 +95,7 @@
             %i{:class => "foundicon-calendar"}
           %div
           %h5
-<<<<<<< HEAD
             Today is #{@us_holiday.name}
-=======
-            Today is #{@us_holiday.name}      
->>>>>>> 3b9577d... Added app gallery block, updated #main text styles, improved task blocks.
       - if @events.any?
         .panel.sidebar
           %h5
@@ -108,11 +104,6 @@
             - @events.each do |event|
               %li
                 #{event.summary} - #{event.description}
-<<<<<<< HEAD
-=======
-     
-         
->>>>>>> 3b9577d... Added app gallery block, updated #main text styles, improved task blocks.
       - if @uv_index  
         .panel.sidebar
           %h5

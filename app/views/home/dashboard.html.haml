@@ -16,7 +16,7 @@
                 = link_to task_item.name, task_item.url, :class => 'large button alternate task'
                 %i{:class => "foundicon-remove"}
                 = link_to 'Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}
-                  
+
     %h3.ticker.news
       %i{:class => "foundicon-graph"}
       News

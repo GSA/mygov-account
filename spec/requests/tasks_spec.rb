@@ -27,7 +27,7 @@ describe "Tasks" do
     
     it "should let a user mark all items as complete" do
       click_link 'Mark all items complete'
-      page.should have_content 'Dashboard'
+      page.should have_content 'MyGovBeta'
       visit task_path(@task)
       page.should have_content "2 of 2 items completed."
       page.should have_content "Task completed at"

@@ -13,7 +13,7 @@ describe "Welcome" do
       visit welcome_path
       fill_in 'Zip code', :with => '12345'
       click_button 'Continue'
-      page.should have_content "MyGov Dashboard"
+      page.should have_content "MyGovBeta"
       @user.reload
       @user.zip.should == "12345"
       visit profile_path
@@ -36,7 +36,7 @@ describe "Welcome" do
       check 'Married'
       check 'Parent'
       click_button 'Continue'
-      page.should have_content 'MyGov Dashboard'
+      page.should have_content 'MyGovBeta'
       @user.reload
       @user.marital_status.should == "Married"
       @user.is_parent.should == true

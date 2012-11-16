@@ -4,3 +4,7 @@
 en:
   hello: "Hello world"
   zip_error: "Please enter your 5 digit zip code."
+  
+  devise:
+    failure:
+      timeout: "It's been awhile since you interacted with MyGov, so we signed you out as a security measure. Please sign in again."

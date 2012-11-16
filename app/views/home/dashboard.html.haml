@@ -1,35 +1,34 @@
 .row
   .eight.columns.dashboard
-    - @uncompleted_tasks.each do |task|
+    - if @uncompleted_tasks.any?
       %h3.ticker
         %i{:class => "foundicon-inbox"}
         Tasks
-        .panel.task
-          %span.bookmark
-          %h3
-            = link_to task.name, task_path(task)
-          %p
-            Complete the tasks listed here.
-          - task.task_items.uncompleted.each do |task_item|
-            %ol.inline
-              %li.full
-                = link_to task_item.name, task_item.url, :class => 'large button alternate task'
-                %i{:class => "foundicon-remove"}
-                = link_to 'Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}
+      .panel.task
+        %span.bookmark
+        - @uncompleted_tasks.each do |task|
+          %div
+            %h3
+              = link_to task.name, task_path(task)
+            - task.task_items.uncompleted.each do |task_item|
+              %ol.inline
+                %li.full
+                  = link_to task_item.name, task_item.url, :class => 'large button alternate task'
+                  %i{:class => "foundicon-remove"}
+                  = link_to 'Remove', task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure you want to remove this item?'}
 
     %h3.ticker.news
       %i{:class => "foundicon-graph"}
-      News
-    
+      News    
     .panel.group
       %h3
-        <span>What's Next:</span> MyGov Apps
+        %span
+          What's Next:
+        MyGov Apps
       %p
         We're proud to announce the next step in the MyGov platform. Think of MyGov apps as simple, streamlined online services centered around citizen needs rather than government beaurocracy. 
-      
       %h4
         Here's some of app ideas we're working on:
-        
       .row
         .four.columns
           .panel.ideas

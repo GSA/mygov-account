@@ -210,7 +210,14 @@ a.button:visited {color: #fff;}
   border-image: url(button-positive.png) 12 fill repeat;
 }
 
-html.no-borderimage .button.positive, a.button.positive {border-width: 1px; border-image: none; background: #112137; padding: 2em; }
+html.no-borderimage #wrap .button.positive, 
+html.no-borderimage #wrap a.button.positive, 
+html.no-borderimage #wrap input.button.positive {
+  border-width: 0px; 
+  border-image: none; 
+  padding: 1em 2em; 
+  display: inline-block; 
+}
 
 
 .button.success {background: #05723B;}
@@ -251,6 +258,12 @@ html.no-borderimage .button.positive, a.button.positive {border-width: 1px; bord
 
 #wrap .button.negative a {
   display: block;
+}
+
+html.no-borderimage #wrap .button.negative {
+  border: none; 
+  padding: 1em 2em;
+  color: #fff;
 }
 
 .small.button {

@@ -63,7 +63,8 @@ describe "Apis" do
       end
       @other_user_notification = Notification.create!(:subject => 'Other User Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app.id)
       @other_app_notification = Notification.create!(:subject => 'Other App Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id)
-      @user.notifications.destroy_all
+      @user.notifications.each{ |n| n.destroy(:force) } #destroy_all does soft delete, must use force to hard delete
+      @user.notifications.reload #Update collection after hard deleting. 
     end
     
     context "when the user has a valid token" do    

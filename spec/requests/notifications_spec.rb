@@ -63,6 +63,28 @@ describe "Notifications" do
         page.should have_content "Notification #2"
         page.should_not have_content "Notification #9"
       end
+
+      it "should revive a deleted record after first removing it" do
+        visit notifications_path
+        click_link "Notification #5"
+        click_link "Remove"
+        page.should_not have_content "Notification #5"
+        Notification.find_by_subject("Notification #5").revive
+        visit notifications_path
+        page.should have_content "Notification #5"
+      end      
+
+      it "should not allow a notification to be deleted twice" do
+        visit notifications_path
+        click_link "Notification #5"
+        Notification.find_by_subject("Notification #5").destroy
+        visit notifications_path
+        click_link "Remove"
+        page.should have_content "Notification #4"
+        page.should_not have_content "Notification #5"
+        Notification.find_by_subject("Notification #5").deleted_at.should_not eq nil
+        #page.should have_content "Notification could not be found."
+      end      
     end
   end
 end

@@ -96,4 +96,22 @@ describe "Users" do
       end
     end
   end
+
+  describe "sign out process" do
+    before do
+      beta_signup = BetaSignup.new(:email => 'joe@citizen.org')
+      beta_signup.is_approved = true
+      beta_signup.save!
+      @user = User.create(:email => beta_signup.email, :password => 'password')
+      @user.confirm!
+      create_logged_in_user(@user)
+    end
+    
+    it "should redirect the user to the sign in page" do
+      visit dashboard_path
+      click_link 'Sign out'
+      page.should have_content "Sign in"
+      page.should have_content "Didn't receive confirmation instructions?"
+    end
+  end
 end

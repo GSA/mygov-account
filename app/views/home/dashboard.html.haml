@@ -59,13 +59,17 @@
           %h5
             Today is #{@us_holiday.name}
       - if @events.any?
-        .panel.sidebar
-          %h5
-            Today in U.S. History
-          %ul.side-nav
-            - @events.each do |event|
-              %li
-                #{event.summary} - #{event.description}
+        .panel.sidebar.decorative.style-one
+          .flourish
+            %i{:class => "foundicon-calendar"}
+          %div
+            %h5
+              Today in U.S. History
+            
+            %ul.side-nav
+              - @events.each do |event|
+                %li
+                  #{event.summary} - #{event.description}
       - if @uv_index  
         .panel.sidebar
           %h5.centered

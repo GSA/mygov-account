@@ -210,9 +210,7 @@ a.button:visited {color: #fff;}
   border-image: url(button-positive.png) 12 fill repeat;
 }
 
-@media only screen and (max-width: 767px) {
-  .button.positive, a.button.positive {background: red;}
-}
+html.no-borderimage .button.positive, a.button.positive {border-width: 1px;}
 
 
 .button.success {background: #05723B;}
@@ -293,8 +291,6 @@ fieldset span {
 }
 
 form ol, fieldset ol {margin: 0 0 0 0; padding: 0;}
-
-
 
 fieldset li, form li {
   display: block;
@@ -607,13 +603,14 @@ body.sign-up {
 
 .signup-form input[type="email"] {
   border: 2px solid #112136;
-  font-size: 1.5em;
-  height: 2.5em;
+  font-size: 1.2em;
   display: block;
-  line-height: 1em;
+  line-height: 1.5em;
   font-weight: normal;
+  padding: 1em .5em;
 }
 
+html.ie8 .signup-form input[type="email"] {padding: 0; line-height: 1em;}
 
 
 html.backgroundsize .sign-up .logo h1 {

@@ -1,12 +1,12 @@
 - if @local_info['jurisdictions']
   .row
     .twelve.columns
-      %h2 Your Communities &amp; Representatives
+      %h2 Your Communities & Representatives
       - @local_info['jurisdictions'].each do |j|
         %ul.jurisdiction-list
           %li.jurisdiction
             %h3
-              %a{:href => j['url'], :name => "#{j['level']}-#{j['type']}"}  
+              = link_to j['url'], :name => "#{j['level']}-#{j['type']}" do
                 %span.level 
                   - if j['type'] == 'legislative' and j['level'] == 'regional'
                     %span.level_name
@@ -17,25 +17,25 @@
                     #{j['name']}
             - if j['url']
               %div{:class => "jurisdiction website"}
-                %a{:href=>j['url']}
+                = link_to j['url'] do
                   = j['url'].gsub(%r[(http:\/\/)|(https:\/\/)], '').chomp("/")              
             - if j['elected_office']    
               %ul.elected-list
                 - j['elected_office'].each do |e|
                   %li.official
                     %h4
-                      %a{:href=>e['url']}
+                      = link_to e['url'] do
                         %span.title                     
                           = e['title']
                         %span.name 
                           = e['name_full']
                     %div{:class => "official website"}
-                      %a{:href=>e['url']}
+                      = link_to e['url'] do
                         = e['url'].gsub(%r[(http:\/\/)|(https:\/\/)], '').chomp("/")
                     - if e['social_media']
                       %div.social-media
                         - e['social_media'].each do |s|                      
-                          %a{:href=>s['url']}
+                          = link_to s['url'] do
                             %i{:class => "social foundicon-#{s['type']}"}
                             %span
                               = s['description']

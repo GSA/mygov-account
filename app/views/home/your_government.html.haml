@@ -1,6 +1,6 @@
 - if @local_info['jurisdictions']
-  .row
-    .twelve.columns
+  .row.local
+    .nine.columns
       %h2 Your Communities & Representatives
       - current_jurisdiction_level = nil
       - @local_info['jurisdictions'].each do |jurisdiction|
@@ -33,9 +33,11 @@
                               = elected_office['title']
                             %span.name 
                               = elected_office['name_full']
+                        %img.elected-official{:src => elected_office['url_photo']}
                         %div{:class => "official website"}
                           = link_to elected_office['url'] do
                             = elected_office['url'].gsub(%r[(http:\/\/)|(https:\/\/)], '').chomp("/")
+                        
                         - if elected_office['social_media']
                           %div.social-media
                             - elected_office['social_media'].each do |social_media|                      
@@ -43,4 +45,4 @@
                                 %i{:class => "social foundicon-#{social_media['type']}"}
                                 %span
                                   = social_media['description']
-                        %img.elected-official{:src => elected_office['url_photo']}
+                        

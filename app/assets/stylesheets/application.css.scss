@@ -698,28 +698,30 @@ form li.full:last-child {border-bottom: none;}
 
 .panel.decorative {position: relative;}
 
-.panel.decorative.style-one {background: #fff; background: rgba(255,255,255,.65)}
+.panel.decorative.style-one {background: #eee; background: rgba(255,255,255,.65);}
 .panel.decorative h3,
 .panel.decorative h4,
 .panel.decorative h5 {text-align: center; text-transform: uppercase; letter-spacing: .1em; border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: .5em;}
 .panel.decorative div {background: #fff; border: 1px dotted rgba(0,0,0,.2); padding: .5em 1em; margin: .25em 0; -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1) inset;}
 #main .panel.decorative.style-one li {color: #102038; font-size: .95em;}
 
+.panel.decorative h6 {font-size: 1.4em; line-height: 1.4em; display: block; padding: 0; border-bottom: 1px solid rgba(0,0,0,.1);}
+.panel.decorative h6:last-child {border-bottom: none;}
+
+.panel.decorative.style-three {background: rgba(255,255,255,.45);}
+.panel.decorative.style-three div {background: rgba(255,255,255,.65);}
+.panel.decorative.style-three a {display: block; padding: 1em 0;}
 .panel.decorative.style-two {background: #1A6485; background: rgba(18,99,134,.7); color: #fff; text-shadow: 0 -1px 0 rgba(0,0,0,.3);}
 .panel.decorative.style-two div {background: #1A6485; -webkit-box-shadow: none; border: none; -webkit-box-shadow: 0 0 5px rgba(0,0,0,.2) inset;}
 .panel.decorative.style-two p {text-shadow: 0 -1px 0 rgba(0,0,0,.3); text-align: center;}
-
-
 .panel.decorative.style-two h3 {font-size: 1.3em; padding-bottom: .35em; font-family: 'Century Gothic', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #fff; text-shadow: 0 -1px 0 rgba(0,0,0,.2); font-weight: bold;}
-
 .panel.decorative div.flourish {border: none; background: none; padding: 0; margin: 0; -webkit-box-shadow: none; margin: 0 auto; font-size: 1.9em; text-align: center; margin-bottom: -.38em; color: #5A4A42; }
 .panel.decorative.style-two div.flourish {color: #fff;  margin-bottom: -.28em}
 .panel.decorative.style-two div.flourish i {text-shadow: 0 0 4px rgba(0,0,0,.3);}
-
 .panel.decorative div.fixed-height {height: 10em;}
+
 @media only screen and (max-width: 767px) {
-  .panel.decorative div.fixed-height {height: auto;}
-  
+  .panel.decorative div.fixed-height {height: auto;} 
 }
 
 #main h3.ticker {margin: 0 0 .5em 0; padding: 0; line-height: 1em; font-size: 1.5em; color: #555; color: rgba(0,0,0,.85); }
@@ -793,6 +795,8 @@ form li.full:last-child {border-bottom: none;}
 h5 span {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: .9em; background: rgba(0,0,0,.05); display: inline-block; padding: 0 .75em; -webkit-box-shadow: 0 0 10px rgba(0,0,0,.1) inset;}
 
 .panel span.bookmark {display: inline-block; background: image-url("sprite.png") 0% -611px no-repeat; width: 30px; height: 53px; position: absolute; top: 0; right: 2em;  }
+
+.local .panel span {font-weight: normal;}
 
 /*** Idea blocks ***/
 
@@ -886,7 +890,11 @@ ul.jurisdiction-list, ul.jurisdiction-list li {
 list-style-type : none;
 padding : 0;
 margin : 0;
+clear: both; 
+display: block;
+
 }
+
 
 .jurisdiction {
 font-size : .75em;
@@ -899,6 +907,8 @@ font-size : 2em;
 margin-bottom : 0;
 clear : both;
 }
+
+.jurisdiction a:hover {border-bottom: none; }
 
 .sidebar .jurisdiction {
 margin-top : 1em;
@@ -920,25 +930,28 @@ border-top : 1px solid #ccc;
 #main .jurisdiction-list {
 display : inline-block;
 width : 100%;
-margin-top : 1em;
+margin-top : 0;
 }
 
 #main .jurisdiction-list li {
 float : left;
 width : 100%;
 clear : both;
-padding-top : .5em;
-padding : 1em 0;
+padding-bottom: 1em;
 }
 
 .jurisdiction-list h3 {
-margin-bottom : 0;
+margin-bottom : .2em;
 }
 
 .jurisdiction-list img {
 float : right;
 max-width : 100px;
 margin-bottom : 0;
+padding: .35em;
+background: #eee;
+border: 1px solid #ccc;
+margin: 1em 0 1em 1em;
 }
 
 .jurisdiction-list .text-box {
@@ -978,6 +991,10 @@ color : rgba(0,0,0,.5);
 color : #267fd9;
 }
 
+li.official {margin: 1em 0 0 0; display: block; border-bottom: 1px solid #ddd; padding-top: 1em;}
+li.official:last-child {border-bottom: none;}
+
+
 
 .official a:hover .title,
 .official a:hover .name {
@@ -986,50 +1003,73 @@ color : rgba(0,0,0,1);
 }
 
 .jurisdiction .website a {
-color : #666;
-color: rgba(0, 0, 0, 0.65);
-text-transform : uppercase;
-font-size : .75em;
-float : left;
-clear : left;
-width : 25em;
-text-overflow: ellipsis;
-white-space: nowrap;
-overflow: hidden;
-
+  color : #666;
+  color: rgba(0, 0, 0, .5);
+  text-transform : uppercase;
+  float : left;
+  clear : left;
+  font-size: .8em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .jurisdiction.website {
-font-size : 1.3em;
-margin : 0;
-margin-bottom : 1em;
-padding : .5em 0 !important;
+  font-size : 1.3em;
+  margin : 0;
+  margin-bottom : 1em;
+  padding : .5em 0 !important;
 }
 
 .official .website a:hover {
-color : #0066CC;
+  color : #0066CC;
 }
 
 .official h4, 
 .official .social-media {
-margin-bottom : 0;
-float : left;
-clear : left;
+  margin-bottom : 0;
+  float : left;
+  clear : left;
 }
 
 
-.official .social-media a {
-margin : .5em 1em .5em 0;
-font-size : 1.25em;
-height : 2em;
-display: inline-block;
+.official .social-media {vertical-align: middle;}
 
+.official .social-media a {
+  margin : .5em .5em .5em 0;
+  font-size : 1.2em;
+  height : 2em;
+  width: 2em;
+  line-height: 2em;
+  text-align: center;
+  vertical-align: bottom;
+  background: #0A2137;
+  display: inline-block;
+  color: #fff;
+  border-radius: .2em;
 }
 
 .official .social-media a:hover {
-color : black;
+  border-bottom: none;
+  color: #fff;
 }
 
 .official .social-media a span {
 display : none;
 }
+
+
+/*** Danger will Robinson! ***/
+
+#error_explanation {
+  background: #961D19;
+  clear: both;
+  padding: .5em 1em;
+  margin: 0 0 1em 0;
+  color: #fff;
+  text-shadow: none;
+}
+
+#error_explanation ul {margin: 1em 0; padding: 0;}
+
+#error_explanation h2 {color: #fff; font-size: 2em;}

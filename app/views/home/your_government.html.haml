@@ -2,41 +2,45 @@
   .row
     .twelve.columns
       %h2 Your Communities & Representatives
-      - @local_info['jurisdictions'].each do |j|
-        %ul.jurisdiction-list
-          %li.jurisdiction
-            %h3
-              = link_to j['url'], :name => "#{j['level']}-#{j['type']}" do
-                %span.level 
-                  - if j['type'] == 'legislative' and j['level'] == 'regional'
-                    %span.level_name
-                      = "#{j['level_name']} "
-                  %span.type_name
-                    #{j['type_name']}: 
-                  %span.name
-                    #{j['name']}
-            - if j['url']
-              %div{:class => "jurisdiction website"}
-                = link_to j['url'] do
-                  = j['url'].gsub(%r[(http:\/\/)|(https:\/\/)], '').chomp("/")              
-            - if j['elected_office']    
-              %ul.elected-list
-                - j['elected_office'].each do |e|
-                  %li.official
-                    %h4
-                      = link_to e['url'] do
-                        %span.title                     
-                          = e['title']
-                        %span.name 
-                          = e['name_full']
-                    %div{:class => "official website"}
-                      = link_to e['url'] do
-                        = e['url'].gsub(%r[(http:\/\/)|(https:\/\/)], '').chomp("/")
-                    - if e['social_media']
-                      %div.social-media
-                        - e['social_media'].each do |s|                      
-                          = link_to s['url'] do
-                            %i{:class => "social foundicon-#{s['type']}"}
-                            %span
-                              = s['description']
-                    %img.elected-official{:src => e['url_photo']}
+      - current_jurisdiction_level = nil
+      - @local_info['jurisdictions'].each do |jurisdiction|
+        - if current_jurisdiction_level != jurisdiction['level']
+          .panel
+            - current_jurisdiction = jurisdiction['level']
+            %ul.jurisdiction-list
+              %li.jurisdiction
+                %h3
+                  = link_to jurisdiction['url'], :name => "#{jurisdiction['level']}-#{jurisdiction['type']}" do
+                    %span.level 
+                      - if jurisdiction['type'] == 'legislative' and jurisdiction['level'] == 'regional'
+                        %span.level_name
+                          = "#{jurisdiction['level_name']} "
+                      %span.type_name
+                        #{jurisdiction['type_name']}: 
+                      %span.name
+                        #{jurisdiction['name']}
+                - if jurisdiction['url']
+                  %div{:class => "jurisdiction website"}
+                    = link_to jurisdiction['url'] do
+                      = jurisdiction['url'].gsub(%r[(http:\/\/)|(https:\/\/)], '').chomp("/")              
+                - if jurisdiction['elected_office']    
+                  %ul.elected-list
+                    - jurisdiction['elected_office'].each do |elected_office|
+                      %li.official
+                        %h4
+                          = link_to elected_office['url'] do
+                            %span.title                     
+                              = elected_office['title']
+                            %span.name 
+                              = elected_office['name_full']
+                        %div{:class => "official website"}
+                          = link_to elected_office['url'] do
+                            = elected_office['url'].gsub(%r[(http:\/\/)|(https:\/\/)], '').chomp("/")
+                        - if elected_office['social_media']
+                          %div.social-media
+                            - elected_office['social_media'].each do |social_media|                      
+                              = link_to social_media['url'] do
+                                %i{:class => "social foundicon-#{social_media['type']}"}
+                                %span
+                                  = social_media['description']
+                        %img.elected-official{:src => elected_office['url_photo']}

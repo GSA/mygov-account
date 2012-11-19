@@ -1070,6 +1070,20 @@ display : none;
   text-shadow: none;
 }
 
+.field_with_errors {background: #961D19; }
+.field_with_errors label {color: #fff; text-shadow: none; margin: 0; padding: .2em; }
+.field_with_errors input[type="text"], 
+.field_with_errors input[type="email"],
+.field_with_errors input[type="password"] {
+  border: 1px solid #961D19; 
+  -webkit-border-radius: .2em;
+  -moz-border-radius: .2em;
+  border-radius: .2em;
+}
+
+.field_with_errors > input {border: 2px solid green;}
+
+
 #error_explanation ul {margin: 1em 0; padding: 0;}
 #error_explanation li {text-shadow: none;}
 

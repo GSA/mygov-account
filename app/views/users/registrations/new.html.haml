@@ -2,9 +2,7 @@
   .ten.columns.centered.banner
     %h2
       Navigating government just got easier.
-
-
-
+  
   .four.columns
     .panel.decorative.style-two
       .flourish
@@ -14,7 +12,7 @@
           Save time
         %p
           Gone are the days of entering your name and address into forms over and over again.
-        
+  
   .four.columns
     .panel.decorative.style-two
       .flourish
@@ -78,8 +76,8 @@
                 = f.label :password_confirmation
                 = f.password_field :password_confirmation
               %li
-                = label_tag 'accept' do
-                  = check_box_tag 'accept'
+                = f.label :terms_of_service do
+                  = f.check_box :terms_of_service
                   I agree to the MyGov #{link_to 'Terms of Service', terms_of_service_path} and #{link_to 'Privacy Policy', privacy_policy_path}
               %li= f.submit 'Sign up', :class => 'button positive'
                    

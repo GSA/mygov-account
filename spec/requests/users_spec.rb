@@ -30,7 +30,7 @@ describe "Users" do
         BetaSignup.create!(:email => 'joe@citizen.org')
       end
       
-      context "when as user has not been approved" do
+      context "when a user has not been approved" do
         it "should not let the user create an account" do
           visit sign_up_path
           fill_in 'Email', :with => 'joe@citizen.org'
@@ -48,13 +48,24 @@ describe "Users" do
         end
         
         context "when the user does not accept the terms of serivce and privacy policy" do
-          it "should not register the user and display an error message" do
-            visit sign_up_path
-            fill_in 'Email', :with => 'joe@citizen.org'
-            fill_in 'Password', :with => 'password'
-            fill_in 'Password confirmation', :with => 'password'
-            click_button 'Sign up'
-            page.should have_content "Please read and accept the MyGov Terms of Service and Privacy Policy."
+          context "when the user fills in everything else" do
+            it "should not register the user and display an error message" do
+              visit sign_up_path
+              fill_in 'Email', :with => 'joe@citizen.org'
+              fill_in 'Password', :with => 'password'
+              fill_in 'Password confirmation', :with => 'password'
+              click_button 'Sign up'
+              page.should have_content "Terms of service must be accepted"
+            end
+          end
+          
+          context "when the user doesn't fill in everything else" do
+            it "should display error messages for all the missing bits of information" do
+              visit sign_up_path
+              click_button 'Sign up'
+              page.should have_content "Email can't be blank"
+              page.should have_content "Terms of service must be accepted"
+            end
           end
         end
         

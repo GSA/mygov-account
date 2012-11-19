@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   validates_format_of :zip, :with => /^\d{5}?$/, :message => "should be in the form 12345"
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
+  validates_acceptance_of :terms_of_service
   after_create :create_default_tasks
   
   # Include default devise modules. Others available are:
@@ -11,7 +12,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :omniauthable, :lockable, :timeoutable, :confirmable
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_veteran, :is_student, :is_retired
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_veteran, :is_student, :is_retired, :terms_of_service
   attr_accessor :just_created
 
   PROFILE_ATTRIBUTES = [:email, :title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_veteran, :is_student, :is_retired]

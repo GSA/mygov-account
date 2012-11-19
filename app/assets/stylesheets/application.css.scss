@@ -37,7 +37,7 @@ body {background: image-url("favicon.png") top center repeat;}
 
 #header {
   background: #fff;
-  padding: 0 3%;
+  padding: 0;
   border-bottom: 3px solid #911A1E;
   -webkit-box-shadow: 0 5px 5px rgba(0,0,0,.1);
   -moz-box-shadow: 0 5px 5px rgba(0,0,0,.1);
@@ -564,7 +564,13 @@ width:0;
 margin-top:-32767px;/* thank you Erik J - negate effect of float*/
 }
 
-.container {clear: both;}
+#wrap .container {clear: both; padding: 0; }
+
+@media only screen and (max-width: 768px) { 
+  #wrap .container {padding: 0 1%;}
+  #header {padding: 0 1%;}
+}
+
 
 /*** Sign up form - move to seperate style sheet ***/
 
@@ -802,13 +808,22 @@ h5 span {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans
 
 @media only screen and (max-width: 767px) {
   .panel.ideas {height: auto;}
+  
 }
+
+@media only screen and (max-width: 860px) {
+ #wrap .news .four {display: block; width: 100%;}
+ .panel.ideas {height: auto;} 
+}
+
+
 
 
 .panel.ideas h5 {font-weight: bold; font-family: 'Century Gothic', 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.2em; padding-bottom: .5em; margin-bottom: .5em; border-bottom: 1px dotted #fff;}
 .panel.ideas p {color: #444;}
 
 .panel h3 span {color: #555;}
+
 
 @media only screen and (max-width: 767px) {
   

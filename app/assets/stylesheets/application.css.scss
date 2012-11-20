@@ -709,6 +709,20 @@ form li.full:last-child {border-bottom: none;}
 .panel.decorative h6 {font-size: 1.4em; line-height: 1.4em; display: block; padding: 0; border-bottom: 1px solid rgba(0,0,0,.1);}
 .panel.decorative h6:last-child {border-bottom: none;}
 
+.panel.decorative span.leader {
+  font-size: 3em; 
+  display: block; 
+  padding: .55em 0; 
+  font-family: 'GoudyBookletter', Georgia, 'Times New Roman', serif;
+}
+
+#wrap p.source {font-size: .9em; color: #555; margin: 0; padding: 0; }
+
+#wrap img.framed {
+  padding: .3em;
+  border: 1px solid rgba(0,0,0,.1);
+}
+
 .panel.decorative.style-three {background: rgba(255,255,255,.45);}
 .panel.decorative.style-three div {background: rgba(255,255,255,.65);}
 .panel.decorative.style-three a {display: block; padding: 1em 0;}
@@ -720,6 +734,13 @@ form li.full:last-child {border-bottom: none;}
 .panel.decorative.style-two div.flourish {color: #fff;  margin-bottom: -.28em}
 .panel.decorative.style-two div.flourish i {text-shadow: 0 0 4px rgba(0,0,0,.3);}
 .panel.decorative div.fixed-height {height: 10em;}
+
+p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  margin-bottom: .5em;}
+#wrap p.secondary {font-size: 1.2em; margin-bottom: 0;}
+
+.panel.decorative a {color: #1E6687;}
+
+.panel.decorative.style-four p {font-family: 'GoudyBookletter', Georgia, 'Times New Roman', serif; font-size: 1.5em; padding: 1em; }
 
 @media only screen and (max-width: 767px) {
   .panel.decorative div.fixed-height {height: auto;} 

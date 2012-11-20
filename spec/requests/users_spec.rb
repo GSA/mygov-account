@@ -78,7 +78,7 @@ describe "Users" do
           click_button 'Sign up'
           page.should have_content 'Thank you for signing up'
           ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-          ActionMailer::Base.deliveries.last.from.should == ["no-reply@my.usa.gov"]
+          ActionMailer::Base.deliveries.last.from.should == ["projectmygov@gsa.gov"]
         end
     
         context "when a user has signed up, and confirms their email address" do

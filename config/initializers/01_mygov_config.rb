@@ -1,0 +1,1 @@
+DEFAULT_FROM_EMAIL = "\"Team MyGov\" <projectmygov@gsa.gov>"

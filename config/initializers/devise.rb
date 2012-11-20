@@ -5,5 +5,5 @@ Devise.setup do |config|
   config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'paypal', :identifier => 'https://www.paypal.com/webapps/auth/server', :require => 'omniauth-openid'
   config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'verisign', :require => 'omniauth-openid'
   config.reconfirmable = true
-  config.mailer_sender = "\"MyGov Team\" <no-reply@my.usa.gov>"
+  config.mailer_sender = DEFAULT_FROM_EMAIL
 end

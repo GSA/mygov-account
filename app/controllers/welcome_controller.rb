@@ -12,6 +12,6 @@ class WelcomeController < ApplicationController
         @step = (params[:step] == 'last' ? "about_you" : "info")
       end
     end
-    redirect_to dashboard_path if request.method == "POST" and @user.errors.empty?
+    redirect_to dashboard_path if (request.method == "POST" and @user.errors.empty?) or @step == "last"
   end
 end

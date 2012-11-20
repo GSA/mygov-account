@@ -883,7 +883,14 @@ h5 span {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans
 
 .row {overflow: hidden; min-width: inherit;}
 
+
+
+
 /* Local Government Features */
+
+.local .panel {
+background : none repeat scroll 0 0 rgba(255, 255, 255, 0.35);
+}
 
 /* List reset */
 ul.jurisdiction-list, ul.jurisdiction-list li {
@@ -949,7 +956,7 @@ float : right;
 max-width : 100px;
 margin-bottom : 0;
 padding: .35em;
-background: #eee;
+background: rgba(255, 255, 255, 0.65);
 border: 1px solid #ccc;
 margin: 1em 0 1em 1em;
 }
@@ -976,7 +983,7 @@ color : rgba(0,0,0,.7);
 }
 
 .jurisdiction .website a:hover, 
-.jurisdiction h3 a:hover {
+.jurisdiction h3 a:hover .name {
   color: #267fd9;
 }
 
@@ -991,7 +998,13 @@ color : rgba(0,0,0,.5);
 color : #267fd9;
 }
 
-li.official {margin: 1em 0 0 0; display: block; border-bottom: 1px solid #ddd; padding-top: 1em;}
+.jurisdiction li.official {
+margin: 1em 0 0 0; 
+display: block; 
+border-bottom: 1px solid #ddd; 
+padding-top: 1em;
+}
+
 li.official:last-child {border-bottom: none;}
 
 
@@ -1015,13 +1028,18 @@ color : rgba(0,0,0,1);
 }
 
 .jurisdiction.website {
-  font-size : 1.3em;
-  margin : 0;
-  margin-bottom : 1em;
-  padding : .5em 0 !important;
+  font-size: 1.3em;
+  margin: 0;
+  margin-bottom: 2em;
 }
 
-.official .website a:hover {
+.official.website a {
+width : 50%;
+}
+
+
+.jurisdiction a:hover, 
+.jurisdiction h3 a:hover {
   color : #0066CC;
 }
 
@@ -1051,7 +1069,7 @@ color : rgba(0,0,0,1);
 
 .official .social-media a:hover {
   border-bottom: none;
-  color: #fff;
+  background-color : #267fd9;
 }
 
 .official .social-media a span {

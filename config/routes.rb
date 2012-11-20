@@ -28,6 +28,10 @@ Mygov::Application.routes.draw do
     resources :notifications, :only => [:create]
     resources :tasks, :only => [:index, :create, :show]
   end
+  match "/404", :to => "errors#not_found"
+  rack_error_handler = ActionDispatch::PublicExceptions.new('public/')
+  match "/422" => rack_error_handler
+  match "/500" => rack_error_handler  
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -8,11 +8,11 @@ class NotificationsController < ApplicationController
   end
   
   def show
-    @notification = @user_notifications.find_by_id(params[:id])
+    @notification = @user_notifications.find(params[:id])
   end
 
   def destroy
-    @notification = @user_notifications.find_by_id(params[:id])
+    @notification = @user_notifications.find(params[:id])
     unless @notification
       redirect_to notifications_path(:page => params[:page]), notice: "Notification could not be found."
       return

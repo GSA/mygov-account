@@ -2,13 +2,13 @@ class TaskItemsController < ApplicationController
   after_filter :complete_task
   
   def update
-    @task_item = TaskItem.find_by_id(params[:id])
+    @task_item = TaskItem.find(params[:id])
     @task_item.complete! if params[:completed]
     redirect_to task_path(@task_item.task)
   end
   
   def destroy
-    @task_item = TaskItem.find_by_id(params[:id])
+    @task_item = TaskItem.find(params[:id])
     @task_item.destroy
     redirect_to :back
   end

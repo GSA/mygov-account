@@ -98,10 +98,15 @@ describe "Users" do
         end
         
         context "when a user signs up via a third party" do
+          before do
+            ActionMailer::Base.deliveries = []
+          end
+          
           it "should welcome them to MyGov and prompt them for more information" do
             visit sign_up_path
             click_link 'Sign in with Google'
             page.should have_content "Tell us more about yourself"
+            ActionMailer::Base.deliveries.should be_empty
           end
         end
       end

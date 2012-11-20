@@ -394,6 +394,7 @@ ul.button-list a {
   height: 4em;
   margin-top: -4em; /* negative value of footer height */
 	clear:both;
+	float: left; 
 }
 
 .nav-bar {background: #fff; background: rgba(255,255,255,.88); overflow-x: hidden; }
@@ -724,7 +725,7 @@ form li.full:last-child {border-bottom: none;}
   .panel.decorative div.fixed-height {height: auto;} 
 }
 
-#main h3.ticker {margin: 0 0 .5em 0; padding: 0; line-height: 1em; font-size: 1.5em; color: #555; color: rgba(0,0,0,.85); }
+#main h3.ticker {margin: 0 0 .5em 0; padding: 0; line-height: 1em; font-size: 1.5em; color: #555; color: rgba(0,0,0,.5); }
 #main h3.ticker.news {vertical-align: top;}
 
 .pitch {border-bottom: 1px solid rgba(0,0,0,.1); border-top: 1px solid rgba(0,0,0,.1); margin-bottom: 1.25em; height: .25em;}

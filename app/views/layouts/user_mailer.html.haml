@@ -339,7 +339,6 @@
                     %tr
                       %td{:valign => "top"}
                         %div{"mc:edit" => "std_preheader_content"}
-                          Use this area to offer a short teaser of your email's content. Text here will show in the preview area of some email clients.
                       / *|IFNOT:ARCHIVE_PAGE|*
                       %td{:valign => "top", :width => "190"}
                       / *|END:IF|*
@@ -370,32 +369,4 @@
                                 = yield
                         / // End Module: Standard Content \\
                   / // End Template Body \\
-              %tr
-                %td{:align => "center", :valign => "top"}
-                  / // Begin Template Footer \\
-                  %table#templateFooter{:border => "0", :cellpadding => "10", :cellspacing => "0", :width => "600"}
-                    %tr
-                      %td.footerContent{:valign => "top"}
-                        / // Begin Module: Standard Footer \\
-                        %table{:border => "0", :cellpadding => "10", :cellspacing => "0", :width => "100%"}
-                          %tr
-                            %td#social{:colspan => "2", :valign => "middle"}
-                              %div{"mc:edit" => "std_social"}
-                                \&nbsp;
-                                %a{:href => "#"} follow on Twitter
-                                |
-                                %a{:href => "#"} friend on Facebook
-                                |
-                                = succeed "&amp;nbsp;" do
-                                  %a{:href => "http://bit.ly/mygovblog"} Blog
-                          %tr
-                            %td#utility{:colspan => "2", :valign => "middle"}
-                              %div{"mc:edit" => "std_utility"}
-                                \&nbsp;
-                                %a{:href => "*|UNSUB|*"} unsubscribe from this list
-                                |
-                                = succeed "&amp;nbsp;" do
-                                  %a{:href => "*|UPDATE_PROFILE|*"} update subscription preferences
-                        / // End Module: Standard Footer \\
-                  / // End Template Footer \\
             %br/

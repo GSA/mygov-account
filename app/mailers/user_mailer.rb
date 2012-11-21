@@ -9,5 +9,5 @@ class UserMailer < ActionMailer::Base
   def beta_invite_b(email)
     @email = email
     mail(:to => email, :subject => 'You\'re invited to the MyGov Beta')
-  end
+  end  
 end

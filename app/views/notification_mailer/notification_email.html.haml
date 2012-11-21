@@ -1,0 +1,12 @@
+%p
+  Hello, #{@notification.user.first_name}:
+
+- if @notification.app.present?
+  %p
+    The "#{@notification.app.name}" MyGov application has sent you the following message:
+- else
+  %p
+    A notification for you from MyGov:
+    
+%div{:style => 'margin-left: 5em;'}
+  = @notification.body

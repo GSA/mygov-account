@@ -22,6 +22,7 @@ describe "Notifications" do
     
     context "when the user has notifications" do
       before do
+        Notification.destroy_all
         1.upto(14) do |index|
           @notification = Notification.create!(:subject => "Notification ##{index}", :received_at => Time.now - 1.hour, :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app1.id)
         end
@@ -36,12 +37,9 @@ describe "Notifications" do
       
       it "should display a paginated list of user's notifications" do
         visit notifications_path
-        1.upto(10) do |index|
-          page.should have_content "Notification ##{index}"
+        @user.notifications.order('received_at DESC')[0..9].each_with_index do |notification, index|
+          page.should have_content notification.subject
         end
-        page.should_not have_content "Notification #11"
-        page.should_not have_content "Other User Notification"
-        page.should_not have_content "Other App Notification"
         click_link('2')
         2.upto(10) do |index|
           page.should_not have_content "Notification ##{index}"
@@ -83,7 +81,6 @@ describe "Notifications" do
         page.should have_content "Notification #4"
         page.should_not have_content "Notification #5"
         Notification.find_by_subject("Notification #5").deleted_at.should_not eq nil
-        #page.should have_content "Notification could not be found."
       end      
     end
   end

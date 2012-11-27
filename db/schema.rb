@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116152812) do
+ActiveRecord::Schema.define(:version => 20121126180732) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -115,6 +115,18 @@ ActiveRecord::Schema.define(:version => 20121116152812) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "submitted_forms", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "app_id"
+    t.string   "form_number"
+    t.string   "data_url"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "submitted_forms", ["app_id"], :name => "index_submitted_forms_on_app_id"
+  add_index "submitted_forms", ["user_id"], :name => "index_submitted_forms_on_user_id"
 
   create_table "task_items", :force => true do |t|
     t.string   "name"

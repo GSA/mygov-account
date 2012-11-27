@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   validates_format_of :zip, :with => /^\d{5}?$/, :message => "should be in the form 12345"
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
+  has_many :submitted_forms, :dependent => :destroy
   validates_acceptance_of :terms_of_service
   after_create :create_default_tasks
   

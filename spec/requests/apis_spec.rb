@@ -146,7 +146,7 @@ describe "Apis" do
       
       context "when the required parameters are missing" do
         it "should return an error message" do
-          post "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}" }
+          post "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "400"
           parsed_json = JSON.parse(response.body)
           parsed_json["status"].should == "Error"
@@ -188,6 +188,77 @@ describe "Apis" do
         parsed_json = JSON.parse(response.body)
         parsed_json["status"].should == "Error"
         parsed_json["message"].should == "You do not have access to view tasks for that user."
+      end
+    end
+  end
+
+  describe "POST /api/forms" do
+    before do
+      @form_number = "ss-5"
+    end
+    
+    context "when the caller has a valid token" do
+      context "when no form number is provided" do
+        it "should return an error" do
+          post "/api/forms", {:data => {:first_name => 'Joe', :last_name => 'Citizen'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+          response.code.should == "400"
+          parsed_json = JSON.parse(response.body)
+          parsed_json["status"].should == "Error"
+          parsed_json["message"].should == "Please supply a form number."
+        end
+      end
+      
+      context "when everything works the way it's supposed to" do
+        before do
+          stub_request(:post, "http://localhost:3005/api/forms/ss-5/submissions").to_return(:status => 201, :body => '{"guid":"1234567890"}', :headers => {:location => 'http://localhost:3005/forms/ss-5/submissions/1234567890'})
+        end
+        
+        context "when the form saves properly" do
+          it "should return the Form's generated guid" do
+            post "/api/forms", {:form_number => 'ss-5', :data => {:first_name => 'Joe', :last_name => 'Citizen'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+            response.code.should == "201"
+            parsed_json = JSON.parse(response.body)
+            parsed_json["data_url"].should == "http://localhost:3005/forms/ss-5/submissions/1234567890"
+            response.headers["location"].should =~ /http:\/\/www.example.com\/api\/forms\/.*/
+          end
+        end
+        
+        context "when there is a problem saving the response" do
+          before do
+            SubmittedForm.any_instance.stub(:save).and_return false
+          end
+          
+          it "should return an error" do
+            post "/api/forms", {:form_number => 'ss-5', :data => {:first_name => 'Joe', :last_name => 'Citizen'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+            response.code.should == "400"
+            parsed_json = JSON.parse(response.body)
+            parsed_json["status"].should == "Error"
+          end
+        end
+      end
+      
+      context "when there is an error in submitting the form" do
+        before do
+          stub_request(:post, "http://localhost:3005/api/forms/ss-5/submissions").to_return(:status => 500)
+        end
+        
+        it "should return an error message" do
+          post "/api/forms", {:form_number => 'ss-5', :data => {:first_name => 'Joe', :last_name => 'Citizen'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+          response.code.should == "400"
+          parsed_json = JSON.parse(response.body)
+          parsed_json["status"].should == "Error"
+          parsed_json["message"].should == "There was an error in creating your form."
+        end
+      end      
+    end
+    
+    context "when the request does not have a valid token" do
+      it "should return an error message" do
+        post "/api/forms", nil, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
+        response.code.should == "403"
+        parsed_json = JSON.parse(response.body)
+        parsed_json["status"].should == "Error"
+        parsed_json["message"].should == "You do not have permission to submit forms for this user."
       end
     end
   end

@@ -54,6 +54,7 @@ group :test do
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'simplecov', :require => false
+  gem 'webmock'
 end
 
 gem 'jquery-rails'

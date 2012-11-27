@@ -110,6 +110,9 @@ describe "HomePage" do
         
         context "when the UV Index for the user's profile is available" do
           before do
+            stub_request(:get, "http://api.democracymap.org/geowebdns/endpoints?format=json&fullstack=true&location=21209").
+                     with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+                     to_return(:status => 200, :body => "", :headers => {})
             epa_response = [{"UV_INDEX" => 11, "ZIP_CODE" => 21209, "UV_ALERT" => 0}]
             EpaUvIndex::Client.should_receive(:daily_for).with(:zip => @user.zip).and_return epa_response
           end

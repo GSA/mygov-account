@@ -6,6 +6,9 @@ describe "Welcome" do
     @user = User.create(:email => 'joe@citizen.org', :password => 'password')
     @user.confirm!
     create_logged_in_user(@user)
+    stub_request(:get, "http://api.democracymap.org/geowebdns/endpoints?format=json&fullstack=true&location=12345").
+             with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+             to_return(:status => 200, :body => "", :headers => {})
   end
   
   describe "welcome info" do
@@ -43,5 +46,4 @@ describe "Welcome" do
       @user.is_veteran.should be_nil
     end
   end
-
 end

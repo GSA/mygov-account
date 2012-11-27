@@ -23,10 +23,11 @@ Mygov::Application.routes.draw do
   get '/pdfs/fill', :to => 'pdfs#fill', :as => :fill_pdf
   resources :beta_signups, :only => [:create]
   match '/welcome', :to => 'welcome#index', :as => :welcome
-  namespace :api do
+  namespace :api, :defaults => {:format => :json} do
     resource :profile, :only => [:show]
     resources :notifications, :only => [:create]
     resources :tasks, :only => [:index, :create, :show]
+    resources :forms, :only => [:create, :show]
   end
   match "/404", :to => "errors#not_found"
   rack_error_handler = ActionDispatch::PublicExceptions.new('public/')

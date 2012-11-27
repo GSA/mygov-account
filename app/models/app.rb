@@ -1,5 +1,6 @@
 class App < ActiveRecord::Base
   include OAuth2::Model::ClientOwner
+  has_many :submitted_forms
   validates_presence_of :name, :slug
   validates_uniqueness_of :slug
   before_validation :generate_slug

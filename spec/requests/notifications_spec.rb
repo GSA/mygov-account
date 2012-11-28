@@ -37,7 +37,7 @@ describe "Notifications" do
       
       it "should display a paginated list of user's notifications" do
         visit notifications_path
-        @user.notifications.not_deleted.order('received_at DESC', 'id DESC')[0..9].each_with_index do |notification, index|
+        @user.notifications.not_deleted.newest_first[0..9].each_with_index do |notification, index|
           page.should have_content notification.subject
         end
         click_link('2')

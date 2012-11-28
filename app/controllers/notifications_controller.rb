@@ -4,7 +4,7 @@ class NotificationsController < ApplicationController
   before_filter :find_notifications
   
   def index
-    @notifications = @user_notifications.paginate(:page => params[:page], :per_page => 10).order('received_at DESC')
+    @notifications = @user_notifications.paginate(:page => params[:page], :per_page => 10).order('received_at DESC, id DESC')
   end
   
   def show

@@ -4,6 +4,8 @@
 en:
   hello: "Hello world"
   zip_error: "Please enter your 5 digit zip code."
+  sign_in_prompt: "Already using MyGov?"
+  sign_in_link: "Sign in"
   
   devise:
     failure:

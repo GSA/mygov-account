@@ -1,6 +1,40 @@
 require 'spec_helper'
 
 describe "Users" do
+  describe "sign-in links" do
+    context "when a user is not signed in" do
+      it "should have a sign-in link" do
+        visit sign_up_path
+        page.should have_content "Already using MyGov?"
+        page.should have_content "Sign in"
+        click_link "Sign in"
+        current_path.should == sign_in_path
+      end
+      
+      it "should not have a sign-in link on the sign-in page" do
+        visit sign_in_path
+        page.should_not have_content "Already using MyGov?"
+      end
+    end
+    
+    context "when a user is signed in" do
+      before do
+        beta_signup = BetaSignup.new(:email => 'joe@citizen.org')
+        beta_signup.is_approved = true
+        beta_signup.save!
+        @user = User.create(:email => beta_signup.email, :password => 'password')
+        @user.confirm!
+        create_logged_in_user(@user)
+      end
+      
+      it "should not ask the user to sign in" do
+        visit dashboard_path
+        page.should_not have_content "Already using MyGov?"
+        page.should_not have_content "Sign in"
+      end
+    end
+  end
+  
   describe "sign up process" do
     context "when a user is not in the beta signup list" do
       it "should not let the user create an account" do

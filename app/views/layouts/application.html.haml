@@ -49,9 +49,11 @@
                     %span.personal-name
                       #{current_user.first_name}'s
                   My<span>Gov</span><span class="beta">Beta</span>
-            .six.columns.align-right
-              %h3.tagline
-                <em>Experimental release</em> (for review only)
+            - if !current_user && request.path != sign_in_path
+              .six.columns.align-right
+                %h3.tagline
+                  =t('sign_in_prompt')
+                  =link_to t('sign_in_link'), sign_in_path
     
       #main
         .nav-container.group

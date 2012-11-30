@@ -9,6 +9,12 @@ describe "Users" do
         page.should have_content "Sign in"
         click_link "Sign in"
         current_path.should == sign_in_path
+        
+        visit root_path
+        page.should have_content "Already using MyGov?"
+        page.should have_content "Sign in"
+        click_link "Sign in"
+        current_path.should == sign_in_path
       end
       
       it "should not have a sign-in link on the sign-in page" do

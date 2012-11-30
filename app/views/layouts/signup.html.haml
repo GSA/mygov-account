@@ -41,6 +41,11 @@
               
         .container.group
           .logo
+            .row
+              .twelve.columns.align-right
+                %p.tagline
+                  =t('sign_in_prompt')
+                  =link_to t('sign_in_link'), sign_in_path
             %h1
               Project MyGov
           = yield

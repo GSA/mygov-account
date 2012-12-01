@@ -16,3 +16,7 @@ def create_approved_beta_signup(email_or_hash)
   beta_signup.is_approved = true
   beta_signup.save!
 end
+
+def have_timeout_warning_metatag
+    have_xpath("//meta[@http-equiv=\"refresh\" and contains(@content, \"?no_keep_alive=1\")]")
+end

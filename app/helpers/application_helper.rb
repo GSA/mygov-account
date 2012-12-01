@@ -1,4 +1,17 @@
 module ApplicationHelper
+  
+  def session_timeout_message
+    content_tag('div', t('session_expiration_warning', time: pluralize(Rails.application.config.session_timeout_warning_seconds, 'second'))) if @session_will_expire
+  end
+  
+  def refresh_meta_tag_conent
+    if @session_will_expire
+      tag('meta', :'http-equiv' => "refresh", :content => @wait_until_refresh)
+    else
+      tag('meta', :'http-equiv' => "refresh", :content => "#{@wait_until_refresh};#{url_for(params.merge(no_keep_alive: 1))}")
+    end
+  end
+  
   def title_options
     ["Mr.","Mrs.","Miss","Ms."]
   end

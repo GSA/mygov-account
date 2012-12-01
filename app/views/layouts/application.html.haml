@@ -4,7 +4,8 @@
     %meta(charset="utf-8")
     %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
     %meta(name="viewport" content="width=device-width")
-    
+    - if current_user && request.get? # If it's a post, then no redirect
+      = refresh_meta_tag_conent    
     %meta(name="format-detection" content="telephone=yes") 
     %meta(name="apple-mobile-web-app-capable" content="yes")
     
@@ -60,6 +61,7 @@
           .row
             .twelve.columns      
         .container.group
+          = session_timeout_message
           = yield
         - unless current_user
           .no-toolbar

@@ -67,6 +67,9 @@ module Mygov
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
     
     config.exceptions_app = self.routes
+    
+    # Set the number of seconds the timeout warning should occur before login session is timed out
+    config.session_timeout_warning_seconds = 20
   end
 end
 

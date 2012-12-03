@@ -31,7 +31,7 @@ describe User do
         user = User.create(@valid_attributes)
         user.id.should be_nil
         user.errors.should_not be_empty
-        user.errors.first.first.should == :email
+        user.errors.first.first.should == :base
         user.errors.first.last.should == "I'm sorry, your account hasn't been approved yet."
       end
     end

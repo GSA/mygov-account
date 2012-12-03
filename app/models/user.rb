@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
   private
   
   def email_is_whitelisted    
-    errors.add(:email, "I'm sorry, your account hasn't been approved yet.") if BetaSignup.find_by_email_and_is_approved(self.email, true).nil?
+    errors.add(:base, "I'm sorry, your account hasn't been approved yet.") if BetaSignup.find_by_email_and_is_approved(self.email, true).nil?
   end
   
   def pretty_print_phone(number)

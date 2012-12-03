@@ -56,6 +56,12 @@ describe User do
       user.id.should be_nil
       user.errors.messages[:zip].should == ["should be in the form 12345"]
     end
+    
+    it "should create a default notification" do
+      user = User.create(@valid_attributes)
+      user.notifications.size.should == 1
+      user.notifications.first.subject.should == "Welcome to MyGov"
+    end
   end
   
   describe "#find_for_open_id" do

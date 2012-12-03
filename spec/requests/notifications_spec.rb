@@ -14,6 +14,10 @@ describe "Notifications" do
 
   describe "GET /notifications" do
     context "when the user has no notifications" do
+      before do
+        @user.notifications.destroy_all
+      end
+      
       it "should inform the user they have no notifications" do
         visit notifications_path
         page.should have_content "You currently have no notifications."

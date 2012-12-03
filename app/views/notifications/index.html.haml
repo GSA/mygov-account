@@ -18,8 +18,12 @@
             Actions
         - @notifications.each do |notification|
           %tr
-            %td
-              = notification.app.name
+            - if notification.app
+              %td
+                = notification.app.name
+            - else
+              %td
+                MyGov
             %td
               %i.general.foundicon-mail
               = link_to notification.subject, notification_path(notification)

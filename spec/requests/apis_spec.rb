@@ -210,7 +210,7 @@ describe "Apis" do
       
       context "when everything works the way it's supposed to" do
         before do
-          stub_request(:post, "http://localhost:3005/api/forms/ss-5/submissions").to_return(:status => 201, :body => '{"guid":"1234567890"}', :headers => {:location => 'http://localhost:3005/forms/ss-5/submissions/1234567890'})
+          stub_request(:post, "http://localhost:3002/api/forms/ss-5/submissions").to_return(:status => 201, :body => '{"guid":"1234567890"}', :headers => {:location => 'http://localhost:3002/forms/ss-5/submissions/1234567890'})
         end
         
         context "when the form saves properly" do
@@ -218,7 +218,7 @@ describe "Apis" do
             post "/api/forms", {:form_number => 'ss-5', :data => {:first_name => 'Joe', :last_name => 'Citizen'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
             response.code.should == "201"
             parsed_json = JSON.parse(response.body)
-            parsed_json["data_url"].should == "http://localhost:3005/forms/ss-5/submissions/1234567890"
+            parsed_json["data_url"].should == "http://localhost:3002/forms/ss-5/submissions/1234567890"
             response.headers["location"].should =~ /http:\/\/www.example.com\/api\/forms\/.*/
           end
         end
@@ -239,7 +239,7 @@ describe "Apis" do
       
       context "when there is an error in submitting the form" do
         before do
-          stub_request(:post, "http://localhost:3005/api/forms/ss-5/submissions").to_return(:status => 500)
+          stub_request(:post, "http://localhost:3002/api/forms/ss-5/submissions").to_return(:status => 500)
         end
         
         it "should return an error message" do

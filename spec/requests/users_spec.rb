@@ -146,7 +146,7 @@ describe "Users" do
             visit sign_up_path
             click_link 'Sign in with Google'
             page.should have_content "Tell us more about yourself"
-            ActionMailer::Base.deliveries.should be_empty
+            ActionMailer::Base.deliveries.size.should == 1
           end
         end
       end

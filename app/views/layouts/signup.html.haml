@@ -26,8 +26,8 @@
     = stylesheet_link_tag "application", :media => "all"
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
     = favicon_link_tag 'touch-icon-iphone.png', :rel => 'apple-touch-icon', :type => 'image/png'
-    = favicon_link_tag 'touch-icon-ipad.png', :rel => 'apple-touch-icon', :type => 'image/png'
-    = favicon_link_tag 'touch-icon-iphone4.png', :rel => 'apple-touch-icon', :type => 'image/png'
+    = favicon_link_tag 'touch-icon-ipad.png', :sizes => '72x72', :rel => 'apple-touch-icon', :type => 'image/png'
+    = favicon_link_tag 'touch-icon-iphone4.png', :sizes => '114x114', :rel => 'apple-touch-icon', :type => 'image/png'
    
     = javascript_include_tag 'modernizr' 
 
@@ -36,14 +36,10 @@
     %div#wrap
       %div#main
         .nav-container.group
-          .row
-            .twelve.columns
-              
-        .container.group
           .logo
             .row
-              .twelve.columns.align-right
-                %p.tagline
+              .twelve.columns
+                %p.sign-in-bar.right
                   =t('sign_in_prompt')
                   =link_to t('sign_in_link'), sign_in_path
             %h1

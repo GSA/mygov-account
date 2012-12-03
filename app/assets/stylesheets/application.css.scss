@@ -27,6 +27,8 @@
 }
 
 
+html {height: 100%;}
+
 #wrap {min-height: auto;}
 
 body {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
@@ -176,7 +178,7 @@ fieldset label {font-weight: bold;}
 .button {
   font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;
-  margin: 0 1em 1em 0;
+  
   cursor: hand;
   color: #fff;
   display: inline-block;
@@ -198,16 +200,23 @@ a.button:visited {color: #fff;}
   background: #112137; 
   color: #fff; 
   text-shadow: 0 -1px 0 rgba(0,0,0,.7); 
-  border: none; margin: 0 1em 0 0;
+  border: none;
   text-transform: none;
   letter-spacing: none;
-  padding: .5em 1em;
+  
   border-style: solid;
   border-width: 12px;
   -moz-border-image: url(button-positive.png) 12 repeat;
   -webkit-border-image: url(button-positive.png) 12 repeat;
   -o-border-image: url(button-positive.png) 12 repeat;
   border-image: url(button-positive.png) 12 fill repeat;
+}
+
+@media (min-width: 320px) {
+  .button.positive, a.button.positive {
+    margin-right: 1em;
+  }
+  
 }
 
 html.no-borderimage #wrap .button.positive, 
@@ -542,12 +551,21 @@ div.alert-box {
 
 /*** Sticky footer http://www.cssstickyfooter.com ***/
 
-html, body {height: 100%;  background: #F2F2F2;
+body {height: 100%;  background: #F2F2F2;
   
   background: #F2F2F2 image-url("background.png") 50% 50% repeat;
 }
 
-#wrap {min-height: 100%;}
+@media only screen and (min-width: 768px) {
+  body {
+    background-image: image-url("background.png"), image-url("america.png");  
+    background-position: top center, top center;
+    background-repeat: repeat, no-repeat;
+    background-attachment: inherit, fixed;
+    }
+}
+
+#wrap {min-height: 100%; background: image-url("america.png") top center no-repeat fixed;}
 
 #main {
   overflow:auto;
@@ -585,7 +603,7 @@ body.sign-up {
 @media (device-width: 320px) and (orientation: landscape) {
 
   body.sign-up {
-    font-size: .6em;
+    zoom: 80%;
   }
 
 }
@@ -598,7 +616,7 @@ body.sign-up {
 .logo {
   display: block;
   background: #fff;
-  padding: 1em 0;
+  padding: 1em 3%;
 }
 
 .signup-form {
@@ -619,6 +637,19 @@ body.sign-up {
   margin: 1em 0;
   font-size: 1.15em;
   text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+}
+
+
+@media (max-width: 420px) {
+
+  p.sign-in-bar.right {
+    background: #eee;
+    text-align: center;
+    display: block; 
+    padding: 2%;
+    width: 100%;
+  }
+
 }
 
 .signup-form input[type="email"] {
@@ -1128,3 +1159,12 @@ display : none;
 #error_explanation li {text-shadow: none;}
 
 #error_explanation h2 {color: #fff; font-size: 2em; text-shadow: none;}
+
+/*** Modal Experiement ***/
+
+@media only screen and (min-width: 768px) {
+  .column, .columns {
+  position: inherit;
+  }
+
+}

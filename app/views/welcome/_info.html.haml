@@ -10,12 +10,12 @@
           = error_messages(@user)
         %p
           = form.label :zip, "Zip code"
-          = form.text_field :zip, :maxlength => 5
+          = form.text_field :zip, :length => 5, :maxlength => 5
         %li
           = form.label :date_of_birth, "When were you born?"
         %li
           %ul.sublist
             %li.inline.four.columns
               = form.date_select :date_of_birth, :start_year => 1900, :end_year => Date.current.year, :prompt => { :month => 'Select month', :day => 'Select day', :year => 'Select year' }, :date_separator => "</li><li class='inline four columns'>".html_safe
-      = form.submit 'Continue', :class => 'large button'
+      = form.submit 'Continue', :class => 'large button positive'
       = link_to 'Skip this step', welcome_path(:step => 'about_you')

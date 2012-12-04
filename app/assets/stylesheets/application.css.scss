@@ -37,6 +37,18 @@ body {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-se
 body {background: image-url("favicon.png") top center repeat;}
 */
 
+input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
+  padding: 1.3em .5em;
+  font-weight: bold; color: #0C2237;
+}
+
+input[type="text"]:hover, input[type="password"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="email"]:hover, input[type="number"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="time"]:hover, input[type="url"]:hover, textarea,
+input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="time"]:focus, input[type="url"]:focus, textarea {
+  border-color: #0C2237; 
+}
+
+
+
 #header {
   background: #fff;
   padding: 0;
@@ -81,12 +93,25 @@ body {background: image-url("favicon.png") top center repeat;}
 
 .banner h2 {text-align: center; padding: .5em 0;}
 
+@media only screen and (max-width: 420px) {
+  .banner h2 {font-size: 1.75em; padding: .2em 0;}
+}
+
 #header h1 span {font-weight: normal; }
 
 #header h1 .beta {font-weight: normal; position: absolute; bottom: 1.4em; margin: 0 0 0 .15em; font-size: .5em; color: #888;}
 
 #header h3.tagline {display: block; font-size: 1em; margin: 1em 0 .5em 0; font-family: 'Century Gothic', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1D6387; }
 #header h3.tagline em {font-style: normal; font-weight: bold;}
+
+#header h3.disclaimer {font-size: 1em; font-style: normal; font-family: 'Century Gothic', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #676767; text-align: right;}
+
+@media only screen and (max-width: 420px) {
+  #header h3.disclaimer {text-align: center; font-size: .8em;}
+
+  #header h3.tagline {padding: 0 3%; }
+  #header h3.tagline a {font-weight: bold;}
+}
 
 @media only screen and (max-width: 767px) {
   #header h3.tagline {
@@ -114,9 +139,6 @@ p, ul, ol, legend, input[type="text"], input[type="email"], input[type="tel"] {f
 
 .centered {text-align: center;}
 
-input[type="text"], input[type="email"], input[type="password"] {font-weight: bold; color: #0C2237;}
-
-input[type="text"]:focus, input[type="text"]:active {border-color: #0C2237; }
 
 h1 {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
 
@@ -139,6 +161,13 @@ fieldset.plain {border: none; background: none; margin: .75em 0 2em 0; padding: 
 fieldset.fancy {margin: .5em 0 0 0; border: 1px dotted rgba(0,0,0,.2); padding-top: .5em;}
 fieldset.fancy legend {color: #126386;text-align: center; font-size: 2em; }
 fieldset.fancy legend i {color: #fff;font-size: .5em; vertical-align: baseline; color: #eee; }
+
+fieldset.fancy span.welcome {font-size: 1em; display: block; margin: .2em 0 .2em 0; padding: 0; font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: .5em; color: #555; line-height: 1.2em; }
+
+@media only screen and (max-width: 420px) {
+  fieldset.fancy legend i {display: none;}
+}
+
 fieldset.fancy legend span {display: inline-block; margin: 0 .5em;}
 
 .sign-up fieldset {margin: 0;}

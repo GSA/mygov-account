@@ -80,57 +80,7 @@ describe "HomePage" do
           page.should have_link "Remove"
         end
       end
-    
-      context "when it is a US Holiday" do
-        before do
-          UsHoliday.create!(:name => "Pretend US Holiday", :observed_on => Date.current, :uid => 'pretend-us-holiday')
-        end
-        
-        it "should show a US holiday notice on the dashboard sidebar" do
-          visit root_path
-          page.should have_content "Today is Pretend US Holiday"
-        end
-      end
-      
-      context "when historical events occured on that day in the past" do
-        before do
-          UsHistoricalEvent.create!(:summary => 'Pretend Historical Event', :uid => 'pretend-historical-event', :day => Date.current.day, :month => Date.current.month, :description => 'Something historical happened today.')
-        end
-        
-        it "should show the event summary and description on the dashboard sidebar" do
-          visit root_path
-          page.should have_content "Pretend Historical Event - Something historical happened today."
-        end
-      end
-      
-      context "when the user has a zip code in their profile" do
-        before do
-          @user.update_attributes(:zip => '21209')
-        end
-        
-        context "when the UV Index for the user's profile is available" do
-          before do
-            stub_request(:get, "http://api.democracymap.org/geowebdns/endpoints?format=json&fullstack=true&location=21209").
-                     with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-                     to_return(:status => 200, :body => "", :headers => {})
-            epa_response = [{"UV_INDEX" => 11, "ZIP_CODE" => 21209, "UV_ALERT" => 0}]
-            EpaUvIndex::Client.should_receive(:daily_for).with(:zip => @user.zip).and_return epa_response
-          end
-        
-          it "should display the UV index on the dashboard" do
-            visit root_path
-            page.should have_content "Your current UV index is: 11"
-          end
-        end
-      end
-      
-      context "when the user does not have a zip code" do
-        it "should not check for the UV index" do
-          EpaUvIndex::Client.should_not_receive(:daily_for)
-          visit root_path
-        end
-      end
-      
+                
       context "when the user visits the page the first time" do
         before do
           reset_session!

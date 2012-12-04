@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121126180732) do
+ActiveRecord::Schema.define(:version => 20121204184712) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -30,6 +30,37 @@ ActiveRecord::Schema.define(:version => 20121126180732) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.boolean  "is_approved", :default => false
+  end
+
+  create_table "filled_forms", :force => true do |t|
+    t.integer  "form_id"
+    t.integer  "user_id"
+    t.integer  "app_id"
+    t.text     "values"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "filled_forms", ["form_id"], :name => "index_filled_forms_on_form_id"
+  add_index "filled_forms", ["user_id"], :name => "index_filled_forms_on_user_id"
+
+  create_table "form_fields", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.text     "description"
+    t.string   "values"
+    t.integer  "form_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "forms", :force => true do |t|
+    t.string   "name"
+    t.string   "number"
+    t.string   "agency"
+    t.string   "landing_page_url"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "notifications", :force => true do |t|
@@ -116,6 +147,16 @@ ActiveRecord::Schema.define(:version => 20121126180732) do
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
+  create_table "related_urls", :force => true do |t|
+    t.string   "url"
+    t.string   "other_url"
+    t.integer  "occurence_count", :default => 0
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "related_urls", ["url", "occurence_count"], :name => "index_related_urls_on_url_and_occurence_count"
+
   create_table "submitted_forms", :force => true do |t|
     t.integer  "user_id"
     t.integer  "app_id"
@@ -150,33 +191,6 @@ ActiveRecord::Schema.define(:version => 20121126180732) do
 
   add_index "tasks", ["app_id"], :name => "index_tasks_on_app_id"
   add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
-
-  create_table "us_historical_events", :force => true do |t|
-    t.string   "summary"
-    t.string   "uid"
-    t.integer  "day"
-    t.integer  "month"
-    t.string   "categories"
-    t.string   "location"
-    t.string   "description"
-    t.string   "url"
-    t.string   "event_type"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "us_historical_events", ["day", "month"], :name => "index_us_historical_events_on_day_and_month"
-
-  create_table "us_holidays", :force => true do |t|
-    t.string   "name"
-    t.date     "observed_on"
-    t.string   "uid"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "us_holidays", ["observed_on"], :name => "index_us_holidays_on_observed_on"
-  add_index "us_holidays", ["uid"], :name => "index_us_holidays_on_uid"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                :default => "", :null => false

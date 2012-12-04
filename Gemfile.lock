@@ -87,9 +87,6 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.1.3)
-    epa_uv_index (0.0.3)
-      httparty
-      multi_json
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -305,12 +302,12 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   database_cleaner
   devise
-  epa_uv_index
   execjs
   google-analytics-rails
   haml
   haml-rails
   hpricot
+  httparty
   jquery-rails
   json
   launchy

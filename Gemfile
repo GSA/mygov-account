@@ -16,13 +16,13 @@ gem 'cancan'
 gem 'prawn'
 gem 'pdf-forms'
 gem 'ri_cal'
-gem 'epa_uv_index'
 gem 'google-analytics-rails'
 gem 'coffee-rails', '~> 3.2.1'
 gem "airbrake"
 gem 'maruku'
 gem 'validates_email_format_of', :git => 'git://github.com/alexdunae/validates_email_format_of.git'
 gem "permanent_records", "~> 2.3.0"
+gem "httparty"
 
 # Gems used only for assets and not required
 # in production environments by default.

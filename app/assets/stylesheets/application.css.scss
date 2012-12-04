@@ -246,7 +246,7 @@ a.button:visited {color: #fff;}
   border-image: url(button-positive.png) 12 fill repeat;
 }
 
-@media (min-width: 320px) {
+@media only screen and (max-width: 420px) {
   .button.positive, a.button.positive {
     margin-right: 0;
   }
@@ -779,7 +779,7 @@ form li.full:last-child {border-bottom: none;}
 .panel.decorative.style-one {background: #eee; background: rgba(255,255,255,.65);}
 .panel.decorative h3,
 .panel.decorative h4,
-.panel.decorative h5 {text-align: center; text-transform: uppercase; letter-spacing: .15em; border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: .5em;}
+.panel.decorative h5 {text-align: center; text-transform: uppercase; color: #555; font-size: 1.1em; letter-spacing: .15em; border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: .5em;}
 .panel.decorative div {background: #fff; border: 1px dotted rgba(0,0,0,.2); padding: .5em 1em; margin: .25em 0; -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1) inset;}
 #main .panel.decorative.style-one li {color: #102038; font-size: .95em;}
 

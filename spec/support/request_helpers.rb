@@ -18,5 +18,5 @@ def create_approved_beta_signup(email_or_hash)
 end
 
 def have_timeout_warning_metatag
-    have_xpath("//meta[@http-equiv=\"refresh\" and contains(@content, \"?no_keep_alive=1\")]")
+  have_xpath("//meta[@http-equiv=\"refresh\" and contains(@content, \";\") and contains(@content, \"?no_keep_alive=1\")]")
 end

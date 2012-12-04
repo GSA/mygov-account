@@ -50,6 +50,17 @@ describe "Notifications" do
         end
       end
       
+      context "when some notifications do not have an associated app" do
+        before do
+          @user.notifications.create!(:subject => 'Appless notification', :received_at => Time.now)
+        end
+        
+        it "should load the page just fine" do
+          visit notifications_path
+          page.should have_content "Appless notification"
+        end
+      end
+      
       it "should display a paginated list of user's notifications" do
         visit notifications_path
         @user.notifications.not_deleted.newest_first[0..9].each_with_index do |notification, index|

@@ -1033,7 +1033,8 @@ font-size : 1.5em;
 }
 
 .sidebar .jurisdiction a:hover {
-border :0;
+  text-decoration: underline;
+  border-bottom: none;
 }
 
 #main .jurisdiction-list {

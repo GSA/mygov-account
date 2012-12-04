@@ -39,6 +39,18 @@ describe "Notifications" do
         page.should have_content "15"
       end
       
+      context "when notifications have been deleted" do
+        before do
+          @user.notifications.first.destroy
+          puts @user.notifications.not_deleted.count
+        end
+        
+        it "should show a count for only the non-deleted notifications" do
+          visit dashboard_path
+          page.should have_content "14"
+        end
+      end
+      
       it "should display a paginated list of user's notifications" do
         visit notifications_path
         @user.notifications.not_deleted.newest_first[0..9].each_with_index do |notification, index|

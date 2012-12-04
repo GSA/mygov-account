@@ -78,9 +78,9 @@
               = link_to 'MyGov', root_path
             %li.left.notifications
               = link_to notifications_path do
-                - if current_user.notifications.count > 0
+                - if current_user.notifications.not_deleted.count > 0
                   %span.jujitsu
-                    = current_user.notifications.count
+                    = current_user.notifications.not_deleted.count
                 %span.notification-label
                   Notifications
             %li.right.sign-out= link_to "Sign out", sign_out_path

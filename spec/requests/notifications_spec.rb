@@ -13,6 +13,11 @@ describe "Notifications" do
   end
 
   describe "GET /notifications" do
+    it "should have a title that says 'Notifications'" do
+      visit notifications_path
+      page.should have_content 'Notifications'
+    end
+    
     context "when the user has no notifications" do
       before do
         @user.notifications.destroy_all
@@ -82,6 +87,7 @@ describe "Notifications" do
         visit notifications_path
         page.should_not have_content "Notification #5"
         click_link "Notification #9"
+        page.should have_content "Notifications"
         page.should have_content "Notification #9"
         page.should have_content "This is notification #9"
         click_link "Remove"

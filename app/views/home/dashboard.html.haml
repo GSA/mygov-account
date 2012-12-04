@@ -4,8 +4,7 @@
       = render :partial => 'dashboard_tasks'
     = render :partial => 'dashboard_news'        
   .four.columns
+
     = render :partial => 'us_holiday_sidebar' if @us_holiday
-    = render :partial => 'events_sidebar' if @events
-    = render :partial => 'uv_index_sidebar' if @uv_index
     = render :partial => 'local_gov_sidebar' if @local_info and @local_info['jurisdictions']
     = render :partial => 'administrative_sidebar'

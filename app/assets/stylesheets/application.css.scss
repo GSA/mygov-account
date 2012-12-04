@@ -288,6 +288,8 @@ html.no-borderimage #wrap .button.negative {
   text-shadow: 0 -1px 0 rgba(0,0,0,.3);
 }
 
+.small.button:hover, .small.button:active {color: #fff;}
+
 
 #wrap .button.secondary {
   background: #777;
@@ -346,10 +348,12 @@ fieldset li:last-child, form li:last-child {border-bottom: none;}
 
 ul.meta-list, ul.panel-list {margin: .5em 0 1.25em 0; padding: 1em 0 0 0; display: block;}
 
+ul.meta-list {border-bottom: 2px dotted #ddd; color: #555;}
+
 ul.meta-list li, ul.panel-list, ul.button-list {
    list-style: none;
    padding:0;
-   line-height: 1.1em;
+   line-height: 1em;
 }
 
 ul.panel-list li a {
@@ -376,6 +380,8 @@ ul.button-list a {
   -webkit-box-shadow: 0 0 4px rgba(0,0,0,.2) inset;
   font-weight: normal;
 }
+
+.notification a, .notification a:visited {color: #136487; border-bottom: 1px solid #ccc;}
 
 .side-panel {
   background: #DCE0DA;
@@ -798,9 +804,12 @@ p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  ma
 }
 
 .panel.task div {
-  border-bottom: 1px dotted rgba(255,255,255,.4);
+  /* border-bottom: 1px dotted rgba(255,255,255,.4); */
   margin: 0 0 1em 0;
 }
+
+.panel.task h5 a {background: rgba(255,255,255,.2); padding: .2em 1em; border: 1px solid rgba(255,255,255,.6); margin-bottom: 1em; display: inline-block;}
+.panel.task h5 a:hover {background: rgba(255,255,255,.2); padding: .2em 1em; border: 1px solid rgba(255,255,255,.8); margin-bottom: 1em; display: inline-block;}
 
 .panel.task div:last-child {border-bottom: none;}
 .panel.task div:first {border-top: none;}
@@ -823,12 +832,13 @@ p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  ma
 .panel.task h6 {color: #fff; text-shadow: none;}
 
 .panel.task a, .panel.task p {color: #fff; text-shadow: none; }
-.panel.task a.large.button.alternate {background: #fff; font-size: 1.05em; color: #122137; padding: 1em 2em; display: inline-block;}
-#wrap .panel.task a.large.button.alternate.task {background:  #fff image-url("sprite.png") 5% -474px no-repeat; background:  rgba(255,255,255,.9) image-url("sprite.png") 5% -474px no-repeat; text-transform: uppercase; letter-spacing: .1em; padding: .5em .75em .5em 2.8em; display: inline-block;}
+.panel.task a.large.button.alternate {background: #fff; font-size: 1.05em; color: #122137; padding: 0 2em; display: inline-block;}
+
+#wrap .panel.task a.large.button.alternate.task {background:  #fff image-url("sprite.png") .5em -474px no-repeat; background:  rgba(255,255,255,.9) image-url("sprite.png") .5em -474px no-repeat; text-transform: uppercase; letter-spacing: .1em; padding: .5em .75em .5em 2.8em; display: inline-block;}
 
 #wrap .panel.task a.large.button.alternate.task:hover, 
 #wrap .panel.task a.large.button.alternate.task:active 
- {background:  #fff image-url("sprite.png") 5% -474px no-repeat; cursor: hand;}
+ {background:  #fff image-url("sprite.png") .6em -474px no-repeat; cursor: hand;}
 
 .panel.task a,
 .panel.task a.button,

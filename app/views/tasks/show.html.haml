@@ -1,23 +1,22 @@
 .row
   .twelve.columns
     .panel.task.group
-      .six.columns
-        %h2
+      .eight.columns
+        %h3
           #{@task.name}
         %p
           %strong
             #{@task.task_items.completed.size} of #{@task.task_items.size} 
           items completed.
       
-      .six.columns
+      .four.columns.align-right
         - if @task.completed?
-          %h5
+          %h5.right
             Task completed at #{@task.completed_at}
         - else
-          .six.columns.align-right
-            = link_to task_path(@task, :completed => true), :method => :put, :class => '' do
-              %i{:class => 'foundicon-checkmark'}
-              Mark all items complete    
+          = link_to task_path(@task, :completed => true), :method => :put, :class => 'align-right' do
+            %i{:class => 'foundicon-checkmark'}
+            Mark all items complete    
       
       .twelve.columns
   

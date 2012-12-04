@@ -31,7 +31,8 @@ html {height: 100%;}
 
 #wrap {min-height: auto;}
 
-body {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
+
+body {height: 100%; font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
 
 /*
 body {background: image-url("favicon.png") top center repeat;}
@@ -40,6 +41,9 @@ body {background: image-url("favicon.png") top center repeat;}
 input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
   padding: 1.3em .5em;
   font-weight: bold; color: #0C2237;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
 }
 
 input[type="text"]:hover, input[type="password"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="email"]:hover, input[type="number"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="time"]:hover, input[type="url"]:hover, textarea,
@@ -47,6 +51,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus
   border-color: #0C2237; 
 }
 
+p a {text-decoration: underline;}
 
 
 #header {
@@ -232,7 +237,7 @@ a.button:visited {color: #fff;}
   border: none;
   text-transform: none;
   letter-spacing: none;
-  
+  margin-right: 1em;
   border-style: solid;
   border-width: 12px;
   -moz-border-image: url(button-positive.png) 12 repeat;
@@ -241,11 +246,8 @@ a.button:visited {color: #fff;}
   border-image: url(button-positive.png) 12 fill repeat;
 }
 
-@media (min-width: 320px) {
-  .button.positive, a.button.positive {
-    margin-right: 1em;
-  }
-  
+@media only screen and (max-width: 767px) {
+  .button.positive, a.button.positive {margin-right: 0;}
 }
 
 html.no-borderimage #wrap .button.positive, 
@@ -592,7 +594,7 @@ div.alert-box a.close { color: #333; position: absolute; right: 4px; top: -1px; 
 
 /*** Sticky footer http://www.cssstickyfooter.com ***/
 
-body {height: 100%;  background: #F2F2F2;
+body {background: #F2F2F2;
   
   background: #F2F2F2 image-url("background.png") 50% 50% repeat;
 }
@@ -602,7 +604,7 @@ body {height: 100%;  background: #F2F2F2;
     background-image: image-url("background.png"), image-url("america.png");  
     background-position: top center, top center;
     background-repeat: repeat, no-repeat;
-    background-attachment: inherit, fixed;
+    background-attachment: fixed, fixed;
     }
 }
 
@@ -764,6 +766,7 @@ form li.full:last-child {border-bottom: none;}
 .panel a {color: #0E2037;}
 .panel a:hover {color: #1D6387; border-bottom: 1px solid rgba(0,0,0,.2);}
 
+
 .panel.secondary {background: rgba(0,0,0,.02); margin: 0 0 1em 0; border: 2px solid #ccc;}
 .panel.secondary h4 {border-bottom: 1px solid rgba(0,0,0,.15); padding-bottom: .25em;}
 
@@ -774,11 +777,11 @@ form li.full:last-child {border-bottom: none;}
 .panel.decorative.style-one {background: #eee; background: rgba(255,255,255,.65);}
 .panel.decorative h3,
 .panel.decorative h4,
-.panel.decorative h5 {text-align: center; text-transform: uppercase; letter-spacing: .1em; border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: .5em;}
+.panel.decorative h5 {text-align: center; text-transform: uppercase; color: #555; font-size: 1.1em; letter-spacing: .15em; border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: .5em;}
 .panel.decorative div {background: #fff; border: 1px dotted rgba(0,0,0,.2); padding: .5em 1em; margin: .25em 0; -webkit-box-shadow: 0 0 5px rgba(0,0,0,.1) inset;}
 #main .panel.decorative.style-one li {color: #102038; font-size: .95em;}
 
-.panel.decorative h6 {font-size: 1.4em; line-height: 1.4em; display: block; padding: 0; border-bottom: 1px solid rgba(0,0,0,.1);}
+.panel.decorative h6 {font-size: 1em; line-height: 1.4em; display: block; padding: 0; border-bottom: 1px solid rgba(0,0,0,.1);}
 .panel.decorative h6:last-child {border-bottom: none;}
 
 .panel.decorative span.leader {
@@ -802,7 +805,7 @@ form li.full:last-child {border-bottom: none;}
 .panel.decorative.style-two div {background: #1A6485; -webkit-box-shadow: none; border: none; -webkit-box-shadow: 0 0 5px rgba(0,0,0,.2) inset;}
 .panel.decorative.style-two p {text-shadow: 0 -1px 0 rgba(0,0,0,.3); text-align: center;}
 .panel.decorative.style-two h3 {font-size: 1.3em; padding-bottom: .35em; font-family: 'Century Gothic', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #fff; text-shadow: 0 -1px 0 rgba(0,0,0,.2); font-weight: bold;}
-.panel.decorative div.flourish {border: none; background: none; padding: 0; margin: 0; -webkit-box-shadow: none; margin: 0 auto; font-size: 1.9em; text-align: center; margin-bottom: -.38em; color: #5A4A42; }
+.panel.decorative div.flourish {border: none; background: none; padding: 0; margin: 0; text-shadow: none; -webkit-box-shadow: none; margin: 0 auto; font-size: 1.7em; text-align: center; margin-bottom: -.38em; color: #5A4A42; }
 .panel.decorative.style-two div.flourish {color: #fff;  margin-bottom: -.28em}
 .panel.decorative.style-two div.flourish i {text-shadow: 0 0 4px rgba(0,0,0,.3);}
 .panel.decorative div.fixed-height {height: 10em;}
@@ -811,6 +814,7 @@ p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  ma
 #wrap p.secondary {font-size: 1.2em; margin-bottom: 0;}
 
 .panel.decorative a {color: #1E6687;}
+#wrap .panel.decorative a:hover {text-decoration: none;}
 
 .panel.decorative.style-four p {font-family: 'GoudyBookletter', Georgia, 'Times New Roman', serif; font-size: 1.5em; padding: 1em; }
 
@@ -1013,7 +1017,6 @@ margin-bottom : 0;
 clear : both;
 }
 
-.jurisdiction a:hover {border-bottom: none; }
 
 .sidebar .jurisdiction {
 margin-top : 1em;
@@ -1024,12 +1027,12 @@ width : 100%;
 display : block;
 padding : 1em 0;
 font-size : 1.5em;
-border-top : 1px solid #ccc;
+
 }
 
 .sidebar .jurisdiction a:hover {
-border :0;
-border-top : 1px solid #ccc;
+  text-decoration: underline;
+  border-bottom: none;
 }
 
 #main .jurisdiction-list {

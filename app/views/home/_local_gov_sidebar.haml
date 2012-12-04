@@ -1,13 +1,14 @@
-.panel.decorative.style-three      
-  %h5 Your Representatives
-  %p
-    We've gathered information on your local, state and federal officials in one place.
-  .jurisdiction
-    - @local_info['jurisdictions'].each do |jurisdiction|
-      - if jurisdiction['type'] == 'government'
-        %h6
-          = link_to your_government_path(:anchor => "#{jurisdiction['level']}-#{jurisdiction['type']}") do
-            %span.level
-              #{jurisdiction['level_name']}: 
-            %span.name
-              = jurisdiction['name']
+.panel.sidebar.decorative.style-one
+  .flourish
+    %i{:class => "foundicon-address-book"}      
+  %div
+    %h5 Your Representatives
+    .jurisdiction
+      - @local_info['jurisdictions'].each do |jurisdiction|
+        - if jurisdiction['type'] == 'government'
+          %h6
+            = link_to your_government_path(:anchor => "#{jurisdiction['level']}-#{jurisdiction['type']}") do
+              %span.level
+                #{jurisdiction['level_name']}: 
+              %span.name
+                = jurisdiction['name']

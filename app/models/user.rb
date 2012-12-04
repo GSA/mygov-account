@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   include OAuth2::Model::ResourceOwner  
-  validate :email_is_whitelisted
+  validate :email_is_whitelisted, if: :valid_email?
   validates_format_of :zip, :with => /^\d{5}?$/, :message => "should be in the form 12345"
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
@@ -93,6 +93,10 @@ class User < ActiveRecord::Base
   end
 
   private
+  
+  def valid_email?
+    self.email? && self.email =~ Devise.email_regexp
+  end
   
   def email_is_whitelisted    
     errors.add(:base, "I'm sorry, your account hasn't been approved yet.") if BetaSignup.find_by_email_and_is_approved(self.email, true).nil?

@@ -19,6 +19,17 @@ describe User do
     
     it "should not create a user without an email" do
       user = User.create(@valid_attributes.reject{|k,v| k == :email })
+      # The account should not be checked if no email address is provided
+      user.errors.to_a.should_not include("I'm sorry, your account hasn't been approved yet.")
+      # Should have an error for the missing email
+      user.errors.should_not be_empty
+    end
+    
+    it "should not create a user without a valid email" do
+      user = User.create(@valid_attributes.merge(email: 'not_valid'))
+      # The account should not be checked if no email address is provided
+      user.errors.to_a.should_not include("I'm sorry, your account hasn't been approved yet.")
+      # Should have an error for the invalid email
       user.errors.should_not be_empty
     end
     

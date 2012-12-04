@@ -532,8 +532,14 @@ div.alert-box {
   background: #146487;
 }
 
+div.alert-box.blue {
+  -webkit-border-radius: none;
+  -moz-border-radius: none;
+  border-radius: none;
+  background: #2ba6cb;
+}
 
-
+div.alert-box a.close { color: #333; position: absolute; right: 4px; top: -1px; font-size: 17px; opacity: 0.2; padding: 4px; cursor: pointer; }
 
 /*** Third Party Sign up ***/
 

@@ -1,7 +1,7 @@
 - if @local_info['jurisdictions']
   .row.local
     .twelve.columns
-      %h2 Your Communities & Representatives
+      %h2 Your Representatives
       - current_jurisdiction_level = nil
       - @local_info['jurisdictions'].each do |jurisdiction|
         - if current_jurisdiction_level != jurisdiction['level']

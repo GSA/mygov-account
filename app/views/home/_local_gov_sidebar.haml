@@ -1,5 +1,7 @@
 .panel.decorative.style-three      
-  %h5 Your communities
+  %h5 Your Representatives
+  %p
+    We've gathered information on your local, state and federal officials in one place.
   .jurisdiction
     - @local_info['jurisdictions'].each do |jurisdiction|
       - if jurisdiction['type'] == 'government'

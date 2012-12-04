@@ -1,12 +1,14 @@
 module ApplicationHelper
   
   def session_timeout_message
-    if @session_will_expire
-      content_tag :div, :class => "alert-box blue" do
-        content_tag('div', t('session_expiration_warning', time: pluralize(Rails.application.config.session_timeout_warning_seconds, 'second'))) +
-        content_tag('a', "&times;".html_safe, class: 'close' )
+    content_tag :div, :class => 'row' do
+      content_tag :div, :class => 'twelve columns' do
+        content_tag :div, :class => "alert-box blue" do
+          content_tag('div', t('session_expiration_warning', time: pluralize(Rails.application.config.session_timeout_warning_seconds, 'second'))) +
+          content_tag('a', "&times;".html_safe, class: 'close' )
+        end
       end
-    end
+    end if @session_will_expire
   end
   
   def refresh_meta_tag_conent

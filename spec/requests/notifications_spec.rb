@@ -42,7 +42,6 @@ describe "Notifications" do
       context "when notifications have been deleted" do
         before do
           @user.notifications.first.destroy
-          puts @user.notifications.not_deleted.count
         end
         
         it "should show a count for only the non-deleted notifications" do

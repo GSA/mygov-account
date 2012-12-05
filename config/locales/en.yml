@@ -6,8 +6,8 @@ en:
   zip_error: "Please enter your 5 digit zip code."
   sign_in_prompt: "Already using MyGov?"
   sign_in_link: "Sign in"
-  remain_logged_in: "remain signed in"
-  session_expiration_warning: "We noticed you haven't been very active in MyGov.  Click to %{link}."
+  remain_logged_in: "Remain signed in."
+  session_expiration_warning: "We noticed you haven't been very active in MyGov. %{link}"
   devise:
     failure:
       timeout: "It's been a while since you interacted with MyGov, so we signed you out as a security measure.  Please sign in again."

@@ -128,7 +128,7 @@ describe "HomePage" do
   describe "GET /terms-of-service" do
     it "should show the terms of service" do
       visit terms_of_service_path
-      page.should have_content "MyGov terms of service"
+      page.should have_content "Terms of service"
     end
   end
 end

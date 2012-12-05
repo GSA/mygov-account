@@ -46,9 +46,9 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
   border-radius: 0;
 }
 
-input[type="text"]:hover, input[type="password"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="email"]:hover, input[type="number"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="time"]:hover, input[type="url"]:hover, textarea,
 input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="time"]:focus, input[type="url"]:focus, textarea {
   border-color: #0C2237; 
+  background: rgba(19,100,135, .08);
 }
 
 p a {text-decoration: underline;}
@@ -167,7 +167,10 @@ fieldset.fancy {margin: .5em 0 0 0; border: 1px dotted rgba(0,0,0,.2); padding-t
 fieldset.fancy legend {color: #126386;text-align: center; font-size: 2em; }
 fieldset.fancy legend i {color: #fff;font-size: .5em; vertical-align: baseline; color: #eee; }
 
-fieldset.fancy span.welcome {font-size: 1em; display: block; margin: .2em 0 .2em 0; padding: 0; font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: .5em; color: #555; line-height: 1.2em; }
+fieldset.fancy span.welcome {font-size: 1em; display: block; margin: .2em 0 .2em 0; padding: 0; font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: .5em; color: #777; line-height: 1.2em; }
+
+fieldset.fancy span.welcome em {font-style: normal; font-weight: bold;
+}
 
 @media only screen and (max-width: 420px) {
   fieldset.fancy legend i {display: none;}

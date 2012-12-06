@@ -22,6 +22,7 @@ gem "airbrake"
 gem 'maruku'
 gem 'validates_email_format_of', :git => 'git://github.com/alexdunae/validates_email_format_of.git'
 gem "permanent_records", "~> 2.3.0"
+gem 'client_side_validations'
 gem "httparty"
 
 # Gems used only for assets and not required

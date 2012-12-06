@@ -1,11 +1,12 @@
 class User < ActiveRecord::Base
   include OAuth2::Model::ResourceOwner  
   validate :email_is_whitelisted, if: :valid_email?
-  validates_format_of :zip, :with => /^\d{5}?$/, :message => "should be in the form 12345"
+  validates_format_of :zip, :with => /^\d{5}?$/
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :submitted_forms, :dependent => :destroy
   validates_acceptance_of :terms_of_service
+  validates_format_of :email, with: Devise.email_regexp, allow_blank: true, :unless => :email_changed? # Needed for clientside validation
   after_create :create_default_tasks
   after_create :create_default_notification
   

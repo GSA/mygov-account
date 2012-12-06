@@ -14,3 +14,4 @@
 //= require jquery_ujs
 //= require_tree ./mff
 //= require_tree .
+//= require rails.validations

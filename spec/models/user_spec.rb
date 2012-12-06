@@ -65,7 +65,7 @@ describe User do
     it "should reject zip codes that aren't five digits" do
       user = User.create(@valid_attributes.merge(:zip => "Greg"))
       user.id.should be_nil
-      user.errors.messages[:zip].should == ["should be in the form 12345"]
+      user.errors.messages[:zip].should == ["Zip should be in the form 12345"]
     end
   end
 

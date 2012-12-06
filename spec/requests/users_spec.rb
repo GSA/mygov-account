@@ -103,7 +103,7 @@ describe "Users" do
             it "should display error messages for all the missing bits of information" do
               visit sign_up_path
               click_button 'Sign up'
-              page.should have_content "Email can't be blank"
+              page.should have_content "Please enter an email"
               page.should have_content "Terms of service must be accepted"
             end
           end

@@ -46,10 +46,24 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
   border-radius: 0;
 }
 
+@-moz-document url-prefix() {
+  input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
+  
+  padding: 0 .4em;
+  height: 3em;
+  }
+  
+}
+
+
 input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="time"]:focus, input[type="url"]:focus, textarea {
   border-color: #0C2237; 
+  background: #fff;
   background: rgba(19,100,135, .08);
 }
+
+body.sign-up input[type="email"]:focus {background: #fff;}
+
 
 p a {text-decoration: underline;}
 

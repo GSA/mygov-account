@@ -89,7 +89,7 @@ describe "Apis" do
           response.code.should == "400"
           parsed_response = JSON.parse(response.body)
           parsed_response["status"].should == "Error"
-          parsed_response["message"]["subject"].should == ["can't be blank"]
+          parsed_response["message"]["subject"].should == ["Subject can't be blank"]
         end
       end
     end
@@ -198,7 +198,7 @@ describe "Apis" do
           response.code.should == "400"
           parsed_json = JSON.parse(response.body)
           parsed_json["status"].should == "Error"
-          parsed_json["message"].should == {"name"=>["can't be blank"]}
+          parsed_json["message"].should == {"name"=>["Name can't be blank"]}
         end
       end
     end

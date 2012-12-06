@@ -74,9 +74,14 @@ class User < ActiveRecord::Base
     task2.task_items.create(:name => 'Get started!', :url => "/welcome?step=about_you")
   end
   
+  def confirm!
+    super_response = super
+    create_default_notification
+    super_response
+  end
+    
   def create_default_notification
-    notification = self.notifications.new(:subject => 'Welcome to MyGov', :body => File.read(Rails.root.to_s + "/lib/assets/text/welcome_email_body.html").html_safe, :received_at => Time.now)
-    notification.save
+    notification = self.notifications.create(:subject => 'Welcome to MyGov', :body => File.read(Rails.root.to_s + "/lib/assets/text/welcome_email_body.html").html_safe, :received_at => Time.now)  if self.confirmation_token.nil?
   end
   
   def local_info

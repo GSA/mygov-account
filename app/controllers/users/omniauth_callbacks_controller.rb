@@ -18,7 +18,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def callback(provider_name)
     @user = User.find_for_open_id(request.env["omniauth.auth"], current_user)
     if @user.persisted?
-      @user.confirm! unless @user.confirmed?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => provider_name.capitalize
       if @user.just_created
         sign_in @user, :evenct => :authentication

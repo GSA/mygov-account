@@ -12,9 +12,10 @@ describe Task do
     }
   end
   
-  it { should validate_presence_of :name }
-  it { should validate_presence_of :app_id }
-  it { should validate_presence_of :user_id }
+  %w{name app_id user_id}.each do |e|
+    it { should validate_presence_of(e).with_message(/can't be blank/)}   
+  end
+  
   it { should belong_to :user }
   it { should belong_to :app }
   

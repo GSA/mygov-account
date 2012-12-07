@@ -7,8 +7,8 @@ describe App do
     }
   end
   
-  it { should validate_presence_of :name }
-  it { should validate_presence_of :slug }
+  it { should validate_presence_of(:name).with_message(/can't be blank/)}
+  it { should validate_presence_of(:slug).with_message(/can't be blank/)}
   
   it "should create a new app with valid attributes, and generate a unique slug" do
     app = App.create!(@valid_attributes){|app| app.redirect_uri = "http://localhost:3000/"}

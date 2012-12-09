@@ -17,6 +17,13 @@ describe "Users" do
         current_path.should == sign_in_path
       end
       
+      it "should link to third party sign ins" do
+        visit sign_in_path
+        page.should have_link 'Sign in with Google'
+        page.should have_link 'Sign in with PayPal'
+        page.should have_link 'Sign in with VeriSign'
+      end
+      
       it "should not have a sign-in link on the sign-in page" do
         visit sign_in_path
         page.should_not have_content "Already using MyGov?"
@@ -42,6 +49,13 @@ describe "Users" do
   end
   
   describe "sign up process" do
+    it "should provide links to third party sign in services" do
+      visit sign_up_path
+      page.should have_link 'Sign up with Google'
+      page.should have_link 'Sign up with PayPal'
+      page.should have_link 'Sign up with VeriSign'
+    end
+    
     context "when a user is not in the beta signup list" do
       it "should not let the user create an account" do
         visit sign_up_path
@@ -144,7 +158,7 @@ describe "Users" do
           
           it "should welcome them to MyGov and prompt them for more information" do
             visit sign_up_path
-            click_link 'Sign in with Google'
+            click_link 'Sign up with Google'
             page.should have_content "Tell us more about yourself"
             ActionMailer::Base.deliveries.size.should == 1
           end

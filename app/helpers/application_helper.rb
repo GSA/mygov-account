@@ -1,5 +1,9 @@
 module ApplicationHelper
   
+  def in_or_up
+    controller_name == 'sessions' ? 'in' : 'up'
+  end
+    
   def session_timeout_message
     if @session_will_expire
       here = link_to(t('remain_logged_in'), url_for(params.reject{ |k,v| k == "no_keep_alive" }))

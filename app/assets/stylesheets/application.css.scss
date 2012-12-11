@@ -668,7 +668,6 @@ body.sign-up {
 
 }
 
-
 .sign-up #main, .sign-up #wrap, .sign-up .container {padding: 0; margin: 0;}
 
 .sign-up .signup-form a {color: #fff; font-weight: bold; display: inline-block;}
@@ -782,7 +781,7 @@ form li.full:last-child {border-bottom: none;}
 /*** Various Panels ***/
 
 .panel a {color: #0E2037;}
-.panel a:hover {color: #1D6387; border-bottom: 1px solid rgba(0,0,0,.2);}
+.panel a:hover {color: #1D6387; text-decoration: underline;}
 
 
 .panel.secondary {background: rgba(0,0,0,.02); margin: 0 0 1em 0; border: 2px solid #ccc;}
@@ -806,6 +805,7 @@ form li.full:last-child {border-bottom: none;}
   font-size: 3em; 
   display: block; 
   padding: .55em 0; 
+  line-height: 1.1em;
   font-family: 'GoudyBookletter', Georgia, 'Times New Roman', serif;
 }
 

@@ -66,7 +66,7 @@ describe "HomePage" do
       
       context "when the user has tasks with task items" do
         before do
-          @app = App.create!(:name => 'Change your name', :action_phrase => 'changing your name'){|app| app.redirect_uri = "http://localhost:3000/"}
+          @app = App.create!(:name => 'Change your name'){|app| app.redirect_uri = "http://localhost:3000/"}
           @user.tasks.create!(:name => 'Change your name', :app_id => @app.id)
           @user.tasks.first.task_items.create!(:name => 'Get Married!')
           @user.tasks.first.task_items.create!(:name => 'Get Divorced!')

@@ -6,7 +6,7 @@ class App < ActiveRecord::Base
   before_validation :generate_slug
   after_create :create_oauth2_client
   
-  attr_accessible :name, :action_phrase, :redirect_uri
+  attr_accessible :name, :redirect_uri
   
   class << self
     

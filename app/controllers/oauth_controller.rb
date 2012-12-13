@@ -1,4 +1,5 @@
 class OauthController < ApplicationController
+  before_filter :authenticate_user!, :only => [:authorize, :allow]
   
   def authorize
     @oauth2 = OAuth2::Provider.parse(current_user, request)

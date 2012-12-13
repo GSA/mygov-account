@@ -5,8 +5,31 @@ describe "OauthApps" do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
+    app1 = App.create(:name => 'App1'){|app| app.redirect_uri = "http://localhost/"}
+    @app1_client_auth = app1.oauth2_clients.first
+    app2 = App.create(:name => 'App2'){|app| app.redirect_uri = "http://localhost/"}
+    @app2_client_auth = app2.oauth2_clients.first
+    app3 = App.create(:name => 'App3'){|app| app.redirect_uri = "http://localhost/"}
+    @app3_client_auth = app3.oauth2_clients.first
   end
-
+  
+  describe "Authorize application" do
+    it "should redirect to a login page to authorize a new app" do
+      get("/oauth/authorize?response_type=code&client_id=#{@app1_client_auth.client_id}&redirect_uri=http://localhost/").should redirect_to(sign_in_path)
+    end
+  end
+  
+  context "when logged in" do
+    before do
+      create_logged_in_user(@user)
+    end
+    describe "Authorize application" do
+      it "should redirect to a login page to authorize a new app" do
+        get("/oauth/authorize?response_type=code&client_id=#{@app1_client_auth.client_id}&redirect_uri=http://localhost/").should_not redirect_to(sign_in_path)
+      end
+    end
+  end
+  
   describe "GET /oauth_apps" do
     context "when logged in with a few apps" do
       before do

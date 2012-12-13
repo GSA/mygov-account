@@ -10,4 +10,6 @@
     = submit_tag 'Authorize'
 - else
   %p
-    Please sign in to continue.
+    Please
+    =link_to 'sign in', sign_in_path
+    to continue.

@@ -1,6 +1,4 @@
 class OauthController < ApplicationController
-  before_filter :authenticate_user!, :only => [:authorize, :allow]
-  
   def authorize
     @oauth2 = OAuth2::Provider.parse(current_user, request)
     if @oauth2.redirect?
@@ -10,7 +8,7 @@ class OauthController < ApplicationController
       if @oauth2.response_body
         render :text => @oauth2.response_body, :status => @oauth2.response_status
       else
-        session[:user_return_to] = request.original_fullpath
+        session[:user_return_to] = request.original_fullpath if authenticate_user!
       end
     end
   end

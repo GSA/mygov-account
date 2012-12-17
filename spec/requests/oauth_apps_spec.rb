@@ -6,11 +6,11 @@ describe "OauthApps" do
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
     app1 = App.create(:name => 'App1'){|app| app.redirect_uri = "http://localhost/"}
-    @app1_client_auth = app1.oauth2_clients.first
+    @app1_client_auth = app1.oauth2_client
     app2 = App.create(:name => 'App2'){|app| app.redirect_uri = "http://localhost/"}
-    @app2_client_auth = app2.oauth2_clients.first
+    @app2_client_auth = app2.oauth2_client
     app3 = App.create(:name => 'App3'){|app| app.redirect_uri = "http://localhost/"}
-    @app3_client_auth = app3.oauth2_clients.first
+    @app3_client_auth = app3.oauth2_client
   end
   
   describe "Authorize application" do
@@ -23,9 +23,20 @@ describe "OauthApps" do
     before do
       create_logged_in_user(@user)
     end
+    
     describe "Authorize application" do
-      it "should redirect to a login page to authorize a new app" do
-        get("/oauth/authorize?response_type=code&client_id=#{@app1_client_auth.client_id}&redirect_uri=http://localhost/").should_not redirect_to(sign_in_path)
+      it "should ask for authorization and redirect after clicking 'Authorize'" do
+        visit("/oauth/authorize?response_type=code&client_id=#{@app1_client_auth.client_id}&redirect_uri=http://localhost/")
+        page.should have_content('App1 wants to access your profile.')
+        click_button('Authorize')
+        uri = URI.parse(current_url)
+        params = CGI::parse(uri.query)
+        code = (params["code"] || []).first
+        uri.path.should == "/"
+        code.should_not be_empty
+        post("/oauth/authorize", "grant_type" => "authorization_code", "code" => code, "client_id" => @app1_client_auth.client_id, "client_secret" => @app1_client_auth.client_secret, "redirect_uri" => "http://localhost/")
+        response.code.should == "200"
+        response.body.should match /access_token/
       end
     end
   end

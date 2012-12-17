@@ -4,7 +4,7 @@
     .six.columns.offset-by-three
       #signup-form
         %p
-          We're getting ready to launch the MyGov private beta. Sign up to kick the tires.
+          =t('mygov_greeting')
         #fieldset
           = form_for @beta_signup do |form|
             = form.label :email

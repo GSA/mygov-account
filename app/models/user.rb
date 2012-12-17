@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
     unless location.blank?
       url = "/geowebdns/endpoints?location=#{URI.encode(location)}&format=json&fullstack=true"
       local_info = Rails.cache.fetch('democracy_map_' + url, :expires_in => 24.hours) do
-        response = Net::HTTP.get_response('api.democracymap.org', url)
+        response = Net::HTTP.get_response('api.democracymap.org', url) rescue nil
         JSON.parse(response.body) rescue nil
       end
     end

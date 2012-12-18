@@ -1,21 +1,22 @@
 .panel.sidebar.tertiary
   %ul.panel-list
     %li
-      = link_to '#', {:"data-reveal-id" => 'confirm-delete-modal'} do
-        %i{:class => "foundicon-remove"}
-        Delete your account
-    %li
       = link_to terms_of_service_path do
         %i{:class => "foundicon-page"}
-        Terms of Service
+        Terms of service
     %li
       = link_to privacy_policy_path do
         %i{:class => "foundicon-page"}
-        Privacy Policy
+        Privacy policy
     %li
       = link_to "http://bit.ly/mygovideascale" do
-        %i{:class => "foundicon-page"}
+        %i{:class => "foundicon-idea"}
         Give MyGov beta feedback
+
+    %li
+      = link_to '#', {:"data-reveal-id" => 'confirm-delete-modal'} do
+        %i{:class => "foundicon-remove"}
+        Delete your account
 
 #confirm-delete-modal.reveal-modal
   %h2

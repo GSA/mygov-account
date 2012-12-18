@@ -2,7 +2,7 @@
   .flourish
     %i{:class => "foundicon-address-book"}      
   %div
-    %h5 Your Representatives
+    %h5 View <em>your Representatives</em>
     .jurisdiction
       - @local_info['jurisdictions'].each do |jurisdiction|
         - if jurisdiction['type'] == 'government'

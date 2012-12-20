@@ -8,9 +8,9 @@
           .panel
             - current_jurisdiction = jurisdiction['level']
             %ul.jurisdiction-list
-              %li.jurisdiction
+              %li.jurisdiction.group
                 %h3
-                  = link_to jurisdiction['url'], :name => "#{jurisdiction['level']}-#{jurisdiction['type']}" do
+                  %a{:name => "#{jurisdiction['level']}-#{jurisdiction['type']}"}
                     %span.level 
                       - if jurisdiction['type'] == 'legislative' and jurisdiction['level'] == 'regional'
                         %span.level_name
@@ -22,27 +22,53 @@
                 - if jurisdiction['url']
                   %div{:class => "jurisdiction website"}
                     = link_to jurisdiction['url'] do
-                      = jurisdiction['url'].gsub(%r[(http:\/\/)|(https:\/\/)], '').chomp("/")              
+                      %i{:class => "foundicon-globe"}
+                      %span                      
+                        = jurisdiction['url'].gsub(%r[(http:\/\/)|(https:\/\/)], '').chomp("/")              
+                - if jurisdiction['phone']      
+                  %div{:class => "jurisdiction phone"}                  
+                    = link_to "tel:" + jurisdiction['phone'] do
+                      %i{:class => "foundicon-phone"}
+                      %span                      
+                        = number_to_phone(jurisdiction['phone'])
                 - if jurisdiction['elected_office']    
                   %ul.elected-list
-                    - jurisdiction['elected_office'].each do |elected_office|
+                    - jurisdiction['elected_office'].each do |elected_office|                                         
                       %li.official
+                        %img.elected-official{:src => elected_office['url_photo']}
                         %h4
                           = link_to elected_office['url'] do
                             %span.title                     
                               = elected_office['title']
                             %span.name 
                               = elected_office['name_full']
-                        %img.elected-official{:src => elected_office['url_photo']}
+                        
                         %div{:class => "official website"}
                           = link_to elected_office['url'] do
-                            = elected_office['url'].gsub(%r[(http:\/\/)|(https:\/\/)], '').chomp("/")
-                        
+                            %i{:class => "foundicon-globe"}
+                            %span                            
+                              = elected_office['url'].gsub(%r[(http:\/\/)|(https:\/\/)], '').chomp("/")
+                        - if elected_office['phone'] 
+                          %div{:class => "official phone"}
+                            = link_to "tel:" + elected_office['phone'] do
+                              %i{:class => "foundicon-phone"}
+                              %span
+                                = number_to_phone(elected_office['phone'])                       
+                          
+                        - twitter_handle = nil  
                         - if elected_office['social_media']
                           %div.social-media
-                            - elected_office['social_media'].each do |social_media|                      
+                      
+                            - elected_office['social_media'].each do |social_media|    
+                              - if social_media['type'] == 'twitter'
+                                - twitter_handle = social_media['username']                                                
                               = link_to social_media['url'] do
                                 %i{:class => "social foundicon-#{social_media['type']}"}
                                 %span
-                                  = social_media['description']
-                        
+                                  = social_media['description'] 
+                      - if twitter_handle != nil
+                        %h5.clear
+                          Recent tweets
+                        %div{:class => "twitter-feed group", :id => twitter_handle}
+                          %div{:class => "arrow"}  
+  

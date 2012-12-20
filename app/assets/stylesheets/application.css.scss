@@ -1110,38 +1110,43 @@ background : none repeat scroll 0 0 rgba(255, 255, 255, 0.35);
 
 /* List reset */
 ul.jurisdiction-list, ul.jurisdiction-list li {
-list-style-type : none;
-padding : 0;
-margin : 0;
-clear: both; 
-display: block;
-
+  list-style-type : none;
+  padding : 0;
+  margin : 0;
+  clear: both; 
+  display: block;
 }
 
-
-.jurisdiction {
-font-size : .75em;
-}
-
-
+.jurisdiction {font-size : .75em;}
 
 .jurisdiction h2 {
-font-size : 2em;
-margin-bottom : 0;
-clear : both;
+  font-size : 2em;
+  margin-bottom : 0;
+  clear : both;
+}
+
+/*** Darowski Arrows  http://tech.patientslikeme.com/2010/11/09/using-borders-to-make-pure-css-arrows/ ***/
+
+div.arrow {
+  position: absolute;
+  top: 0;
+  left: 2em;
+
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid #ccc;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+
 }
 
 
-.sidebar .jurisdiction {
-margin-top : 1em;
-}
+.sidebar .jurisdiction {margin-top : 1em;}
 
 .sidebar .jurisdiction a {
-width : 100%;
-display : block;
-padding : 1em 0;
-font-size : 1.5em;
-
+  width : 100%;
+  display : block;
+  padding : 1em 0;
+  font-size : 1.5em;
 }
 
 #wrap .sidebar .jurisdiction a:hover {
@@ -1150,110 +1155,95 @@ font-size : 1.5em;
   background: rgba(0,0,0,.04);
 }
 
-#main .jurisdiction-list {
-display : inline-block;
-width : 100%;
-margin-top : 0;
-}
-
-#main .jurisdiction-list li {
-float : left;
-width : 100%;
-clear : both;
-padding-bottom: 1em;
-}
+#main .jurisdiction-list li {padding-bottom: 1em;}
 
 .jurisdiction-list h3 {
 margin-bottom : .2em;
 }
 
 .jurisdiction-list img {
-float : right;
-max-width : 100px;
-margin-bottom : 0;
-padding: .35em;
-background: rgba(255, 255, 255, 0.65);
-border: 1px solid #ccc;
-margin: 1em 0 1em 1em;
+  float : right;
+  max-width : 100px;
+  margin-bottom : 0;
+  padding: .35em;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid #ccc;
+  margin: 0 0 1em 1em;
 }
 
-.jurisdiction-list .text-box {
-float : left;
-}
+.jurisdiction-list .twitter-feed img {float : left;}
+.twitter-feed {position: relative; float: none; clear: both;}
+.jurisdiction-list .text-box {}
 
 .elected-list {
-padding : 0;
-margin : 0;
-font-size : 1.4em;
+  padding: 0;
+  margin: 0;
+  font-size: 1.4em;
 }
-
 
 .jurisdiction h3 {
-font-size : 2.5em;
- border-bottom-color: #ccc;
-border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-size : 2.5em;
+  border-bottom-color: #ccc;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.jurisdiction h3 a {
-color : rgba(0,0,0,.7);
-}
+.jurisdiction h3 a {color: rgba(0,0,0,.7);}
 
-.jurisdiction .website a:hover, 
-.jurisdiction h3 a:hover .name {
-  color: #267fd9;
-}
+.jurisdiction .website a:hover {color: #267fd9;}
+.jurisdiction h3 a:hover {text-decoration : none;}
 
 .jurisdiction h6 .level, 
 .jurisdiction h3 .level .type_name, 
 .jurisdiction h3 .level .level_name {
-color : rgba(0,0,0,.5);
-line-height: 1.5em;
+  color: rgba(0,0,0,.5);
+  line-height: 1.5em;
 }
 
 
-.official .title {
-color : #267fd9;
-}
+#wrap h4 span.title {font-weight: bold; color: #444;}
 
 .jurisdiction li.official {
-margin: 1em 0 0 0; 
-display: block; 
-border-bottom: 1px solid #ddd; 
-padding-top: 1em;
+  margin: 1em 0 0 0; 
+  display: block; 
+  padding-top: 1em;
+  clear: both;
 }
 
 li.official:last-child {border-bottom: none;}
 
-
-
 .official a:hover .title,
 .official a:hover .name {
   color: #000;
-color : rgba(0,0,0,1);
 }
 
-.jurisdiction .website a {
-  color : #666;
+.jurisdiction .website a, 
+.jurisdiction .phone a {
+  color: #666;
   color: rgba(0, 0, 0, .5);
-  text-transform : uppercase;
-  float : left;
-  clear : left;
-  font-size: .8em;
+  text-transform: none;
+  vertical-align: top;
+  float: left;
+  clear: left;
+  font-size: .86em;
+  display: inline-block;
+  padding: 0 0 .35em 0;
+  line-height: 1em;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  margin: 1em 2em 0 0;
+  text-decoration: none;
 }
 
-.jurisdiction.website {
+.jurisdiction.website, 
+.jurisdiction.phone {
   font-size: 1.3em;
   margin: 0;
   margin-bottom: 2em;
+  float: left;
 }
 
-.official.website a {
-width : 50%;
-}
-
+.official.website a {width : 50%;}
 
 .jurisdiction a:hover, 
 .jurisdiction h3 a:hover {
@@ -1262,13 +1252,11 @@ width : 50%;
 
 .official h4, 
 .official .social-media {
-  margin-bottom : 0;
-  float : left;
-  clear : left;
+  margin-bottom: 0;
+  float: left;
+  clear: left;
 }
 
-
-.official .social-media {vertical-align: middle;}
 
 .official .social-media a {
   margin : .5em .5em .5em 0;
@@ -1278,23 +1266,62 @@ width : 50%;
   line-height: 2em;
   text-align: center;
   vertical-align: bottom;
-  background: #0A2137;
+  background: rgba(0,0,0,.3);
+  text-shadow: 0 1px 0 rgba(0,0,0,.5);
   display: inline-block;
   color: #fff;
-  border-radius: .2em;
+  border-radius: .1em;
 }
 
 .official .social-media a:hover {
   border-bottom: none;
-  background-color : #267fd9;
+  background-color : #888;
+  text-decoration: none;
 }
 
 .official .social-media a span {
 display : none;
 }
 
+/*** Twitter Stream on Your Gov Page ***/
 
-/*** Danger will Robinson! ***/
+ul.tweet_list {
+  margin : 0;
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+#main ul.tweet_list li {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  background-color: rgba(0, 0, 0, .05);
+  color: #333;
+  text-shadow: 0 1px 0 rgba(255,255,255,.6);
+  padding: 1em;
+  display: block;
+  margin: 0;
+  float: left;
+  width: 100%;
+}
+
+#main ul.tweet_list li a {color: #333;}
+
+#main .jurisdiction-list ul.tweet_list li a img {
+  margin: 0 0 1em 0;
+  padding: 0;
+}
+
+#main .jurisdiction-list h5 {padding: .5em 0 .25em 0; font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
+
+.tweet_list li a.tweet_avatar {
+margin-right: 1em;
+float: left;
+}
+
+.tweet_list li span.tweet_time a {color: #fff;}
+
+
+/*** Danger Will Robinson! ***/
 
 #error_explanation {
   background: #961D19;

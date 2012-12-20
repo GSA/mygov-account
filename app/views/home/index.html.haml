@@ -1,7 +1,44 @@
-.signup-form
+.row
+  .ten.columns.centered.banner
+    %h2
+      Navigating government just got easier.
+  
+  .four.columns
+    .panel.decorative.style-two
+      .flourish
+        %i{:class => "foundicon-clock"}
+      %div.fixed-height
+        %h3
+          Save time
+        %p
+          Gone are the days of entering your name and address into forms over and over again.
+  
+  .four.columns
+    .panel.decorative.style-two
+      .flourish
+        %i{:class => "foundicon-inbox"}
+      %div.fixed-height
+        %h3
+          Stay Informed
+        %p
+          Tell us what matters to you, and we'll send you timely messages.
 
+  .four.columns
+    .panel.decorative.style-two
+      .flourish
+        %i{:class => "foundicon-flag"}
+      %div.fixed-height
+        %h3
+          Get connected
+        %p
+          Content and services from across government that matter to you.    
+
+
+.signup-form
   .row
-    .six.columns.offset-by-three
+    .six.columns.padding-right-one
+      %h3
+        Sign up for the MyGov beta
       #signup-form
         %p
           =t('mygov_greeting')
@@ -9,8 +46,18 @@
           = form_for @beta_signup do |form|
             = form.label :email
             = form.email_field :email
-            = form.submit 'Sign up', :class => 'large button positive ' 
-
+            = form.submit 'Sign up', :class => 'large button positive '
+    .six.columns.padding-left-one.border-left
+      %h4
+        Our Mission
+      
+      %blockquote
+        The purpose of Project MyGov is to reimagine how citizens interact with government through an experience designed around their needs rather than a confusing and fragmented bureaucracy. 
+      
+      %p
+        %a.plain{:href => "http://presidential-innovation-fellows.github.com/mygov/about/"} Read more 
+        
+     
 %script{:type => "text/template", :id => "beta_signup_confirmation"}
   = render :partial => "/beta_signups/confirmation"
     
@@ -25,3 +72,10 @@
   
 %script{:type => "text/template", :id => "beta_signup_blank_email"}
   = render :partial => "/beta_signups/blank_email"
+
+
+    
+
+
+          
+        

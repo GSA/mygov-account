@@ -11,4 +11,4 @@ en:
   devise:
     failure:
       timeout: "It's been a while since you interacted with MyGov, so we signed you out as a security measure.  Please sign in again."
-  mygov_greeting: "We've launched the MyGov private beta. Sign up to kick the tires."
+  mygov_greeting: ""

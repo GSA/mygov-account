@@ -3,14 +3,12 @@
   %head(prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#")
     %meta(charset="utf-8")
     %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
-    %meta(name="viewport" content="width=device-width, user-scalable=no")
+    %meta(name="viewport" content="width=device-width, user-scalable=yes")
     
     %meta(name="format-detection" content="telephone=yes") 
-    %meta(name="apple-mobile-web-app-capable" content="yes")
     
     %meta(name="HandheldFriendly" content="True")
     %meta(http-equiv="cleartype" content="on")
-    %meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
     
     %meta(property="fb:app_id"               content="MyGov")
     %meta(property="og:type"                 content="website")
@@ -30,6 +28,10 @@
     = favicon_link_tag 'touch-icon-iphone4.png', :sizes => '114x114', :rel => 'apple-touch-icon', :type => 'image/png'
    
     = javascript_include_tag 'modernizr' 
+    
+    
+    
+
 
   %body.sign-up
       
@@ -41,18 +43,32 @@
               .twelve.columns
                 %p.sign-in-bar.right
                   
-                  %a.info{:href => "http://presidential-innovation-fellows.github.com/mygov/about/"} What is MyGov?
+                  
                   =t('sign_in_prompt')
                   =link_to t('sign_in_link'), sign_in_path
                   
             %h1
               Project MyGov
           = yield
+            
+          .secondary
+            .row 
+              .twelve.columns
+                %ul
+                  %li
+                    %a.info{:href => "http://presidential-innovation-fellows.github.com/mygov/about/"} About MyGov
+                  %li
+                    %a.info{:href => "http://whitehouse.gov/innovationfellows/"} Presidential Innovation Fellows
+          
+                  %li
+                    %a.info{:href => "http://www.whitehouse.gov/sites/default/files/omb/egov/digital-government/digital-government.html"} 21st Century Digital Strategy
+          
           
       /
         Javascripts
         \==================================================
       / Placed at the end of the document so the pages load faster
       = javascript_include_tag "application"
+      
       = analytics_init if Rails.env.production?
       = render :partial => "shared/ab", :locals => { :segment => @segment }

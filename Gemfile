@@ -23,7 +23,7 @@ gem 'maruku'
 gem 'validates_email_format_of', :git => 'git://github.com/alexdunae/validates_email_format_of.git'
 gem "permanent_records", "~> 2.3.0"
 gem "httparty"
-
+gem "paperclip", "~> 3.0"
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

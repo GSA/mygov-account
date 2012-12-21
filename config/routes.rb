@@ -16,9 +16,10 @@ Mygov::Application.routes.draw do
   get 'your-government' => "home#your_government", :as => :your_government
   get 'privacy-policy' => "home#privacy_policy", :as => :privacy_policy
   get 'terms-of-service' => "home#terms_of_service", :as => :terms_of_service
+
   resources :tasks, :only => [:show, :update, :destroy]
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-  resources :apps
+  resources :apps, :only => [:index, :show]
   resources :task_items, :only => [:update, :destroy]
   get '/pdfs/fill', :to => 'pdfs#fill', :as => :fill_pdf
   resources :beta_signups, :only => [:create]

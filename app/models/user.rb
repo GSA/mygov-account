@@ -96,7 +96,11 @@ class User < ActiveRecord::Base
     end
     local_info
   end
-
+  
+  def apps
+    self.oauth2_authorizations.map(&:client).map(&:oauth2_client_owner)
+  end
+  
   private
   
   def valid_email?

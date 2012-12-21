@@ -5,8 +5,8 @@ class App < ActiveRecord::Base
   validates_uniqueness_of :slug
   before_validation :generate_slug
   after_create :create_oauth2_client
-  
-  attr_accessible :name, :redirect_uri
+  attr_accessible :description, :logo, :name, :redirect_uri, :short_description, :url
+  has_attached_file :logo, :styles => { :medium => "300x300>", :thumb => "200x200>" }
   
   class << self
     

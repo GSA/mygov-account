@@ -1,0 +1,8 @@
+- @apps.each do |app|
+  .row
+    .twelve.columns 
+      %h5
+        = link_to(app.name, app_path(app))
+        = " (Authorized)" if @current_user_apps.include?(app)
+      = image_tag app.logo.url(:thumb), alt: "#{app.name} logo"
+      = app.short_description

@@ -1,0 +1,5 @@
+= image_tag @app.logo.url(:thumb)
+= @app.name
+= @app.description
+%br
+= link_to(@app.name, @app.oauth2_client.redirect_uri)

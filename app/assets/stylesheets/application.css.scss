@@ -31,8 +31,10 @@ html {height: 100%;}
 
 #wrap {min-height: auto;}
 
+html.splash-page {background: #AEA788; height: 100%;}
 
 body {height: 100%; font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
+
 
 /*
 body {background: image-url("favicon.png") top center repeat;}
@@ -611,10 +613,7 @@ div.alert-box.blue a {
 
 /*** Sticky footer http://www.cssstickyfooter.com ***/
 
-body {background: #F2F2F2;
-  
-  background: #F2F2F2 image-url("background.png") 50% 50% repeat;
-}
+body {background: #F2F2F2 image-url("background.png") 50% 50% repeat;}
 
 @media only screen and (min-width: 768px) {
   body {
@@ -650,20 +649,17 @@ margin-top:-32767px;/* thank you Erik J - negate effect of float*/
   #header {padding: 0 1%;}
 }
 
-
 /*** Sign up form - move to seperate style sheet ***/
-
 
 .secondary {
   border-top: 2px solid #fff;
   background: #AFA88A;
   padding: 1em 0;
   color: #112136;
-  -webkit-box-shadow: 0 0 10px rgba(0,0,0,.6) inset;
   text-shadow: 0px;
 }
 
-.secondary ul li {display: inline-block; margin: 0 1em 0 0; border-right: 1px solid rgba(0,0,0,.1); padding-right: 1em;}
+.secondary ul li {display: inline-block; margin: 0 1em 1em 0; border-right: 1px solid rgba(0,0,0,.1); padding-right: 1em;}
 .secondary ul li a {border-right: none; padding-right: 0; color: #112136; }
 .secondary ul li a:hover, .secondary ul li a:active {text-decoration: none; border-bottom: 1px solid rgba(0,0,0,.3);;
 }
@@ -759,6 +755,7 @@ margin-top:-32767px;/* thank you Erik J - negate effect of float*/
 a.info {margin-right: .5em; border-right: 1px solid #ddd; padding-right: 1em; color: #555;}
 
 a.plain {font-weight: normal; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.3);}
+a.plain:hover, a.plain:active {text-shadow: 0 0 5px rgba(255,255,255,.5); border-bottom: 1px solid rgba(255,255,255,.5);}
 
 .padding-right-one {padding-right: 8.33333%;}
 .padding-left-one {padding-left: 8.33333%;}
@@ -777,7 +774,7 @@ p.sign-in-bar.right a {
 
   .padding-right-one {padding-right: 0;}
   .padding-left-one {padding-left: 0;}
-  .border-left: {border-left: none;}
+  .border-left {border-left: none;}
   
   p.sign-in-bar.right {
     background: #eee;

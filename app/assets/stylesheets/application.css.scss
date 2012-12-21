@@ -617,10 +617,10 @@ body {background: #F2F2F2 image-url("background.png") 50% 50% repeat;}
 
 @media only screen and (min-width: 768px) {
   body {
-    background-image: image-url("background.png"), image-url("america.png");  
-    background-position: top center, top center;
-    background-repeat: repeat, no-repeat;
-    background-attachment: fixed, fixed;
+    background-image: image-url("background.png");  
+    background-position: top center;
+    background-repeat: repeat;
+    background-attachment: fixed;
     }
     
    body.sign-up {

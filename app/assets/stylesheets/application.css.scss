@@ -687,7 +687,7 @@ margin-top:-32767px;/* thank you Erik J - negate effect of float*/
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.signup-form blockquote:before {
+html.cssanimations .signup-form blockquote:before {
   content: "“";
   font-family: 'GoudyBookletter', Georgia, 'Times New Roman', serif;
   font-size: 22em;
@@ -830,9 +830,9 @@ html.backgroundsize .sign-up .logo h1 {
 
 html.no-backgroundsize .sign-up .logo h1 {
   background: image-url("signup-logo-small.png") top center no-repeat;
-  width: 338px;
-  height: 150px;
-  margin: 0 auto;
+  width: 477px;
+  height: 169px;
+  margin: 0 auto 1em 0;
   display: block;
   text-indent: -9999em;
 }

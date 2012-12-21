@@ -31,7 +31,7 @@ html {height: 100%;}
 
 #wrap {min-height: auto;}
 
-html.splash-page {background: #AEA788; height: 100%;}
+
 
 body {height: 100%; font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
 
@@ -622,9 +622,16 @@ body {background: #F2F2F2 image-url("background.png") 50% 50% repeat;}
     background-repeat: repeat, no-repeat;
     background-attachment: fixed, fixed;
     }
+    
+   body.sign-up {
+     background-position: top center, 80% 20%;
+   } 
 }
 
+@media only screen and (min-width: 768px) {
 #wrap {min-height: 100%; background: image-url("america.png") top center no-repeat fixed;}
+body.sign-up #wrap {background: image-url("america.png") 50% -120% no-repeat fixed;}
+}
 
 #main {
   overflow:auto;
@@ -768,7 +775,10 @@ p.sign-in-bar.right a {
   color: #fff;
   text-shadow: 0 -1px 0 rgba(0,0,0,.2); 
   text-decoration: none; display: inline-block; 
-    padding: .35em;}
+  padding: .35em;
+}
+
+p.sign-in-bar.right a:hover, p.sign-in-bar.right a:active {-webkit-box-shadow: 0 0 4px rgba(0,0,0,.2);}
 
 @media (max-width: 800px) {
 

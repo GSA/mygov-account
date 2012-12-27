@@ -187,6 +187,9 @@ GEM
       ttfunk (~> 1.0.2)
     quiet_assets (1.0.1)
       railties (~> 3.1)
+    rabl (0.7.9)
+      activesupport (>= 2.3.14)
+      multi_json (~> 1.0)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -331,6 +334,7 @@ DEPENDENCIES
   permanent_records (~> 2.3.0)
   prawn
   quiet_assets
+  rabl
   rails (= 3.2.6)
   rails_admin
   ri_cal

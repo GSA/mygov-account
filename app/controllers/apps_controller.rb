@@ -1,10 +1,13 @@
 class AppsController < ApplicationController
-  before_filter :only => [:show, :launch]
+  before_filter :get_current_user_apps, :only => [:index, :show]
+
+  def get_current_user_apps
+    @current_user_apps = current_user ? current_user.apps : []    
+  end
 
   # GET /apps
   def index
     @apps = App.all
-    @current_user_apps = current_user ? current_user.apps : []
   end
   
   # GET /apps/1

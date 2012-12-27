@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+app_names = %w[App1 App2 App3]
 describe "OauthApps" do  
   describe "it should display a list of apps" do
     it "should display a list of apps" do
@@ -21,14 +21,13 @@ describe "OauthApps" do
       app3 = App.create(name: 'App3'){|app| app.redirect_uri = "http://localhost/"}
       @app3_client = app3.oauth2_client
       create_logged_in_user(@user)
+     
     end
 
     describe "it should display all available apps, with none belonging to current user" do
       it "should list all apps" do
         visit(apps_path)
-        page.should have_content("App1")
-        page.should have_content("App2")
-        page.should have_content("App3")
+        app_names.each{|app_name| page.should have_content(app_name)}
         page.should_not have_content("Authorized")
       end  
 
@@ -53,6 +52,20 @@ describe "OauthApps" do
           end
         end  
       end  
+      describe "it should display all available apps via json api and display whether an app is authorized" do
+        it "should list all apps" do  
+          visit(apps_path(:json))
+          app_names.each{|app_name| page.should have_content(app_name)}
+          page.should have_content("\"authorized\":true")
+        end
+      end
+      # describe "it should display app information in json including whether an app is authorized on app_path(:json)" do
+      #   it "should display app info in json" do  
+      #     visit(app_path(:json))
+      #     app_names.each{|app_name| page.should have_content(app_name)}
+      #     page.should have_content("\"authorized\":true")
+      #   end
+      # end
     end
   end
 end

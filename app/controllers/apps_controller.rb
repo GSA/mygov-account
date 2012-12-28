@@ -7,7 +7,7 @@ class AppsController < ApplicationController
 
   # GET /apps
   def index
-    @apps = App.all
+    @apps = App.authentic_apps
   end
   
   # GET /apps/1

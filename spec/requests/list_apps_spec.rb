@@ -20,8 +20,9 @@ describe "OauthApps" do
       @app2_client = app2.oauth2_client
       app3 = App.create(name: 'App3'){|app| app.redirect_uri = "http://localhost/"}
       @app3_client = app3.oauth2_client
+      default_app  = App.create(name: 'Default App'){|app| app.redirect_uri = "http://localhost/"}
+      @default_client = default_app.oauth2_client
       create_logged_in_user(@user)
-     
     end
 
     describe "it should display all available apps, with none belonging to current user" do
@@ -52,20 +53,14 @@ describe "OauthApps" do
           end
         end  
       end  
-      describe "it should display all available apps via json api and display whether an app is authorized" do
-        it "should list all apps" do  
+      describe "it should display all available apps via json api" do
+        it "should list all apps, not include info specific to the logged in user, and not list Default App" do  
           visit(apps_path(:json))
           app_names.each{|app_name| page.should have_content(app_name)}
-          page.should have_content("\"authorized\":true")
+          page.should_not have_content("\"authorized\":true")
+          page.should_not have_content("\"name\":\"Default App\"")
         end
       end
-      # describe "it should display app information in json including whether an app is authorized on app_path(:json)" do
-      #   it "should display app info in json" do  
-      #     visit(app_path(:json))
-      #     app_names.each{|app_name| page.should have_content(app_name)}
-      #     page.should have_content("\"authorized\":true")
-      #   end
-      # end
     end
   end
 end

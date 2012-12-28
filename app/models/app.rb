@@ -13,8 +13,12 @@ class App < ActiveRecord::Base
     def default_app
       App.find_or_create_by_name("Default App"){|app| app.redirect_uri = "https://my.usa.gov"}
     end
+
+    def authentic_apps
+      self.where("name != 'Default App'")
+    end
   end
-  
+    
   def oauth2_client
     @oauth2_client || self.oauth2_clients.first
   end

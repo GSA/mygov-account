@@ -54,11 +54,11 @@ describe "OauthApps" do
         end  
       end  
       describe "it should display all available apps via json api" do
-        it "should list all apps, not include info specific to the logged in user, and not list Default App" do  
+        it "should list all apps, not include info specific to the logged in user, not list Default App, and not list 'app' as root node" do  
           visit(apps_path(:json))
           app_names.each{|app_name| page.should have_content(app_name)}
           page.should_not have_content("\"authorized\":true")
-          page.should_not have_content("\"name\":\"Default App\"")
+          page.should_not have_content("\[\{\"app\"\:")
         end
       end
     end

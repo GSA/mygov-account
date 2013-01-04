@@ -5,7 +5,7 @@ describe TaskItem do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @app= App.create!(:name => 'Test App'){|app| app.redirect_uri = "http://localhost:3000/"}
-    @task = Task.new(:app_id => @app, :name => 'Test task')
+    @task = Task.new(:app_id => @app.id, :name => 'Test task')
     @task.user = @user
     @task.save!
     @valid_attributes = {

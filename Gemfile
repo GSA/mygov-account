@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.10'
 gem 'mysql2'
 gem 'json'
 gem 'haml'

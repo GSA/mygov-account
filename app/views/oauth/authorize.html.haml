@@ -1,6 +1,14 @@
 - if user_signed_in?
   %p
-    #{@oauth2.client.name} wants to access your profile.
+    #{@oauth2.client.name} wants
+    - if @oauth2.scopes.blank? || (scopes = @oauth2.client.owner.find_scopes(@oauth2.scopes)).blank?
+      to access your profile.
+    - else
+      = 'to:'
+      %ul
+      - scopes.each do |scope|
+        %li
+          = scope.description
   = form_tag "/oauth/allow" do
     - @oauth2.params.each do |key, value|
       = hidden_field_tag key, value

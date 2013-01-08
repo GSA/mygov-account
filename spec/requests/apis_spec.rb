@@ -5,8 +5,11 @@ describe "Apis" do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
-    @app = App.create(:name => 'App1'){ |app| app.redirect_uri = 'http://localhost/' }
+    OauthScope.seed_data.each { |os| OauthScope.create os }
+    @app = App.create(:name => 'App1'){|app| app.redirect_uri = "http://localhost/"}
+    @app.oauth_scopes = OauthScope.all
     authorization = OAuth2::Model::Authorization.new
+    authorization.scope = @app.oauth_scopes.collect{ |s| s.scope_name }.join(" ")
     authorization.client = @app.oauth2_client
     authorization.owner = @user
     access_token = authorization.generate_access_token
@@ -43,7 +46,7 @@ describe "Apis" do
     
     context "when the request does not have a valid token" do
       it "should return an error message" do
-        get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
+        get "/api/profile", {"schema" => "true"}, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
         response.code.should == "403"
         parsed_json = JSON.parse(response.body)
         parsed_json["status"].should == "Error"
@@ -57,6 +60,7 @@ describe "Apis" do
       create_approved_beta_signup('jane@citizen.org')
       @other_user = User.create!(:email => 'jane@citizen.org', :password => 'random', :first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
       @app2 = App.create!(:name => 'App2'){|app| app.redirect_uri = "http://localhost:3000/"}
+      @app2.oauth_scopes << OauthScope.all
       create_logged_in_user(@user)
       1.upto(14) do |index|
         @notification = Notification.create!(:subject => "Notification ##{index}", :received_at => Time.now - 1.hour, :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app.id)
@@ -89,6 +93,28 @@ describe "Apis" do
         end
       end
     end
+    
+    context "when the the app does not have the proper scope" do
+      before do
+        @app3 = App.create(:name => 'App3'){|app| app.redirect_uri = "http://localhost/"}
+        @app3.oauth_scopes = OauthScope.all
+        authorization = OAuth2::Model::Authorization.new
+        authorization.scope = "submit_forms" # this is the wrong scope for notifications
+        authorization.client = @app3.oauth2_client
+        authorization.owner = @user
+        access_token = authorization.generate_access_token
+        client = OAuth2::Client.new(@app3.oauth2_client.client_id, @app3.oauth2_client.client_secret, :site => 'http://localhost/', :token_url => "/oauth/authorize")
+        @token3 = OAuth2::AccessToken.new(client, access_token)
+      end
+      
+      it "should return an error message" do
+        post "/api/notifications", {:notification => {:body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token3.token}"}
+        response.code.should == "403"
+        parsed_json = JSON.parse(response.body)
+        parsed_json["status"].should == "Error"
+        parsed_json["message"].should == "You do not have access to notifications for that user."
+      end
+    end
 
     context "when the user has an invalid token" do
       it "should return an error message" do
@@ -116,6 +142,28 @@ describe "Apis" do
           parsed_json.size.should == 1
           parsed_json.first["name"].should == "Task #1"
         end
+      end
+    end
+    
+    context "when the the app does not have the proper scope" do
+      before do
+        @app4 = App.create(:name => 'App4'){|app| app.redirect_uri = "http://localhost/"}
+        @app4.oauth_scopes = OauthScope.all
+        authorization = OAuth2::Model::Authorization.new
+        authorization.scope = "submit_forms" # this is the wrong scope for tasks
+        authorization.client = @app4.oauth2_client
+        authorization.owner = @user
+        access_token = authorization.generate_access_token
+        client = OAuth2::Client.new(@app4.oauth2_client.client_id, @app4.oauth2_client.client_secret, :site => 'http://localhost/', :token_url => "/oauth/authorize")
+        @token4 = OAuth2::AccessToken.new(client, access_token)
+      end
+      
+      it "should return an error message" do
+        get "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token4.token}"}
+        response.code.should == "403"
+        parsed_json = JSON.parse(response.body)
+        parsed_json["status"].should == "Error"
+        parsed_json["message"].should == "You do not have access to tasks for that user."
       end
     end
     
@@ -250,6 +298,28 @@ describe "Apis" do
           parsed_json["message"].should == "There was an error in creating your form."
         end
       end      
+    end
+    
+    context "when the the app does not have the proper scope" do
+      before do
+        @app5 = App.create(:name => 'App5'){|app| app.redirect_uri = "http://localhost/"}
+        @app5.oauth_scopes = OauthScope.all
+        authorization = OAuth2::Model::Authorization.new
+        authorization.scope = "notifications" # this is the wrong scope for submitting forms
+        authorization.client = @app5.oauth2_client
+        authorization.owner = @user
+        access_token = authorization.generate_access_token
+        client = OAuth2::Client.new(@app5.oauth2_client.client_id, @app5.oauth2_client.client_secret, :site => 'http://localhost/', :token_url => "/oauth/authorize")
+        @token5 = OAuth2::AccessToken.new(client, access_token)
+      end
+      
+      it "should return an error message" do
+        post "/api/forms", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token5.token}"}
+        response.code.should == "403"
+        parsed_json = JSON.parse(response.body)
+        parsed_json["status"].should == "Error"
+        parsed_json["message"].should == "You do not have access to submit forms for that user."
+      end
     end
     
     context "when the request does not have a valid token" do

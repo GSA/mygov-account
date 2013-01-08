@@ -7,6 +7,7 @@ class App < ActiveRecord::Base
   after_create :create_oauth2_client
   attr_accessible :description, :logo, :name, :redirect_uri, :short_description, :url
   has_attached_file :logo, :styles => { :medium => "300x300>", :thumb => "200x200>" }
+  has_and_belongs_to_many :oauth_scopes
   
   class << self
     
@@ -30,7 +31,13 @@ class App < ActiveRecord::Base
   def to_param
     self.slug
   end
-
+  
+  def find_scopes(scopes=nil)
+    return [] if scopes.blank? || (!scopes.respond_to?(:to_a) && !scopes.respond_to?(:split))
+    scopes = scopes.respond_to?(:to_a) ? scopes.to_a : scopes.split(" ")
+    self.oauth_scopes.where("oauth_scopes.scope_name" => scopes)
+  end
+  
   private
   
   def generate_slug

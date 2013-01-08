@@ -1,33 +1,32 @@
 class Api::TasksController < Api::ApiController
+  before_filter :oauthorize_scope
   
   def index
-    unless @token.valid?
-      render :json => {:status => 'Error', :message => "You do not have access to view tasks for that user."}, :status => 403
-    else
-      @tasks = @user.tasks.where(:app_id => @app.id)
-      render :json => @tasks
-    end
+    @tasks = @user.tasks.where(:app_id => @app.id)
+    render :json => @tasks
   end
   
   def create
-    unless @token.valid?
-      render :json => {:status => 'Error', :message => "You do not have access to create tasks for that user."}, :status => 403
+    @task = @user.tasks.build((params[:task] || {}).merge(:app_id => @app.id))
+    if @task.save
+      render :json => {:status => "OK", :task => @task }
     else
-      @task = @user.tasks.build((params[:task] || {}).merge(:app_id => @app.id))
-      if @task.save
-        render :json => {:status => "OK", :task => @task }
-      else
-        render :json => {:status => "Error", :message => @task.errors }, :status => 400
-      end
+      render :json => {:status => "Error", :message => @task.errors }, :status => 400
     end
   end
   
   def show
-    unless @token.valid?
-      render :json => {:status => 'Error', :message => "You do not have access to view tasks for that user."}, :status => 403
-    else
-      @task = @token.owner.tasks.find_by_id(params[:id])
-      render :json => @task
-    end      
+    @task = @token.owner.tasks.find_by_id(params[:id])
+    render :json => @task
+  end
+  
+  protected
+  
+  def no_scope_message
+    "You do not have access to #{self.action_name == 'create' ? 'create' : 'view'} tasks for that user."
+  end
+  
+  def oauthorize_scope
+    validate_oauth(OauthScope.find_by_scope_name('tasks'))
   end
 end

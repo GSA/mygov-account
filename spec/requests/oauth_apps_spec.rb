@@ -5,7 +5,9 @@ describe "OauthApps" do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
+    OauthScope.seed_data.each { |os| OauthScope.create os }
     app1 = App.create(:name => 'App1'){|app| app.redirect_uri = "http://localhost/"}
+    app1.oauth_scopes << OauthScope.all
     @app1_client_auth = app1.oauth2_client
     app2 = App.create(:name => 'App2'){|app| app.redirect_uri = "http://localhost/"}
     @app2_client_auth = app2.oauth2_client
@@ -15,7 +17,9 @@ describe "OauthApps" do
   
   describe "Authorize application" do
     it "should redirect to a login page to authorize a new app" do
-      get("/oauth/authorize?response_type=code&client_id=#{@app1_client_auth.client_id}&redirect_uri=http://localhost/").should redirect_to(sign_in_path)
+      get(url_for(controller: 'oauth', action: 'authorize',
+              response_type: 'code', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/')
+      ).should redirect_to(sign_in_path)
     end
   end
   
@@ -26,8 +30,32 @@ describe "OauthApps" do
     
     describe "Authorize application" do
       it "should ask for authorization and redirect after clicking 'Authorize'" do
-        visit("/oauth/authorize?response_type=code&client_id=#{@app1_client_auth.client_id}&redirect_uri=http://localhost/")
+        visit(url_for(controller: 'oauth', action: 'authorize',
+              response_type: 'code', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))
         page.should have_content('App1 wants to access your profile.')
+        page.should_not have_content('Read your profile information')
+        page.should_not have_content('Send you notifications')
+        page.should_not have_content('Submit forms on your behalf')
+        click_button('Authorize')
+        uri = URI.parse(current_url)
+        params = CGI::parse(uri.query)
+        code = (params["code"] || []).first
+        uri.path.should == "/"
+        code.should_not be_empty
+        post("/oauth/authorize", "grant_type" => "authorization_code", "code" => code, "client_id" => @app1_client_auth.client_id, "client_secret" => @app1_client_auth.client_secret, "redirect_uri" => "http://localhost/")
+        response.code.should == "200"
+        response.body.should match /access_token/
+      end
+    end
+    
+    describe "Authorize application with scopes" do
+      it "should ask for authorization and redirect after clicking 'Authorize'" do
+        visit(url_for(controller: 'oauth', action: 'authorize',
+              response_type: 'code', scope: 'profile submit_forms notifications', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))
+        page.should have_content('App1 wants to:')
+        page.should have_content('Read your profile information')
+        page.should have_content('Send you notifications')
+        page.should have_content('Submit forms on your behalf')
         click_button('Authorize')
         uri = URI.parse(current_url)
         params = CGI::parse(uri.query)

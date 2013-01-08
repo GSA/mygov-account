@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121219183944) do
+ActiveRecord::Schema.define(:version => 20121221190323) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(:version => 20121219183944) do
   end
 
   add_index "apps", ["slug"], :name => "index_apps_on_slug"
+
+  create_table "apps_oauth_scopes", :id => false, :force => true do |t|
+    t.integer "app_id"
+    t.integer "oauth_scope_id"
+  end
+
+  add_index "apps_oauth_scopes", ["app_id"], :name => "index_apps_oauth_scopes_on_app_id"
+  add_index "apps_oauth_scopes", ["oauth_scope_id"], :name => "index_apps_oauth_scopes_on_oauth_scope_id"
 
   create_table "beta_signups", :force => true do |t|
     t.string   "email"
@@ -84,6 +92,16 @@ ActiveRecord::Schema.define(:version => 20121219183944) do
   end
 
   add_index "oauth2_clients", ["client_id"], :name => "index_oauth2_clients_on_client_id"
+
+  create_table "oauth_scopes", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "scope_name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "oauth_scopes", ["scope_name"], :name => "index_oauth_scopes_on_scope_name"
 
   create_table "pdf_fields", :force => true do |t|
     t.string   "name"
@@ -203,6 +221,7 @@ ActiveRecord::Schema.define(:version => 20121219183944) do
     t.boolean  "is_retired"
   end
 
+  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true

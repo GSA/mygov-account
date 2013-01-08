@@ -1,14 +1,11 @@
 class Api::ProfilesController < Api::ApiController
+  before_filter :validate_oauth
   
   def show
-    unless @token.valid?
-      render :json => {:status => 'Error', :message => "You do not have access to read that user's profile."}, :status => 403
+    if params[:schema].present?
+      render :json => {:status => 'OK', :user => @user.to_schema_dot_org_hash }
     else
-      if params[:schema].present?
-        render :json => {:status => 'OK', :user => @user.to_schema_dot_org_hash }
-      else
-        render :json => {:status => 'OK', :user => @user }
-      end
+      render :json => {:status => 'OK', :user => @user }
     end
   end
 end

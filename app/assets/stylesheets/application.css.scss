@@ -33,7 +33,7 @@ html {height: 100%;}
 
 
 
-body {height: 100%; font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;}
+body {height: 100%; font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; background: #AEA888;}
 
 
 /*
@@ -539,7 +539,78 @@ span.jujitsu {
 .nav-bar li.sign-out a {background-image: image-url("sprite-2x.png"); background-size: 40px;}
 }
 
-/*** Message bars ***/
+/*** Dashboad Navigation Bar***/
+
+#wrap ul.dashboard-navigation {
+  display: block; 
+  margin: 0; 
+  padding: 0 0 1em 0; 
+  float: none;
+  width: 100%;
+  -webkit-border-radius: .3em;
+}
+
+.one.columns.navigation div {margin: 0 0 1em 0; float: none;}
+
+.one.columns.navigation div a {display: block; width: 100%; color: #fff; padding: 1em 0; text-align: center;}
+  
+#wrap ul.dashboard-navigation li {
+  display: inline-block; 
+  float: left; 
+  width: 25%; 
+  list-style: none; 
+  margin: 0 0 .3em 0;  
+  padding: 0;
+  background: rgba(0,0,0,.6); 
+}
+
+#wrap ul.dashboard-navigation li.active a {background: red;}
+
+ul.dashboard-navigation li.first {
+  -webkit-border-top-left-radius: .35em;
+  -webkit-border-top-right-radius: .35em;
+}
+
+ul.dashboard-navigation li.last {
+  -webkit-border-bottom-left-radius: .35em;
+  -webkit-border-bottom-right-radius: .35em;
+}
+
+ul.dashboard-navigation li a {
+  display: block; 
+  text-align: center; 
+  color: #fff; 
+  color: rgba(255,255,255,.85);
+  text-shadow: none;
+  font-size: .9em;
+}
+
+ul.dashboard-navigation li a i {display: block; font-size: 1.5em; margin-bottom: .1em;}
+
+ul.dashboard-navigation li a.tasks {background-image: image-url("sprite.png")  0% -109px no-repeat;}
+ul.dashboard-navigation li a.info {background-image: image-url("sprite.png")  0% -109px no-repeat;}
+ul.dashboard-navigation li a.apps {background-image: image-url("sprite.png")  0% -109px no-repeat;}
+ul.dashboard-navigation li a.forms {background-image: image-url("sprite.png")  0% -109px no-repeat;}
+
+/*** Desktop / tablet view for dashboard navigation ***/
+
+@media only screen and (min-width: 768px) {
+  .one.columns.navigation div {position: fixed !important; width: 6.33333%; max-width: 85px;}
+  .one.columns.navigation div a {margin: 0 2% 0 2%; padding: 2.5em 0 .2em 0;}
+  .one.columns.navigation {padding: 0 2%; position: relative;}
+  #wrap ul.dashboard-navigation li {margin: 0; width: 100%;}
+}
+
+/*** Inline list ***/
+
+ul.inline-list {margin: 0 auto; padding: 0;}
+ul.inline-list li {display: inline-block; margin: 1em 0 1em 0; padding: .25em 1em .25em .5em; font-size: .95em; border-right: 1px solid rgba(0,0,0,.1);}
+
+ul.inline-list li:last-child {border-right: none;}
+
+ul.inline-list li a {color: #444;}
+
+/*** Message Bars ***/
 
 div.alert-box {
   -webkit-border-radius: none;
@@ -812,7 +883,7 @@ html.backgroundsize .sign-up .logo h1 {
    max-height: none;
 }
 
-.signup-form {border-top: 10px solid #D8D8D7; padding: 1em 1% 8em 1.25em;}
+.signup-form {border-top: 10px solid #D8D8D7; padding: 1em 1% 2em 1.25em;}
 
 }
 
@@ -1033,7 +1104,7 @@ h5 span {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans
 
 }
 
-.row {overflow: hidden; min-width: inherit;}
+.row {overflow: hidden; min-width: inherit; position: relative;}
 
 
 

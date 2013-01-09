@@ -16,6 +16,7 @@ Mygov::Application.routes.draw do
   get 'your-government' => "home#your_government", :as => :your_government
   get 'privacy-policy' => "home#privacy_policy", :as => :privacy_policy
   get 'terms-of-service' => "home#terms_of_service", :as => :terms_of_service
+  get 'about' => "home#about", :as => :about
 
   resources :tasks, :only => [:show, :update, :destroy]
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'

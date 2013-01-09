@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :privacy_policy, :terms_of_service]
+  before_filter :authenticate_user!, :except => [:index, :privacy_policy, :terms_of_service, :about]
   before_filter :assign_user, :except => [:index, :privacy_policy, :terms_of_service]
   
   def index
@@ -21,6 +21,9 @@ class HomeController < ApplicationController
   end
   
   def terms_of_service
+  end
+  
+  def about
   end
   
   def your_government

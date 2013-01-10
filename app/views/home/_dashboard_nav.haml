@@ -2,19 +2,21 @@
   %ul.dashboard-navigation{"data-magellan-expedition" => ""} 
     - if @uncompleted_tasks.any?
       %li.first{"data-magellan-arrival" => "tasks"}
-        %a.tasks{:href => ""}
+        %a.smoothScroll.tasks{:href => "#tasks"}
           %i{:class => "foundicon-checkmark"}
           Tasks          
   
     %li{"data-magellan-arrival" => "apps"}
-      %a.apps{:href => "#apps"}
+      %a.smoothScroll.apps{:href => "#apps"}
         %i{:class => "foundicon-website"}  
         Apps      
     %li{"data-magellan-arrival" => "info"}
-      %a.info{:href => "#info"}
+      %a.smoothScroll.info{:href => "#info"}
         %i{:class => "foundicon-globe"}   
         Info  
     %li.last{"data-magellan-arrival" => "forms"}
-      %a.forms{:href => "#forms"}
+      %a.smoothScroll.forms{:href => "#forms"}
         %i{:class => "foundicon-inbox"} 
         Forms         
+        
+        

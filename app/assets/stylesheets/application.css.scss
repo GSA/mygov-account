@@ -546,6 +546,11 @@ span.jujitsu {
 .one.columns.navigation div a {display: block; width: 100%; color: #fff; padding: 1em .2em; text-align: center;}
   
 #wrap ul.dashboard-navigation li {
+  -webkit-transition: all ease-in-out .1s; 
+  -moz-transition: all ease-in-out .1s; 
+  -o-transition: all ease-in-out .1s; 
+  -ms-transition: all ease-in-out .1s; 
+  transition: all ease-in-out .1s; 
   display: inline-block; 
   float: left; 
   width: 25%; 
@@ -556,6 +561,8 @@ span.jujitsu {
   border: none;
   background: rgba(17,33,55,.9); 
 }
+
+#wrap ul.dashboard-navigation li:hover {background: rgba(17,33,55,.95); }
 
 
 #wrap ul.dashboard-navigation li.active {
@@ -1117,7 +1124,7 @@ h5 span {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans
   
 }
 
-.panel.ideas.small {height: auto;}
+.panel.ideas.small {height: 12em;}
 
 #wrap .panel.ideas.small h3 {border-bottom: none; text-align: center;}
 

@@ -1,12 +1,11 @@
 .panel.info 
+  %a{:name => "info"}
   %h3
     %i{:class => "foundicon-globe"}
     Info
-  
   .row.group
     .six.columns
-      .panel.secondary.decorative.style-one{"data-magellan-destination" => "info"}
-        %a{:name => "info"}
+      .panel.secondary.decorative.style-one{"data-magellan-destination" => "info"}   
         .flourish
           %i{:class => "foundicon-address-book"}      
         %div
@@ -20,4 +19,3 @@
                       #{jurisdiction['level_name']}: 
                     %span.name
                       = jurisdiction['name']
-                

@@ -12,12 +12,15 @@
       = link_to "http://bit.ly/mygovideascale" do
         %i{:class => "foundicon-idea"}
         Give MyGov beta feedback
-
+    %li
+      = link_to pra_path do
+        %i{:class => "foundicon-page"}
+        Paperwork Reduction Act Statement
     %li
       = link_to '#', {:"data-reveal-id" => 'confirm-delete-modal'} do
         %i{:class => "foundicon-remove"}
         Delete your account
-
+        
 #confirm-delete-modal.reveal-modal
   %h2
     Are you sure?

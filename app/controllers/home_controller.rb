@@ -26,6 +26,9 @@ class HomeController < ApplicationController
   def about
   end
   
+  def pra
+  end
+  
   def your_government
     @local_info = @user.local_info
   end

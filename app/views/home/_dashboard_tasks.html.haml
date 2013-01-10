@@ -1,9 +1,10 @@
 .panel.task.dashboard{"data-magellan-destination" => "tasks"}
-  %a{:name => "tasks"}
+  
   %h3 
     %i{:class => "foundicon-checkmark"}
     Tasks
-
+    %a{:name => "tasks"} 
+  
   
   %span.bookmark
   - @uncompleted_tasks.each do |task|

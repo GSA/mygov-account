@@ -1,18 +1,10 @@
 .row
-
   .one.columns.navigation
     = render :partial => 'dashboard_nav' 
-
   .eleven.columns.dashboard
     - if @uncompleted_tasks.any?
-      = render :partial => 'dashboard_tasks'
-          
-    = render :partial => 'local_gov' if @local_info and @local_info['jurisdictions']
-    
-    = render :partial => 'dashboard_apps' 
-    
-    = render :partial => 'dashboard_forms' 
-    
+      = render :partial => 'dashboard_tasks'         
+    = render :partial => 'dashboard_apps'   
+    = render :partial => 'dashboard_info' if @local_info and @local_info['jurisdictions']  
+    = render :partial => 'dashboard_forms'    
     = render :partial => 'administrative_settings'
-    
-    

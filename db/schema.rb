@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(:version => 20121221190323) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "name"
-    t.string   "middle_name"
+    t.string   "middle_name",            :limit => 1
     t.string   "address"
     t.string   "address2"
     t.string   "city"
@@ -221,6 +221,7 @@ ActiveRecord::Schema.define(:version => 20121221190323) do
     t.boolean  "is_retired"
   end
 
+  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true

@@ -1,37 +1,54 @@
 .row
   .twelve.columns
     .panel.task.group
-      .eight.columns
-        %h3
-          #{@task.name}
-        %p
-          %strong
-            #{@task.task_items.completed.size} of #{@task.task_items.size} 
-          items completed.
+      %h3
+        %i{:class => "foundicon-checkmark"}
+        
+        - if current_user and current_user.first_name.present?
+          #{@task.name} 
       
-      .four.columns.align-right
-        - if @task.completed?
-          %h5.right
-            Task completed at #{@task.completed_at}
-        - else
-          = link_to task_path(@task, :completed => true), :method => :put, :class => 'align-right' do
-            %i{:class => 'foundicon-checkmark'}
-            Mark all items complete    
+
+      %p.supporting-text
+        %strong
+          #{@task.task_items.completed.size} of #{@task.task_items.size} 
+        items completed.
       
-      .twelve.columns
-  
-        %ol.inline.group
+          
+      
+      - if @task.completed?
+        
+        %h5
+          Task completed at #{@task.completed_at}
+      
+      - else
+
+      %ol.item-list.clear
         - @task.task_items.each do |task_item|
           %li
-            %h5
-              = link_to task_item.name, task_item.url
+            = link_to task_item.name, task_item.url
             - if task_item.completed?
               Item completed at: #{task_item.completed_at}
+            
             - else
-              = link_to  task_item_path(task_item, :completed => true), :method => :put, :class => '' do
-                %i{:class => 'foundicon-checkmark'}
-                Mark complete
-              = link_to task_item_path(task_item), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'button transparent' do
-                %i{:class => 'foundicon-remove'}
-                Remove                
-                  
+              
+              %span.actions.align-right
+                = link_to  task_item_path(task_item, :completed => true), :method => :put, :class => '' do
+                  %i{:class => 'foundicon-checkmark'}
+                  Mark complete
+              
+              %span.actions.align-right
+                = link_to task_item_path(task_item), :method => :delete, :data => { :confirm => 'This cannot be undone.' }, :class => '' do
+                  %i{:class => 'foundicon-remove'}
+                  Remove                
+        
+        = link_to task_path(@task, :completed => true), :method => :put, :class => 'complete' do
+          
+          .row
+            .twelve.columns.align-right
+              %i{:class => 'foundicon-checkmark'}
+              Mark all items for <strong>#{@task.name}</strong> complete    
+.row
+  .twelve.columns
+    = link_to '← Back to Dashboard', root_path, :class => 'small button'  
+
+            

@@ -28,6 +28,8 @@
 
 html {height: 100%;}
 body {height: 100%; font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; background: #AEA888;}
+
+body.sign-up #wrap {background: #BE8B40;}
 #wrap {min-height: auto;}
 
 input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
@@ -134,7 +136,7 @@ p a {text-decoration: underline;}
 
 table {width: 100%; margin-bottom: 2em;}
 .row {border: none;}
-p, ul, ol, legend, input[type="text"], input[type="email"], input[type="tel"] {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-shadow: 0 1px 0 rgba(255,255,255,.9);}
+p, ul, ol, legend, input[type="text"], input[type="email"], input[type="tel"] {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-shadow: 0 1px 0 rgba(255,255,255,.55);}
 .centered {text-align: center;}
 
 h1 {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #112137; text-shadow: 0 1px 0 rgba(255,255,255,.9); font-weight: normal; margin-top: .5em;}
@@ -745,7 +747,7 @@ margin-top:-32767px;/* thank you Erik J - negate effect of float*/
 
 /*** Sign up form - move to seperate style sheet ***/
 
-.secondarysecondary {
+.secondary {
   border-top: 2px solid #fff;
   background: #AFA88A;
   padding: 1em 0;
@@ -872,7 +874,6 @@ p.sign-in-bar.right a:hover, p.sign-in-bar.right a:active {-webkit-box-shadow: 0
   .border-left {border-left: none;}
   
   p.sign-in-bar.right {
-    background: #eee;
     text-align: center;
     display: block; 
     padding: 2%;

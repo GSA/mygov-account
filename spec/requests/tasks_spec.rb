@@ -26,7 +26,7 @@ describe "Tasks" do
     end
     
     it "should let a user mark all items as complete" do
-      click_link 'Mark all items complete'
+      click_link 'Mark all items for Change your name complete'
       page.should have_content 'MyGovBeta'
       visit task_path(@task)
       page.should have_content "2 of 2 items completed."
@@ -39,7 +39,7 @@ describe "Tasks" do
     it "should let a user mark an individual task item as complete" do
       click_link 'Mark complete'
       page.should have_content "1 of 2 items completed."
-      page.should have_link "Mark all items complete"
+      page.should have_link "Mark all items for Change your name complete"
       page.should have_no_content "Task completed at"
       page.should have_content "Item completed at"
       page.should have_link "Mark complete"

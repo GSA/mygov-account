@@ -72,12 +72,10 @@ describe "HomePage" do
           @user.tasks.first.task_items.create!(:name => 'Get Divorced!')
         end
         
-        it "should show the tasks on the dashboard and allow the user to remove tasks" do
+        it "should show the tasks on the dashboard" do
           visit root_path
           page.should have_content "MyGovBeta"
-          page.should have_content "Get Married!"
-          page.should have_content "Get Divorced!"
-          page.should have_link "Remove"
+          page.should have_content "Change your name"
         end
       end
                 

@@ -4,19 +4,15 @@
     %meta(charset="utf-8")
     %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
     %meta(name="viewport" content="width=device-width, user-scalable=yes")
-    
-    %meta(name="format-detection" content="telephone=yes") 
-    
+    %meta(name="format-detection" content="telephone=yes")   
     %meta(name="HandheldFriendly" content="True")
     %meta(http-equiv="cleartype" content="on")
-    
     %meta(property="fb:app_id"               content="MyGov")
     %meta(property="og:type"                 content="website")
     %meta(property="og:url"                  content="http://my.usa.gov/") 
     %meta(property="og:image"                content="http://my.usa.gov/assets/touch-icon-iphone4.png")
     %meta(property="og:title"                content="MyGov")
-    %meta(property="og:description"          content="A platform for connecting people and government")
-    
+    %meta(property="og:description"          content="A platform for connecting people and government")  
     %title= content_for?(:title) ? yield(:title) : "MyGov"
     = csrf_meta_tags
     / Le HTML5 shim, for IE6-8 support of HTML elements
@@ -27,12 +23,10 @@
     = favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :sizes => '72x72', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
     = favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :sizes => '114x114', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
     = favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :sizes => '144x144', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-   
-    = javascript_include_tag 'modernizr' 
-    
 
-  %body.sign-up
-      
+    = javascript_include_tag 'modernizr' 
+
+  %body.sign-up   
     %div#wrap
       %div#main
         .nav-container.group

@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :privacy_policy, :terms_of_service, :about]
+  before_filter :authenticate_user!, :except => [:index, :discovery, :privacy_policy, :terms_of_service, :about]
   before_filter :assign_user, :except => [:index, :privacy_policy, :terms_of_service]
   
   def index
@@ -15,6 +15,9 @@ class HomeController < ApplicationController
     @today = Date.current
     @uncompleted_tasks = @user.tasks.uncompleted.order('created_at DESC')
     @local_info = @user.local_info
+  end
+  
+  def discovery
   end
   
   def privacy_policy

@@ -14,6 +14,7 @@ Mygov::Application.routes.draw do
   resource :profile, :controller => :users, :only => [:show, :edit, :update, :destroy]
   resources :notifications, :only => [:index, :show, :create, :destroy]
   get 'dashboard' => "home#dashboard"
+  get 'discovery' => "home#discovery"
   get 'your-government' => "home#your_government", :as => :your_government
   get 'privacy-policy' => "home#privacy_policy", :as => :privacy_policy
   get 'terms-of-service' => "home#terms_of_service", :as => :terms_of_service

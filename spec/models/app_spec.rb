@@ -14,4 +14,9 @@ describe App do
     app = App.create!(@valid_attributes){|app| app.redirect_uri = "http://localhost:3000/"}
     app.slug.should == app.name.parameterize
   end
+  
+  it "should default to the app-icon.png url" do
+    app = App.create!(@valid_attributes){|app| app.redirect_uri = "http://localhost:3000/"}
+    app.logo.url.should == "/assets/app-icon.png"
+  end
 end

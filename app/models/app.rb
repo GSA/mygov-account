@@ -6,7 +6,7 @@ class App < ActiveRecord::Base
   before_validation :generate_slug
   after_create :create_oauth2_client
   attr_accessible :description, :logo, :name, :redirect_uri, :short_description, :url
-  has_attached_file :logo, :styles => { :medium => "300x300>", :thumb => "200x200>" }
+  has_attached_file :logo, :styles => { :medium => "300x300>", :thumb => "200x200>" }, :default_url => '/assets/app-icon.png'
   has_and_belongs_to_many :oauth_scopes
   
   class << self

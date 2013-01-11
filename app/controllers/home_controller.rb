@@ -15,7 +15,6 @@ class HomeController < ApplicationController
     @today = Date.current
     @uncompleted_tasks = @user.tasks.uncompleted.order('created_at DESC')
     @local_info = @user.local_info
-    puts "LOCAL INFO: #{@local_info}"
   end
   
   def privacy_policy

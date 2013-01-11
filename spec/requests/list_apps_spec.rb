@@ -1,9 +1,24 @@
 require 'spec_helper'
 app_names = %w[App1 App2 App3]
 describe "OauthApps" do  
+  before do
+    app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
+    @app1_client = app1.oauth2_client
+    app2 = App.create(name: 'App2'){|app| app.redirect_uri = "http://localhost/"}
+    @app2_client = app2.oauth2_client
+    app3 = App.create(name: 'App3'){|app| app.redirect_uri = "http://localhost/"}
+    @app3_client = app3.oauth2_client
+    default_app  = App.create(name: 'Default App'){|app| app.redirect_uri = "http://localhost/"}
+    @default_client = default_app.oauth2_client
+  end
+  
   describe "it should display a list of apps" do
     it "should display a list of apps" do
       visit(apps_path)
+      page.should have_content "App1"
+      page.should have_content "App2"
+      page.should have_content "App3"
+      page.should have_no_content "Default App"
     end
   end
   
@@ -13,15 +28,6 @@ describe "OauthApps" do
       create_approved_beta_signup('joe@citizen.org')
       @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
       @user.confirm!
-      # Create several apps and clients
-      app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
-      @app1_client = app1.oauth2_client
-      app2 = App.create(name: 'App2'){|app| app.redirect_uri = "http://localhost/"}
-      @app2_client = app2.oauth2_client
-      app3 = App.create(name: 'App3'){|app| app.redirect_uri = "http://localhost/"}
-      @app3_client = app3.oauth2_client
-      default_app  = App.create(name: 'Default App'){|app| app.redirect_uri = "http://localhost/"}
-      @default_client = default_app.oauth2_client
       create_logged_in_user(@user)
     end
 

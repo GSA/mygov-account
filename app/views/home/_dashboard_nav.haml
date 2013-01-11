@@ -8,11 +8,12 @@
     %li{"data-magellan-arrival" => "apps"}
       %a.smoothScroll.apps{:href => "#apps"}
         %i{:class => "foundicon-website"}  
-        Apps      
-    %li{"data-magellan-arrival" => "info"}
-      %a.smoothScroll.info{:href => "#info"}
-        %i{:class => "foundicon-globe"}   
-        Info  
+        Apps
+    - if @local_info and @local_info['jurisdictions']  
+      %li{"data-magellan-arrival" => "info"}
+        %a.smoothScroll.info{:href => "#info"}
+          %i{:class => "foundicon-globe"}   
+          Info  
     %li.last{"data-magellan-arrival" => "forms"}
       %a.smoothScroll.forms{:href => "#forms"}
         %i{:class => "foundicon-inbox"} 

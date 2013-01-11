@@ -64,6 +64,19 @@ describe "HomePage" do
         end
       end
       
+      context "when the user does not have tasks or local info" do
+        before do
+          @user.tasks.destroy_all
+        end
+        
+        it "should not show sidebar tabs or dashboard sections for tasks or info" do
+          visit root_path
+          page.should have_no_content "Tasks"
+          page.should have_no_content "Info"
+          page.should have_no_content "Your Local Government"
+        end
+      end
+      
       context "when the user has tasks with task items" do
         before do
           @app = App.create!(:name => 'Change your name'){|app| app.redirect_uri = "http://localhost:3000/"}
@@ -75,7 +88,21 @@ describe "HomePage" do
         it "should show the tasks on the dashboard" do
           visit root_path
           page.should have_content "MyGovBeta"
+          page.should have_content "Tasks"
           page.should have_content "Change your name"
+        end
+      end
+      
+      context "when the user has local information" do
+        before do
+          local_info = JSON.parse(File.read(Rails.root.to_s + "/spec/fixtures/local_info.json"))
+          User.any_instance.stub(:local_info).and_return local_info
+        end
+        
+        it "should show local info in the sidebar and in the dashboard" do
+          visit root_path
+          page.should have_content "Info"
+          page.should have_content "Your Local Government"
         end
       end
                 

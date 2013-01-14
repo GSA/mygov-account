@@ -13,6 +13,9 @@ class OauthController < ApplicationController
     end
   end
   
+  def test 
+  end
+  
   def allow
     @auth = OAuth2::Provider::Authorization.new(current_user, params)
     if params['allow'] == '1'

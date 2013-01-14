@@ -1,8 +1,14 @@
 - @apps.each do |app|
   .row
     .twelve.columns 
-      %h5
-        = link_to(app.name, app_path(app))
-        = " (Authorized)" if @current_user_apps.include?(app)
-      = image_tag app.logo.url(:thumb), alt: "#{app.name} logo"
-      = app.short_description
+      .panel.group
+        .row
+          .twelve.columns
+            %h3
+              = link_to(app.name, app_path(app))
+              = " (Authorized)" if @current_user_apps.include?(app)
+          .two.columns
+            = image_tag app.logo.url(:thumb), alt: "#{app.name} logo"
+          .ten.columns
+            %p
+              = app.short_description

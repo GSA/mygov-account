@@ -368,6 +368,9 @@ ul.meta-list li, ul.panel-list, ul.button-list {
    line-height: 1em;
 }
 
+ul.plain-list {margin: 1em 0 1em 1.5em; font-size: 1em;}
+ul.plain-list li {list-style: square;}
+
 ul.panel-list li a {
   display: block; 
   border-bottom: 1px solid rgba(0,0,0,.1); 
@@ -1019,7 +1022,8 @@ p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  ma
   border-image: url(blue-button.png) 27 repeat;
 }
 
-.panel h3 i {color: rgba(0,0,0,.2); margin-bottom: 0; vertical-align: top; font-size: .75em; text-shadow: 0 1px 0 rgba(255,255,255,.2); }
+.panel h3 i {color: rgba(0,0,0,.3); margin-bottom: 0; vertical-align: top; font-size: .75em; text-shadow: 0 1px 0 rgba(255,255,255,.2); }
+.panel.task h3 i {color: rgba(255,255,255,.2);}
 
 .panel.task div {margin: 0 0 1em 0;}
 
@@ -1087,10 +1091,10 @@ p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  ma
 .panel.task li {list-style: none; margin: 0 0 1.25em 0; padding: 0 0 1em 0; border-bottom: 1px solid rgba(255,255,255,.2);}
 .panel.task li:last-child {border-bottom: none;}
 
-.panel.task ol.inline {margin: 0; padding: 0; list-style: decimal;}
-.panel.task ol.inline li {list-style: none; list-style-type: decimal; display: block; border-bottom: 1px solid rgba(255,255,255,.1); padding-bottom: 1em;}
-.panel.task ol li:last-child {border-bottom: none;}
-.panel.task ol li h5 {color: #fff;}
+.panel ol.inline {margin: 0; padding: 0; list-style: decimal;}
+.panel ol.inline li {list-style: none; list-style-type: decimal; display: block; border-bottom: 1px solid rgba(255,255,255,.1); padding-bottom: 1em;}
+.panel ol li:last-child {border-bottom: none;}
+.panel ol li h5 {color: #fff;}
 
 .panel li span.actions {font-weight: normal;}
 .panel li span.actions i {opacity: .5; vertical-align: bottom; line-height: 1em; font-size: .75em;}

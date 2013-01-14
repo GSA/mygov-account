@@ -10,6 +10,7 @@ Mygov::Application.routes.draw do
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/allow' => 'oauth#allow'
+  get 'oauth/test' => 'oauth#test'
   resource :profile, :controller => :users, :only => [:show, :edit, :update, :destroy]
   resources :notifications, :only => [:index, :show, :create, :destroy]
   get 'dashboard' => "home#dashboard"

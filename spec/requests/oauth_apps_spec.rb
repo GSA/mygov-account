@@ -32,7 +32,7 @@ describe "OauthApps" do
       it "should ask for authorization and redirect after clicking 'Authorize'" do
         visit(url_for(controller: 'oauth', action: 'authorize',
               response_type: 'code', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))
-        page.should have_content('App1 wants to access your profile.')
+        page.should have_content('The App1 application wants to:')
         page.should_not have_content('Read your profile information')
         page.should_not have_content('Send you notifications')
         page.should_not have_content('Submit forms on your behalf')
@@ -52,7 +52,7 @@ describe "OauthApps" do
       it "should ask for authorization and redirect after clicking 'Authorize'" do
         visit(url_for(controller: 'oauth', action: 'authorize',
               response_type: 'code', scope: 'profile submit_forms notifications', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))
-        page.should have_content('App1 wants to:')
+        page.should have_content('The App1 application wants to:')
         page.should have_content('Read your profile information')
         page.should have_content('Send you notifications')
         page.should have_content('Submit forms on your behalf')
@@ -65,6 +65,24 @@ describe "OauthApps" do
         post("/oauth/authorize", "grant_type" => "authorization_code", "code" => code, "client_id" => @app1_client_auth.client_id, "client_secret" => @app1_client_auth.client_secret, "redirect_uri" => "http://localhost/")
         response.code.should == "200"
         response.body.should match /access_token/
+      end
+      
+      context "when the user does not approve" do
+        it "should return an error when trying to authorize" do
+          visit(url_for(controller: 'oauth', action: 'authorize',
+                response_type: 'code', scope: 'profile submit_forms notifications', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))
+          page.should have_content('The App1 application wants to:')
+          page.should have_content('Read your profile information')
+          page.should have_content('Send you notifications')
+          page.should have_content('Submit forms on your behalf')
+          click_button('Cancel')
+          uri = URI.parse(current_url)
+          params = CGI::parse(uri.query)
+          code = (params["code"] || []).first
+          uri.path.should == "/"
+          post("/oauth/authorize", "grant_type" => "authorization_code", "code" => code, "client_id" => @app1_client_auth.client_id, "client_secret" => @app1_client_auth.client_secret, "redirect_uri" => "http://localhost/")
+          response.code.should_not == "200"
+        end
       end
     end
   end

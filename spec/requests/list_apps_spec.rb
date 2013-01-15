@@ -54,7 +54,7 @@ describe "OauthApps" do
       describe "it should indicate which app belongs to user" do
         it "should list all apps" do
           visit(apps_path)
-          within('h5', :text => 'App2') do # omit |ref|
+          within('h3', :text => 'App2') do
             page.should have_content('Authorized')
           end
         end  

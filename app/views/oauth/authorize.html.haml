@@ -1,21 +1,37 @@
 - if user_signed_in?
-  %p
-    #{@oauth2.client.name} wants
-    - if @oauth2.scopes.blank? || (scopes = @oauth2.client.owner.find_scopes(@oauth2.scopes)).blank?
-      to access your profile.
-    - else
-      = 'to:'
-      %ul
-      - scopes.each do |scope|
-        %li
-          = scope.description
-  = form_tag "/oauth/allow" do
-    - @oauth2.params.each do |key, value|
-      = hidden_field_tag key, value
-    = hidden_field_tag :user_id, current_user.id
-    = check_box_tag :allow, "1", :id => "allow"
-    = label_tag :allow, "Allow this application"
-    = submit_tag 'Authorize'
+  .row
+    .five.columns.offset-by-two
+      %h3
+        Authorize 
+        %b
+          #{@oauth2.client.name}
+        to access your MyGov account?
+      %p
+        The
+        %b
+          = @oauth2.client.name
+        application wants to:
+        %ul
+          - @oauth2.client.owner.find_scopes(@oauth2.scopes).each do |scope|
+            %li
+              = scope.description
+
+      = form_tag "/oauth/allow" do
+        - @oauth2.params.each do |key, value|
+          = hidden_field_tag key, value
+        = hidden_field_tag :user_id, current_user.id
+        = hidden_field_tag :allow, "1", :id => "allow"
+        = submit_tag 'Authorize'
+        = submit_tag 'Cancel'
+    .three.columns.end
+      = image_tag @oauth2.client.owner.logo
+      %p
+        = @oauth2.client.owner.name
+      %p
+        = @oauth2.client.owner.short_description
+  .row
+    .eight.columns.offset-by-two
+      You can revoke access to any application at any time from your Apps page.
 - else
   %p
     Please

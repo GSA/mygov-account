@@ -1,4 +1,5 @@
 class OauthController < ApplicationController
+  
   def authorize
     @oauth2 = OAuth2::Provider.parse(current_user, request)
     if @oauth2.redirect?
@@ -18,7 +19,7 @@ class OauthController < ApplicationController
   
   def allow
     @auth = OAuth2::Provider::Authorization.new(current_user, params)
-    if params['allow'] == '1'
+    if params[:allow] == '1' and params[:commit] == 'Authorize'
       @auth.grant_access!
     else
       @auth.deny_access!

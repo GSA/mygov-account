@@ -32,7 +32,7 @@ body {height: 100%; font-family: "Century Gothic", "Helvetica Neue", Helvetica, 
 #wrap {min-height: auto;}
 
 input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
-  padding: 1.3em .5em;
+  line-height: 1.5em;
   font-weight: bold; color: #0C2237;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -45,6 +45,9 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
   padding: 0 .4em;
   height: 3em;
   }
+  
+
+  
   
 }
 
@@ -244,8 +247,8 @@ a.button:visited {color: #fff;}
 html.no-borderimage #wrap .button.positive, 
 html.no-borderimage #wrap a.button.positive, 
 html.no-borderimage #wrap input.button.positive {
-  border-width: 0px; 
-  border-image: none; 
+
+  border: 1px solid #eee;
   padding: 1em 2em; 
   display: inline-block; 
 }
@@ -373,6 +376,7 @@ ul.plain-list li {list-style: square;}
 
 ul.panel-list li a {
   display: block; 
+  border-bottom: 1px solid #BEC0BE;
   border-bottom: 1px solid rgba(0,0,0,.1); 
   padding: .5em 0; 
   margin: 0; 
@@ -388,11 +392,13 @@ ul.button-list {
 
 ul.button-list a {
   display: block;
+  background: #F8F7F7;
   background: rgba(255,255,255,.8);
   padding: .5em;
   text-align: center;
   color: #5A4A42;
   text-shadow: 0 1px 0 rgba(255,255,255,.9);
+  border: 1px solid #ADAEAE;
   border: 1px solid rgba(0,0,0,.3);
   -webkit-box-shadow: 0 0 4px rgba(0,0,0,.2) inset;
   font-weight: normal;
@@ -827,7 +833,7 @@ html.cssanimations .signup-form blockquote:before {
   text-shadow: 0 -1px 0 rgba(0,0,0,.3);
 }
 
-.signup-form .button.positive {
+html.borderimage .signup-form .button.positive {
   -webkit-transition: all ease-in-out .5s; 
   -moz-transition: all ease-in-out .5s; 
   -ms-transition: all ease-in-out .5s; 
@@ -842,6 +848,11 @@ html.cssanimations .signup-form blockquote:before {
   padding: .5em 2em;
 }
 
+html.no-borderimage .signup-form .button.positive {
+  background: #30658A;
+  border: 1px solid #fff;
+} 
+
 .signup-form .button.positive:hover, .signup-form .button.positive:active {
   -webkit-box-shadow: 0 0 10px rgba(255,255,255,.5);
   -moz-box-shadow: 0 0 10px rgba(255,255,255,.5);
@@ -851,7 +862,7 @@ html.cssanimations .signup-form blockquote:before {
 }
 
 a.info {margin-right: .5em; /* border-right: 1px solid #ddd; */ padding-right: 1em; color: #555;}
-a.plain {font-weight: normal; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.3);}
+a.plain {font-weight: normal; text-decoration: none; border-bottom: 1px solid #ccc; border-bottom: 1px solid rgba(255,255,255,.3);}
 a.plain:hover, a.plain:active {text-shadow: 0 0 5px rgba(255,255,255,.5); border-bottom: 1px solid rgba(255,255,255,.5);}
 
 .padding-right-one {padding-right: 8.33333%;}
@@ -921,8 +932,9 @@ html.no-backgroundsize .sign-up .logo h1 {
   background: image-url("signup-logo-small.png") top center no-repeat;
   width: 325px;
   height: 115px;
-  margin: 0 auto 1em 0;
+  margin: .5em auto;
   display: block;
+  text-align: center;
   text-indent: -9999em;
 }
 

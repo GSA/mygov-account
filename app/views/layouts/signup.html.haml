@@ -30,9 +30,6 @@
    
     = javascript_include_tag 'modernizr' 
     
-    
-    
-
 
   %body.sign-up
       
@@ -48,8 +45,9 @@
                   =t('sign_in_prompt')
                   =link_to t('sign_in_link'), sign_in_path
                   
-            %h1
-              Project MyGov
+            .six.columns.centered
+              %h1
+                Project MyGov
           = yield
             
           .secondary

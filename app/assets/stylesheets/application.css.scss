@@ -552,9 +552,25 @@ span.jujitsu {
 #wrap ul.dashboard-navigation {
   display: block; 
   margin: 0; 
-
+  position: relative;
   float: none;
   width: 100%;
+}
+
+#wrap .one.columns.navigation div ul.dashboard-navigation li a {position: relative;}
+
+#wrap .one.columns.navigation ul.dashboard-navigation li a div.arrow {display: none;}
+
+#wrap .one.columns.navigation ul.dashboard-navigation li.active a div.arrow {
+  position: absolute;
+  display: block;
+  top: 35%;
+  left: auto;
+  right: 0;  
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #EDE9E7;
+  border-left: 10px solid transparent;  
 }
 
 .one.columns.navigation div {margin: 0 0 1em 0; float: none;}
@@ -567,7 +583,7 @@ span.jujitsu {
   -o-transition: all ease-in-out .1s; 
   -ms-transition: all ease-in-out .1s; 
   transition: all ease-in-out .1s; 
-  display: inline-block; 
+  display: inline-block;
   float: left; 
   width: 25%; 
   overflow: hidden;
@@ -575,7 +591,7 @@ span.jujitsu {
   margin: 0;  
   padding: 0;
   border: none;
-  background: rgba(17,33,55,.9); 
+  background: rgba(17,33,55,.9);  
 }
 
 #wrap ul.dashboard-navigation li:hover {background: rgba(17,33,55,.95); }
@@ -617,10 +633,10 @@ ul.dashboard-navigation li a.forms {background-image: image-url("sprite.png")  0
   ul.dashboard-navigation li a i {display: block; font-size: 1.5em; margin-bottom: .1em;}
 
   
-  .one.columns.navigation div {position: fixed !important; width: 6.33333%; max-width: 85px;}
+  .one.columns.navigation div {position: fixed; width: 6.33333%; max-width: 85px;}
   .one.columns.navigation div a {margin: 0 2% 0 2%; padding: 1em 0 1em 0;}
   .one.columns.navigation {padding: 0 2%; position: relative;}
-  #wrap ul.dashboard-navigation li {margin: 0; width: 100%;}
+  #wrap ul.dashboard-navigation li {margin: 0; width: 100%; border-bottom: 1px solid rgba(255,255,255,.01);}
   
   ul.dashboard-navigation li.first {
   -webkit-border-top-left-radius: .35em;
@@ -1253,11 +1269,10 @@ ul.jurisdiction-list, ul.jurisdiction-list li {
 
 /*** Darowski Arrows  http://tech.patientslikeme.com/2010/11/09/using-borders-to-make-pure-css-arrows/ ***/
 
-div.arrow {
+#wrap div.arrow {
   position: absolute;
   top: 0;
   left: 2em;
-
   border-top: 10px solid transparent;
   border-bottom: 10px solid #ccc;
   border-right: 10px solid transparent;

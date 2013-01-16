@@ -534,6 +534,19 @@ span.jujitsu {
   .nav-bar li.profile a {background: image-url("sprite.png") 0% -229px no-repeat; border-left: none; }
   .nav-bar li.sign-out a {background: image-url("sprite.png") 0% -350px no-repeat;}
   
+  #wrap .one.columns.navigation ul.dashboard-navigation li.active a div.arrow {
+  position: absolute;
+  display: block;
+  top: 35%;
+  left: auto;
+  right: 0;  
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #EDE9E7;
+  border-left: 10px solid transparent;  
+  }
+  
+  
 }
 
 @media (min-width: 768px) and (min--moz-device-pixel-ratio: 2), 
@@ -561,17 +574,9 @@ span.jujitsu {
 
 #wrap .one.columns.navigation ul.dashboard-navigation li a div.arrow {display: none;}
 
-#wrap .one.columns.navigation ul.dashboard-navigation li.active a div.arrow {
-  position: absolute;
-  display: block;
-  top: 35%;
-  left: auto;
-  right: 0;  
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-right: 10px solid #EDE9E7;
-  border-left: 10px solid transparent;  
-}
+
+
+
 
 .one.columns.navigation div {margin: 0 0 1em 0; float: none;}
 

@@ -139,19 +139,25 @@ p a {text-decoration: underline;}
 table {width: 100%; margin-bottom: 2em;}
 .row {border: none;}
 p, ul, ol, legend, input[type="text"], input[type="email"], input[type="tel"] {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-shadow: 0 1px 0 rgba(255,255,255,.55);}
-.centered {text-align: center;}
+.centered {text-align: left;}
 
 h1 {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #112137; text-shadow: 0 1px 0 rgba(255,255,255,.9); font-weight: normal; margin-top: .5em;}
 
 h2, h3, h4, h5, h6 {font-family: 'GoudyBookLetter', Georgia, 'Times New Roman', serif; font-weight: normal; text-shadow: 0 1px 0 rgba(255,255,255,.9);}
 .dashboard h2 {text-shadow: 0 1px 0 rgba(255,255,255,.9); line-height: 1.1em;}
 
+.panel h3 em {font-style: normal; color: #122137; }
+
 h1:last-word {font-weight: bold;}
 
 .actions {margin: 0 0 1em 0;}
 p.disclaimer, p.supporting-text {font-size: .9em; display: block; padding: .2em 0 0 0; line-height: 1.2em;}
 
+#wrap p.feature {margin-top: 1em;}
 #wrap p.supporting-text {color: rgba(255,255,255,.7);}
+
+img.icon {margin: 0; -webkit-box-shadow: 0 0 4px rgba(0,0,0,.3);}
+
 
 fieldset {background: #fff; padding: 0 2% 1em 2%; margin: 0 0 2em 0; display: block; border: none;}
 fieldset.plain {border: none; background: none; margin: .75em 0 2em 0; padding: 0;}

@@ -2,6 +2,7 @@ class OauthController < ApplicationController
   
   def authorize
     @oauth2 = OAuth2::Provider.parse(current_user, request)
+puts @oauth2.client.owner.find_scopes(@oauth2.scopes)
     if @oauth2.redirect?
       redirect_to @oauth2.redirect_uri, :status => @oauth2.response_status
     else

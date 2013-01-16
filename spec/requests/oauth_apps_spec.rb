@@ -29,14 +29,14 @@ describe "OauthApps" do
     end
     
     describe "Authorize application" do
-      it "should ask for authorization and redirect after clicking 'Authorize'" do
+      it "should ask for authorization and redirect after clicking 'Allow'" do
         visit(url_for(controller: 'oauth', action: 'authorize',
               response_type: 'code', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))
         page.should have_content('The App1 application wants to:')
         page.should_not have_content('Read your profile information')
         page.should_not have_content('Send you notifications')
         page.should_not have_content('Submit forms on your behalf')
-        click_button('Authorize')
+        click_button('Allow')
         uri = URI.parse(current_url)
         params = CGI::parse(uri.query)
         code = (params["code"] || []).first
@@ -49,14 +49,14 @@ describe "OauthApps" do
     end
     
     describe "Authorize application with scopes" do
-      it "should ask for authorization and redirect after clicking 'Authorize'" do
+      it "should ask for authorization and redirect after clicking 'Allow'" do
         visit(url_for(controller: 'oauth', action: 'authorize',
               response_type: 'code', scope: 'profile submit_forms notifications', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))
         page.should have_content('The App1 application wants to:')
         page.should have_content('Read your profile information')
         page.should have_content('Send you notifications')
         page.should have_content('Submit forms on your behalf')
-        click_button('Authorize')
+        click_button('Allow')
         uri = URI.parse(current_url)
         params = CGI::parse(uri.query)
         code = (params["code"] || []).first

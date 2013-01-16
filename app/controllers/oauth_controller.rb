@@ -2,7 +2,6 @@ class OauthController < ApplicationController
   
   def authorize
     @oauth2 = OAuth2::Provider.parse(current_user, request)
-puts @oauth2.client.owner.find_scopes(@oauth2.scopes)
     if @oauth2.redirect?
       redirect_to @oauth2.redirect_uri, :status => @oauth2.response_status
     else
@@ -20,7 +19,7 @@ puts @oauth2.client.owner.find_scopes(@oauth2.scopes)
   
   def allow
     @auth = OAuth2::Provider::Authorization.new(current_user, params)
-    if params[:allow] == '1' and params[:commit] == 'Authorize'
+    if params[:allow] == '1' and params[:commit] == 'Allow'
       @auth.grant_access!
     else
       @auth.deny_access!

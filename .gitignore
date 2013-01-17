@@ -20,4 +20,5 @@ config/deploy.rb
 config/deploy
 config/environments/production.rb
 config/initializers/01_mygov.rb
+config/initializers/01_mygov_config.rb
 coverage

@@ -1,0 +1,7 @@
+DEFAULT_FROM_EMAIL = "\"Team MyGov\" <projectmygov@gsa.gov>"
+MYGOV_FORMS_HOME = "http://localhost:3002"
+
+# run 'rake secret' from the command line and copy the result here.
+RAILS_SECRET_TOKEN = "PUT YOUR SECRET TOKEN HERE"
+
+AIRBRAKE_API_KEY = "PUT YOUR AIRBRAKE API KEY HERE"

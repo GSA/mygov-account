@@ -16,4 +16,8 @@
 dump.rdb
 .DS_store
 config/database.yml
+config/deploy.rb
+config/deploy
+config/environments/production.rb
+config/initializers/01_mygov.rb
 coverage

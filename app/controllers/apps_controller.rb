@@ -14,4 +14,13 @@ class AppsController < ApplicationController
   def show
     @app = App.find_by_slug(params[:id])
   end
+  
+  def uninstall
+    app = App.find_by_slug(params[:id])
+    current_user.oauth2_authorizations.find{|oa| oa.client.owner == app}.destroy
+    respond_to do |format|
+      format.html { redirect_to app_path(app) }# index.html.erb
+    end
+  end
+  
 end

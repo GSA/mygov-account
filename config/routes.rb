@@ -22,7 +22,11 @@ Mygov::Application.routes.draw do
 
   resources :tasks, :only => [:show, :update, :destroy]
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-  resources :apps, :only => [:index, :show]
+  resources :apps, :only => [:index, :show] do
+    member do
+      get :uninstall
+    end
+  end
   resources :task_items, :only => [:update, :destroy]
   get '/pdfs/fill', :to => 'pdfs#fill', :as => :fill_pdf
   resources :beta_signups, :only => [:create]

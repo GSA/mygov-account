@@ -57,8 +57,23 @@ describe "OauthApps" do
           within('h3', :text => 'App2') do
             page.should have_content('Authorized')
           end
+          
+          click_link('App2')
+          click_link('uninstall')
+          page.should_not have_content('uninstall')
         end  
+
+        it "should allow a user to uninstall an authorized app" do
+          visit(apps_path)
+          click_link('App2')
+          click_link('uninstall')
+          current_url.should have_content("apps/app2") # Make sure you're still on app page
+          page.should_not have_content('uninstall')          
+        end
       end  
+      
+
+      
       describe "it should display all available apps via json api" do
         it "should list all apps, not include info specific to the logged in user, not list Default App, and not list 'app' as root node" do  
           visit(apps_path(:json))

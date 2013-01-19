@@ -1,5 +1,9 @@
 = image_tag @app.logo.url(:thumb)
-= @app.name
-= @app.description
 %br
 = link_to(@app.name, @app.oauth2_client.redirect_uri)
+%br
+= @app.description
+%br
+- if @current_user_apps.include?(@app)
+  = " (Authorized)"
+  = link_to "uninstall", uninstall_app_path(@app)

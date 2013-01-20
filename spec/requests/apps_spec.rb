@@ -59,16 +59,16 @@ describe "OauthApps" do
           end
           
           click_link('App2')
-          click_link('uninstall')
-          page.should_not have_content('uninstall')
+          click_link('Revoke access')
+          page.should_not have_content('Revoke access')
         end  
 
-        it "should allow a user to uninstall an authorized app" do
+        it "should allow a user to revoke access an authorized app" do
           visit(apps_path)
           click_link('App2')
-          click_link('uninstall')
+          click_link('Revoke access')
           current_url.should have_content("apps/app2") # Make sure you're still on app page
-          page.should_not have_content('uninstall')          
+          page.should_not have_content('Revoke access')          
         end
       end  
       

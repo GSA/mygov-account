@@ -6,4 +6,4 @@
 %br
 - if @current_user_apps.include?(@app)
   = " (Authorized)"
-  = link_to "uninstall", uninstall_app_path(@app)
+  = link_to "Revoke access", uninstall_app_path(@app)

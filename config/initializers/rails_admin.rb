@@ -58,6 +58,18 @@ RailsAdmin.config do |config|
   # RailsAdmin will try his best to provide the best defaults for each section, for each field.
   # Try to override as few things as possible, in the most generic way. Try to avoid setting labels for models and attributes, use ActiveRecord I18n API instead.
   # Less code is better code!
+  
+  config.model App do
+    edit do
+      field :name
+      field :description      
+      field :short_description
+      field :url      
+      field :redirect_uri
+      field :logo
+    end
+  end
+  
   # config.model MyModel do
   #   # Cross-section field configuration
   #   object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName

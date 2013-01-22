@@ -5,6 +5,7 @@ class App < ActiveRecord::Base
   validates_uniqueness_of :slug
   before_validation :generate_slug
   after_create :create_oauth2_client
+  attr_accessor :redirect_uri
   attr_accessible :description, :logo, :name, :redirect_uri, :short_description, :url
   has_attached_file :logo, :styles => { :medium => "300x300>", :thumb => "200x200>" }, :default_url => '/assets/app-icon.png'
   has_and_belongs_to_many :oauth_scopes
@@ -22,10 +23,6 @@ class App < ActiveRecord::Base
     
   def oauth2_client
     @oauth2_client || self.oauth2_clients.first
-  end
-  
-  def redirect_uri=(uri)
-    @redirect_uri = uri
   end
   
   def to_param

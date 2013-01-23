@@ -68,8 +68,8 @@ class User < ActiveRecord::Base
   end
   
   def create_default_tasks
-    task1 = self.tasks.create(:name => 'Tell us more about yourself.', :app_id => App.default_app.id)
-    task1.task_items.create(:name => 'Tell us more about yourself.', :url => "/welcome?step=info")
+    task1 = self.tasks.create(:name => 'Tell us a little about yourself.', :app_id => App.default_app.id)
+    task1.task_items.create(:name => 'Complete your profile today so we can help tailor MyGov to fit your needs.', :url => "/welcome?step=info")
     task2 = self.tasks.create(:name => 'Help us make this service more tailored to your needs.', :app_id => App.default_app.id)
     task2.task_items.create(:name => 'Get started!', :url => "/welcome?step=about_you")
   end

@@ -147,7 +147,7 @@ describe "Users" do
 
             user = User.find_by_email('joe@citizen.org')
             visit user_confirmation_path(:confirmation_token => user.confirmation_token)
-            page.should have_content "Tell us more about yourself."
+            page.should have_content "Tell us a little about yourself."
           end
         end
         
@@ -159,7 +159,7 @@ describe "Users" do
           it "should welcome them to MyGov and prompt them for more information" do
             visit sign_up_path
             click_link 'Sign up with Google'
-            page.should have_content "Tell us more about yourself"
+            page.should have_content "Tell us a little about yourself"
             ActionMailer::Base.deliveries.size.should == 1
           end
         end

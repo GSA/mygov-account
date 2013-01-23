@@ -40,7 +40,7 @@ describe "auto_logout" do
         page.should have_xpath("//meta[@http-equiv=\"refresh\"]")
         sleep(1)
         visit(dashboard_path)
-        page.should have_content("we signed you out as a security measure")
+        page.should have_content("Your session expired. Please sign in again.")
       end
     end
   end

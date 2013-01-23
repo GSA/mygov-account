@@ -8,7 +8,60 @@ en:
   sign_in_link: "Sign in"
   remain_logged_in: "Remain signed in."
   session_expiration_warning: "We noticed you haven't been very active in MyGov. %{link}"
+  mygov_greeting: ""
+  
+  errors:
+    messages:
+      expired: "has expired. Please request a new one."
+      not_found: "not found."
+      already_confirmed: "has already been confirmed. Please try signing in."
+      not_locked: "wasn't locked."
+      not_saved:
+        one: "Error:"
+        other: "Error:"
+
   devise:
     failure:
-      timeout: "It's been a while since you interacted with MyGov, so we signed you out as a security measure.  Please sign in again."
-  mygov_greeting: ""
+      already_authenticated: "You're already signed in."
+      unauthenticated: 'Please sign in or sign up before continuing.'
+      unconfirmed: 'First we ask that you confirm your account. Please refer to the email we sent you.'
+      locked: 'Your account is locked.'
+      invalid: "We don't recognize that email or password."
+      invalid_token: "We don't recognize this. Please visit try again."
+      timeout: 'Your session expired. Please sign in again.'
+      inactive: "Your account hasn't been activated yet."
+    sessions:
+      signed_in: 'Signed in successfully.'
+      signed_out: 'Signed out successfully.'
+    passwords:
+      send_instructions: "You'll receive an email in a few minutes explaining how to reset your password."
+      updated: 'Your password was changed successfully. You are now signed in.'
+      updated_not_active: 'Your password was changed successfully.'
+      send_paranoid_instructions: "If we have your email address, you'll receive an email in a few minutes explaining next steps regarding your password."
+      no_token: "In order to access this page, you must arrive from a password reset email. If you came from a password reset email, please make sure you used the full URL provided."
+    confirmations:
+      send_instructions: "You'll receive an email explaining how to confirm your account in a few minutes."
+      send_paranoid_instructions: "If we have your email address, you'll receive an email in a few minutes explaining how to confirm your account."
+      confirmed: "Your account was successfully confirmed. You're now signed in."
+    registrations:
+      signed_up: 'Welcome. You have signed up successfully.'
+      signed_up_but_unconfirmed: "You'll be receiving an email confirmation. Please click the link in the email to activate your account."
+      signed_up_but_inactive: 'You have successfully signed up. However, we could not sign you in because your account is not yet activated.'
+      signed_up_but_locked: "You have signed up successfully. However, we couldn't sign you in because your account is locked."
+      updated: 'You updated your account successfully.'
+      update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize everything."
+      destroyed: "Sorry to see you go. Your account was successfully cancelled. We hope you'll come back soon."
+    unlocks:
+      send_instructions: "You'll receive an email with instructions about how to unlock your account in a few minutes."
+      unlocked: 'Your account has been unlocked successfully. Please sign in to continue.'
+      send_paranoid_instructions: "If your account exists, you'll receive an email with instructions explaining how to unlock it in a few minutes."
+    omniauth_callbacks:
+      success: 'Successfully authenticated from %{kind} account.'
+      failure: 'Could not authenticate you from %{kind} because "%{reason}".'
+    mailer:
+      confirmation_instructions:
+        subject: 'Confirmation instructions'
+      reset_password_instructions:
+        subject: 'Reset password instructions'
+      unlock_instructions:
+        subject: 'Unlock Instructions'

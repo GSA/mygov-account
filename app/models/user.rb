@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   validates_acceptance_of :terms_of_service
   after_create :create_default_tasks
   after_create :create_default_notification
+  after_destroy :send_account_deleted_notification
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -117,5 +118,9 @@ class User < ActiveRecord::Base
   
   def normalize_phone_number(number)
     number.gsub(/-/, '') if number
+  end
+  
+  def send_account_deleted_notification
+    UserMailer.account_deleted(self.email).deliver
   end
 end

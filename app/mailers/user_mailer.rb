@@ -9,5 +9,10 @@ class UserMailer < ActionMailer::Base
   def beta_invite_b(email)
     @email = email
     mail(:to => email, :subject => 'You\'re invited to the MyGov Beta')
-  end  
+  end
+  
+  def account_deleted(email)
+    @email = email
+    mail(:to => email, :subject => 'Your MyGov account has been deleted.')
+  end
 end

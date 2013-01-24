@@ -1,8 +1,9 @@
 .row
-  %div.twelve.columns
+  .twelve.columns
     %h2
       Sign in
-  %div.eight.columns
+.row
+  .eight.columns
     .panel
       = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
         - if flash.alert
@@ -26,12 +27,12 @@
           = f.submit "Sign in", :class => 'large positive button'
           - if devise_mapping.registerable? && controller_name != 'registrations'
             = link_to "Sign up", new_registration_path(resource_name)
-    %div.four.columns
-  %div.four.columns
-    %div.panel.side-panel
+    .four.columns
+  .four.columns
+    .panel.side-panel
       = render "devise/shared/links"
-  %div.four.columns
-    %div.panel.tertiary
+  .four.columns
+    .panel.tertiary
       %h4
         Help
       = render "devise/shared/help"

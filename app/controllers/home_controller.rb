@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :discovery, :privacy_policy, :terms_of_service, :about]
-  before_filter :assign_user, :except => [:index, :privacy_policy, :terms_of_service]
+  before_filter :authenticate_user!, :except => [:index, :discovery, :developer, :privacy_policy, :terms_of_service, :about]
+  before_filter :assign_user, :except => [:index, :privacy_policy, :developer, :terms_of_service]
   
   def index
     if current_user
@@ -17,6 +17,9 @@ class HomeController < ApplicationController
     @local_info = @user.local_info
   end
   
+  def developer
+  end
+
   def discovery
   end
   

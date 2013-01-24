@@ -15,6 +15,7 @@ Mygov::Application.routes.draw do
   resources :notifications, :only => [:index, :show, :create, :destroy]
   get 'dashboard' => "home#dashboard"
   get 'discovery' => "home#discovery"
+  get 'developer' => "home#developer"
   get 'your-government' => "home#your_government", :as => :your_government
   get 'privacy-policy' => "home#privacy_policy", :as => :privacy_policy
   get 'terms-of-service' => "home#terms_of_service", :as => :terms_of_service

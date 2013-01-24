@@ -372,7 +372,7 @@ ul.meta-list li, ul.panel-list, ul.button-list {
    line-height: 1em;
 }
 
-ul.plain-list {margin: 1em 0 1em 1.5em; font-size: 1em;}
+ul.plain-list {margin: .5em 0 2em 1.5em; font-size: 1em;}
 ul.plain-list li {list-style: square;}
 
 ul.panel-list li a {
@@ -986,6 +986,7 @@ html.backgroundsize .sign-up .logo h1 {
 
 .row.splash {
   background: #fff;
+  padding-bottom: 1em;
   -webkit-box-shadow: 0 0 4px rgba(0,0,0,.1);
 }
 

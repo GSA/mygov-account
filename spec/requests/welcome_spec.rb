@@ -14,6 +14,7 @@ describe "Welcome" do
   describe "welcome info" do
     it "should collect basic information from the user" do
       visit welcome_path
+      page.should have_content 'Paperwork Reduction Act Statement'
       fill_in 'Zip code', :with => '12345'
       click_button 'Continue'
       page.should have_content "MyGovBeta"
@@ -36,6 +37,7 @@ describe "Welcome" do
   describe "welcome about you" do
     it "should collect information about you" do
       visit welcome_path(:step => 'about_you')
+      page.should have_content 'Paperwork Reduction Act Statement'
       check 'Married'
       check 'Parent'
       click_button 'Continue'

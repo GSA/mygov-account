@@ -28,6 +28,7 @@ describe "Profile" do
           it "should update the profile with new information provided by the user" do
             visit profile_path
             click_link "Edit profile"
+            page.should have_content 'Paperwork Reduction Act Statement'
             fill_in "Middle name", :with => "Q"
             fill_in "Address", :with => "123 Evergreen Terrace"
             fill_in "City", :with => 'Springfield'

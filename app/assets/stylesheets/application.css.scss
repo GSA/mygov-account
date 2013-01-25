@@ -135,6 +135,9 @@ table {width: 100%; margin-bottom: 2em;}
 .row {border: none;}
 p, ul, ol, legend, input[type="text"], input[type="email"], input[type="tel"] {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-shadow: 0 1px 0 rgba(255,255,255,.55);}
 .centered {text-align: left;}
+ul.centered {margin: 0 auto; text-align: center;}
+ul.centered li {text-align: center;}
+
 
 h1 {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #112137; text-shadow: 0 1px 0 rgba(255,255,255,.9); font-weight: normal; margin-top: .5em;}
 
@@ -748,7 +751,7 @@ body {background: #F2F2F2 image-url("background.png") 50% 50% repeat;}
 
 @media only screen and (min-width: 768px) {
 #wrap {min-height: 100%; background: image-url("america.png") top center no-repeat fixed;}
-body.sign-up #wrap {background: image-url("america.png") 50% -120% no-repeat fixed;}
+body.sign-up #wrap {background: none;}
 }
 
 #main {
@@ -839,7 +842,7 @@ html.cssanimations .signup-form blockquote:before {
   box-shadow: 0 5px 8px rgba(0,0,0,.4) inset;
 }
 
-.signup-form .row {padding: 2em 0 0 0;}
+.signup-form .row {padding: 2em 0 0 0; }
 
 .signup-form label {
   font-weight: bold;

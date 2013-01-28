@@ -306,6 +306,7 @@ html.no-borderimage #wrap .button.negative {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   letter-spacing: normal;
   text-transform: none;
+  background: #8A8E8D;
   background: rgba(0,0,0,.4);
   border-bottom: 1px solid rgba(255,255,255,.2);
   text-shadow: none;
@@ -436,7 +437,10 @@ ul.button-list a {
 	float: left; 
 }
 
-.nav-bar {background: #fff; background: rgba(255,255,255,.88); overflow-x: hidden; }
+.nav-bar {background: #fff; background: #FBFCFC; background: rgba(255,255,255,.88); overflow-x: hidden; border-top: 1px solid #ccc; border-top: 1px solid rgba(255,255,255,.5); }
+
+
+
 .nav-bar ul {height: 4em;}
 .nav-bar > li.active {background: #1A6485;}
 .nav-bar > li > a {color: #333;}
@@ -593,6 +597,7 @@ span.jujitsu {
   margin: 0;  
   padding: 0;
   border: none;
+  background: #243649;
   background: rgba(17,33,55,.9);  
 }
 
@@ -1094,7 +1099,7 @@ p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  ma
   border-image: url(blue-button.png) 27 repeat;
 }
 
-.panel h3 i {color: rgba(0,0,0,.3); margin-bottom: 0; vertical-align: top; font-size: .75em; text-shadow: 0 1px 0 rgba(255,255,255,.2); }
+.panel h3 i {color: #ACACAD; color: rgba(0,0,0,.3); margin-bottom: 0; vertical-align: top; font-size: .75em; text-shadow: 0 1px 0 rgba(255,255,255,.2); }
 .panel.task h3 i {color: rgba(255,255,255,.2);}
 
 .panel.task div {margin: 0 0 1em 0;}
@@ -1134,7 +1139,7 @@ p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  ma
   text-shadow: 0 1px 0 rgba(255,255,255,.8);
 }
 
-.panel li span.actions {display: block; clear: both; margin: 1em 0 0 0;}
+.panel li span.actions {display: block; clear: both; margin: 1em 0 0 0; padding: 0; line-height: 1em;}
 
 @media only screen and (min-width: 768px) {  
   .panel li span.actions {display: inline; clear: none; margin: 0 1.5em 1em 0;} 
@@ -1175,7 +1180,7 @@ p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  ma
 
 ol.item-list {margin: 0 0 1em 0; display: block; list-style-type: decimal; padding: 0 1em; background: rgba(255,255,255,.1)}
 
-#wrap ol.item-list li {list-style: decimal; font-weight: bold; list-style-type: decimal; margin: 0 0 0 1.5em; border-bottom: 1px solid rgba(255,255,255,.1); padding: 1em 0;}
+#wrap ol.item-list li {list-style: decimal; display: block; line-height: 1em; vertical-align: middle; font-weight: bold; list-style-type: decimal; margin: 0 0 0 1.5em; border-bottom: 1px solid #ccc; border-bottom: 1px solid rgba(255,255,255,.1); padding: 1em 0;}
 
 #wrap ol.item-list li:last-child {border-bottom: none;}
 

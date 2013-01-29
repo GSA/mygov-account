@@ -150,7 +150,8 @@ describe "HomePage" do
         it "should log out the user and destroy the account" do
           visit root_path
           click_link "Delete"
-          page.should have_content "Sign in"
+          page.should have_content "Your MyGov account has been deleted."
+          page.should have_content "Sign up"
           User.find_by_email('joe@citizen.org').should be_nil
           ActionMailer::Base.deliveries.size.should == @mail_size + 1
           ActionMailer::Base.deliveries.last.subject.should == "Your MyGov account has been deleted."

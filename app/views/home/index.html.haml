@@ -44,6 +44,9 @@
           =t('mygov_greeting')
         #fieldset
           = form_for @beta_signup do |form|
+            - if flash.alert
+              .alert-box
+                = flash.alert
             = form.label :email
             = form.email_field :email
             = form.submit 'Sign up', :class => 'large button positive '

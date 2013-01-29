@@ -15,12 +15,22 @@ describe "HomePage" do
           ActionMailer::Base.deliveries = []
         end
         
+        it "should not let a user sign up for the beta without providing their email address" do
+          visit root_path
+          page.should have_content("Navigating government just got easier.")
+          fill_in 'Email', :with => ''
+          click_button "Sign up"
+          page.should_not have_content("Thanks for signing up")
+          page.should have_content("An error occurred during signup")
+        end
+        
         it "should let a user sign up for the beta by providing their email address" do
           visit root_path
           page.should have_content("Navigating government just got easier.")
           fill_in 'Email', :with => 'joe@citizen.org'
           click_button "Sign up"
           BetaSignup.find_by_email('joe@citizen.org').should_not be_nil
+          page.should have_content("Thanks for signing up")
         end
       end
       

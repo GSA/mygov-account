@@ -74,10 +74,16 @@ p a {text-decoration: underline;}
   letter-spacing: -.05em;
   display: block;
   margin: 0;
+  text-align: center;
   position: relative;
   line-height: 1em;
-  padding: .65em 2em .5em 52px;
-  background: #fff asset-url('logo.png', image) center left no-repeat;
+  padding: .65em 2em .5em 72px;
+  background: #fff asset-url('logo.png', image) 29% 50% no-repeat;
+}
+
+@media only screen and (min-width: 420px) {
+  #header h1 {text-align: left; background: #fff asset-url('logo.png', image) center left no-repeat; padding: .65em 2em .5em 52px;}
+  
 }
 
 @media (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {
@@ -779,7 +785,7 @@ margin-top:-32767px;/* thank you Erik J - negate effect of float*/
 
 @media only screen and (max-width: 768px) { 
   #wrap .container {padding: 0 2%;}
-  #header {padding: 0 1%;}
+  #header {padding: .2em 2%;}
   #wrap .container .row {padding: 0 1%;}
 }
 
@@ -1169,7 +1175,7 @@ p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  ma
 .panel.task li:last-child {border-bottom: none;}
 
 .panel ol.inline {margin: 0; padding: 0; list-style: decimal;}
-.panel ol.inline li {list-style: none; list-style-type: decimal; display: block; border-bottom: 1px solid rgba(255,255,255,.1); padding-bottom: 1em;}
+.panel ol.inline li {list-style: none; list-style-type: decimal;  display: block; border-bottom: 1px solid rgba(255,255,255,.1); padding-bottom: .5em;}
 .panel ol.inline li.no-margin {margin-bottom: 0; padding-bottom: 0;}
 .panel ol.inline li.full {padding-bottom: 0; margin: 0 0 1.5em 0;}
 .panel ol li:last-child {border-bottom: none;}

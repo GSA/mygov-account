@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    sign_out :user
     @user.destroy
+    redirect_to sign_out_path
   end
 end

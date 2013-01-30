@@ -15,16 +15,6 @@
 
 /*** Type ***/
 
-@font-face {
-  font-family: 'GoudyBookLetter';
-  src: font-url('goudy_bookletter_1911-webfont.eot');
-  src: font-url('goudy_bookletter_1911-webfont.eot?#iefix') format('eot'),
-  font-url('goudy_bookletter_1911-webfont.woff') format('woff'),
-  font-url('goudy_bookletter_1911-webfont.ttf') format('truetype'),
-  font-url('goudy_bookletter_1911-webfont.svg#webfontSlc9PA76') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
 
 html {height: 100%;}
 body {height: 100%; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; background: #AEA888;}
@@ -249,6 +239,8 @@ a.button:visited {color: #fff;}
   -o-border-image: url(button-positive.png) 12 repeat;
   border-image: url(button-positive.png) 12 fill repeat;
 }
+
+#wrap .panel .button.positive, #wrap .panel a.button.positive {color: #fff;}
 
 @media only screen and (max-width: 767px) {
   .button.positive, a.button.positive {margin-right: 0;}

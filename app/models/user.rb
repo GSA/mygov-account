@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :tasks, :dependent => :destroy
   has_many :submitted_forms, :dependent => :destroy
   validates_acceptance_of :terms_of_service
+  before_validation :update_name
   after_create :create_default_tasks
   after_create :create_default_notification
   after_destroy :send_account_deleted_notification
@@ -127,5 +128,11 @@ class User < ActiveRecord::Base
   
   def send_account_deleted_notification
     UserMailer.account_deleted(self.email).deliver
+  end
+  
+  def update_name
+    if !self.name_changed? && (self.first_name_changed? || self.last_name_changed?)
+      self.name = [self.first_name, self.last_name].compact.join(" ")
+    end
   end
 end

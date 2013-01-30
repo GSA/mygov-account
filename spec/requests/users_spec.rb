@@ -134,6 +134,21 @@ describe "Users" do
           ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
           ActionMailer::Base.deliveries.last.from.should == ["projectmygov@gsa.gov"]
         end
+        
+        it "should set the user's name" do
+          visit sign_up_path
+          fill_in 'First name', :with => 'Joe'
+          fill_in 'Last name', :with => 'Citizen'
+          fill_in 'Email', :with => 'joe@citizen.org'
+          fill_in 'Password', :with => 'password'
+          fill_in 'Password confirmation', :with => 'password'
+          check 'I agree to the MyGov Terms of Service and Privacy Policy'
+          click_button 'Sign up'
+          page.should have_content 'Thank you for signing up'
+          ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
+          ActionMailer::Base.deliveries.last.from.should == ["projectmygov@gsa.gov"]
+          User.find_by_email('joe@citizen.org').name.should == 'Joe Citizen'
+        end
     
         context "when a user has signed up, and confirms their email address" do
           it "should collect some basic information from the user in welcoming them to MyGov" do
@@ -182,6 +197,26 @@ describe "Users" do
       click_link 'Sign out'
       page.should have_content "Sign in"
       page.should have_content "Didn't receive confirmation instructions?"
+    end
+  end
+
+  describe "change your name" do
+    before do
+      beta_signup = BetaSignup.new(:email => 'joe@citizen.org')
+      beta_signup.is_approved = true
+      beta_signup.save!
+      @user = User.create(:email => beta_signup.email, :password => 'password', :first_name => 'Joe', :last_name => 'Citizen')
+      @user.confirm!
+      create_logged_in_user(@user)
+    end
+    
+    it "should change the user's name when first or last name changes" do
+      visit edit_profile_path
+      fill_in 'First name', :with => 'Jane'
+      click_button 'Update profile'
+      page.should have_content "Sign out"
+      page.should have_content "Edit profile"
+      page.should have_content "Jane Citizen"
     end
   end
 end

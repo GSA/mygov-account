@@ -24,9 +24,10 @@ Mygov::Application.routes.draw do
 
   resources :tasks, :only => [:show, :update, :destroy]
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-  resources :apps, :only => [:index, :show] do
+  resources :apps do
     member do
       get :uninstall
+      get :install
     end
   end
   resources :task_items, :only => [:update, :destroy]
@@ -38,7 +39,7 @@ Mygov::Application.routes.draw do
     resources :notifications, :only => [:create]
     resources :tasks, :only => [:index, :create, :show]
     resources :forms, :only => [:create, :show]
-    resources :apps, :only => [:index, :show]
+    resources :apps, :only => [:index, :show, :edit]
   end
   match "/404", :to => "errors#not_found"
   rack_error_handler = ActionDispatch::PublicExceptions.new('public/')

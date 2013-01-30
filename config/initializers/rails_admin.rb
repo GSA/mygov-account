@@ -58,15 +58,23 @@ RailsAdmin.config do |config|
   # RailsAdmin will try his best to provide the best defaults for each section, for each field.
   # Try to override as few things as possible, in the most generic way. Try to avoid setting labels for models and attributes, use ActiveRecord I18n API instead.
   # Less code is better code!
-  
+  config.attr_accessible_role { :admin }
   config.model App do
     edit do
+      field :status do
+        def render
+          partial = "status"
+          bindings[:view].render :partial => partial.to_s, :locals => {:field => self, :form => bindings[:form]}
+        end
+      end
+      field :owner_email
       field :name
       field :description      
       field :short_description
       field :url      
       field :redirect_uri
       field :logo
+
     end
   end
   

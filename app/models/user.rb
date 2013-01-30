@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :submitted_forms, :dependent => :destroy
+  has_many :apps #, :dependent => :destroy
   validates_acceptance_of :terms_of_service
   before_validation :update_name
   after_create :create_default_tasks
@@ -104,7 +105,7 @@ class User < ActiveRecord::Base
     local_info
   end
   
-  def apps
+  def installed_apps
     self.oauth2_authorizations.map(&:client).map(&:oauth2_client_owner)
   end
   

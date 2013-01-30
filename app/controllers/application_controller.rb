@@ -19,9 +19,9 @@ class ApplicationController < ActionController::Base
     @wait_until_refresh = User.timeout_in - @warning_seconds 
     if current_user && !params[:no_keep_alive].blank?
       last_request                = warden.session(:user)['last_request_at'].to_i
-      seconds_since_last_request  = (Time.now.to_i - last_request).seconds
+      seconds_since_last_request  = [(Time.now.to_i - last_request).seconds, 0].max
       @wait_until_refresh         = [User.timeout_in - seconds_since_last_request, 0].max
-      @session_will_expire        = true if (warden.session(:user)['last_request_at'] + current_user.timeout_in) <= @warning_seconds.from_now
+      @session_will_expire        = true if @wait_until_refresh > 0 && (warden.session(:user)['last_request_at'] + current_user.timeout_in) <= @warning_seconds.from_now
     end   
   end
 

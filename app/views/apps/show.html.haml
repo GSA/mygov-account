@@ -1,9 +1,18 @@
+- if flash.alert
+  .alert-box
+    = flash.alert
 = image_tag @app.logo.url(:thumb)
 %br
-= link_to(@app.name, @app.oauth2_client.redirect_uri)
+= link_to(@app.name, @app.oauth2_client.redirect_uri) unless @app.oauth2_client.nil?
 %br
 = @app.description
 %br
+
 - if @current_user_apps.include?(@app)
   = " (Authorized)"
   = link_to "Revoke access", uninstall_app_path(@app)
+- elsif !@app.user.nil? && current_user && @app.has_owner?(current_user)
+  asdf
+/   - if App.sandbox.include?(@app) && @app.user == current_user
+/     = link_to "Authorize", install_app_path(@app)
+/   

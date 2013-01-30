@@ -1,0 +1,14 @@
+.row
+  .eight.columns
+    = simple_form_for @app do |f|
+      = f.input :name
+      = f.input :description      
+      = f.input :short_description
+      = f.input :url      
+      = f.input :redirect_uri
+      = f.input :logo
+      / - if params[:action].match("edit")
+      /   = f.input :renew_secret, :label => "Generate a new client_id/secret id" do 
+      /     = check_box_tag :renew_secret
+      = f.hidden_field :user_id, :value => current_user.id
+      = submit_tag 'Continue', :class => 'large button'

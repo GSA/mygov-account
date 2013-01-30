@@ -2,7 +2,7 @@
 %html(lang="en")
   %head(prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#")
     %meta(charset="utf-8")
-    
+
     %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
     
     %meta(name="viewport" content="width=device-width")
@@ -26,7 +26,7 @@
     %title= content_for?(:title) ? yield(:title) : "MyGov"
     = csrf_meta_tags
 
-    = stylesheet_link_tag "fonts", :media => "all"
+    = stylesheet_link_tag "fonts", :media => "all" 
     = stylesheet_link_tag "application", :media => "all"
     = stylesheet_link_tag "general_foundicons", :media => "all"
     /[if !IE 7]

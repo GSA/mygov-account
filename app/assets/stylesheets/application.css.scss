@@ -27,15 +27,19 @@
 }
 
 html {height: 100%;}
-body {height: 100%; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; background: #AEA888;}
+body {height: 100%; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; background: #AEA888; }
 
-#wrap {min-height: auto;}
+
+
+#wrap {min-height: auto; }
 
 input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
   line-height: 1.5em;
   font-weight: bold; color: #0C2237;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -o-border-radius: 0;
+  -ms-border-radius: 0;
   border-radius: 0;
 }
 
@@ -249,6 +253,8 @@ a.button:visited {color: #fff;}
   -o-border-image: url(button-positive.png) 12 repeat;
   border-image: url(button-positive.png) 12 fill repeat;
 }
+
+#wrap .panel.decorative a.button.positive {color: #fff;}
 
 @media only screen and (max-width: 767px) {
   .button.positive, a.button.positive {margin-right: 0;}

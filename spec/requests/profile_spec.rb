@@ -25,6 +25,24 @@ describe "Profile" do
         end
       
         context "editing your profile" do
+          it "should perform validations on zip when updating a profile with information provided by the user" do
+            visit profile_path
+            click_link "Edit profile"
+            page.should have_content 'Paperwork Reduction Act Statement'
+            fill_in "Zip", :with => '12X45'
+            click_button "Update profile"
+            page.should have_content "Something went wrong"
+          end
+          
+          it "should perform validations on phone when updating a profile with information provided by the user" do
+            visit profile_path
+            click_link "Edit profile"
+            page.should have_content 'Paperwork Reduction Act Statement'
+            fill_in "Phone", :with => '111-222-3x44'
+            click_button "Update profile"
+            page.should have_content "Something went wrong"
+          end
+          
           it "should update the profile with new information provided by the user" do
             visit profile_path
             click_link "Edit profile"
@@ -34,7 +52,7 @@ describe "Profile" do
             fill_in "City", :with => 'Springfield'
             select "Iowa", :from => 'State'
             fill_in "Zip", :with => '12345'
-            fill_in "Phone", :with => '123-456-7890'
+            fill_in "Phone", :with => '(123) 456-7890' # using a different format to test auto-formatting
             select 'Male', :from => 'Gender'
             select 'Married', :from => "Marital status"
             check "Parent"

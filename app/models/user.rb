@@ -1,7 +1,12 @@
 class User < ActiveRecord::Base
+  include ActionView::Helpers::NumberHelper
   include OAuth2::Model::ResourceOwner  
   validate :email_is_whitelisted, if: :valid_email?
-  validates_format_of :zip, :with => /^\d{5}?$/, :message => "should be in the form 12345"
+  validates_format_of :zip, :with => /^\d{5}?$/, :allow_blank => true, :message => "should be in the form 12345"
+  validates_format_of :phone, :with => /^\d+$/, :allow_blank => true
+  validates_length_of :phone, :maximum => 10
+  validates_format_of :mobile, :with => /^\d+$/, :allow_blank => true
+  validates_length_of :mobile, :maximum => 10
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :submitted_forms, :dependent => :destroy
@@ -113,11 +118,11 @@ class User < ActiveRecord::Base
   end
   
   def pretty_print_phone(number)
-    number.blank? ? nil : "#{number[0..2]}-#{number[3..5]}-#{number[6..-1]}"
+    number_to_phone(number)
   end
   
   def normalize_phone_number(number)
-    number.gsub(/-/, '') if number
+    number.gsub(/[- \(\)]/, '') if number
   end
   
   def send_account_deleted_notification

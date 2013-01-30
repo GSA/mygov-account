@@ -3,6 +3,9 @@
     %h2
       Edit your profile
     = form_for @user, :url => profile_path do |form|
+      - if flash[:error]
+        .alert-box
+          = flash[:error]
       %fieldset
         %legend
           Name

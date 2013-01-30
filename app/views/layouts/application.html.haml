@@ -2,7 +2,8 @@
 %html(lang="en")
   %head(prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#")
     %meta(charset="utf-8")
-    %meta{:content => "IE=EmulateIE7", "http-equiv" => "X-UA-Compatible"}/
+    
+    %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
     
     %meta(name="viewport" content="width=device-width")
     - if current_user && request.get? # If it's a post, then no redirect
@@ -12,7 +13,6 @@
     
     %meta(name="HandheldFriendly" content="True")
     %meta(http-equiv="cleartype" content="on")
-    %meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
     
     %meta(property="fb:app_id"               content="MyGov")
     %meta(property="og:type"                 content="website")
@@ -26,12 +26,13 @@
     %title= content_for?(:title) ? yield(:title) : "MyGov"
     = csrf_meta_tags
 
-    /[if !IE 7]
-      = stylesheet_link_tag "fonts", :media => "all"
-    
-    
+    = stylesheet_link_tag "fonts", :media => "all"
     = stylesheet_link_tag "application", :media => "all"
     = stylesheet_link_tag "general_foundicons", :media => "all"
+    /[if !IE 7]
+      = stylesheet_link_tag "ie7", :media => "all"
+      
+    
     /[if lt IE 9]
       = stylesheet_link_tag "general_foundicons_ie7", :media => "all"
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'

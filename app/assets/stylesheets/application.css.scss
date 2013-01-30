@@ -224,6 +224,8 @@ a.button:visited {color: #fff;}
 #wrap .button {padding: .35em 1em;}
 #wrap .align-right a.button {margin: 0;}
 
+#wrap .align-right a {text-decoration: none;}
+
 .button.positive, a.button.positive {
   background: #112137; 
   color: #fff; 
@@ -1124,17 +1126,18 @@ p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  ma
 .panel.task h5,
 .panel.task h6 {color: #fff; text-shadow: none;}
 
-.panel.task a, .panel.task p {color: #fff; text-shadow: none; }
+.panel.task a, .panel.task p {color: #fff; text-shadow: none; text-decoration: underline; padding: 0; }
 .panel.task a.large.button.alternate {background: #fff; font-size: 1em; color: #122137; padding: 0 2em; display: inline-block;}
 
+.panel.task a i {text-decoration: none; display: inline-block; margin: 0 .25em 0 0;}
+
 #wrap .panel.task.dashboard h4 a {
-  -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.1) inset;
-  background:  #fff image-url("sprite.png") .5em -467px no-repeat; 
-  background:  rgba(255,255,255,.65) image-url("sprite.png") .5em -467px no-repeat; 
+  background: image-url("sprite.png") .5em -467px no-repeat; 
   padding: .5em .75em .5em 2.8em; 
+  text-decoration: underline;
   display: inline-block; 
-  color: #162234; 
-  text-shadow: 0 1px 0 rgba(255,255,255,.8);
+  color: #fff; 
+  font-weight: bold;
 }
 
 .panel li span.actions {display: block; clear: both; margin: 1em 0 0 0; padding: 0; line-height: 1em;}
@@ -1145,15 +1148,14 @@ p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  ma
 
 #wrap .panel.task.dashboard h4 a:hover, 
 #wrap .panel.task.dashboard h4 a:active {
-  background:  #fff image-url("sprite.png") .6em -467px no-repeat;
-  background:  rgba(255,255,255,.85) image-url("sprite.png") .6em -467px no-repeat; 
+  background: image-url("sprite.png") .6em -467px no-repeat; 
   cursor: hand;
 }
 
 .panel.task a,
 .panel.task a.button,
 .panel.task a:hover, 
-.panel.task a.button:hover {border-bottom: none; background: transparent; -webkit-box-shadow: none; margin: 0 1em 0 0; }
+.panel.task a.button:hover {border-bottom: none; text-decoration: underline; background: transparent; -webkit-box-shadow: none; margin: 0 1em 0 0; }
 
 .panel.task h3 a, .panel.task h3 a:hover {margin: 0;}
 

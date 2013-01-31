@@ -116,6 +116,20 @@ describe "OauthApps" do
         visit(edit_app_path(sandbox))
         page.should_not have_content("Edit")        
       end
+
+      it "should display edit link to owner on show page" do
+        sandbox = create_sandbox_app(@user)
+        create_logged_in_user(@user)
+        visit(app_path(sandbox))  
+        click_link('Edit')       
+      end
+
+      it "should not display edit link to non owner on show page" do
+        sandbox = create_sandbox_app(@user)
+        create_logged_in_user(@user2)
+        visit(app_path(sandbox))
+        page.should_not have_link('Edit')       
+      end
     end
   end
 end

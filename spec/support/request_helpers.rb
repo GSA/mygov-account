@@ -20,3 +20,7 @@ end
 def have_timeout_warning_metatag
   have_xpath("//meta[@http-equiv=\"refresh\" and contains(@content, \";\") and contains(@content, \"?no_keep_alive=1\")]")
 end
+
+def create_sandbox_app(user)
+  App.create(name:  'sandbox', status: "sandbox", user_id: user.id, redirect_uri: 'http://localhost')
+end

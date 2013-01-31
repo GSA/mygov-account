@@ -40,7 +40,7 @@ class App < ActiveRecord::Base
     end
 
     def authentic_apps
-      self.where("name != 'Default App'")
+      self.public.where("name != 'Default App'")
     end
   end
 

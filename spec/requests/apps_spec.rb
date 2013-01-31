@@ -99,19 +99,19 @@ describe "OauthApps" do
       end
 
       it "should not display sandbox app in apps index" do
+        sandbox = create_sandbox_app(@user)
         visit(apps_path)
-        app_names.each{|app_name| page.should have_content(app_name)}
-        page.should_not have_content("my sandbox app")        
+        page.should_not have_content("sandbox")        
       end
 
       it "should allow owner to visit edit page" do
-        sandbox = App.create(name:  'sandbox', status: "sandbox", user_id: @user.id){|app| app.redirect_uri = "http://localhost/"}
+        sandbox = create_sandbox_app(@user)
         visit(edit_app_path(sandbox))
         page.should have_content("Edit")        
       end
 
       it "should now allow non owner to visit edit page" do
-        sandbox = App.create(name:  'sandbox', status: "sandbox", user_id: @user.id){|app| app.redirect_uri = "http://localhost/"}
+        sandbox = create_sandbox_app(@user)
         create_logged_in_user(@user2)
         visit(edit_app_path(sandbox))
         page.should_not have_content("Edit")        

@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :apps #, :dependent => :destroy
   validates_acceptance_of :terms_of_service
   before_validation :update_name
+  after_validation :set_errors
   after_create :create_default_tasks
   after_create :create_default_notification
   after_destroy :send_account_deleted_notification
@@ -135,5 +136,10 @@ class User < ActiveRecord::Base
     if !self.name_changed? && (self.first_name_changed? || self.last_name_changed?)
       self.name = [self.first_name, self.last_name].compact.join(" ")
     end
+  end
+  
+  def set_errors
+    self.errors.add(:phone_number, self.errors.delete(:phone)) unless self.errors[:phone].blank?
+    self.errors.add(:mobile_number, self.errors.delete(:mobile)) unless self.errors[:mobile].blank?
   end
 end

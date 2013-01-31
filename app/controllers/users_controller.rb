@@ -17,8 +17,8 @@ class UsersController < ApplicationController
       flash[:notice] = "Your profile was sucessfully updated."
       redirect_to profile_path
     else
-      flash[:error] = "Something went wrong."
-      redirect_to :back
+      flash.now[:error] = "Something went wrong."
+      render :edit
     end
   end
   

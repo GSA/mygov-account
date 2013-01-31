@@ -4,6 +4,7 @@ class App < ActiveRecord::Base
   validates_presence_of :name, :slug #, :user
   validates_uniqueness_of :slug
   validates_presence_of :status
+  validates_presence_of :redirect_uri
   validate :owner_email_matches_user
   before_validation :generate_slug, :set_user, :set_status
   after_create :create_oauth2_client

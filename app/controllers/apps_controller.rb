@@ -1,7 +1,8 @@
 class AppsController < ApplicationController
   before_filter :get_current_user_apps, :only => [:index, :show, :edit]
- before_filter :verify_app_owner,  :only =>  [:edit, :update]
+  before_filter :verify_app_owner,  :only =>  [:edit, :update]
   before_filter :verify_public_or_is_owner, :only => [:show]
+  before_filter :authenticate_user!, :only => [:new]
 
   # Ensure that only public apps and sandbox apps owned by current user can be viewed.
   def verify_public_or_is_owner
@@ -40,7 +41,7 @@ class AppsController < ApplicationController
     @app = App.find_by_slug(params[:id])
     respond_to do |format|
       if @app.update_attributes(params[:app])
-        format.html { redirect_to @app, :alert => "app was successfully updated."}
+        format.html { redirect_to @app, :alert => "App was successfully updated."}
       else
         render :action => 'new' 
       end
@@ -52,7 +53,7 @@ class AppsController < ApplicationController
     @app.update_attributes(status: 'sandbox')
     respond_to do |format|
       if @app.save
-        format.html { redirect_to @app, :alert => "app was successfully created. Secret: #{@app.oauth2_client.client_secret} Client id: #{@app.oauth2_client.client_id}"}
+        format.html { redirect_to @app, :alert => "App was successfully created. Secret: #{@app.oauth2_client.client_secret} Client id: #{@app.oauth2_client.client_id}"}
       else
         render :action => 'new' 
       end

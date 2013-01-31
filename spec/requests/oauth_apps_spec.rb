@@ -46,7 +46,7 @@ describe "OauthApps" do
     before do
       create_logged_in_user(@user2)
     end
-    describe "Authorize sandbox application by non owner" do
+    describe "Does not allow sandbox application installation by non owner" do
       it "code in params should not have a value" do
         visit(url_for(controller: 'oauth', action: 'authorize',
               response_type: 'code', client_id: @sandbox_client_auth.client_id, redirect_uri: 'http://localhost/'))

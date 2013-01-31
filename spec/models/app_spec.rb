@@ -27,10 +27,10 @@ describe App do
   end
 
   it "should not be possible for a user to install a sandbox app if not the owner" do 
-    # create_approved_beta_signup('joe@citizen.org')
-    # @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
-    # @user.confirm!
-    # app1 = App.create(name: 'App1', redirect_uri: "http://localhost/", status: 'sandbox', user: @user)
+    create_approved_beta_signup('joe@citizen.org')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    @user.confirm!
+    app1 = App.create(name: 'App1', redirect_uri: "http://localhost/", status: 'sandbox', user: @user)
   end
   
 end

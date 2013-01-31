@@ -3,46 +3,33 @@
     .panel.task.group
       %h3
         %i{:class => "foundicon-checkmark"}
-        
         - if current_user and current_user.first_name.present?
           #{@task.name} 
-      
-
       %p.supporting-text
         %strong
           #{@task.task_items.completed.size} of #{@task.task_items.size} 
         items completed.
-      
-          
-      
       - if @task.completed?
-        
         %h5
           Task completed at #{@task.completed_at}
-      
       - else
-
       %ol.item-list.clear
         - @task.task_items.each do |task_item|
-          %li
-            = link_to task_item.name, task_item.url
+          %li 
+            = task_item_link(task_item)
             - if task_item.completed?
-              Item completed at: #{task_item.completed_at}
-            
+              %span.actions.align-right
+                Item completed at: #{task_item.completed_at}
             - else
-              
               %span.actions.align-right
                 = link_to  task_item_path(task_item, :completed => true), :method => :put, :class => '' do
                   %i{:class => 'foundicon-checkmark'}
                   Mark complete
-              
               %span.actions.align-right
                 = link_to task_item_path(task_item), :method => :delete, :data => { :confirm => 'This cannot be undone.' }, :class => '' do
                   %i{:class => 'foundicon-remove'}
                   Remove                
-        
         = link_to task_path(@task, :completed => true), :method => :put, :class => 'complete' do
-          
           .row
             .twelve.columns.align-right
               %i{:class => 'foundicon-checkmark'}
@@ -50,5 +37,3 @@
 .row
   .twelve.columns
     = link_to '← Back to Dashboard', root_path, :class => 'small button'  
-
-            

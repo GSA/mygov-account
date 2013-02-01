@@ -21,7 +21,7 @@ describe "HomePage" do
           fill_in 'Email', :with => ''
           click_button "Sign up"
           page.should_not have_content("Thanks for signing up")
-          page.should have_content("An error occurred during signup")
+          page.should have_content("Email can't be blank")
         end
         
         it "should let a user sign up for the beta by providing their email address" do

@@ -1,8 +1,8 @@
 class BetaSignup < ActiveRecord::Base
   attr_accessible :email, :ip_address, :referrer
-  validates_presence_of :email, {:message => "blank email"}
-  validates_uniqueness_of :email, {:message => "duplicate email"}
-  validates_email_format_of :email, {:message => "invalid email"}
+  validates_presence_of :email
+  validates_uniqueness_of :email, {:allow_blank => true}
+  validates_email_format_of :email, {:allow_blank => true}
   before_create :approve_dot_gov_emails
   after_save :send_beta_invite
   

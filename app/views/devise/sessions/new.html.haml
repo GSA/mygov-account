@@ -1,3 +1,7 @@
+- if flash.alert
+  - content_for :scripts do
+    = javascript_tag do
+      $('html,body').animate({scrollTop: $('.alert-box').offset().top},'slow');
 .row
   .twelve.columns
     %h2

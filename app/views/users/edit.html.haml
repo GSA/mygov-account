@@ -1,3 +1,7 @@
+- if @user && !@user.errors.blank?
+  - content_for :scripts do
+    = javascript_tag do
+      $('html,body').animate({scrollTop: $('.field_with_errors').offset().top},'slow');
 .row
   .eight.columns
     %h2

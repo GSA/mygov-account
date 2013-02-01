@@ -8,11 +8,11 @@ describe BetaSignup do
     ActionMailer::Base.deliveries = []
   end
   
-  it { should validate_presence_of(:email).with_message("blank email") }
+  it { should validate_presence_of(:email).with_message("can't be blank") }
   
   it "should create a new record given valid attributes, but not be approved, and not send an email" do
     beta_signup = BetaSignup.create!(@valid_attributes)
-    should validate_uniqueness_of(:email).with_message(/duplicate email/)
+    should validate_uniqueness_of(:email).with_message("has already been taken")
     beta_signup.is_approved.should == false
     ActionMailer::Base.deliveries.should be_empty
   end

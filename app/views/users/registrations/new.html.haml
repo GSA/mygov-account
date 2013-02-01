@@ -1,3 +1,7 @@
+- if resource && !resource.errors.blank?
+  - content_for :scripts do
+    = javascript_tag do
+      $('html,body').animate({scrollTop: $('#error_explanation').offset().top},'slow');
 .row
   .ten.columns.centered.banner
     %h2

@@ -1,12 +1,13 @@
 class AppsController < ApplicationController
+  before_filter :authenticate_user!, :only => [:new, :show, :edit]
   before_filter :get_current_user_apps, :only => [:index, :show, :edit]
   before_filter :verify_app_owner,  :only =>  [:edit, :update]
   before_filter :verify_public_or_is_owner, :only => [:show]
-  before_filter :authenticate_user!, :only => [:new]
 
   # Ensure that only public apps and sandbox apps owned by current user can be viewed.
   def verify_public_or_is_owner
     return true if App.find_by_slug(params[:id]).has_owner?(current_user) || !App.find_by_slug(params[:id]).sandbox?
+    redirect_to apps_path
   end
 
   def verify_app_owner
@@ -22,6 +23,7 @@ class AppsController < ApplicationController
   # GET /apps
   def index
     @apps = App.authentic_apps
+    @sandbox_apps = current_user ? current_user.sandbox_apps : []
   end
   
   # GET /apps/1

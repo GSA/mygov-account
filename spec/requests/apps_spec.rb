@@ -98,12 +98,6 @@ describe "OauthApps" do
         page.text.should match(/Client id: [a-zA-Z0-9]+/)
       end
 
-      it "should not display sandbox app in apps index" do
-        sandbox = create_sandbox_app(@user)
-        visit(apps_path)
-        page.should_not have_content("sandbox")        
-      end
-
       it "should allow owner to visit edit page" do
         sandbox = create_sandbox_app(@user)
         visit(edit_app_path(sandbox))
@@ -129,6 +123,22 @@ describe "OauthApps" do
         create_logged_in_user(@user2)
         visit(app_path(sandbox))
         page.should_not have_link('Edit')       
+      end
+      
+      it "should display sandbox apps to owners" do
+        sandbox = create_sandbox_app(@user)
+        visit(apps_path)
+        page.should have_content('sandbox')       
+      end
+      
+      it "should not display sandbox apps to non logged in users and non owner users" do
+        sandbox = create_sandbox_app(@user)
+        visit(sign_out_path)
+        visit(apps_path)
+        page.should_not have_content('sandbox')       
+        create_logged_in_user(@user2)
+        visit(apps_path)
+        page.should_not have_content('sandbox')       
       end
     end
   end

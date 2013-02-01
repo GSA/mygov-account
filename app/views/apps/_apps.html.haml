@@ -1,0 +1,13 @@
+.row
+  .four.columns 
+    .panel.group
+      .row
+        .four.columns
+          = image_tag app.logo.url(:thumb), alt: "#{app.name} logo"
+      .row
+        .six.columns
+          %h3
+            = link_to(app.name, app_path(app))
+            = " (Authorized)" if @current_user_apps.include?(app)
+          %p
+            Change your name with the government.

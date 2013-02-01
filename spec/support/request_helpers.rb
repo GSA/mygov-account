@@ -22,5 +22,5 @@ def have_timeout_warning_metatag
 end
 
 def create_sandbox_app(user)
-  App.create(name:  'sandbox', status: "sandbox", user_id: user.id, redirect_uri: 'http://localhost')
+  @user.apps.create(name: 'Sandboxed App', is_public: false, user_id: user.id, redirect_uri: 'http://localhost')
 end

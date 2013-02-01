@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130129163801) do
+ActiveRecord::Schema.define(:version => 20130201130140) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.string   "slug"
     t.text     "description"
     t.string   "short_description"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20130129163801) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.integer  "user_id"
-    t.string   "status"
+    t.boolean  "is_public",         :default => false
   end
 
   add_index "apps", ["slug"], :name => "index_apps_on_slug"
@@ -46,6 +46,37 @@ ActiveRecord::Schema.define(:version => 20130129163801) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.boolean  "is_approved", :default => false
+  end
+
+  create_table "filled_forms", :force => true do |t|
+    t.integer  "form_id"
+    t.integer  "user_id"
+    t.integer  "app_id"
+    t.text     "values"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "filled_forms", ["form_id"], :name => "index_filled_forms_on_form_id"
+  add_index "filled_forms", ["user_id"], :name => "index_filled_forms_on_user_id"
+
+  create_table "form_fields", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.text     "description"
+    t.string   "values"
+    t.integer  "form_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "forms", :force => true do |t|
+    t.string   "name"
+    t.string   "number"
+    t.string   "agency"
+    t.string   "landing_page_url"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "notifications", :force => true do |t|
@@ -142,6 +173,16 @@ ActiveRecord::Schema.define(:version => 20130129163801) do
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
+  create_table "related_urls", :force => true do |t|
+    t.string   "url"
+    t.string   "other_url"
+    t.integer  "occurence_count", :default => 0
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "related_urls", ["url", "occurence_count"], :name => "index_related_urls_on_url_and_occurence_count"
+
   create_table "submitted_forms", :force => true do |t|
     t.integer  "user_id"
     t.integer  "app_id"
@@ -193,7 +234,7 @@ ActiveRecord::Schema.define(:version => 20130129163801) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "name"
-    t.string   "middle_name",            :limit => 1
+    t.string   "middle_name"
     t.string   "address"
     t.string   "address2"
     t.string   "city"
@@ -223,7 +264,6 @@ ActiveRecord::Schema.define(:version => 20130129163801) do
     t.boolean  "is_retired"
   end
 
-  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true

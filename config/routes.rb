@@ -27,7 +27,6 @@ Mygov::Application.routes.draw do
   resources :apps do
     member do
       get :uninstall
-      get :install
     end
   end
   resources :task_items, :only => [:update, :destroy]

@@ -5,7 +5,6 @@ describe App do
     @valid_attributes = {
       :name         => 'Change your name',
       :redirect_uri => 'http://www.myapp.com',
-      :status       => 'public'
     }
   end
   
@@ -23,14 +22,10 @@ describe App do
   end
   
   it "should create a new app with redirect_uri attribute" do
-    App.create(name: "one more app", redirect_uri: 'http://www.one-more-app.com').oauth2_client.redirect_uri.should == 'http://www.one-more-app.com' 
-  end
-
-  it "should not be possible for a user to install a sandbox app if not the owner" do 
-    create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
-    @user.confirm!
-    app1 = App.create(name: 'App1', redirect_uri: "http://localhost/", status: 'sandbox', user: @user)
+    App.create!(name: "one more app", redirect_uri: 'http://www.one-more-app.com').oauth2_client.redirect_uri.should == 'http://www.one-more-app.com' 
   end
   
+  it "should default to not public" do
+    App.create!(@valid_attributes).is_public.should be_false
+  end
 end

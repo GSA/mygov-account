@@ -12,16 +12,21 @@ describe "OauthApps" do
 
     OauthScope.seed_data.each { |os| OauthScope.create os }
     app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
+    app1.is_public = true
+    app1.save!
     app1.oauth_scopes << OauthScope.all
     @app1_client_auth = app1.oauth2_client
     app2 = App.create(name: 'App2'){|app| app.redirect_uri = "http://localhost/"}
+    app2.is_public = true
+    app2.save!
     @app2_client_auth = app2.oauth2_client
     app3 = App.create(name:  'App3'){|app| app.redirect_uri = "http://localhost/"}
+    app3.is_public = true
+    app3.save!
     @app3_client_auth = app3.oauth2_client
 
-    sandbox = App.create(name:  'sandbox', status: "sandbox", user_id: @user.id){|app| app.redirect_uri = "http://localhost/"}
+    sandbox = App.create(name:  'sandbox', user_id: @user.id){|app| app.redirect_uri = "http://localhost/"}
     @sandbox_client_auth = sandbox.oauth2_client
-
   end
   
   context "when logged in" do

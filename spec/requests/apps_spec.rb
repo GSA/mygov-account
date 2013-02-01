@@ -1,144 +1,176 @@
 require 'spec_helper'
-app_names = %w[App1 App2 App3]
-describe "OauthApps" do  
+
+describe "Apps" do  
   before do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
     
-    create_approved_beta_signup('second@user.org')
-    @user2 = User.create!(:email => 'second@user.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    create_approved_beta_signup('jane@citizen.org')
+    @user2 = User.create!(:email => 'jane@citizen.org', :password => 'random', :first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
     @user2.confirm!
         
-    app1 = App.create(name: 'App1', redirect_uri: "http://localhost/", user: @user)
-    @app1_client = app1.oauth2_client
-    app2 = App.create(name: 'App2', redirect_uri: "http://localhost/", user: @user)
-    @app2_client = app2.oauth2_client
-    app3 = App.create(name: 'App3', redirect_uri: "http://localhost/", user: @user)
-    @app3_client = app3.oauth2_client
-    default_app  = App.create(name: 'Default App'){|app| app.redirect_uri = "http://localhost/"}
-    @default_client = default_app.oauth2_client
+    @app1 = @user.apps.create(name: 'Public App 1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")
+    @app1.is_public = true
+    @app1.save!
+    @app2 = @user2.apps.create(name: 'Public App 2', :short_description => 'Public Application 2', :description => 'A public app 2', redirect_uri: "http://localhost/")
+    @app2.is_public = true
+    @app2.save!
+    @sandboxed_app1 = @user.apps.create(name: 'Sandboxed App 1', :short_description => 'Sandboxed Application 1', redirect_uri: "http://localhost/")
+    @sandboxed_app2 = @user2.apps.create(name: 'Sandboxed App 2', :short_description => 'Sandboxed Application 2', redirect_uri: "http://localhost/")
   end
   
-  describe "it should display a list of apps" do
-    it "should display a list of apps" do
-      visit(apps_path)
-      page.should have_content "App1"
-      page.should have_content "App2"
-      page.should have_content "App3"
-      page.should have_no_content "Default App"
-    end
-  end
-  
-  context "user is signed in" do
-    before do
-      create_logged_in_user(@user)
+  describe "GET /apps" do
+    context "when no user is logged in" do
+      it "should display a list of public (non-sandboxed) apps" do
+        visit apps_path
+        page.should have_content "Public App 1"
+        page.should have_content "Public App 2"
+        page.should have_no_content "Sandboxed App 1"
+      end
     end
     
-    describe "it should display all available apps, with none belonging to current user" do
-      it "should list all apps" do
-        visit(apps_path)
-        app_names.each{|app_name| page.should have_content(app_name)}
-        page.should_not have_content("Authorized")
-      end  
-      
-      it "should redirect to app's description page when app slug is clicked" do
-        visit(apps_path)
-        click_link('App1')
-        current_url.should have_content("apps/app1")
-      end
-    end  
-
-    context "user has approved a client" do
+    context "when a user is logged in" do
       before do
-        # Create authorization
-        @user.grant_access!(@app2_client, scopes: nil, duration: nil)
+        create_logged_in_user(@user)
       end
-
-      describe "it should indicate which app belongs to user" do
-        it "should list all apps" do
-          visit(apps_path)
-          within('h3', :text => 'App2') do
-            page.should have_content('Authorized')
-          end
-          
-          click_link('App2')
-          click_link('Revoke access')
-          page.should_not have_content('Revoke access')
-        end  
-        
-        it "should allow a user to revoke access an authorized app" do
-          visit(apps_path)
-          click_link('App2')
-          click_link('Revoke access')
-          current_url.should have_content("apps/app2") # Make sure you're still on app page
-          page.should_not have_content('Revoke access')          
+      
+      it "should show a list of public apps, and those sandboxed apps that are owned by the logged in user" do
+        visit apps_path
+        page.should have_content "Public App 1"
+        page.should have_content "Public App 2"
+        page.should have_content "Sandboxed App 1"
+        page.should have_no_content "Sandboxed App 2"
+        page.should have_no_content "Authorized"
+        click_link "Public App 1"
+        current_url.should have_content "apps/public-app-1"
+      end
+      
+      context "when the user has authorized an application" do
+        before do
+          @user.grant_access!(@app2.oauth2_client, scopes: ["profile"], duration: nil)
         end
-      end        
-
-        describe "it should display all available apps via json api" do
-        it "should list all apps, not include info specific to the logged in user, not list Default App, and not list 'app' as root node" do  
-          visit(apps_path(:json))
-          app_names.each{|app_name| page.should have_content(app_name)}
-          page.should_not have_content("\"authorized\":true")
-          page.should_not have_content("\[\{\"app\"\:")
+        
+        it "should show that the user has authorized that app" do
+          visit apps_path
+          within('h3', :text => 'Public App 2') do
+            page.should have_content 'Authorized'
+          end
+          click_link 'Public App 2'
+          click_link('Revoke access')
+          current_url.should have_content("apps/public-app-2")
+          page.should have_no_content 'Revoke access'
+          visit apps_path
+          page.should have_no_content 'Authorized'
         end
       end
     end
+  end
+  
+  describe "GET /apps.json" do
+    it "should list all apps, not including info specific to the logged in user, not list Default App, and not list 'app' as root node" do  
+      get "/apps.json"
+      parsed_response = JSON.parse(response.body)
+      parsed_response.size.should == 2
+    end
+  end
+  
+  describe "GET /apps/new" do
+    context "when a user is not logged in" do
+      it "should not show the page" do
+        visit new_app_path
+        page.should have_content "Please sign in or sign up before continuing."
+      end
+    end
     
-    context "user wants to create a sandbox app" do
-      it "should display oauth2_client secret upon app create" do
-        visit(new_app_path)
-        fill_in 'app_name', :with => 'my sandbox app'
-        fill_in 'app_url',          :with => 'http://www.myapp.com'
-        fill_in 'app_redirect_uri', :with => 'http://www.myapp.com'
-        click_button('Continue')
+    context "when a user is signed in" do
+      before do
+        create_logged_in_user(@user)
+      end
+      
+      it "should let a user create a new app, show them the the client id and secret id, and edit the app" do
+        visit new_app_path
+        fill_in 'Name', :with => 'my sandbox app'
+        fill_in 'Url',  :with => 'http://www.myapp.com'
+        fill_in 'Description', :with => 'An app!'
+        fill_in 'Redirect uri', :with => 'http://www.myapp.com'
+        click_button('Create new application')
+        page.should have_content "An app!"
         page.should have_content("Secret:")
         page.text.should match(/Secret: [a-zA-Z0-9]+/)
         page.text.should match(/Client id: [a-zA-Z0-9]+/)
+        page.should have_link 'Edit'
+        click_link('Edit')
+        fill_in "Description", :with => 'An app$'
+        click_button('Create new application')
+        page.should have_content "An app$"
+        page.should have_no_content "An app!"
       end
-
-      it "should allow owner to visit edit page" do
-        sandbox = create_sandbox_app(@user)
-        visit(edit_app_path(sandbox))
-        page.should have_content("Edit")        
+    end
+  end
+  
+  describe "GET /app/:slug" do
+    context "when a user is not logged in" do
+      context "for public apps" do
+        it "should show the app page, but not provide a link to edit the app" do
+          visit app_path @app1
+          page.should have_content @app1.name
+          page.should have_content @app1.description
+          page.should have_no_link 'Edit'
+        end
       end
-
-      it "should not allow non owner to visit sandbox show page" do
-        sandbox = create_sandbox_app(@user)
-        create_logged_in_user(@user2)
-        visit(app_path(sandbox))
-        page.should_not have_content("sandbox")        
+      
+      context "for sandboxed apps" do
+        it "should redirect the user to the apps page" do
+          visit app_path(@sandboxed_app1)
+          page.should have_content "MyGov Applications"
+          page.should have_no_content @sandboxed_app1.name
+        end
       end
-
-      it "should display edit link to owner on show page" do
-        sandbox = create_sandbox_app(@user)
+    end
+    
+    context "when a user is logged in" do
+      before do
         create_logged_in_user(@user)
-        visit(app_path(sandbox))  
-        click_link('Edit')       
-      end
-
-      it "should not display edit link to non owner on show page" do
-        sandbox = create_sandbox_app(@user)
-        create_logged_in_user(@user2)
-        visit(app_path(sandbox))
-        page.should_not have_link('Edit')       
       end
       
-      it "should display sandbox apps to owners" do
-        sandbox = create_sandbox_app(@user)
-        visit(apps_path)
-        page.should have_content('sandbox')       
+      context "for the app owner" do
+        context "for public apps" do
+          it "should show the app page, and a link to edit the app" do
+            visit app_path @app1
+            page.should have_content @app1.name
+            page.should have_content @app1.description
+            page.should have_link 'Edit'
+          end
+        end
+      
+        context "for sandboxed apps" do
+          it "show the app page, and a link to edit the app" do
+            visit app_path @sandboxed_app1
+            page.should have_content @sandboxed_app1.name
+            page.should have_content @sandboxed_app1.description
+            page.should have_link 'Edit'
+          end
+        end
       end
       
-      it "should not display sandbox apps to non logged in users and non owner users" do
-        sandbox = create_sandbox_app(@user)
-        visit(sign_out_path)
-        visit(apps_path)
-        page.should_not have_content('sandbox')       
-        create_logged_in_user(@user2)
-        visit(apps_path)
-        page.should_not have_content('sandbox')       
+      context "for a non-owning user" do
+        context "for public apps" do
+          it "should show the app page, but not link to edit the app" do
+            visit app_path @app2
+            page.should have_content @app2.name
+            page.should have_content @app2.description
+            page.should have_no_link 'Edit'
+          end
+        end
+      
+        context "for sandboxed apps" do
+          it "show the app page, redirect to the apps page" do
+            visit app_path @sandboxed_app2
+            page.should have_content "MyGov Applications"
+            page.should have_no_content @sandboxed_app2.name
+          end
+        end
       end
     end
   end

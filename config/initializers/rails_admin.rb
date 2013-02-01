@@ -61,12 +61,12 @@ RailsAdmin.config do |config|
   config.attr_accessible_role { :admin }
   config.model App do
     edit do
-      field :status do
-        def render
-          partial = "status"
-          bindings[:view].render :partial => partial.to_s, :locals => {:field => self, :form => bindings[:form]}
-        end
-      end
+      # field :status do
+      #   def render
+      #     partial = "status"
+      #     bindings[:view].render :partial => partial.to_s, :locals => {:field => self, :form => bindings[:form]}
+      #   end
+      # end
       field :owner_email
       field :name
       field :description      

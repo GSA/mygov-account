@@ -104,11 +104,11 @@ describe "OauthApps" do
         page.should have_content("Edit")        
       end
 
-      it "should not allow non owner to visit edit page" do
+      it "should not allow non owner to visit sandbox show page" do
         sandbox = create_sandbox_app(@user)
         create_logged_in_user(@user2)
-        visit(edit_app_path(sandbox))
-        page.should_not have_content("Edit")        
+        visit(app_path(sandbox))
+        page.should_not have_content("sandbox")        
       end
 
       it "should display edit link to owner on show page" do

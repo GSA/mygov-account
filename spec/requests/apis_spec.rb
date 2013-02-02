@@ -75,11 +75,11 @@ describe "Apis" do
       context "when the notification attributes are valid" do
         it "should create a new notification when the notification info is valid" do
           @user.notifications.size.should == 0
-          post "/api/notifications", {:notification => {:subject => 'Project MyGov', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+          post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "200"
           @user.notifications.reload
           @user.notifications.size.should == 1
-          @user.notifications.first.subject.should == "Project MyGov"
+          @user.notifications.first.subject.should == "Project MyUSA"
         end
       end
       
@@ -118,7 +118,7 @@ describe "Apis" do
 
     context "when the user has an invalid token" do
       it "should return an error message" do
-        post "/api/notifications", {:notification => {:subject => 'Project MyGov', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer fake_token"}
+        post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer fake_token"}
         response.code.should == "403"
         parsed_response = JSON.parse(response.body)
         parsed_response["status"].should == "Error"

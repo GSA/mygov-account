@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
   
   def create_default_tasks
     task1 = self.tasks.create(:name => 'Tell us a little about yourself.', :app_id => App.default_app.id)
-    task1.task_items.create(:name => 'Complete your profile today so we can help tailor MyGov to fit your needs.', :url => "/welcome?step=info")
+    task1.task_items.create(:name => 'Complete your profile today so we can help tailor MyUSA to fit your needs.', :url => "/welcome?step=info")
     task2 = self.tasks.create(:name => 'Help us make this service more tailored to your needs.', :app_id => App.default_app.id)
     task2.task_items.create(:name => 'Get started!', :url => "/welcome?step=about_you")
   end
@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
   end
     
   def create_default_notification
-    notification = self.notifications.create(:subject => 'Welcome to MyGov', :body => File.read(Rails.root.to_s + "/lib/assets/text/welcome_email_body.html").html_safe, :received_at => Time.now)  if self.confirmation_token.nil?
+    notification = self.notifications.create(:subject => 'Welcome to MyUSA', :body => File.read(Rails.root.to_s + "/lib/assets/text/welcome_email_body.html").html_safe, :received_at => Time.now)  if self.confirmation_token.nil?
   end
   
   def local_info

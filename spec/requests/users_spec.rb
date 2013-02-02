@@ -5,13 +5,13 @@ describe "Users" do
     context "when a user is not signed in" do
       it "should have a sign-in link" do
         visit sign_up_path
-        page.should have_content "Already using MyGov?"
+        page.should have_content "Already using MyUSA?"
         page.should have_content "Sign in"
         click_link "Sign in"
         current_path.should == sign_in_path
         
         visit root_path
-        page.should have_content "Already using MyGov?"
+        page.should have_content "Already using MyUSA?"
         page.should have_content "Sign in"
         click_link "Sign in"
         current_path.should == sign_in_path
@@ -26,7 +26,7 @@ describe "Users" do
       
       it "should not have a sign-in link on the sign-in page" do
         visit sign_in_path
-        page.should_not have_content "Already using MyGov?"
+        page.should_not have_content "Already using MyUSA?"
       end
     end
     
@@ -42,7 +42,7 @@ describe "Users" do
       
       it "should not ask the user to sign in" do
         visit dashboard_path
-        page.should_not have_content "Already using MyGov?"
+        page.should_not have_content "Already using MyUSA?"
         page.should_not have_content "Sign in"
       end
     end
@@ -62,7 +62,7 @@ describe "Users" do
         fill_in 'Email', :with => 'joe@citizen.org'
         fill_in 'Password', :with => 'password'
         fill_in 'Password confirmation', :with => 'password'
-        check 'I agree to the MyGov Terms of Service and Privacy Policy'
+        check 'I agree to the MyUSA Terms of Service and Privacy Policy'
         click_button 'Sign up'
         page.should have_content "I'm sorry, your account hasn't been approved yet."
       end
@@ -90,7 +90,7 @@ describe "Users" do
           fill_in 'Email', :with => 'joe@citizen.org'
           fill_in 'Password', :with => 'password'
           fill_in 'Password confirmation', :with => 'password'
-          check 'I agree to the MyGov Terms of Service and Privacy Policy'
+          check 'I agree to the MyUSA Terms of Service and Privacy Policy'
           click_button 'Sign up'
           page.should have_content "I'm sorry, your account hasn't been approved yet."
         end
@@ -128,7 +128,7 @@ describe "Users" do
           fill_in 'Email', :with => 'joe@citizen.org'
           fill_in 'Password', :with => 'password'
           fill_in 'Password confirmation', :with => 'password'
-          check 'I agree to the MyGov Terms of Service and Privacy Policy'
+          check 'I agree to the MyUSA Terms of Service and Privacy Policy'
           click_button 'Sign up'
           page.should have_content 'Thank you for signing up'
           ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
@@ -142,7 +142,7 @@ describe "Users" do
           fill_in 'Email', :with => 'joe@citizen.org'
           fill_in 'Password', :with => 'password'
           fill_in 'Password confirmation', :with => 'password'
-          check 'I agree to the MyGov Terms of Service and Privacy Policy'
+          check 'I agree to the MyUSA Terms of Service and Privacy Policy'
           click_button 'Sign up'
           page.should have_content 'Thank you for signing up'
           ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
@@ -151,12 +151,12 @@ describe "Users" do
         end
     
         context "when a user has signed up, and confirms their email address" do
-          it "should collect some basic information from the user in welcoming them to MyGov" do
+          it "should collect some basic information from the user in welcoming them to MyUSA" do
             visit sign_up_path
             fill_in 'Email', :with => 'joe@citizen.org'
             fill_in 'Password', :with => 'password'
             fill_in 'Password confirmation', :with => 'password'
-            check 'I agree to the MyGov Terms of Service and Privacy Policy'
+            check 'I agree to the MyUSA Terms of Service and Privacy Policy'
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
 
@@ -171,7 +171,7 @@ describe "Users" do
             ActionMailer::Base.deliveries = []
           end
           
-          it "should welcome them to MyGov and prompt them for more information" do
+          it "should welcome them to MyUSA and prompt them for more information" do
             visit sign_up_path
             click_link 'Sign up with Google'
             page.should have_content "Tell us a little about yourself"

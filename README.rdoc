@@ -1,6 +1,6 @@
-== MyGov
+== MyUSA
 
-MyGov is a platform for citizen identity.
+MyUSA is a platform for citizen identity.
 
 == Getting Started
 

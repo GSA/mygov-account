@@ -123,7 +123,7 @@ describe "Apps" do
       context "for sandboxed apps" do
         it "should redirect the user to the apps page" do
           visit app_path(@sandboxed_app1)
-          page.should have_content "MyGov Applications"
+          page.should have_content "MyUSA Applications"
           page.should have_no_content @sandboxed_app1.name
         end
       end
@@ -167,7 +167,7 @@ describe "Apps" do
         context "for sandboxed apps" do
           it "show the app page, redirect to the apps page" do
             visit app_path @sandboxed_app2
-            page.should have_content "MyGov Applications"
+            page.should have_content "MyUSA Applications"
             page.should have_no_content @sandboxed_app2.name
           end
         end

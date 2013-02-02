@@ -14,16 +14,16 @@
     %meta(name="HandheldFriendly" content="True")
     %meta(http-equiv="cleartype" content="on")
     
-    %meta(property="fb:app_id"               content="MyGov")
+    %meta(property="fb:app_id"               content="MyUSA")
     %meta(property="og:type"                 content="website")
     %meta(property="og:url"                  content="http://my.usa.gov/") 
     %meta(property="og:image"                content="http://my.usa.gov/assets/touch-icon-iphone4.png")
-    %meta(property="og:title"                content="MyGov")
+    %meta(property="og:title"                content="MyUSA")
     %meta(property="og:description"          content="A platform for connecting people and government")
     
-    %meta(name="apple-mobile-web-app-title" content="MyGov")
+    %meta(name="apple-mobile-web-app-title" content="MyUSA")
 
-    %title= content_for?(:title) ? yield(:title) : "MyGov"
+    %title= content_for?(:title) ? yield(:title) : "MyUSA"
     = csrf_meta_tags
 
     = stylesheet_link_tag "fonts", :media => "all" 
@@ -53,7 +53,7 @@
                   - if current_user and current_user.first_name.present?
                     %span.personal-name
                       #{current_user.first_name}'s
-                  My<span>Gov</span><span class="beta">Beta</span>
+                  My<span>USA</span><span class="beta">Beta</span>
             .six.columns.align-right
               - if !current_user && request.path != sign_in_path
                 %h3.tagline
@@ -78,7 +78,7 @@
         .discovery-bar  
           %ul.nav-bar
             %li.mygov
-              = link_to 'MyGov', root_path
+              = link_to 'MyUSA', root_path
             %li.left.notifications
               = link_to notifications_path do
                 - if current_user.notifications.not_deleted.count > 0

@@ -17,7 +17,7 @@ describe "Welcome" do
       page.should have_content 'Paperwork Reduction Act Statement'
       fill_in 'Zip code', :with => '12345'
       click_button 'Continue'
-      page.should have_content "MyGovBeta"
+      page.should have_content "MyUSABeta"
       @user.reload
       @user.zip.should == "12345"
       visit profile_path
@@ -41,7 +41,7 @@ describe "Welcome" do
       check 'Married'
       check 'Parent'
       click_button 'Continue'
-      page.should have_content 'MyGovBeta'
+      page.should have_content 'MyUSABeta'
       @user.reload
       @user.marital_status.should == "Married"
       @user.is_parent.should == true

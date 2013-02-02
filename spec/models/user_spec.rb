@@ -82,7 +82,7 @@ describe User do
       
       it "should create a default notification" do
         @user.notifications.size.should == 1
-        @user.notifications.first.subject.should == "Welcome to MyGov"
+        @user.notifications.first.subject.should == "Welcome to MyUSA"
       end
     end
   end

@@ -73,5 +73,5 @@ module Mygov
   end
 end
 
-OAuth2::Provider.realm = 'MyGov'
+OAuth2::Provider.realm = 'MyUSA'
 OAuth2::Provider.enforce_ssl = false

@@ -33,9 +33,9 @@ describe Notification do
         email.should_not be_nil
         email.from.should == ["projectmygov@gsa.gov"]
         email.to.should == [@user.email]
-        email.subject.should == "[MYGOV] #{notification.subject}"
+        email.subject.should == "[MYUSA] #{notification.subject}"
         email.body.should =~ /Hello, #{@user.first_name}/
-        email.body.should =~ /A notification for you from MyGov/
+        email.body.should =~ /A notification for you from MyUSA/
         email.body.should =~ /#{notification.body}/
       end
     end
@@ -47,9 +47,9 @@ describe Notification do
         email.should_not be_nil
         email.from.should == ["projectmygov@gsa.gov"]
         email.to.should == [@user.email]
-        email.subject.should == "[MYGOV] [#{notification.app.name}] #{notification.subject}"
+        email.subject.should == "[MYUSA] [#{notification.app.name}] #{notification.subject}"
         email.body.should =~ /Hello, #{@user.first_name}/
-        email.body.should =~ /The \"#{notification.app.name}\" MyGov application has sent you the following message/
+        email.body.should =~ /The \"#{notification.app.name}\" MyUSA application has sent you the following message/
         email.body.should =~ /#{notification.body}/
       end
     end

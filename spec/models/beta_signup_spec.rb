@@ -25,9 +25,9 @@ describe BetaSignup do
     email = ActionMailer::Base.deliveries.first
     email.from.should == ["projectmygov@gsa.gov"]
     email.to.should == [beta_signup.email]
-    email.subject.should =~ /MyGov/
+    email.subject.should =~ /MyUSA/
     email.subject.should =~ /Beta/
-    email.body.should =~ /After months of research/
+    email.body.should =~ /Welcome to the MyUSA beta/
   end
   
   context "when signing up with a .gov email address" do
@@ -36,7 +36,7 @@ describe BetaSignup do
       beta_signup.is_approved.should be_true
       ActionMailer::Base.deliveries.size.should == 1
       email = ActionMailer::Base.deliveries.first
-      email.body.should =~ /After months of research/
+      email.body.should =~ /Welcome to the MyUSA beta/
     end
   end  
 end

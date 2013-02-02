@@ -54,7 +54,7 @@ describe "HomePage" do
       
       it "should show the user the dashboard" do
         visit root_path
-        page.should have_content "MyGovBeta"
+        page.should have_content "MyUSABeta"
         click_link 'Joe Citizen'
         page.should have_content 'Your Profile'
         page.should have_content 'First name'
@@ -97,7 +97,7 @@ describe "HomePage" do
         
         it "should show the tasks on the dashboard" do
           visit root_path
-          page.should have_content "MyGovBeta"
+          page.should have_content "MyUSABeta"
           page.should have_content "Tasks"
           page.should have_content "Change your name"
         end
@@ -150,11 +150,11 @@ describe "HomePage" do
         it "should log out the user and destroy the account" do
           visit root_path
           click_link "Delete"
-          page.should have_content "Your MyGov account has been deleted."
+          page.should have_content "Your MyUSA account has been deleted."
           page.should have_content "Sign up"
           User.find_by_email('joe@citizen.org').should be_nil
           ActionMailer::Base.deliveries.size.should == @mail_size + 1
-          ActionMailer::Base.deliveries.last.subject.should == "Your MyGov account has been deleted."
+          ActionMailer::Base.deliveries.last.subject.should == "Your MyUSA account has been deleted."
         end
       end
     end

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "auto_logout" do
   context "User is logged in" do
     before do
-      @inactivity_warning_text = "We noticed you haven't been very active in MyGov"
+      @inactivity_warning_text = "We noticed you haven't been very active in MyUSA"
       Devise.setup do |config|
         config.timeout_in = 3
       end

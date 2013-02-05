@@ -25,7 +25,7 @@ gem "permanent_records", "~> 2.3.0"
 gem "httparty"
 gem "paperclip", "~> 3.0"
 gem "rabl"
-gem 'simple_form'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

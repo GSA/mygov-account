@@ -1,5 +1,10 @@
-%h3
-  Edit App
-%br
-%br
-= render :partial =>  "form"
+.row
+  .twelve.columns
+    %h3
+      Edit your MyUSA App
+.row
+  .eight.columns
+    = form_for @app do |f|
+      = render :partial => "form", :locals => {:f => f}
+      = f.submit 'Update your MyUSA App', :class => 'button positive'
+      = link_to 'Cancel', app_path(@app)

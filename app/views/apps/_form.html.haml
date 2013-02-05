@@ -1,10 +1,19 @@
-.row
-  .eight.columns
-    = simple_form_for @app do |f|
-      = f.input :name
-      = f.input :description      
-      = f.input :short_description
-      = f.input :url      
-      = f.input :redirect_uri
-      = f.input :logo
-      = submit_tag 'Create new application', :class => 'large button'
+%ul
+  %li
+    = f.label :name
+    = f.text_field :name
+  %li
+    = f.label :description
+    = f.text_area :description
+  %li
+    = f.label :short_description
+    = f.text_field :short_description
+  %li
+    = f.label :url
+    = f.text_field :url
+  %li
+    = f.label :redirect_uri
+    = f.text_field :redirect_uri
+  %li
+    = f.label :logo
+    = f.file_field :logo

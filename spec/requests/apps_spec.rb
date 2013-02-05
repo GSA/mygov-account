@@ -90,19 +90,20 @@ describe "Apps" do
       
       it "should let a user create a new app, show them the the client id and secret id, and edit the app" do
         visit new_app_path
-        fill_in 'Name', :with => 'my sandbox app'
+        fill_in 'Name', :with => 'My sandbox app'
         fill_in 'Url',  :with => 'http://www.myapp.com'
         fill_in 'Description', :with => 'An app!'
-        fill_in 'Redirect uri', :with => 'http://www.myapp.com'
-        click_button('Create new application')
+        fill_in 'Redirect uri', :with => 'http://www.myapp.com/redirect'
+        click_button('Create new MyUSA App')
+        page.should have_link 'My sandbox app', :href => "http://www.myapp.com"
         page.should have_content "An app!"
-        page.should have_content("Secret:")
-        page.text.should match(/Secret: [a-zA-Z0-9]+/)
-        page.text.should match(/Client id: [a-zA-Z0-9]+/)
-        page.should have_link 'Edit'
-        click_link('Edit')
+        page.should have_content("Your application has been created.")
+        page.text.should match(/OAuth Client ID: [a-zA-Z0-9]+/)
+        page.text.should match(/OAuth Client Secret: [a-zA-Z0-9]+/)
+        page.should have_link 'Edit app information'
+        click_link('Edit app information')
         fill_in "Description", :with => 'An app$'
-        click_button('Create new application')
+        click_button('Update your MyUSA App')
         page.should have_content "An app$"
         page.should have_no_content "An app!"
       end
@@ -140,7 +141,8 @@ describe "Apps" do
             visit app_path @app1
             page.should have_content @app1.name
             page.should have_content @app1.description
-            page.should have_link 'Edit'
+            page.should have_content "App status: Public"
+            page.should have_link 'Edit app information'
           end
         end
       
@@ -149,7 +151,8 @@ describe "Apps" do
             visit app_path @sandboxed_app1
             page.should have_content @sandboxed_app1.name
             page.should have_content @sandboxed_app1.description
-            page.should have_link 'Edit'
+            page.should have_content "App status: Sandboxed"
+            page.should have_link 'Edit app information'
           end
         end
       end
@@ -160,7 +163,7 @@ describe "Apps" do
             visit app_path @app2
             page.should have_content @app2.name
             page.should have_content @app2.description
-            page.should have_no_link 'Edit'
+            page.should have_no_link 'Edit app information'
           end
         end
       

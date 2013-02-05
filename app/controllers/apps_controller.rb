@@ -8,7 +8,7 @@ class AppsController < ApplicationController
 
   def index
     @apps = App.authentic_apps
-    @sandbox_apps = current_user ? current_user.sandbox_apps : []
+    @sandbox_apps = @user ? @user.sandbox_apps : []
   end
   
   def new
@@ -18,12 +18,11 @@ class AppsController < ApplicationController
   def create
     @app = App.new(params[:app])
     @app.user = @user
-    respond_to do |format|
-      if @app.save
-        format.html { redirect_to @app, :alert => "App was successfully created. Secret: #{@app.oauth2_client.client_secret} Client id: #{@app.oauth2_client.client_id}"}
-      else
-        render :action => 'new' 
-      end
+    if @app.save
+      session[:app] = {client_secret: @app.oauth2_client.client_secret}
+      redirect_to @app, :alert => "App was successfully created. Secret: #{@app.oauth2_client.client_secret} Client id: #{@app.oauth2_client.client_id}"
+    else
+      render :action => 'new' 
     end
   end
 

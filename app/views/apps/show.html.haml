@@ -1,14 +1,49 @@
-- if flash.alert
-  .alert-box
-    = flash.alert
-= image_tag @app.logo.url(:thumb)
-%br
-= link_to @app.name, @app.url
-%br
-= @app.description
-%br
-- if @user_installed_apps.include?(@app)
-  (Authorized)
-  = link_to "Revoke access", uninstall_app_path(@app)
-- if @app.has_owner?(@user)
-  = link_to 'Edit', edit_app_path(@app)
+- if session[:app]
+  .row
+    .twelve.columns
+      .alert-box
+        %h5{:style => 'text-shadow: 0 0 0;'}
+          Your application has been created.
+        %p{:style => 'text-shadow: 0 0 0;'}
+          Please note the following information; you will need it to access the MyUSA Citizen API from your application.  The client secret will not be available after you close this page.
+          %ul
+            %li{:style => 'text-shadow: 0 0 0;'}
+              OAuth Client ID: #{@app.client_id}
+            %li{:style => 'text-shadow: 0 0 0;'}
+              OAuth Client Secret: #{session[:app][:client_secret]}
+          You can return to this page and follow the 'Edit app information' link to update your app.
+.row
+  .two.columns
+    = image_tag @app.logo.url(:medium)
+  .ten.columns
+    %h3
+      = link_to @app.name, @app.url
+    %h5
+      = @app.short_description
+    %p
+      = @app.description
+    - if @user_installed_apps.include?(@app)
+      %p
+        You have authorized this app. 
+      - if @app.oauth_scopes.any?
+        %p
+          This app has permission to:
+        %ul
+          - @app.oauth_scopes.each do |oauth_scope|
+            %li
+              = oauth_scope.description
+      %p
+        You can revoke this app's permissions by clicking the button below.
+      %p
+        = link_to 'Revoke access', uninstall_app_path(@app)
+    - if @app.has_owner?(@user)
+      .panel.group
+        %p
+          You are the owner of this application.
+        %ul
+          %li
+            App status: #{app_status(@app)}
+          %li
+            App OAuth Client ID: #{@app.client_id}
+          %li
+            = link_to 'Edit app information', edit_app_path(@app)

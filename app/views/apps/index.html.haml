@@ -2,14 +2,13 @@
   .twelve.columns
     %h3
       MyUSA Applications  
-  - @apps.each do |app|
-    = render :partial => 'apps', :locals => { :app => app }
-
+    - @apps.each do |app|
+      = render :partial => 'apps', :locals => { :app => app }
 -  unless @sandbox_apps.empty?
   .row
     .twelve.columns
       %h3
-        Sandbox Applications  
+        Your Applications  
       - @sandbox_apps.each do |app|
         = render :partial => 'apps', :locals => { :app => app }
   

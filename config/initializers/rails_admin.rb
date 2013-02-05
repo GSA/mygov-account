@@ -61,7 +61,6 @@ RailsAdmin.config do |config|
   config.attr_accessible_role { :admin }
   config.model App do
     edit do
-      field :is_public
       field :owner_email
       field :name
       field :description      
@@ -69,7 +68,7 @@ RailsAdmin.config do |config|
       field :url      
       field :redirect_uri
       field :logo
-
+      field :is_public
     end
   end
   

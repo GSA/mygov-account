@@ -15,8 +15,8 @@ class App < ActiveRecord::Base
   after_update :update_oauth2_client
   
   attr_accessor :renew_secret
-  attr_accessible :description, :logo, :name, :redirect_uri, :short_description, :url, :user, :user_id, :owner_email
-  attr_accessible :user_id, :user, :is_public, :description, :logo, :name, :redirect_uri, :short_description, :url, :owner_email, as: :admin
+  attr_accessible :name, :description, :short_description, :url, :logo, :redirect_uri, :as => [:default, :admin]
+  attr_accessible :user, :user_id, :is_public, :owner_email, :as => :admin
 
   has_attached_file :logo, :styles => { :medium => "300x300>", :thumb => "200x200>" }, :default_url => '/assets/app-icon.png'
   

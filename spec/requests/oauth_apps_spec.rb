@@ -11,21 +11,24 @@ describe "OauthApps" do
     @user2.confirm!
 
     OauthScope.seed_data.each { |os| OauthScope.create os }
+    
     app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
     app1.is_public = true
     app1.save!
     app1.oauth_scopes << OauthScope.all
     @app1_client_auth = app1.oauth2_client
+    
     app2 = App.create(name: 'App2'){|app| app.redirect_uri = "http://localhost/"}
     app2.is_public = true
     app2.save!
     @app2_client_auth = app2.oauth2_client
+    
     app3 = App.create(name:  'App3'){|app| app.redirect_uri = "http://localhost/"}
     app3.is_public = true
     app3.save!
     @app3_client_auth = app3.oauth2_client
 
-    sandbox = App.create(name:  'sandbox', user_id: @user.id){|app| app.redirect_uri = "http://localhost/"}
+    sandbox = App.create({name:  'sandbox', user_id: @user.id, redirect_uri: "http://localhost/"}, :as => :admin)
     @sandbox_client_auth = sandbox.oauth2_client
   end
   
@@ -33,10 +36,10 @@ describe "OauthApps" do
     before do
       create_logged_in_user(@user)
     end
+    
     describe "Authorize sandbox application by owner" do
       it "should ask for authorization and redirect after clicking 'Allow'" do
-        visit(url_for(controller: 'oauth', action: 'authorize',
-              response_type: 'code', client_id: @sandbox_client_auth.client_id, redirect_uri: 'http://localhost/'))
+        visit(url_for(controller: 'oauth', action: 'authorize', response_type: 'code', client_id: @sandbox_client_auth.client_id, redirect_uri: 'http://localhost/'))
         page.should have_content('The sandbox application wants to:')
         click_button('Allow')
         uri = URI.parse(current_url)
@@ -51,10 +54,10 @@ describe "OauthApps" do
     before do
       create_logged_in_user(@user2)
     end
+    
     describe "Does not allow sandbox application installation by non owner" do
       it "code in params should not have a value" do
-        visit(url_for(controller: 'oauth', action: 'authorize',
-              response_type: 'code', client_id: @sandbox_client_auth.client_id, redirect_uri: 'http://localhost/'))
+        visit(url_for(controller: 'oauth', action: 'authorize', response_type: 'code', client_id: @sandbox_client_auth.client_id, redirect_uri: 'http://localhost/'))
         page.should have_content('The sandbox application wants to:')
         click_button('Allow')
         uri = URI.parse(current_url)

@@ -27,6 +27,10 @@ class AppsController < ApplicationController
   end
 
   def show
+    if session[:app]
+      @client_secret = session[:app][:client_secret]
+      session[:app] = nil
+    end
   end
   
   def edit

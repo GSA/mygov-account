@@ -1,4 +1,4 @@
-- if session[:app]
+- if @client_secret
   .row
     .twelve.columns
       .alert-box
@@ -10,7 +10,7 @@
             %li{:style => 'text-shadow: 0 0 0;'}
               OAuth Client ID: #{@app.client_id}
             %li{:style => 'text-shadow: 0 0 0;'}
-              OAuth Client Secret: #{session[:app][:client_secret]}
+              OAuth Client Secret: #{@client_secret}
           You can return to this page and follow the 'Edit app information' link to update your app.
 .row
   .two.columns

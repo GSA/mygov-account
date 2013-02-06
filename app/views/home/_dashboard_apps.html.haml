@@ -3,24 +3,28 @@
   %h3
     %i{:class => "foundicon-website"}
     Apps
+  %p
+    Apps are services that use your MyUSA Account to make interacting with government easier.
   %h4
     Here are some apps we're working on:
   .row.news
     .four.columns
       .panel.ideas
         %h5
-          Change your name
+          = link_to 'Change your name', "https://apps.my.usa.gov/change-your-name"
         %p
           An application that simplifies the confusing process of changing your name.
     .four.columns
       .panel.ideas
         %h5
-          Department of Education Grants
+          = link_to 'Benefits', "https://apps.my.usa.gov/benefits.gov"
         %p
-          Need to apply for education grants? No problem, we've got you covered.
+          See what government benefits are available to you.
     .four.columns
       .panel.ideas
-        %h5
-          Benefits
         %p
-          See what benefits are available to you.
+          Check out all available apps in the #{link_to 'App Gallery', apps_path}.
+        %p
+          Are you a developer?
+          %br
+          #{link_to 'Learn how to create your own MyUSA app', developer_path}.

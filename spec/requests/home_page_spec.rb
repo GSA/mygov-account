@@ -60,6 +60,11 @@ describe "HomePage" do
         page.should have_content 'First name'
       end
       
+      it "should provide a link to the app gallery" do
+        visit root_path
+        page.should have_link "App Gallery", :href => apps_path
+      end
+      
       context "when the user does not have a first, last or any other name" do
         before do
           @user.update_attributes(:name => nil)

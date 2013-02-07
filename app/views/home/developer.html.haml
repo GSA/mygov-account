@@ -7,115 +7,81 @@
             %h2
               Developers
             %p.tagline
-              Help make this better.       
-            
-            %p
-              MyUSA began its journey by setting out to improve the way citizens interact with government, but to continue, we need your help. The code is just the start. It is our hope that these MyUSA projects can serve as one example of a greater joint effort - citizens and government collaborating to improve our shared experience, and there are lots of ways to do just that.
-            %p
-              Virtually all of the functionality available via MyUSA is exposed in a machine readable format, and we encourage developers to build cool things using them. Already built something cool? (We'd love to hear about it).
-            
+              Build something for America. 
             %h3
-              MyUSA Discovery <abbr>API</abbr>
+              Getting Started
             %p
-              The MyUSA Discovery <abbr>API</abbr> provides a service to discover related government content. Think of it as a folksonomy layered on top of the entire .gov footprint. Each page is assigned tags, which are used to find similarly tagged pages.
-           
+              To get started building a MyUSA App, you'll need to do the following:
+              %h5
+                Create an account
+              %p
+                Go to #{sign_up_path} and create a MyUSA Account.  If you have not been approved for the private beta, but would like to develop something, #{link_to 'contact us', "mailto:projectmygov@gsa.gov"} with details.
+              %h5
+                Register your application
+              %p
+                #{link_to 'Register a new application', new_app_path} with MyUSA, and make sure to save your MyUSA Client ID and MyUSA Client Secret; you'll need these to authenticate your application with MyUSA.
+              %p
+                When you create a new application, the app will be 'sandboxed.'  This means only MyUSA users that have the same email address as you have on your account will be able to authorize the application.  Once your app is mature, you can apply to have it made public for all MyUSA users to utilize.  #{link_to 'Contact us', 'mailto:projectmygov@gsa.gov'} if you think your app is ready for prime time.                  
+              %h5
+                Build something awesome!
+              %p
+                Learn about the MyUSA Citizen API (see below) and build something that makes the lives of all Americans better.
+              %p
+                Check out some apps we built:
+                %ul
+                  %li
+                    = link_to "Change your name", "https://github.com/GSA-OCSIT/mygov-change-your-name"
+                  %li
+                    = link_to "Benefits.gov Mockup", "https://github.com/GSA-OCSIT/benefits-mockup"
             %h3
-              The code
+              MyUSA Citizen API
             %p
-              Project MyUSA is a series of open source projects and is supported by the efforts of an entire community. Whatever your level of skill or however much time you can spare, your contribution is greatly appreciated. As with all open source software, feel free to adapt the code for your own projects, but with this code especially, we encourage you to take a moment to get involved. 
-            
-          .six.columns
-            .panel
-              %h5
-                Account
-              
-              %ul.plain-list
-                %li 
-                  %a{:href => "https://github.com/GSA-OCSIT/mygov-account"} <strong>MyUSA Account</strong> (source code)
-          .six.columns
-            .panel            
-              %h5
-                Forms
-                    
-              %ul.plain-list
-                %li 
-                  %a{:href => "https://github.com/GSA-OCSIT/mygov-forms"} <strong>MyUSA Forms</strong> (source code)
-          
-              
-          .six.columns
-            .panel
-              %h5
-                Discovery
-              %ul.plain-list
+              The MyUSA Citizen API is how MyUSA Apps interact with MyUSA Accounts.  Let's take a look at the features that you can integrate into your application using the MyUSA Citizen API.
+            %p
+              For more detailed information on the MyUSA Citizen API, browse the #{link_to 'MyUSA Citizen API documentation', 'http://apidocs.presidentialinnovationfellows.org/mygov'}.
+            %h5
+              Profile
+            %p
+              MyUSA Apps can access a MyUSA Account user's profile information.  Information that is available includes: name, address, contact information and some basic demographic information (married, veteran status, student).
+            %p
+              If your MyUSA App needs access to a user's profile, make sure to select the 'profile' option when registering your application.
+            %h5
+              Tasks
+            %p
+              Need to help a MyUSA user through a complex set of steps to accomplish something?  The Tasks API is for you!  Using the Tasks API, you can create a task with a list of task items for a user.  Tasks that your app creates will show up in their MyUSA Account.  You can also go back and retrieve tasks that your app created for a user, so you can integrate them in your app.
+            %p
+              If your MyUSA App needs to assign tasks to users, make sure to select the 'tasks' option when registering your application.
+            %h5
+              Notifications
+            %p
+              MyUSA Apps can notify MyUSA users with new information using the Notifications API.  MyUSA users will be alerted both via the MyUSA Account and email that they have a new notification from your app.
+            %p
+              If your MyUSA App needs to notify users with new information, make sure to select the 'notifications' option when registering your application.
+            %h5
+              Forms (still in development)
+            %p
+              The Forms API enables your application to submit forms on behalf of MyUSA users to the #{link_to 'MyUSA Forms Service', 'https://github.com/GSA-OCSIT/mygov-forms'}.  This will save the user's response, and return a key to their MyUSA Account that will allow them to keep track of the forms they have filled out in the past, and help them quickly fill out forms in the future.
+            %p
+              If your MyUSA App needs to submit forms, make sure to select the "submit forms" options when registering your application.
+            %h5
+              More coming soon!
+            %p
+              We have more API features coming soon.  Check back here, or on the #{link_to 'MyUSA blog', 'http://presidential-innovation-fellows.org/mygov'} for updates.
+            %h3
+              Authentication
+            %p
+              In order to get access to the MyUSA Citizen API, your application will need to authenticate itself with MyUSA.  MyUSA uses the OAuth 2.0 protocol for authentication and authorization of requests.  When registering your application with MyUSA, make sure to save your OAuth client and secret ids, as you will need them when authorizing with MyUSA.
+            %p
+              Here's some resources to help you get started with OAuth 2.0 and using the MyUSA Citizen API:
+              %ul
                 %li
-                  %a{:href => "https://github.com/GSA-OCSIT/mygov-bar"} <strong>MyUSA Discovery Bar</strong> (source code)
-                
+                  = link_to 'OAuth 2.0', 'http://oauth.net/2/'
                 %li
-                  %a{:href => "https://github.com/GSA-OCSIT/mygov-discovery"} <strong>Discovery API</strong>
-            
-          
-            
-          .six.columns
-            .panel
-              %h5
-                Apps
-              
-              %ul.plain-list
+                  = link_to 'MyUSA OmniAuth Strategy for OAuth 2.0', 'https://github.com/GSA-OCSIT/omniauth-mygov'
+                  (Ruby)
                 %li
-                  %a{:href => "https://github.com/GSA-OCSIT/mygov-change-your-name"} <strong>Change your name</strong>  (source code)
-                %li
-                  %a{:href => "https://github.com/GSA-OCSIT/benefits-mockup"} <strong>Benefits Example App</strong>  (source code)
-          
-        .twelve.columns.clear
-        
-          %h3
-            Other things we&rsquo;ve worked on
-            
-          %ul.plain-list
-            %li
-              %a{:href => "https://github.com/GSA-OCSIT/pdf-filler"} <abbr title="portable document format">PDF</abbr> Filler
-            %li
-              %a{:href => "https://github.com/GSA-OCSIT/mygov-mobile-first-foundation"} Mobile First Foundation
-
-            
-            %li
-              %a{:href => "https://github.com/GSA-OCSIT/epa_uv_index"} <abbr title="environmental protection agency">EPA</abbr> UV Rest API
-
-            
-            %li
-              %a{:href => "https://github.com/GSA-OCSIT/omniauth-mygov"} MyUSA OmniAuth Strategy
-
-            
-            %li
-              %a{:href => "https://github.com/presidential-innovation-fellows/mygov"} MyUSA Blog
-
-          %h3
-            How to get involved
-            
-          %p
-            MyUSA is an open source project and is supported by the efforts of an entire community. We&rsquo;d love for you to get involved! Whatever your level of skill or however much time you can give, your contribution is greatly appreciated.
-            
-          %ul
-            %li
-              %strong
-                Everyone:
-              Help other users by expanding documentation and answer questions, our join the discussion and [help shape the project&rsquo;s future](http://mygov.ideascale.com/)
-            %li
-              %strong
-                Users:
-              Download and kick the tires of the latest development version of the project and submit bug reports or feature requests. Each project should have installation instructions to get you started.
-            %li
-              %strong
-                Internationalization:
-              Contribute translations in other languages
-            %li
-              %strong
-                Technical Folks:
-              Fork the development versions and submit a pull request, especially for any known issues. For more information, see [how to submit a pull request]
-          
-            
+                  = link_to 'MyUSA Citizen API PHP SDK', 'https://github.com/GSA-OCSIT/mygov-account-php-sdk'
+                  (PHP)
       .row.clear
         .twelve.columns
           = render :partial => 'footer_links'
-            
-

@@ -1,14 +1,20 @@
+.row{:style => 'padding-bottom: 10px;'}
+  .six.columns
+    %h3
+      MyUSA Applications
+  .six.columns{:style => 'text-align: right;'}
+    = link_to 'Register a new MyUSA App', new_app_path, :class => 'button positive'
 .row
   .twelve.columns
-    %h3
-      MyUSA Applications  
     - @apps.each do |app|
       = render :partial => 'apps', :locals => { :app => app }
 -  unless @sandbox_apps.empty?
   .row
     .twelve.columns
       %h3
-        Your Applications  
+        Your Applications
+  .row
+    .twelve.columns
       - @sandbox_apps.each do |app|
         = render :partial => 'apps', :locals => { :app => app }
   

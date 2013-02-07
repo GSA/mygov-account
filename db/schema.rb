@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207002242) do
+ActiveRecord::Schema.define(:version => 20130207211152) do
+
+  create_table "app_oauth_scopes", :force => true do |t|
+    t.integer  "app_id"
+    t.integer  "oauth_scope_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "app_oauth_scopes", ["app_id"], :name => "index_app_oauth_scopes_on_app_id"
+  add_index "app_oauth_scopes", ["oauth_scope_id"], :name => "index_app_oauth_scopes_on_oauth_scope_id"
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -30,14 +40,6 @@ ActiveRecord::Schema.define(:version => 20130207002242) do
   end
 
   add_index "apps", ["slug"], :name => "index_apps_on_slug"
-
-  create_table "apps_oauth_scopes", :id => false, :force => true do |t|
-    t.integer "app_id"
-    t.integer "oauth_scope_id"
-  end
-
-  add_index "apps_oauth_scopes", ["app_id"], :name => "index_apps_oauth_scopes_on_app_id"
-  add_index "apps_oauth_scopes", ["oauth_scope_id"], :name => "index_apps_oauth_scopes_on_oauth_scope_id"
 
   create_table "beta_signups", :force => true do |t|
     t.string   "email"

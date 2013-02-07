@@ -4,6 +4,7 @@ class App < ActiveRecord::Base
   belongs_to :user
   has_many :submitted_forms
   has_and_belongs_to_many :oauth_scopes
+  has_many :app_oauth_scopes
 
   validates_presence_of :name, :slug, :redirect_uri
   validates_inclusion_of :is_public, :in => [true, false]

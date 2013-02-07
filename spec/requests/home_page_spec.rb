@@ -178,4 +178,24 @@ describe "HomePage" do
       page.should have_content "Terms of service"
     end
   end
+  
+  describe "GET /discovery" do
+    context "when not logged in" do
+      it "should forward to a login page" do
+        visit discovery_path
+        page.should have_content "Please sign in or sign up before continuing"
+      end
+    end
+    
+    context "when logged in" do
+      before do
+        create_logged_in_user(@user)
+      end
+      
+      it "should show the discovery page" do
+        visit discovery_path
+        page.should have_content "Discovery Bar"
+      end
+    end
+  end
 end

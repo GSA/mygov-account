@@ -29,7 +29,6 @@ Mygov::Application.routes.draw do
     end
   end
   resources :task_items, :only => [:update, :destroy]
-  get '/pdfs/fill', :to => 'pdfs#fill', :as => :fill_pdf
   resources :beta_signups, :only => [:create]
   match '/welcome', :to => 'welcome#index', :as => :welcome
   namespace :api, :defaults => {:format => :json} do

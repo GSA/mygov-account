@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201130140) do
+ActiveRecord::Schema.define(:version => 20130207002242) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -135,30 +135,6 @@ ActiveRecord::Schema.define(:version => 20130201130140) do
   end
 
   add_index "oauth_scopes", ["scope_name"], :name => "index_oauth_scopes_on_scope_name"
-
-  create_table "pdf_fields", :force => true do |t|
-    t.string   "name"
-    t.integer  "x",                  :default => 0
-    t.integer  "y",                  :default => 0
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.integer  "pdf_id"
-    t.string   "profile_field_name"
-    t.integer  "page_number"
-  end
-
-  add_index "pdf_fields", ["pdf_id"], :name => "index_pdf_fields_on_pdf_id"
-
-  create_table "pdfs", :force => true do |t|
-    t.string   "name"
-    t.string   "url"
-    t.string   "slug"
-    t.integer  "x_offset",    :default => 0
-    t.integer  "y_offset",    :default => 0
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-    t.boolean  "is_fillable"
-  end
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"

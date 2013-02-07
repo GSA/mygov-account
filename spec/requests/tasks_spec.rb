@@ -8,8 +8,6 @@ describe "Tasks" do
       @user.confirm!
 
       @app = App.create!(:name => 'Change your name'){|app| app.redirect_uri = "http://localhost:3000/"}
-      @married_pdf = Pdf.create!(:name => 'Form 123 - Getting Married', :url => 'http://example.gov/married.pdf')
-      @divorced_pdf = Pdf.create!(:name => 'Form 789 - Getting Divorced', :url => 'http://example.gov/divorced.pdf')
       
       @task = @user.tasks.create!(:app_id => @app.id, :name => 'Change your name')
       @task.task_items.create!(:name => 'Get Married!')
@@ -19,7 +17,7 @@ describe "Tasks" do
       visit task_path(@task)
     end
     
-    it "should display a task with links to download pdfs" do
+    it "should display a task with links with the task item names" do
       page.should have_content(@task.app.name)
       @task.task_items.each{|task_item| page.should have_content(task_item.name) }
       page.should have_content "0 of 2 items completed."

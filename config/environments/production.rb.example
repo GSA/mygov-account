@@ -72,7 +72,5 @@ end
 
 OAuth2::Provider.enforce_ssl = true
 
-PDFTK_PATH = "/usr/bin/pdftk"
-
 # Google Analytics
 GA.tracker = "YOUR GOOGLE ANALYTICS CODE"

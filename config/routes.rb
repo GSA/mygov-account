@@ -6,7 +6,6 @@ Mygov::Application.routes.draw do
     get 'sign_in', :to => 'devise/sessions#new', :as => :sign_in
     get 'sign_out', :to => 'devise/sessions#destroy', :as => :sign_out
   end
-  resources :oauth_apps
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/allow' => 'oauth#allow'

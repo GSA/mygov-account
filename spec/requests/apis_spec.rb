@@ -5,7 +5,6 @@ describe "Apis" do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
-    OauthScope.seed_data.each { |os| OauthScope.create os }
     @app = App.create(:name => 'App1'){|app| app.redirect_uri = "http://localhost/"}
     @app.oauth_scopes = OauthScope.all
     authorization = OAuth2::Model::Authorization.new

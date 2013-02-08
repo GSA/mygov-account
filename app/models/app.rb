@@ -3,8 +3,9 @@ class App < ActiveRecord::Base
   
   belongs_to :user
   has_many :submitted_forms
-  has_and_belongs_to_many :oauth_scopes
   has_many :app_oauth_scopes
+  has_many :oauth_scopes, :through => :app_oauth_scopes
+  accepts_nested_attributes_for :app_oauth_scopes
 
   validates_presence_of :name, :slug, :redirect_uri
   validates_inclusion_of :is_public, :in => [true, false]
@@ -16,7 +17,7 @@ class App < ActiveRecord::Base
   after_update :update_oauth2_client
   
   attr_accessor :renew_secret
-  attr_accessible :name, :description, :short_description, :url, :logo, :redirect_uri, :as => [:default, :admin]
+  attr_accessible :name, :description, :short_description, :url, :logo, :redirect_uri, :app_oauth_scopes_attributes, :as => [:default, :admin]
   attr_accessible :user, :user_id, :is_public, :owner_email, :as => :admin
 
   has_attached_file :logo, :styles => { :medium => "300x300>", :thumb => "200x200>" }, :default_url => '/assets/app-icon.png'

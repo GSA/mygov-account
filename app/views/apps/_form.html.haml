@@ -17,3 +17,11 @@
   %li
     = f.label :logo
     = f.file_field :logo
+  %li
+    = label_tag 'app_oauth_scopes' do
+      App Scopes: select which parts of the MyUSA Citizen API your application will use:
+      - @oauth_scopes.each_with_index do |oauth_scope, index|
+        = label_tag oauth_scope.scope_name do
+          = check_box_tag "app[app_oauth_scopes_attributes][#{index}][oauth_scope_id]", oauth_scope.id, @app.app_oauth_scopes.collect(&:oauth_scope_id).include?(oauth_scope.id) ? true : false      
+          = oauth_scope.description
+    

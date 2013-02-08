@@ -13,9 +13,11 @@ describe "Apps" do
     @app1 = @user.apps.create(name: 'Public App 1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")
     @app1.is_public = true
     @app1.save!
+    
     @app2 = @user2.apps.create(name: 'Public App 2', :short_description => 'Public Application 2', :description => 'A public app 2', redirect_uri: "http://localhost/")
     @app2.is_public = true
     @app2.save!
+    
     @sandboxed_app1 = @user.apps.create(name: 'Sandboxed App 1', :short_description => 'Sandboxed Application 1', redirect_uri: "http://localhost/")
     @sandboxed_app2 = @user2.apps.create(name: 'Sandboxed App 2', :short_description => 'Sandboxed Application 2', redirect_uri: "http://localhost/")
   end
@@ -94,7 +96,8 @@ describe "Apps" do
         fill_in 'Url',  :with => 'http://www.myapp.com'
         fill_in 'Description', :with => 'An app!'
         fill_in 'Redirect uri', :with => 'http://www.myapp.com/redirect'
-        click_button('Create new MyUSA App')
+        check("Read your profile information")
+        click_button('Register new MyUSA App')
         page.should have_link 'My sandbox app', :href => "http://www.myapp.com"
         page.should have_content "An app!"
         page.should have_content("Your application has been created.")
@@ -106,6 +109,27 @@ describe "Apps" do
         click_button('Update your MyUSA App')
         page.should have_content "An app$"
         page.should have_no_content "An app!"
+      end
+      
+      context "when the user selects scopes but not something else that's required" do
+        it "should remember which scopes the user checked" do
+          visit new_app_path
+          check('Read your profile information')
+          click_button('Register new MyUSA App')
+          find('#app_app_oauth_scopes_attributes_0_oauth_scope_id').should be_checked
+        end
+      end
+      
+      context "when the user does not select an OAuth Scope" do
+        it "should not create the app and return the user to the form with an error message" do
+          visit new_app_path
+          fill_in 'Name', :with => 'My sandbox app'
+          fill_in 'Url',  :with => 'http://www.myapp.com'
+          fill_in 'Description', :with => 'An app!'
+          fill_in 'Redirect uri', :with => 'http://www.myapp.com/redirect'
+          click_button('Register new MyUSA App')
+          page.should have_content "Please select at least one scope."
+        end
       end
     end
   end

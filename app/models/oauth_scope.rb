@@ -1,9 +1,7 @@
 class OauthScope < ActiveRecord::Base
-  attr_accessible :description, :name, :scope_name
-  has_and_belongs_to_many :apps
-  
   validates_presence_of :name, :scope_name
   validates_uniqueness_of :scope_name
+  attr_accessible :description, :name, :scope_name  
   
   def self.seed_data
     [{name: 'Profile', description: 'Read your profile information', scope_name: 'profile'},

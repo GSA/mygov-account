@@ -4,7 +4,7 @@ describe App do
   before do
     @valid_attributes = {
       :name         => 'Change your name',
-      :redirect_uri => 'http://www.myapp.com',
+      :redirect_uri => 'http://www.myapp.com'
     }
   end
   

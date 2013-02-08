@@ -3,6 +3,7 @@ class AppsController < ApplicationController
   before_filter :assign_user
   before_filter :assign_app, :only => [:show, :edit, :update, :uninstall]
   before_filter :assign_user_installed_apps, :only => [:index, :show]
+  before_filter :assign_oauth_scopes, :only => [:new, :create, :edit, :update]
   before_filter :verify_app_owner,  :only =>  [:edit, :update]
   before_filter :verify_public_or_is_owner, :only => [:show]
 
@@ -17,12 +18,18 @@ class AppsController < ApplicationController
 
   def create
     @app = App.new(params[:app])
-    @app.user = @user
-    if @app.save
-      session[:app] = {client_secret: @app.oauth2_client.client_secret}
-      redirect_to @app, :alert => "App was successfully created. Secret: #{@app.oauth2_client.client_secret} Client id: #{@app.oauth2_client.client_id}"
+    if @app.app_oauth_scopes.empty?
+      @app.valid?      
+      @app.errors.add(:base, 'Please select at least one scope.')
+      render :action => 'new'
     else
-      render :action => 'new' 
+      @app.user = @user
+      if @app.save
+        session[:app] = {client_secret: @app.oauth2_client.client_secret}
+        redirect_to @app
+      else
+        render :action => 'new' 
+      end
     end
   end
 
@@ -59,6 +66,10 @@ class AppsController < ApplicationController
 
   def assign_user_installed_apps
     @user_installed_apps = @user ? @user.installed_apps : []
+  end
+  
+  def assign_oauth_scopes
+    @oauth_scopes = OauthScope.all
   end
   
   def verify_public_or_is_owner

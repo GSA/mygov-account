@@ -53,6 +53,10 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
   
+  config.before(:each) do
+    OauthScope.seed_data.each { |os| OauthScope.create os } if OauthScope.all.empty?
+  end
+  
   config.include IntegrationSpecHelper, :type => :request
 end
 

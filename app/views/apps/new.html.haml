@@ -5,6 +5,9 @@
 .row
   .eight.columns
     = form_for @app do |f|
-      = render :partial => "form", :locals => {:f => f}
-      = f.submit 'Create new MyUSA App', :class => 'button positive'
+      - if @app.errors
+        .alert-box.alert
+          = error_messages_for(@app)
+      = render :partial => "form", :locals => {:f => f, :oauth_scopes => @oauth_scopes}
+      = f.submit 'Register new MyUSA App', :class => 'button positive'
       = link_to 'Cancel', apps_path

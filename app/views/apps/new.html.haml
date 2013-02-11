@@ -5,7 +5,7 @@
 .row
   .eight.columns
     = form_for @app do |f|
-      - if @app.errors
+      - if @app.errors.any?
         .alert-box.alert
           = error_messages_for(@app)
       = render :partial => "form", :locals => {:f => f, :oauth_scopes => @oauth_scopes}

@@ -4,19 +4,20 @@ describe TaskItem do
   before do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
-    @app= App.create!(:name => 'Test App'){|app| app.redirect_uri = "http://localhost:3000/"}
-    @task = Task.new(:app_id => @app.id, :name => 'Test task')
-    @task.user = @user
-    @task.save!
+    @app= App.create!(:name => 'Test App', :redirect_uri => "http://localhost:3000/")
+    @task = Task.create!({:name => 'Test task', :app => @app, :user => @user}, :as => :admin)
     @valid_attributes = {
-      :task_id => @task_id
+      :name => 'Task Item 1',
+      :url => 'http://example.gov/task'    
     }
   end
   
   it { should belong_to :task }
   
   it "should create a new instance given valid attributes" do
-    TaskItem.create!(@valid_attributes)
+    task_item = TaskItem.new(@valid_attributes)
+    task_item.task_id = @task.id
+    task_item.save!
   end
   
   describe "#completed?" do

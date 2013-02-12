@@ -7,8 +7,8 @@ describe "Notifications" do
     @user.confirm!
     create_approved_beta_signup('jane@citizen.org')
     @other_user = User.create!(:email => 'jane@citizen.org', :password => 'random', :first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
-    @app1 = App.create!(:name => 'App1'){ |app| app.redirect_uri = 'http://localhost/' }
-    @app2 = App.create!(:name => 'App2'){ |app| app.redirect_uri = 'http://localhost/' }
+    @app1 = App.create!(:name => 'App1', :redirect_uri => 'http://localhost/')
+    @app2 = App.create!(:name => 'App2', :redirect_uri => 'http://localhost/')
     create_logged_in_user(@user)
   end
 
@@ -33,10 +33,10 @@ describe "Notifications" do
       before do
         Notification.all.each { |notification| notification.destroy(:force) }
         1.upto(14) do |index|
-          @notification = Notification.create!(:subject => "Notification ##{index}", :received_at => (Time.now - 1.hour + index.minutes), :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app1.id)
+          @notification = Notification.create!({:subject => "Notification ##{index}", :received_at => (Time.now - 1.hour + index.minutes), :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app1.id}, :as => :admin)
         end
-        @other_user_notification = Notification.create!(:subject => 'Other User Notification', :received_at => (Time.now - 1.hour + 15.minutes), :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app1.id)
-        @other_app_notification = Notification.create!(:subject => 'Other App Notification', :received_at => (Time.now - 1.hour + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id)
+        @other_user_notification = Notification.create!({:subject => 'Other User Notification', :received_at => (Time.now - 1.hour + 15.minutes), :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app1.id}, :as => :admin)
+        @other_app_notification = Notification.create!({:subject => 'Other App Notification', :received_at => (Time.now - 1.hour + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
       end
       
       it "should put indicate such on the dashboard" do

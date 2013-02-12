@@ -11,7 +11,9 @@ class Api::FormsController < Api::ApiController
       data = params[:data] || {}
       response = HTTParty.post("#{MYGOV_FORMS_HOME}/api/forms/#{form_number}/submissions", :body => {:submission => {:data => data}})
       if response.code == 201
-        submitted_form = SubmittedForm.new(:app_id => @app.id, :user_id => @user.id, :form_number => form_number, :data_url => response.headers["location"])
+        submitted_form = SubmittedForm.new(:form_number => form_number, :data_url => response.headers["location"])
+        submitted_form.app_id = @app.id
+        submitted_form.user_id = @user.id
         if submitted_form.save
           respond_with submitted_form, :location => api_form_url(submitted_form)
         else

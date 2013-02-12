@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :omniauthable, :lockable, :timeoutable, :confirmable
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_veteran, :is_student, :is_retired, :terms_of_service
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :title, :first_name, :last_name, :suffix, :name, :provider, :uid, :middle_name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_veteran, :is_student, :is_retired, :terms_of_service, :as => [:default, :admin]
   attr_accessor :just_created
 
   PROFILE_ATTRIBUTES = [:email, :title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_veteran, :is_student, :is_retired]
@@ -81,9 +81,9 @@ class User < ActiveRecord::Base
   end
   
   def create_default_tasks
-    task1 = self.tasks.create(:name => 'Tell us a little about yourself.', :app_id => App.default_app.id)
+    task1 = self.tasks.create({:name => 'Tell us a little about yourself.', :app_id => App.default_app.id}, :as => :admin)
     task1.task_items.create(:name => 'Complete your profile today so we can help tailor MyUSA to fit your needs.', :url => "/welcome?step=info")
-    task2 = self.tasks.create(:name => 'Help us make this service more tailored to your needs.', :app_id => App.default_app.id)
+    task2 = self.tasks.create({:name => 'Help us make this service more tailored to your needs.', :app_id => App.default_app.id}, :as => :admin)
     task2.task_items.create(:name => 'Get started!', :url => "/welcome?step=about_you")
   end
   

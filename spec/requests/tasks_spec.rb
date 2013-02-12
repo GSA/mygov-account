@@ -7,9 +7,9 @@ describe "Tasks" do
       @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
       @user.confirm!
 
-      @app = App.create!(:name => 'Change your name'){|app| app.redirect_uri = "http://localhost:3000/"}
+      @app = App.create!(:name => 'Change your name', :redirect_uri => "http://localhost:3000/")
       
-      @task = @user.tasks.create!(:app_id => @app.id, :name => 'Change your name')
+      @task = @user.tasks.create!({:app_id => @app.id, :name => 'Change your name'}, :as => :admin)
       @task.task_items.create!(:name => 'Get Married!')
       @task.task_items.create!(:name => 'Get Divorced!')
       

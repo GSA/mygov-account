@@ -1,7 +1,7 @@
 class OauthScope < ActiveRecord::Base
   validates_presence_of :name, :scope_name
   validates_uniqueness_of :scope_name
-  attr_accessible :description, :name, :scope_name  
+  attr_accessible :description, :name, :scope_name, :as => [:default, :admin]
   
   def self.seed_data
     [{name: 'Profile', description: 'Read your profile information', scope_name: 'profile'},

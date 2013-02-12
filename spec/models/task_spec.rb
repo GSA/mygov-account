@@ -4,10 +4,8 @@ describe Task do
   before do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
-    @app = App.create!(:name => 'Test App'){|app| app.redirect_uri = "http://localhost:3000/"}
+    @app = App.create!(:name => 'Test App', :redirect_uri => "http://localhost:3000/")
     @valid_attributes = {
-      :user_id => @user.id,
-      :app_id => @app.id,
       :name => 'Test task'
     }
   end
@@ -20,7 +18,10 @@ describe Task do
   it { should belong_to :app }
   
   it "should create a new instance given valid attributes" do
-    Task.create!(@valid_attributes)
+    task = Task.new(@valid_attributes)
+    task.app_id = @app.id
+    task.user_id = @user.id
+    task.save!
   end
   
   describe "#completed?" do

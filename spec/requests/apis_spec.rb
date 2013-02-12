@@ -5,7 +5,7 @@ describe "Apis" do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
-    @app = App.create(:name => 'App1'){|app| app.redirect_uri = "http://localhost/"}
+    @app = App.create(:name => 'App1', :redirect_uri => "http://localhost/")
     @app.oauth_scopes = OauthScope.all
     authorization = OAuth2::Model::Authorization.new
     authorization.scope = @app.oauth_scopes.collect{ |s| s.scope_name }.join(" ")
@@ -58,14 +58,14 @@ describe "Apis" do
     before do
       create_approved_beta_signup('jane@citizen.org')
       @other_user = User.create!(:email => 'jane@citizen.org', :password => 'random', :first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
-      @app2 = App.create!(:name => 'App2'){|app| app.redirect_uri = "http://localhost:3000/"}
+      @app2 = App.create!(:name => 'App2', :redirect_uri => "http://localhost:3000/")
       @app2.oauth_scopes << OauthScope.all
       create_logged_in_user(@user)
       1.upto(14) do |index|
-        @notification = Notification.create!(:subject => "Notification ##{index}", :received_at => Time.now - 1.hour, :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app.id)
+        @notification = Notification.create!({:subject => "Notification ##{index}", :received_at => Time.now - 1.hour, :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app.id}, :as => :admin)
       end
-      @other_user_notification = Notification.create!(:subject => 'Other User Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app.id)
-      @other_app_notification = Notification.create!(:subject => 'Other App Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id)
+      @other_user_notification = Notification.create!({:subject => 'Other User Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app.id}, :as => :admin)
+      @other_app_notification = Notification.create!({:subject => 'Other App Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
       @user.notifications.each{ |n| n.destroy(:force) } #destroy_all does soft delete, must use force to hard delete
       @user.notifications.reload #Update collection after hard deleting. 
     end
@@ -95,7 +95,7 @@ describe "Apis" do
     
     context "when the the app does not have the proper scope" do
       before do
-        @app3 = App.create(:name => 'App3'){|app| app.redirect_uri = "http://localhost/"}
+        @app3 = App.create(:name => 'App3', :redirect_uri => "http://localhost/")
         @app3.oauth_scopes = OauthScope.all
         authorization = OAuth2::Model::Authorization.new
         authorization.scope = "submit_forms" # this is the wrong scope for notifications
@@ -130,8 +130,8 @@ describe "Apis" do
     context "when token is valid" do
       context "when there are notifications for a user, some of which were created by the app making the request" do
         before do
-          @task1 = Task.create!(:name => 'Task #1', :user_id => @user.id, :app_id => @app.id)
-          @task2 = Task.create!(:name => 'Task #2', :user_id => @user.id, :app_id => @app.id + 1)
+          @task1 = Task.create!({:name => 'Task #1', :user_id => @user.id, :app_id => @app.id}, :as => :admin)
+          @task2 = Task.create!({:name => 'Task #2', :user_id => @user.id, :app_id => @app.id + 1}, :as => :admin)
         end
       
         it "should return the tasks that were created by the calling app" do
@@ -146,10 +146,10 @@ describe "Apis" do
     
     context "when the the app does not have the proper scope" do
       before do
-        @app4 = App.create(:name => 'App4'){|app| app.redirect_uri = "http://localhost/"}
+        @app4 = App.create(:name => 'App4', :redirect_uri => "http://localhost/")
         @app4.oauth_scopes = OauthScope.all
         authorization = OAuth2::Model::Authorization.new
-        authorization.scope = "submit_forms" # this is the wrong scope for tasks
+        authorization.scope = "submit_forms"
         authorization.client = @app4.oauth2_client
         authorization.owner = @user
         access_token = authorization.generate_access_token
@@ -215,7 +215,7 @@ describe "Apis" do
   
   describe "GET /api/tasks/:id.json" do
     before do
-      @task = Task.create!(:name => 'New Task', :user_id => @user.id, :app_id => @app.id)
+      @task = Task.create!({:name => 'New Task', :user_id => @user.id, :app_id => @app.id}, :as => :admin)
     end
     
     context "when the token is valid" do
@@ -301,7 +301,7 @@ describe "Apis" do
     
     context "when the the app does not have the proper scope" do
       before do
-        @app5 = App.create(:name => 'App5'){|app| app.redirect_uri = "http://localhost/"}
+        @app5 = App.create(:name => 'App5', :redirect_uri => "http://localhost/")
         @app5.oauth_scopes = OauthScope.all
         authorization = OAuth2::Model::Authorization.new
         authorization.scope = "notifications" # this is the wrong scope for submitting forms

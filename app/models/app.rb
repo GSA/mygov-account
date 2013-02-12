@@ -3,7 +3,7 @@ class App < ActiveRecord::Base
   
   belongs_to :user
   has_many :submitted_forms
-  has_many :app_oauth_scopes
+  has_many :app_oauth_scopes, :dependent => :destroy
   has_many :oauth_scopes, :through => :app_oauth_scopes
   accepts_nested_attributes_for :app_oauth_scopes
 

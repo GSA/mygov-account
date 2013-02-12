@@ -18,7 +18,7 @@ describe Notification do
    it { should belong_to :app }
   
   it "should create a new notification with valid attributes" do
-    notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id))
+    notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
   end
   
   context "when creating a new notification" do
@@ -28,7 +28,7 @@ describe Notification do
     
     context "when creating a notificaiton without an app" do
       it "should send an email to the user with the notification content" do
-        notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id))
+        notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id), :as => :admin)
         email = ActionMailer::Base.deliveries.first
         email.should_not be_nil
         email.from.should == ["projectmygov@gsa.gov"]
@@ -42,7 +42,7 @@ describe Notification do
     
     context "when creating a notification with an app" do
       it "should send an email to the user with the notification content identifying the sending application" do
-        notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id))
+        notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
         email = ActionMailer::Base.deliveries.first
         email.should_not be_nil
         email.from.should == ["projectmygov@gsa.gov"]

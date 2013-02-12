@@ -10,15 +10,14 @@ class App < ActiveRecord::Base
   validates_presence_of :name, :slug, :redirect_uri
   validates_inclusion_of :is_public, :in => [true, false]
   validates_uniqueness_of :slug
-  validate :owner_email_matches_user
 
-  before_validation :generate_slug, :set_user
+  before_validation :generate_slug
   after_create :create_oauth2_client
   after_update :update_oauth2_client
   
   attr_accessor :renew_secret
   attr_accessible :name, :description, :short_description, :url, :logo, :redirect_uri, :app_oauth_scopes_attributes, :as => [:default, :admin]
-  attr_accessible :user, :user_id, :is_public, :owner_email, :as => :admin
+  attr_accessible :user, :user_id, :is_public, :as => :admin
 
   has_attached_file :logo, :styles => { :medium => "300x300>", :thumb => "200x200>" }, :default_url => '/assets/app-icon.png'
   
@@ -45,10 +44,6 @@ class App < ActiveRecord::Base
     !self.is_public
   end
 
-  def has_owner?(user)
-    user ? self.owner_email == user.email : false
-  end
-
   def redirect_uri=(uri)
     @redirect_uri = uri
   end
@@ -60,15 +55,7 @@ class App < ActiveRecord::Base
   def client_id
     self.oauth2_client && self.oauth2_client.client_id
   end
-  
-  def owner_email=(email)
-    @owner_email = email
-  end
-  
-  def owner_email
-    @owner_email.blank? ? (self.user && self.user.email) : @owner_email
-  end
-    
+      
   def oauth2_client
     @oauth2_client || self.oauth2_clients.first
   end
@@ -101,16 +88,5 @@ class App < ActiveRecord::Base
     return true if client.nil? || @redirect_uri.blank?    
     client.redirect_uri = @redirect_uri
     client.save
-  end
-  
-  def owner_email_matches_user
-    email = self.owner_email
-    return true if email.blank?
-    errors.add(:owner_email, 'does not match any users') unless User.find_by_email(email)
-  end
-  
-  def set_user
-    owner = User.find_by_email(self.owner_email)
-    self.user = owner if owner
   end
 end

@@ -60,19 +60,6 @@ RailsAdmin.config do |config|
   # Less code is better code!
   config.attr_accessible_role { :admin }
   
-  config.model App do
-    edit do
-      field :owner_email
-      field :name
-      field :description      
-      field :short_description
-      field :url      
-      field :redirect_uri
-      field :logo
-      field :is_public
-    end
-  end
-  
   # config.model MyModel do
   #   # Cross-section field configuration
   #   object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName

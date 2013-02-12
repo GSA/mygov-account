@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   PROFILE_ATTRIBUTES = [:email, :title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_veteran, :is_student, :is_retired]
   
   def sandbox_apps
-    App.sandbox.select{|a| a.has_owner?(self)}
+    self.apps.sandbox
   end
   
   class << self

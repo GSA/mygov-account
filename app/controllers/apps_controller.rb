@@ -4,7 +4,7 @@ class AppsController < ApplicationController
   before_filter :assign_app, :only => [:show, :edit, :update, :uninstall]
   before_filter :assign_user_installed_apps, :only => [:index, :show]
   before_filter :assign_oauth_scopes, :only => [:new, :create, :edit, :update]
-  before_filter :verify_app_owner,  :only =>  [:edit, :update]
+  before_filter :verify_app_owner, :only =>  [:edit, :update]
   before_filter :verify_public_or_is_owner, :only => [:show]
 
   def index
@@ -73,11 +73,11 @@ class AppsController < ApplicationController
   end
   
   def verify_public_or_is_owner
-    return true if @app.is_public or (@app.sandbox? and @app.has_owner?(@user))
+    return true if @app.is_public or (@app.sandbox? and @app.user == @user)
     redirect_to apps_path
   end
 
   def verify_app_owner
-    redirect_to apps_path, :alert => "You are not allowed to edit this app." unless @app.has_owner?(@user)
+    redirect_to apps_path, :alert => "You are not allowed to edit this app." unless @app.user == @user
   end
 end

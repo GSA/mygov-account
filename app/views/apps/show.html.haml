@@ -36,7 +36,7 @@
         You can revoke this app's permissions by clicking the button below.
       %p
         = link_to 'Revoke access', uninstall_app_path(@app)
-    - if @app.has_owner?(@user)
+    - if @app.user == @user
       .panel.group
         %p
           You are the owner of this application.

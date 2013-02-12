@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
 gem 'mysql2'
-gem 'json'
+gem 'json', '1.7.7'
 gem 'haml'
 gem 'devise'
 gem 'omniauth'

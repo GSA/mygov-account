@@ -4,10 +4,7 @@ describe User do
   before do
     @valid_attributes = {
       :email => 'joe@citizen.org',
-      :password => 'random',
-      :name => 'Joe Citizen',
-      :first_name => 'Joe',
-      :last_name => 'Citizen'
+      :password => 'random'
     }
     create_approved_beta_signup('joe@citizen.org')
   end
@@ -46,32 +43,12 @@ describe User do
         user.errors.first.last.should == "I'm sorry, your account hasn't been approved yet."
       end
     end
-    
-    it "should strip all dashes out of phone numbers" do
-      User.create!(@valid_attributes.merge(:phone_number => '123-456-7890')).phone.should == '1234567890'
-    end
-    
-    it "should strip all dashes out of mobile numbers" do
-      User.create!(@valid_attributes.merge(:mobile_number => '123-456-7890')).mobile.should == '1234567890'
-    end
-    
-    it "should strip dashes out of phone and mobile numbers on updates" do
-      user = User.create!(@valid_attributes.merge(:phone_number => '123-456-7890'))
-      user.update_attributes(:phone_number => '123-567-4567', :mobile_number => '3-45-678-9012')
-      user.phone.should == '1235674567'
-      user.mobile.should == '3456789012'
-    end
-    
-    it "should reject zip codes that aren't five digits" do
-      user = User.create(@valid_attributes.merge(:zip => "Greg"))
-      user.id.should be_nil
-      user.errors.messages[:zip].should == ["should be in the form 12345"]
-    end
   end
 
   describe "confirm!" do
     before do
       @user = User.create!(@valid_attributes)
+      @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen')
       @user.confirmation_token.should_not be_nil
     end
     

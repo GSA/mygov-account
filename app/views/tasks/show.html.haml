@@ -3,8 +3,7 @@
     .panel.task.group
       %h3
         %i{:class => "foundicon-checkmark"}
-        - if current_user and current_user.first_name.present?
-          #{@task.name} 
+        #{@task.name} 
       %p.supporting-text
         %strong
           #{@task.task_items.completed.size} of #{@task.task_items.size} 

@@ -36,6 +36,7 @@ describe "Users" do
         beta_signup.is_approved = true
         beta_signup.save!
         @user = User.create(:email => beta_signup.email, :password => 'password')
+        @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen')
         @user.confirm!
         create_logged_in_user(@user)
       end
@@ -147,7 +148,7 @@ describe "Users" do
           page.should have_content 'Thank you for signing up'
           ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
           ActionMailer::Base.deliveries.last.from.should == ["projectmygov@gsa.gov"]
-          User.find_by_email('joe@citizen.org').name.should == 'Joe Citizen'
+          User.find_by_email('joe@citizen.org').profile.name.should == 'Joe Citizen'
         end
     
         context "when a user has signed up, and confirms their email address" do
@@ -188,6 +189,7 @@ describe "Users" do
       beta_signup.is_approved = true
       beta_signup.save!
       @user = User.create(:email => beta_signup.email, :password => 'password')
+      @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
       @user.confirm!
       create_logged_in_user(@user)
     end
@@ -205,7 +207,8 @@ describe "Users" do
       beta_signup = BetaSignup.new(:email => 'joe@citizen.org')
       beta_signup.is_approved = true
       beta_signup.save!
-      @user = User.create(:email => beta_signup.email, :password => 'password', :first_name => 'Joe', :last_name => 'Citizen')
+      @user = User.create(:email => beta_signup.email, :password => 'password')
+      @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen')
       @user.confirm!
       create_logged_in_user(@user)
     end

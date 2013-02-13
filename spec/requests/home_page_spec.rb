@@ -3,7 +3,8 @@ require 'spec_helper'
 describe "HomePage" do
   before do
     create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
+    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
   end
   
@@ -67,7 +68,7 @@ describe "HomePage" do
       
       context "when the user does not have a first, last or any other name" do
         before do
-          @user.update_attributes(:name => nil)
+          @user.profile.update_attributes(:name => nil)
         end
         
         it "should link to the profile page with 'Your Profile'" do

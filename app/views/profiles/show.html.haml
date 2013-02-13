@@ -13,45 +13,45 @@
         Name
       %ul.profile      
         %li
-          Title: #{@user.title}
+          Title: #{@profile.title}
         %li
-          First name: #{@user.first_name}
+          First name: #{@profile.first_name}
         %li
-          Middle name: #{@user.middle_name}
+          Middle name: #{@profile.middle_name}
         %li
-          Last name: #{@user.last_name}
+          Last name: #{@profile.last_name}
         %li
-          Suffix: #{@user.suffix}
+          Suffix: #{@profile.suffix}
     
     .panel.listing
       %h3
         Address
       %ul.profile 
         %li
-          Address: #{@user.address}
+          Address: #{@profile.address}
         %li
-          Address (Line 2): #{@user.address2}
+          Address (Line 2): #{@profile.address2}
         %li
-          City: #{@user.city}
+          City: #{@profile.city}
         %li
-          State: #{@user.state}
+          State: #{@profile.state}
         %li
-          Zip: #{@user.zip}
+          Zip: #{@profile.zip}
   .six.columns        
     .panel.listing
       %h3
         Date of birth
       %ul.profile   
         %li
-          #{@user.date_of_birth}
+          #{@profile.date_of_birth}
     .panel.listing
       %h3 
         Phone
       %ul.profile   
         %li
-          Phone: #{@user.phone_number}
+          Phone: #{@profile.phone_number}
         %li
-          Mobile: #{@user.mobile_number}    
+          Mobile: #{@profile.mobile_number}    
     .panel.listing
       %h3
         Information about you
@@ -59,17 +59,17 @@
         %li
           Email: #{@user.email}
         %li
-          Gender: #{@user.print_gender}
+          Gender: #{@profile.print_gender}
         %li
-          Marital status: #{@user.print_marital_status}
+          Marital status: #{@profile.print_marital_status}
         %li
-          Parent: #{yes_or_no(@user.is_parent)}
+          Parent: #{yes_or_no(@profile.is_parent)}
         %li
-          Veteran: #{yes_or_no(@user.is_veteran)}
+          Veteran: #{yes_or_no(@profile.is_veteran)}
         %li
-          Student: #{yes_or_no(@user.is_student)}
+          Student: #{yes_or_no(@profile.is_student)}
         %li
-          Retired: #{yes_or_no(@user.is_retired)}
+          Retired: #{yes_or_no(@profile.is_retired)}
 .row
 
 

@@ -1,13 +1,13 @@
 .row
   .eight.columns
-    = form_for @user, :url => welcome_path(:step => 'about_you') do |form|
+    = form_for @profile, :url => welcome_path(:step => 'about_you') do |form|
       %fieldset
         %legend
           Tell us a little about yourself
         %p
           We ask for this so we can tell you about timely information and services that matters to you.
         %p
-          = error_messages(@user)
+          = error_messages(@profile)
         %p
           = form.label :zip, "Zip code"
           = form.text_field :zip, :length => 5, :maxlength => 5

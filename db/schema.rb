@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207211152) do
+ActiveRecord::Schema.define(:version => 20130212203553) do
 
   create_table "app_oauth_scopes", :force => true do |t|
     t.integer  "app_id"
@@ -138,6 +138,34 @@ ActiveRecord::Schema.define(:version => 20130207211152) do
 
   add_index "oauth_scopes", ["scope_name"], :name => "index_oauth_scopes_on_scope_name"
 
+  create_table "profiles", :force => true do |t|
+    t.string   "title",          :limit => 10
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.string   "suffix",         :limit => 10
+    t.string   "name"
+    t.string   "address"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state",          :limit => 5
+    t.string   "zip",            :limit => 5
+    t.date     "date_of_birth"
+    t.string   "phone",          :limit => 12
+    t.string   "mobile",         :limit => 12
+    t.string   "gender",         :limit => 6
+    t.string   "marital_status", :limit => 15
+    t.boolean  "is_parent"
+    t.boolean  "is_veteran"
+    t.boolean  "is_student"
+    t.boolean  "is_retired"
+    t.integer  "user_id"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
+
+  add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
+
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
     t.string   "username"
@@ -197,49 +225,29 @@ ActiveRecord::Schema.define(:version => 20130207211152) do
   add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                :default => "", :null => false
+    t.string   "email",                  :default => "", :null => false
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                        :default => 0
+    t.integer  "sign_in_count",          :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "provider"
     t.string   "uid"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "name"
-    t.string   "middle_name"
-    t.string   "address"
-    t.string   "address2"
-    t.string   "city"
-    t.string   "state",                  :limit => 5
-    t.string   "zip",                    :limit => 5
-    t.date     "date_of_birth"
-    t.string   "phone",                  :limit => 12
-    t.string   "gender",                 :limit => 6
-    t.string   "marital_status",         :limit => 15
     t.boolean  "is_admin"
-    t.string   "title",                  :limit => 10
-    t.string   "suffix",                 :limit => 10
-    t.string   "mobile",                 :limit => 12
-    t.string   "encrypted_password",                   :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",                      :default => 0
+    t.integer  "failed_attempts",        :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.boolean  "is_parent"
-    t.boolean  "is_veteran"
-    t.boolean  "is_student"
-    t.boolean  "is_retired"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

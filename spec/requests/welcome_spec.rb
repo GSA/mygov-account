@@ -4,6 +4,7 @@ describe "Welcome" do
   before do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create(:email => 'joe@citizen.org', :password => 'password')
+    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
     create_logged_in_user(@user)
     stub_request(:get, "http://api.democracymap.org/geowebdns/endpoints?format=json&fullstack=true&location=12345").
@@ -19,7 +20,7 @@ describe "Welcome" do
       click_button 'Continue'
       page.should have_content "MyUSABeta"
       @user.reload
-      @user.zip.should == "12345"
+      @user.profile.zip.should == "12345"
       visit profile_path
       page.should have_content "12345"
     end
@@ -43,9 +44,9 @@ describe "Welcome" do
       click_button 'Continue'
       page.should have_content 'MyUSABeta'
       @user.reload
-      @user.marital_status.should == "Married"
-      @user.is_parent.should == true
-      @user.is_veteran.should be_nil
+      @user.profile.marital_status.should == "Married"
+      @user.profile.is_parent.should == true
+      @user.profile.is_veteran.should be_nil
     end
   end
 end

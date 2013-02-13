@@ -3,10 +3,12 @@ require 'spec_helper'
 describe "Notifications" do
   before do
     create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
+    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
     create_approved_beta_signup('jane@citizen.org')
-    @other_user = User.create!(:email => 'jane@citizen.org', :password => 'random', :first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
+    @other_user = User.create!(:email => 'jane@citizen.org', :password => 'random')
+    @other_user.profile = Profile.new(:first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
     @app1 = App.create!(:name => 'App1', :redirect_uri => 'http://localhost/')
     @app2 = App.create!(:name => 'App2', :redirect_uri => 'http://localhost/')
     create_logged_in_user(@user)

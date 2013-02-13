@@ -3,7 +3,8 @@ require 'spec_helper'
 describe "Apis" do
   before do
     create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'random', :first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
+    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
     @app = App.create(:name => 'App1', :redirect_uri => "http://localhost/")
     @app.oauth_scopes = OauthScope.all
@@ -57,7 +58,8 @@ describe "Apis" do
   describe "POST /api/notifications" do
     before do
       create_approved_beta_signup('jane@citizen.org')
-      @other_user = User.create!(:email => 'jane@citizen.org', :password => 'random', :first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
+      @other_user = User.create!(:email => 'jane@citizen.org', :password => 'random')
+      @other_user.profile = Profile.new(:first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
       @app2 = App.create!(:name => 'App2', :redirect_uri => "http://localhost:3000/")
       @app2.oauth_scopes << OauthScope.all
       create_logged_in_user(@user)
@@ -66,8 +68,8 @@ describe "Apis" do
       end
       @other_user_notification = Notification.create!({:subject => 'Other User Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app.id}, :as => :admin)
       @other_app_notification = Notification.create!({:subject => 'Other App Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
-      @user.notifications.each{ |n| n.destroy(:force) } #destroy_all does soft delete, must use force to hard delete
-      @user.notifications.reload #Update collection after hard deleting. 
+      @user.notifications.each{ |n| n.destroy(:force) }
+      @user.notifications.reload
     end
     
     context "when the user has a valid token" do    

@@ -31,7 +31,7 @@
   %p
     By deleting your account, all information associated with your account will be deleted forever. (You can't undo this later.)
   %p
-    = link_to "Delete", profile_path, :method => :delete, :class => 'button positive confirm'
+    = link_to "Delete", user_path, :method => :delete, :class => 'button positive confirm'
     = link_to "Cancel", "#", :class => 'button negative', :onclick => "$('#confirm-delete-modal').trigger('reveal:close');"
   %a.close-reveal-modal
     x

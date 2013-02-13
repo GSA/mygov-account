@@ -3,9 +3,9 @@ class Api::ProfilesController < Api::ApiController
   
   def show
     if params[:schema].present?
-      render :json => {:status => 'OK', :user => @user.to_schema_dot_org_hash }
+      render :json => {:status => 'OK', :user => @user.profile.to_schema_dot_org_hash }
     else
-      render :json => {:status => 'OK', :user => @user }
+      render :json => {:status => 'OK', :user => @user.profile }
     end
   end
 end

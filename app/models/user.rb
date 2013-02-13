@@ -47,6 +47,22 @@ class User < ActiveRecord::Base
     end  
   end
   
+  def first_name
+    self.profile ? self.profile.first_name : @first_name
+  end
+
+  def first_name=(first_name)
+    @first_name = first_name
+  end
+
+  def last_name
+    self.profile ? self.profile.last_name : @last_name
+  end
+
+  def last_name=(last_name)
+    @last_name = last_name
+  end
+  
   def create_default_tasks
     task1 = self.tasks.create({:name => 'Tell us a little about yourself.', :app_id => App.default_app.id}, :as => :admin)
     task1.task_items.create(:name => 'Complete your profile today so we can help tailor MyUSA to fit your needs.', :url => "/welcome?step=info")

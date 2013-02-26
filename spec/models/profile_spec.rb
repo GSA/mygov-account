@@ -28,4 +28,19 @@ describe Profile do
     profile.id.should be_nil
     profile.errors.messages[:zip].should == ["should be in the form 12345"]
   end
+  
+  describe "as_json" do
+    before do
+      @profile = Profile.create!(:first_name => 'Joe', :last_name => 'Citizen', :phone_number => '202-555-1212', :gender => 'male')
+    end
+    
+    it "should output the clear text versions of the encrypted fields, and none of the encrypted fields" do
+      json = @profile.as_json
+      json[:first_name].should == 'Joe'
+      json[:last_name].should == 'Citizen'
+      json[:encrypted_first_name].should be_nil
+      json[:encrypted_last_name].should be_nil
+      json[:encrypted_address].should be_nil
+    end
+  end
 end

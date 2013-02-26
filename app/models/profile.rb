@@ -43,7 +43,7 @@ class Profile < ActiveRecord::Base
   end
   
   def as_json(options = {})
-    super(:only => [:title, :suffix, :date_of_birth, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired], :methods => ENCRYPTED_FIELDS + [:id])
+    super(:only => [:id, :title, :suffix, :date_of_birth, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired], :methods => ENCRYPTED_FIELDS)
   end
   
   def to_schema_dot_org_hash

@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
   
   def local_info
     location_parts = [ 'address', 'city', 'state', 'zip']
-    location = location_parts.collect{|part| self.profile[part]}.compact.join(", ")
+    location = location_parts.collect{|part| self.profile.send(part)}.compact.join(", ")
     unless location.blank?
       url = "/geowebdns/endpoints?location=#{URI.encode(location)}&format=json&fullstack=true"
       local_info = Rails.cache.fetch('democracy_map_' + url, :expires_in => 24.hours) do

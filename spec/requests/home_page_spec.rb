@@ -88,7 +88,7 @@ describe "HomePage" do
         it "should not show sidebar tabs or dashboard sections for tasks or info" do
           visit root_path
           page.should have_no_content "Tasks"
-          page.should have_no_content "Info"
+          page.should have_content "Info"
           page.should have_no_content "Your Local Government"
         end
       end

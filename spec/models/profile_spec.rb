@@ -31,13 +31,17 @@ describe Profile do
   
   describe "as_json" do
     before do
-      @profile = Profile.create!(:first_name => 'Joe', :last_name => 'Citizen', :phone_number => '202-555-1212', :gender => 'male')
+      create_approved_beta_signup('joe@citizen.org')
+      @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
+      @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen', :phone_number => '202-555-1212', :gender => 'male')
+      @user.confirm!      
     end
     
     it "should output the clear text versions of the encrypted fields, and none of the encrypted fields" do
-      json = @profile.as_json
+      json = @user.profile.as_json
       json[:first_name].should == 'Joe'
       json[:last_name].should == 'Citizen'
+      json[:email].should == 'joe@citizen.org'
       json[:encrypted_first_name].should be_nil
       json[:encrypted_last_name].should be_nil
       json[:encrypted_address].should be_nil

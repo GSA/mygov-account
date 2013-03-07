@@ -7,7 +7,7 @@ gem 'haml'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-openid'
-gem 'oauth2-provider', :require => 'oauth2/provider', :git => 'git@github.com:GSA-OCSIT/oauth2-provider.git', :branch => 'bearer-header'
+gem 'oauth2-provider', :require => 'oauth2/provider', :git => 'https://github.com/GSA-OCSIT/oauth2-provider.git', :branch => 'bearer-header'
 gem 'rvm-capistrano'
 gem 'bigdecimal'
 gem 'will_paginate', '~> 3.0'
@@ -17,7 +17,7 @@ gem 'google-analytics-rails'
 gem 'coffee-rails', '~> 3.2.1'
 gem "airbrake"
 gem 'maruku'
-gem 'validates_email_format_of', :git => 'git://github.com/alexdunae/validates_email_format_of.git'
+gem 'validates_email_format_of', :git => 'https://github.com/alexdunae/validates_email_format_of.git'
 gem "permanent_records", "~> 2.3.0"
 gem "httparty"
 gem "paperclip", "~> 3.0"

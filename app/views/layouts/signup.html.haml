@@ -49,13 +49,15 @@
               .ten.columns.centered
                 %ul.centered
                   %li
-                    %a.info{:href => "http://presidential-innovation-fellows.github.com/mygov/about/"} About MyUSA
+                    = link_to 'About MyUSA', "http://presidential-innovation-fellows.github.com/mygov/about/", :class => 'info'
                   %li
-                    %a.info{:href => "/developer/"} Developers
+                    = link_to 'Developers', developer_path, :class => 'info'
                   %li
-                    %a.info{:href => "http://www.whitehouse.gov/sites/default/files/omb/egov/digital-government/digital-government.html"} Digital Government: Building a 21st Century Platform
-          
-          
+                    = link_to 'Digital Government: Building a 21st Century Platform', "http://www.whitehouse.gov/sites/default/files/omb/egov/digital-government/digital-government.html", :class => 'info'
+                  %li
+                    = link_to 'Privacy policy', privacy_policy_path, :class => 'info'
+                  %li
+                    = link_to 'Terms of service', terms_of_service_path, :class => 'info'
       /
         Javascripts
         \==================================================

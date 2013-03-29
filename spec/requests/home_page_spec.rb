@@ -71,7 +71,7 @@ describe "HomePage" do
           @user.profile.update_attributes(:name => nil)
         end
         
-        it "should link to the profile page with 'Your Profile'" do
+        it "should link to the profile page with 'Your profile'" do
           visit root_path
           page.should have_content "Your profile"
           click_link "Your profile"
@@ -80,7 +80,7 @@ describe "HomePage" do
         end
       end
       
-      context "when the user does not have tasks or local info" do
+      context "when the user does not have tasks" do
         before do
           @user.tasks.destroy_all
         end
@@ -89,7 +89,6 @@ describe "HomePage" do
           visit root_path
           page.should have_no_content "Tasks"
           page.should have_content "Info"
-          page.should have_no_content "Your Local Government"
         end
       end
       
@@ -107,19 +106,6 @@ describe "HomePage" do
         end
       end
       
-      context "when the user has local information" do
-        before do
-          local_info = JSON.parse(File.read(Rails.root.to_s + "/spec/fixtures/local_info.json"))
-          User.any_instance.stub(:local_info).and_return local_info
-        end
-        
-        it "should show local info in the sidebar and in the dashboard" do
-          visit root_path
-          page.should have_content "Info"
-          page.should have_content "Your Local Government"
-        end
-      end
-                
       context "when the user visits the page the first time" do
         before do
           reset_session!

@@ -1188,8 +1188,6 @@ h5 span {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weigh
 
 .panel span.bookmark {display: inline-block; background: image-url("sprite.png") 0% -611px no-repeat; width: 30px; height: 53px; position: absolute; top: -1px; right: 2em;  }
 
-.local .panel span {font-weight: normal;}
-
 .panel.info {
   background: rgba(175,168,138,.2);
 }
@@ -1283,34 +1281,6 @@ h5 span {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weigh
 }
 
 .row {overflow: hidden; min-width: inherit; position: relative;}
-
-
-
-
-/* Local Government Features */
-
-.sidebar h5 em {font-style: normal; color: #584A41;}
-
-.local .panel {
-background : none repeat scroll 0 0 rgba(255, 255, 255, 0.35);
-}
-
-/* List reset */
-ul.jurisdiction-list, ul.jurisdiction-list li {
-  list-style-type : none;
-  padding : 0;
-  margin : 0;
-  clear: both; 
-  display: block;
-}
-
-.jurisdiction {font-size : .75em;}
-
-.jurisdiction h2 {
-  font-size : 2em;
-  margin-bottom : 0;
-  clear : both;
-}
 
 /*** Darowski Arrows  http://tech.patientslikeme.com/2010/11/09/using-borders-to-make-pure-css-arrows/ ***/
 
@@ -1469,44 +1439,6 @@ li.official:last-child {border-bottom: none;}
 .official .social-media a span {
 display : none;
 }
-
-/*** Twitter Stream on Your Gov Page ***/
-
-ul.tweet_list {
-  margin : 0;
-  position: relative;
-  display: block;
-  width: 100%;
-}
-
-#main ul.tweet_list li {
-  border-bottom: 1px solid rgba(0,0,0,.1);
-  background-color: rgba(0, 0, 0, .05);
-  color: #333;
-  text-shadow: 0 1px 0 rgba(255,255,255,.6);
-  padding: 1em;
-  display: block;
-  margin: 0;
-  float: left;
-  width: 100%;
-}
-
-#main ul.tweet_list li a {color: #333;}
-
-#main .jurisdiction-list ul.tweet_list li a img {
-  margin: 0 0 1em 0;
-  padding: 0;
-}
-
-#main .jurisdiction-list h5 {padding: .5em 0 .25em 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
-
-.tweet_list li a.tweet_avatar {
-margin-right: 1em;
-float: left;
-}
-
-#main ul.tweet_list li span.tweet_time a {color: rgba(100, 100, 100, 0.75);}
-
 
 /*** Danger Will Robinson! ***/
 

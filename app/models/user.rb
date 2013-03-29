@@ -72,19 +72,6 @@ class User < ActiveRecord::Base
     notification = self.notifications.create(:subject => 'Welcome to MyUSA', :body => File.read(Rails.root.to_s + "/lib/assets/text/welcome_email_body.html").html_safe, :received_at => Time.now)  if self.confirmation_token.nil?
   end
   
-  def local_info
-    location_parts = [ 'address', 'city', 'state', 'zip']
-    location = location_parts.collect{|part| self.profile.send(part)}.compact.join(", ")
-    unless location.blank?
-      url = "/geowebdns/endpoints?location=#{URI.encode(location)}&format=json&fullstack=true"
-      local_info = Rails.cache.fetch('democracy_map_' + url, :expires_in => 24.hours) do
-        response = Net::HTTP.get_response('api.democracymap.org', url) rescue nil
-        JSON.parse(response.body) rescue nil
-      end
-    end
-    local_info
-  end
-  
   def installed_apps
     self.oauth2_authorizations.map(&:client).map(&:oauth2_client_owner)
   end

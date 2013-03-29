@@ -4,23 +4,6 @@
     %i{:class => "foundicon-globe"}
     Info
   .row.group
-    - if @local_info and @local_info['jurisdictions']  
-      .six.columns
-        .panel.secondary.decorative.style-one{"data-magellan-destination" => "info"}   
-          .flourish
-            %i{:class => "foundicon-address-book"}      
-          %div
-            %h5 
-              = link_to 'Your Local Government', your_government_path 
-            .jurisdiction
-              - @local_info['jurisdictions'].each do |jurisdiction|
-                - if jurisdiction['type'] == 'government'
-                  %h6
-                    = link_to your_government_path(:anchor => "#{jurisdiction['level']}-#{jurisdiction['type']}") do
-                      %span.level
-                        #{jurisdiction['level_name']}: 
-                      %span.name
-                        = jurisdiction['name']
     .six.columns
       .panel.decorative.style-four
         %i{:class => "foundicon-compass"}   

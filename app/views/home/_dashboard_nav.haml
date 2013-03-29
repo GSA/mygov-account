@@ -11,12 +11,11 @@
         .arrow
         %i{:class => "foundicon-website"}  
         Apps
-    - if @local_info and @local_info['jurisdictions']  
-      %li{"data-magellan-arrival" => "info"}
-        %a.smoothScroll.info{:href => "#info"}
-          .arrow
-          %i{:class => "foundicon-globe"}   
-          Info  
+    %li{"data-magellan-arrival" => "info"}
+      %a.smoothScroll.info{:href => "#info"}
+        .arrow
+        %i{:class => "foundicon-globe"}   
+        Info  
     %li.last{"data-magellan-arrival" => "forms"}
       %a.smoothScroll.forms{:href => "#forms"}
         .arrow

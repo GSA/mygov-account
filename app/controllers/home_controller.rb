@@ -14,7 +14,6 @@ class HomeController < ApplicationController
   def dashboard
     @today = Date.current
     @uncompleted_tasks = @user.tasks.uncompleted.order('created_at DESC')
-    @local_info = @user.local_info
   end
   
   def developer
@@ -33,9 +32,5 @@ class HomeController < ApplicationController
   end
   
   def pra
-  end
-  
-  def your_government
-    @local_info = @user.local_info
   end
 end

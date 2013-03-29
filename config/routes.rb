@@ -31,7 +31,6 @@ Mygov::Application.routes.draw do
   end
   resources :task_items, :only => [:update, :destroy]
   resources :beta_signups, :only => [:create]
-  match '/welcome', :to => 'welcome#index', :as => :welcome
   namespace :api, :defaults => {:format => :json} do
     resource :profile, :only => [:show]
     resources :notifications, :only => [:create]

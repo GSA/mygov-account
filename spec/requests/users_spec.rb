@@ -149,36 +149,7 @@ describe "Users" do
           ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
           ActionMailer::Base.deliveries.last.from.should == ["projectmygov@gsa.gov"]
           User.find_by_email('joe@citizen.org').profile.name.should == 'Joe Citizen'
-        end
-    
-        context "when a user has signed up, and confirms their email address" do
-          it "should collect some basic information from the user in welcoming them to MyUSA" do
-            visit sign_up_path
-            fill_in 'Email', :with => 'joe@citizen.org'
-            fill_in 'Password', :with => 'password'
-            fill_in 'Password confirmation', :with => 'password'
-            check 'I agree to the MyUSA Terms of Service and Privacy Policy'
-            click_button 'Sign up'
-            page.should have_content 'Thank you for signing up'
-
-            user = User.find_by_email('joe@citizen.org')
-            visit user_confirmation_path(:confirmation_token => user.confirmation_token)
-            page.should have_content "Tell us a little about yourself."
-          end
-        end
-        
-        context "when a user signs up via a third party" do
-          before do
-            ActionMailer::Base.deliveries = []
-          end
-          
-          it "should welcome them to MyUSA and prompt them for more information" do
-            visit sign_up_path
-            click_link 'Sign up with Google'
-            page.should have_content "Tell us a little about yourself"
-            ActionMailer::Base.deliveries.size.should == 1
-          end
-        end
+        end    
       end
     end
   end

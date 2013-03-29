@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
   validates_acceptance_of :terms_of_service
 
   after_create :create_profile
-  after_create :create_default_tasks
   after_create :create_default_notification
   after_destroy :send_account_deleted_notification
   
@@ -61,13 +60,6 @@ class User < ActiveRecord::Base
 
   def last_name=(last_name)
     @last_name = last_name
-  end
-  
-  def create_default_tasks
-    task1 = self.tasks.create({:name => 'Tell us a little about yourself.', :app_id => App.default_app.id}, :as => :admin)
-    task1.task_items.create(:name => 'Complete your profile today so we can help tailor MyUSA to fit your needs.', :url => "/welcome?step=info")
-    task2 = self.tasks.create({:name => 'Help us make this service more tailored to your needs.', :app_id => App.default_app.id}, :as => :admin)
-    task2.task_items.create(:name => 'Get started!', :url => "/welcome?step=about_you")
   end
   
   def confirm!

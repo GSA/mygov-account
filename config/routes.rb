@@ -11,7 +11,7 @@ Mygov::Application.routes.draw do
   post 'oauth/allow' => 'oauth#allow'
   get 'oauth/test' => 'oauth#test'
   resource :user, :only => [:destroy]
-  resource :profile, :only => [:show, :edit, :update]
+  resource :profile, :only => [:show]
   resources :notifications, :only => [:index, :show, :create, :destroy]
   get 'dashboard' => "home#dashboard"
   get 'discovery' => "home#discovery"

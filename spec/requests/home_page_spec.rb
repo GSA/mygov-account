@@ -4,7 +4,6 @@ describe "HomePage" do
   before do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
-    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
   end
   
@@ -56,9 +55,8 @@ describe "HomePage" do
       it "should show the user the dashboard" do
         visit root_path
         page.should have_content "MyUSABeta"
-        click_link 'Joe Citizen'
+        click_link 'Your profile'
         page.should have_content 'Your Profile'
-        page.should have_content 'First name'
       end
       
       it "should provide a link to the app gallery" do
@@ -66,18 +64,11 @@ describe "HomePage" do
         page.should have_link "App Gallery", :href => apps_path
       end
       
-      context "when the user does not have a first, last or any other name" do
-        before do
-          @user.profile.update_attributes(:name => nil)
-        end
-        
-        it "should link to the profile page with 'Your profile'" do
-          visit root_path
-          page.should have_content "Your profile"
-          click_link "Your profile"
-          page.should have_content "Your profile"
-          page.should have_content "First name"
-        end
+      it "should link to the profile page with 'Your profile'" do
+        visit root_path
+        page.should have_content "Your profile"
+        click_link "Your profile"
+        page.should have_content "Your Profile"
       end
       
       context "when the user does not have tasks" do

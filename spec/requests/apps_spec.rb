@@ -4,12 +4,10 @@ describe "Apps" do
   before do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
-    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
     
     create_approved_beta_signup('jane@citizen.org')
     @user2 = User.create!(:email => 'jane@citizen.org', :password => 'random')
-    @user2.profile = Profile.new(:first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
     @user2.confirm!
         
     @app1 = @user.apps.create(name: 'Public App 1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")

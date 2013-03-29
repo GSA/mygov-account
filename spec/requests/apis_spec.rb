@@ -4,7 +4,6 @@ describe "Apis" do
   before do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
-    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
     @app = App.create(:name => 'App1', :redirect_uri => "http://localhost/")
     @app.oauth_scopes = OauthScope.all
@@ -25,8 +24,6 @@ describe "Apis" do
           response.code.should == "200"
           parsed_json = JSON.parse(response.body)
           parsed_json["status"].should == "OK"
-          parsed_json["user"]["email"].should == "joe@citizen.org"
-          parsed_json["user"]["provider"].should be_nil
         end
       
         context "when the schema parameter is set" do
@@ -35,10 +32,6 @@ describe "Apis" do
             response.code.should == "200"
             parsed_json = JSON.parse(response.body)
             parsed_json["status"].should == "OK"
-            parsed_json["user"]["email"].should == "joe@citizen.org"
-            parsed_json["user"]["givenName"].should == "Joe"
-            parsed_json["user"]["familyName"].should == "Citizen"
-            parsed_json["user"]["homeLocation"]["streetAddress"].should be_blank
           end
         end
       end
@@ -59,7 +52,6 @@ describe "Apis" do
     before do
       create_approved_beta_signup('jane@citizen.org')
       @other_user = User.create!(:email => 'jane@citizen.org', :password => 'random')
-      @other_user.profile = Profile.new(:first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
       @app2 = App.create!(:name => 'App2', :redirect_uri => "http://localhost:3000/")
       @app2.oauth_scopes << OauthScope.all
       create_logged_in_user(@user)

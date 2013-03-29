@@ -5,7 +5,6 @@ describe "Tasks" do
     before do
       create_approved_beta_signup('joe@citizen.org')
       @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
-      @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
       @user.confirm!
 
       @app = App.create!(:name => 'Change your name', :redirect_uri => "http://localhost:3000/")

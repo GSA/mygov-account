@@ -11,7 +11,6 @@ describe "auto_logout" do
       Rails.application.config.session_timeout_warning_seconds = 1
       create_approved_beta_signup('joe@citizen.org')
       @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
-      @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen', :is_student => true)
       @user.confirm!
       visit(sign_in_path)
       fill_in 'user_email', :with => @user.email

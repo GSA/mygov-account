@@ -9,7 +9,6 @@ describe Notification do
     }
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
-    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen')
     @app = App.create!(:name => 'App1', :redirect_uri => 'http://localhost/')
   end
   %w{subject received_at user_id}.each do |e|
@@ -35,7 +34,7 @@ describe Notification do
         email.from.should == ["projectmygov@gsa.gov"]
         email.to.should == [@user.email]
         email.subject.should == "[MYUSA] #{notification.subject}"
-        email.body.should =~ /Hello, #{@user.profile.first_name}/
+        email.body.should =~ /Hello, #{@user.email}/
         email.body.should =~ /A notification for you from MyUSA/
         email.body.should =~ /#{notification.body}/
       end
@@ -49,7 +48,7 @@ describe Notification do
         email.from.should == ["projectmygov@gsa.gov"]
         email.to.should == [@user.email]
         email.subject.should == "[MYUSA] [#{notification.app.name}] #{notification.subject}"
-        email.body.should =~ /Hello, #{@user.profile.first_name}/
+        email.body.should =~ /Hello, #{@user.email}/
         email.body.should =~ /The \"#{notification.app.name}\" MyUSA application has sent you the following message/
         email.body.should =~ /#{notification.body}/
       end

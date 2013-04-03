@@ -11,7 +11,11 @@ Mygov::Application.routes.draw do
   post 'oauth/allow' => 'oauth#allow'
   get 'oauth/test' => 'oauth#test'
   resource :user, :only => [:destroy]
-  resource :profile, :only => [:show]
+  resource :profile, :only => [:show, :edit, :update] do
+    member do
+      get :authorize
+    end
+  end
   resources :notifications, :only => [:index, :show, :create, :destroy]
   get 'dashboard' => "home#dashboard"
   get 'discovery' => "home#discovery"
@@ -21,6 +25,8 @@ Mygov::Application.routes.draw do
   get 'about' => "home#about", :as => :about
   get 'paperwork-reduction-act-statement' => "home#pra", :as => :pra
 
+  get 'auth_callback' => 'profiles#authorization_callback', :as => :authorization_callback
+  
   resources :tasks, :only => [:show, :update, :destroy]
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   resources :apps do

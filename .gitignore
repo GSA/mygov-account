@@ -15,6 +15,7 @@
 /tmp
 dump.rdb
 .DS_store
+.powrc
 config/database.yml
 config/deploy.rb
 config/deploy

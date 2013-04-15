@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include OAuth2::Model::ResourceOwner  
   validate :email_is_whitelisted, if: :valid_email?
+  has_one :profile, :dependent => :destroy
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :submitted_forms, :dependent => :destroy

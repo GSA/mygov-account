@@ -23,7 +23,6 @@ gem "httparty"
 gem "paperclip", "~> 3.0"
 gem "rabl"
 gem "rb-readline"
-gem "google-api-client"
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130329175137) do
+ActiveRecord::Schema.define(:version => 20130415163907) do
 
   create_table "app_oauth_scopes", :force => true do |t|
     t.integer  "app_id"

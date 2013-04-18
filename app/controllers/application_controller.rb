@@ -39,5 +39,6 @@ class ApplicationController < ActionController::Base
   
   def set_response_headers
     headers['X-Frame-Options'] = 'SAMEORIGIN'
+    headers['X-XRDS-Location'] = url_for(:action => 'xrds', :controller => 'home', :protocol => 'https', :only_path => false, :format => :xml)
   end
 end

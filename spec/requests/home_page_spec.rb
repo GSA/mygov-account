@@ -33,9 +33,10 @@ describe "HomePage" do
           page.should have_content("Thanks for signing up")
         end
         
-        it "should prevent clickjacking" do
+        it "should prevent clickjacking and advertise our XRDS file" do
           get "/"
           response.headers['X-Frame-Options'].should == "SAMEORIGIN"
+          response.headers['X-XRDS-Location'].should =~ /xrds\.xml/
         end
       end
       
@@ -177,6 +178,14 @@ describe "HomePage" do
         visit discovery_path
         page.should have_content "Discovery Bar"
       end
+    end
+  end
+  
+  describe "GET /xrds.xml" do
+    it "should return the XRDS file" do
+      get "/xrds.xml"
+      response.headers['Content-Type'].should == "application/xrds+xml; charset=utf-8"
+      response.body.should =~ /XRDS/
     end
   end
 end

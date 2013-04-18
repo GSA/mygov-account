@@ -6,7 +6,10 @@ class User < ActiveRecord::Base
   has_many :submitted_forms, :dependent => :destroy
   has_many :apps, :dependent => :destroy
   validates_acceptance_of :terms_of_service
+  validates_presence_of :uid, :provider
+  validates_uniqueness_of :uid, :scope => [:provider]
 
+  before_validation :generate_uid_and_provider
   after_create :create_default_notification
   after_destroy :send_account_deleted_notification
   
@@ -26,7 +29,7 @@ class User < ActiveRecord::Base
     
     def find_for_open_id(access_token, signed_in_resource = nil)
       data = access_token.info
-      if user = User.where(:email => data["email"]).first
+      if user = User.where(:uid => access_token.uid, :provider => access_token.provider).first
         user
       else
         user = User.new(:email => data["email"], :password => Devise.friendly_token[0,20])
@@ -62,6 +65,13 @@ class User < ActiveRecord::Base
   
   def email_is_whitelisted    
     errors.add(:base, "I'm sorry, your account hasn't been approved yet.") if BetaSignup.find_by_email_and_is_approved(self.email, true).nil?
+  end
+  
+  def generate_uid_and_provider
+    if self.uid.blank? and self.provider.blank?
+      self.provider = 'myusa'
+      self.uid = "https://my.usa.gov/id/" + SecureRandom.urlsafe_base64(30)
+    end
   end
     
   def send_account_deleted_notification

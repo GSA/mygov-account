@@ -19,6 +19,7 @@ Mygov::Application.routes.draw do
   get 'terms-of-service' => "home#terms_of_service", :as => :terms_of_service
   get 'about' => "home#about", :as => :about
   get 'paperwork-reduction-act-statement' => "home#pra", :as => :pra
+  get 'xrds' => "home#xrds", :as => :xrds
 
   resources :tasks, :only => [:show, :update, :destroy]
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'

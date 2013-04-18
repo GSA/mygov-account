@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130415163907) do
+ActiveRecord::Schema.define(:version => 20130424165101) do
 
   create_table "app_oauth_scopes", :force => true do |t|
     t.integer  "app_id"
@@ -225,6 +225,7 @@ ActiveRecord::Schema.define(:version => 20130415163907) do
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["uid", "provider"], :name => "index_users_on_uid_and_provider", :unique => true
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
 
 end

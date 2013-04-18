@@ -1,5 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  skip_before_filter :verify_authenticity_token, :only => [:google, :paypal, :verisign]
+  skip_before_filter :verify_authenticity_token, :only => [:google, :paypal, :verisign, :ficamidp, :testid]
   
   def google
     callback('google')
@@ -13,6 +13,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     callback('verisign')
   end
   
+  def ficamidp
+    callback('ficamidp')
+  end
+  
+  def testid
+    callback('testid')
+  end
+  
   private
   
   def callback(provider_name)
@@ -20,14 +28,20 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => provider_name.capitalize
       if @user.just_created
-        sign_in @user, :evenct => :authentication
+        sign_in @user, :event => :authentication
         redirect_to dashboard_path
       else
         sign_in_and_redirect @user, :event => :authentication
       end
     else
       session["devise.#{provider_name}_data"] = request.env["omniauth.auth"].except("extra")
-      flash[:alert] = "I'm sorry, your account has not been approved yet."
+      if @user.errors[:base].include?("I'm sorry, your account hasn't been approved yet.")
+        flash[:alert] = "I'm sorry, your account hasn't been approved yet."
+      elsif @user.errors[:email].include?('has already been taken')
+        flash[:alert] = "We already have an account with that email. Make sure login with the service you used to create the account."
+      else
+        flash[:alert] = "An unexpected error has occured; please try to sign up again."
+      end
       redirect_to new_user_registration_url
     end
   end

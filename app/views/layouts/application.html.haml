@@ -5,10 +5,10 @@
 
     %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
     
-    %meta(name="viewport" content="width=device-width")
+    %meta{:name => "viewport", :content => "width=device-width"}
     - if current_user && request.get? # If it's a post, then no redirect
       = refresh_meta_tag_conent    
-    %meta(name="format-detection" content="telephone=yes") 
+    %meta{:name => "format-detection", :content => "telephone=yes"}
     %meta(name="apple-mobile-web-app-capable" content="yes")
     
     %meta(name="HandheldFriendly" content="True")

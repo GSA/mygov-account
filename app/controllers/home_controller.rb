@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :developer, :privacy_policy, :terms_of_service, :about]
-  before_filter :assign_user, :except => [:index, :privacy_policy, :developer, :terms_of_service]
+  before_filter :authenticate_user!, :except => [:index, :developer, :privacy_policy, :terms_of_service, :about, :xrds]
+  before_filter :assign_user, :except => [:index, :privacy_policy, :developer, :terms_of_service, :xrds]
   
   def index
     if current_user
@@ -32,5 +32,9 @@ class HomeController < ApplicationController
   end
   
   def pra
+  end
+  
+  def xrds
+    response.content_type = "application/xrds+xml"
   end
 end

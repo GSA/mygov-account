@@ -20,7 +20,6 @@ describe "Users" do
       it "should link to third party sign ins" do
         visit sign_in_path
         page.should have_link 'Sign in with Google'
-        page.should have_link 'Sign in with PayPal'
         page.should have_link 'Sign in with VeriSign'
       end
       
@@ -52,7 +51,6 @@ describe "Users" do
     it "should provide links to third party sign in services" do
       visit sign_up_path
       page.should have_link 'Sign up with Google'
-      page.should have_link 'Sign up with PayPal'
       page.should have_link 'Sign up with VeriSign'
     end
     
@@ -112,7 +110,7 @@ describe "Users" do
               page.should have_content "Terms of service must be accepted"
             end
           end
-          
+        
           context "when the user doesn't fill in everything else" do
             it "should display error messages for all the missing bits of information" do
               visit sign_up_path
@@ -123,29 +121,68 @@ describe "Users" do
           end
         end
         
-        it "should let the user create an account" do
-          visit sign_up_path
-          fill_in 'Email', :with => 'joe@citizen.org'
-          fill_in 'Password', :with => 'password'
-          fill_in 'Password confirmation', :with => 'password'
-          check 'I agree to the MyUSA Terms of Service and Privacy Policy'
-          click_button 'Sign up'
-          page.should have_content 'Thank you for signing up'
-          ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-          ActionMailer::Base.deliveries.last.from.should == ["projectmygov@gsa.gov"]
+        context "when no user exists with the supplied email address" do
+          before do
+            user = User.find_by_email('joe@citizen.org')
+            user.destroy if user
+          end
+          
+          it "should let the user create an account" do
+            visit sign_up_path
+            fill_in 'Email', :with => 'joe@citizen.org'
+            fill_in 'Password', :with => 'password'
+            fill_in 'Password confirmation', :with => 'password'
+            check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+            click_button 'Sign up'
+            page.should have_content 'Thank you for signing up'
+            ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
+            ActionMailer::Base.deliveries.last.from.should == ["projectmygov@gsa.gov"]
+          end
+        
+          it "should set the user's name" do
+            visit sign_up_path
+            fill_in 'Email', :with => 'joe@citizen.org'
+            fill_in 'Password', :with => 'password'
+            fill_in 'Password confirmation', :with => 'password'
+            check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+            click_button 'Sign up'
+            page.should have_content 'Thank you for signing up'
+            ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
+            ActionMailer::Base.deliveries.last.from.should == ["projectmygov@gsa.gov"]
+          end
         end
         
-        it "should set the user's name" do
-          visit sign_up_path
-          fill_in 'Email', :with => 'joe@citizen.org'
-          fill_in 'Password', :with => 'password'
-          fill_in 'Password confirmation', :with => 'password'
-          check 'I agree to the MyUSA Terms of Service and Privacy Policy'
-          click_button 'Sign up'
-          page.should have_content 'Thank you for signing up'
-          ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-          ActionMailer::Base.deliveries.last.from.should == ["projectmygov@gsa.gov"]
-        end    
+        context "when a third-party user exists with the same email but a different uid and provider" do
+          before do
+            user = User.new(:email => 'joe@citizen.org', :password => 'password')
+            user.provider = "someotherprovider"
+            user.uid = "joe@citizen.org"
+            user.save!
+          end
+          
+          it "should not allow a new user to be created or login with that email address" do
+            visit sign_up_path
+            fill_in 'Email', :with => 'joe@citizen.org'
+            fill_in 'Password', :with => 'password'
+            fill_in 'Password confirmation', :with => 'password'
+            check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+            click_button 'Sign up'
+            page.should have_content 'Email has already been taken'
+          end
+        end
+        
+        context "when a local user exists with the same email" do
+          before do
+            user = User.new(:email => 'joe@citizen.org', :password => 'password')
+            user.save!
+          end
+          
+          it "should not let someone sign in with a third party service that identifies the user with the same email" do
+            visit sign_in_path
+            click_link 'Sign in with Google'
+            page.should have_content 'We already have an account with that email. Make sure login with the service you used to create the account.'
+          end
+        end 
       end
     end
   end

@@ -19,11 +19,14 @@ describe "Apis" do
   describe "GET /api/profile" do
     context "when the request has a valid token" do
       context "when the user queried exists" do
-        it "should return JSON with the profile information for the profile specificed" do
+        it "should return JSON with an empty profile" do
           get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "200"
           parsed_json = JSON.parse(response.body)
-          parsed_json["status"].should == "OK"
+          parsed_json.should_not be_nil
+          parsed_json.each do |key, value|
+            parsed_json[key].should be_nil
+          end
         end
       
         context "when the schema parameter is set" do
@@ -31,7 +34,10 @@ describe "Apis" do
             get "/api/profile", {"schema" => "true"}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
             response.code.should == "200"
             parsed_json = JSON.parse(response.body)
-            parsed_json["status"].should == "OK"
+            parsed_json.should_not be_nil
+            parsed_json.each do |key, value|
+              parsed_json[key].should be_nil
+            end
           end
         end
       end
@@ -178,9 +184,8 @@ describe "Apis" do
           post "/api/tasks", {:task => { :name => 'New Task' }}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}" }
           response.code.should == "200"
           parsed_json = JSON.parse(response.body)
-          parsed_json["status"].should == "OK"
-          parsed_json["task"].should_not be_nil
-          parsed_json["task"]["name"].should == "New Task"
+          parsed_json.should_not be_nil
+          parsed_json["name"].should == "New Task"
           Task.find_all_by_name_and_user_id_and_app_id('New Task', @user.id, @app.id).should_not be_nil
         end
       end

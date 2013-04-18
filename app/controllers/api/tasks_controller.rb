@@ -10,7 +10,7 @@ class Api::TasksController < Api::ApiController
     task = @user.tasks.build(params[:task] || {})
     task.app_id = @app.id
     if task.save
-      render :json => {:status => "OK", :task => task }
+      render :json => task
     else
       render :json => {:status => "Error", :message => task.errors }, :status => 400
     end

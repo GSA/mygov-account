@@ -9,7 +9,6 @@ Mygov::Application.routes.draw do
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/allow' => 'oauth#allow'
-  get 'oauth/test' => 'oauth#test'
   resource :user, :only => [:destroy]
   resource :profile, :only => [:show]
   resources :notifications, :only => [:index, :show, :create, :destroy]

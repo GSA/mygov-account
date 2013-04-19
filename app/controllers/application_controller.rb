@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   prepend_before_filter :set_no_keep_alive
   before_filter :set_segment
   before_filter :set_session_will_expire
+  after_filter :set_response_headers
   
   def after_sign_out_path_for(resource_or_scope)
     sign_in_path
@@ -34,5 +35,9 @@ class ApplicationController < ActionController::Base
       session[:segment] = rand(2) == 0 ? "A" : "B"
     end
     @segment = session[:segment]
+  end
+  
+  def set_response_headers
+    headers['X-Frame-Options'] = 'SAMEORIGIN'
   end
 end

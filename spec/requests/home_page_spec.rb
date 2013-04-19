@@ -32,6 +32,11 @@ describe "HomePage" do
           BetaSignup.find_by_email('joe@citizen.org').should_not be_nil
           page.should have_content("Thanks for signing up")
         end
+        
+        it "should prevent clickjacking" do
+          get "/"
+          response.headers['X-Frame-Options'].should == "SAMEORIGIN"
+        end
       end
       
       context "when the user views a static page" do

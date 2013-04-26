@@ -23,7 +23,7 @@ describe BetaSignup do
     beta_signup.save!
     ActionMailer::Base.deliveries.size.should == 1    
     email = ActionMailer::Base.deliveries.first
-    email.from.should == ["projectmygov@gsa.gov"]
+    email.from.should == ["projectmyusa@gsa.gov"]
     email.to.should == [beta_signup.email]
     email.subject.should =~ /MyUSA/
     email.subject.should =~ /Beta/

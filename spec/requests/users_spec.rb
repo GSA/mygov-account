@@ -136,7 +136,7 @@ describe "Users" do
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
             ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-            ActionMailer::Base.deliveries.last.from.should == ["projectmygov@gsa.gov"]
+            ActionMailer::Base.deliveries.last.from.should == ["projectmyusa@gsa.gov"]
           end
         
           it "should set the user's name" do
@@ -148,7 +148,7 @@ describe "Users" do
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
             ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-            ActionMailer::Base.deliveries.last.from.should == ["projectmygov@gsa.gov"]
+            ActionMailer::Base.deliveries.last.from.should == ["projectmyusa@gsa.gov"]
           end
         end
         

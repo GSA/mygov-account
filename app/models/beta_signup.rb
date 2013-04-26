@@ -11,7 +11,7 @@ class BetaSignup < ActiveRecord::Base
   private
   
   def send_beta_invite
-    (rand(2) == 0 ? UserMailer.beta_invite_a(self.email).deliver : UserMailer.beta_invite_b(self.email).deliver) if is_approved_changed? && is_approved == true
+    UserMailer.beta_invite(self.email).deliver if is_approved_changed? && is_approved == true
   end
   
   def approve_dot_gov_emails    

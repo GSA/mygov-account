@@ -1,4 +1,4 @@
-DEFAULT_FROM_EMAIL = "\"Team MyUSA\" <projectmygov@gsa.gov>"
+DEFAULT_FROM_EMAIL = "\"MyUSA\" <projectmyusa@gsa.gov>"
 MYGOV_FORMS_HOME = "http://localhost:3002"
 
 # run 'rake secret' from the command line and copy the result here.

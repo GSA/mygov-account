@@ -31,10 +31,8 @@ describe "Users" do
     
     context "when a user is signed in" do
       before do
-        beta_signup = BetaSignup.new(:email => 'joe@citizen.org')
-        beta_signup.is_approved = true
-        beta_signup.save!
-        @user = User.create(:email => beta_signup.email, :password => 'password')
+        create_approved_beta_signup('joe@citizen.org')      
+        @user = User.create(:email => 'joe@citizen.org', :password => 'password')
         @user.confirm!
         create_logged_in_user(@user)
       end
@@ -187,12 +185,32 @@ describe "Users" do
     end
   end
 
+  describe "sign in process" do
+    before do
+      create_approved_beta_signup('joe@citizen.org')
+      @user = User.create(:email => 'joe@citizen.org', :password => 'password')
+      @user.confirm!
+    end
+    
+    it "should lock the account if the user fails to login five times" do
+      visit sign_in_path
+      6.times do
+        fill_in 'Email', :with => 'joe@citizen.org'
+        fill_in 'Password', :with => 'wordpass'
+        click_button 'Sign in'
+      end
+      page.should have_content "Your account is locked."
+      @user.reload
+      @user.unlock_token.should_not be_nil
+      ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
+      ActionMailer::Base.deliveries.last.subject.should == 'Unlock Instructions'
+    end
+  end
+    
   describe "sign out process" do
     before do
-      beta_signup = BetaSignup.new(:email => 'joe@citizen.org')
-      beta_signup.is_approved = true
-      beta_signup.save!
-      @user = User.create(:email => beta_signup.email, :password => 'password')
+      create_approved_beta_signup('joe@citizen.org')      
+      @user = User.create(:email => 'joe@citizen.org', :password => 'password')
       @user.confirm!
       create_logged_in_user(@user)
     end

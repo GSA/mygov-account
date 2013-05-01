@@ -14,6 +14,10 @@ if Rails.env != 'development'
     config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'verisign', :identifier => 'https://pip.verisignlabs.com/user/DIRECTED_IDENTITY_USER/yadisxrds', :require => 'omniauth-openid', :require => 'omniauth-openid', :preferred_auth_policies => PAPE_FIELDS[:preferred_auth_policies], :max_auth_age => PAPE_FIELDS[:max_auth_age], :required => ["email"], :optional => []
     config.reconfirmable = true
     config.mailer_sender = DEFAULT_FROM_EMAIL
+    config.lock_strategy = :failed_attempts
+    config.unlock_keys = [:email]
+    config.unlock_strategy = :email
+    config.maximum_attempts = 5
   end
 else
   Devise.setup do |config|
@@ -26,5 +30,9 @@ else
     config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'verisign', :identifier => 'https://pip.verisignlabs.com/user/DIRECTED_IDENTITY_USER/yadisxrds', :require => 'omniauth-openid', :require => 'omniauth-openid', :required => ["http://axschema.org/contact/email"], :optional => []
     config.reconfirmable = true
     config.mailer_sender = DEFAULT_FROM_EMAIL
+    config.lock_strategy = :failed_attempts
+    config.unlock_keys = [:email]
+    config.unlock_strategy = :email
+    config.maximum_attempts = 5
   end  
 end

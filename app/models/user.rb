@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   validates_acceptance_of :terms_of_service
   validates_presence_of :uid, :provider
   validates_uniqueness_of :uid, :scope => [:provider]
+  validate :validate_password_strength
 
   before_validation :generate_uid_and_provider
   after_create :create_default_notification
@@ -65,6 +66,10 @@ class User < ActiveRecord::Base
   
   def email_is_whitelisted    
     errors.add(:base, "I'm sorry, your account hasn't been approved yet.") if BetaSignup.find_by_email_and_is_approved(self.email, true).nil?
+  end
+  
+  def validate_password_strength
+    errors.add(:password, "must include at least one lower case letter, one upper case letter and one digit.") if password.present? and not password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+/)
   end
   
   def generate_uid_and_provider

@@ -32,7 +32,7 @@ describe "Users" do
     context "when a user is signed in" do
       before do
         create_approved_beta_signup('joe@citizen.org')      
-        @user = User.create(:email => 'joe@citizen.org', :password => 'password')
+        @user = User.create(:email => 'joe@citizen.org', :password => 'Password1')
         @user.confirm!
         create_logged_in_user(@user)
       end
@@ -56,8 +56,8 @@ describe "Users" do
       it "should not let the user create an account" do
         visit sign_up_path
         fill_in 'Email', :with => 'joe@citizen.org'
-        fill_in 'Password', :with => 'password'
-        fill_in 'Password confirmation', :with => 'password'
+        fill_in 'Password', :with => 'Password1'
+        fill_in 'Password confirmation', :with => 'Password1'
         check 'I agree to the MyUSA Terms of Service and Privacy Policy'
         click_button 'Sign up'
         page.should have_content "I'm sorry, your account hasn't been approved yet."
@@ -84,8 +84,8 @@ describe "Users" do
         it "should not let the user create an account" do
           visit sign_up_path
           fill_in 'Email', :with => 'joe@citizen.org'
-          fill_in 'Password', :with => 'password'
-          fill_in 'Password confirmation', :with => 'password'
+          fill_in 'Password', :with => 'Password1'
+          fill_in 'Password confirmation', :with => 'Password1'
           check 'I agree to the MyUSA Terms of Service and Privacy Policy'
           click_button 'Sign up'
           page.should have_content "I'm sorry, your account hasn't been approved yet."
@@ -102,8 +102,8 @@ describe "Users" do
             it "should not register the user and display an error message" do
               visit sign_up_path
               fill_in 'Email', :with => 'joe@citizen.org'
-              fill_in 'Password', :with => 'password'
-              fill_in 'Password confirmation', :with => 'password'
+              fill_in 'Password', :with => 'Password1'
+              fill_in 'Password confirmation', :with => 'Password1'
               click_button 'Sign up'
               page.should have_content "Terms of service must be accepted"
             end
@@ -128,8 +128,8 @@ describe "Users" do
           it "should let the user create an account" do
             visit sign_up_path
             fill_in 'Email', :with => 'joe@citizen.org'
-            fill_in 'Password', :with => 'password'
-            fill_in 'Password confirmation', :with => 'password'
+            fill_in 'Password', :with => 'Password1'
+            fill_in 'Password confirmation', :with => 'Password1'
             check 'I agree to the MyUSA Terms of Service and Privacy Policy'
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
@@ -147,12 +147,36 @@ describe "Users" do
               click_button 'Sign up'
               page.should have_content 'Password is too short (minimum is 8 characters)'
             end
+          end
+          
+          context "when the user submits a password that isn't sufficiently strong" do
+            it "should not create the user account" do
+              visit sign_up_path
+              fill_in 'Email', :with => 'joe@citizen.org'
+              fill_in 'Password', :with => 'password'
+              fill_in 'Password confirmation', :with => 'password'
+              check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+              click_button 'Sign up'
+              page.should have_content 'must include at least one lower case letter, one upper case letter and one digit.'
+            end
+          end
+          
+          context "when the user submits a password with special characters" do
+            it "should create an account" do
+              visit sign_up_path
+              fill_in 'Email', :with => 'joe@citizen.org'
+              fill_in 'Password', :with => 'Password!2'
+              fill_in 'Password confirmation', :with => 'Password!2'
+              check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+              click_button 'Sign up'
+              page.should have_content 'Thank you for signing up'
+            end
           end 
         end
         
         context "when a third-party user exists with the same email but a different uid and provider" do
           before do
-            user = User.new(:email => 'joe@citizen.org', :password => 'password')
+            user = User.new(:email => 'joe@citizen.org', :password => 'Password1')
             user.provider = "someotherprovider"
             user.uid = "joe@citizen.org"
             user.save!
@@ -161,8 +185,8 @@ describe "Users" do
           it "should not allow a new user to be created or login with that email address" do
             visit sign_up_path
             fill_in 'Email', :with => 'joe@citizen.org'
-            fill_in 'Password', :with => 'password'
-            fill_in 'Password confirmation', :with => 'password'
+            fill_in 'Password', :with => 'Password1'
+            fill_in 'Password confirmation', :with => 'Password1'
             check 'I agree to the MyUSA Terms of Service and Privacy Policy'
             click_button 'Sign up'
             page.should have_content 'Email has already been taken'
@@ -171,7 +195,7 @@ describe "Users" do
         
         context "when a local user exists with the same email" do
           before do
-            user = User.new(:email => 'joe@citizen.org', :password => 'password')
+            user = User.new(:email => 'joe@citizen.org', :password => 'Password1')
             user.save!
           end
           
@@ -188,7 +212,7 @@ describe "Users" do
   describe "sign in process" do
     before do
       create_approved_beta_signup('joe@citizen.org')
-      @user = User.create(:email => 'joe@citizen.org', :password => 'password')
+      @user = User.create(:email => 'joe@citizen.org', :password => 'Password1')
       @user.confirm!
     end
     
@@ -210,7 +234,7 @@ describe "Users" do
   describe "sign out process" do
     before do
       create_approved_beta_signup('joe@citizen.org')      
-      @user = User.create(:email => 'joe@citizen.org', :password => 'password')
+      @user = User.create(:email => 'joe@citizen.org', :password => 'Password1')
       @user.confirm!
       create_logged_in_user(@user)
     end

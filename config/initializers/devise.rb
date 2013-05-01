@@ -18,6 +18,7 @@ if Rails.env != 'development'
     config.unlock_keys = [:email]
     config.unlock_strategy = :email
     config.maximum_attempts = 5
+    config.password_length = 8..128
   end
 else
   Devise.setup do |config|
@@ -34,5 +35,6 @@ else
     config.unlock_keys = [:email]
     config.unlock_strategy = :email
     config.maximum_attempts = 5
+    config.password_length = 8..128  
   end  
 end

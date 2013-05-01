@@ -4,7 +4,7 @@ describe User do
   before do
     @valid_attributes = {
       :email => 'joe@citizen.org',
-      :password => 'random'
+      :password => 'password'
     }
     create_approved_beta_signup('joe@citizen.org')
   end

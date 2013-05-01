@@ -8,7 +8,7 @@ describe Notification do
       :body => 'This is a test notification'
     }
     create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'password')
     @app = App.create!(:name => 'App1', :redirect_uri => 'http://localhost/')
   end
   %w{subject received_at user_id}.each do |e|

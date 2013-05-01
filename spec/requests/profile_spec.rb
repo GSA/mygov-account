@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Profile" do
   before do
     create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'password')
     @user.confirm!
   end
 

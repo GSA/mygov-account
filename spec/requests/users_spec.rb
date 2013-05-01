@@ -136,18 +136,18 @@ describe "Users" do
             ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
             ActionMailer::Base.deliveries.last.from.should == ["projectmyusa@gsa.gov"]
           end
-        
-          it "should set the user's name" do
-            visit sign_up_path
-            fill_in 'Email', :with => 'joe@citizen.org'
-            fill_in 'Password', :with => 'password'
-            fill_in 'Password confirmation', :with => 'password'
-            check 'I agree to the MyUSA Terms of Service and Privacy Policy'
-            click_button 'Sign up'
-            page.should have_content 'Thank you for signing up'
-            ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-            ActionMailer::Base.deliveries.last.from.should == ["projectmyusa@gsa.gov"]
-          end
+          
+          context "when the user submits a password that has less than 8 characters" do
+            it "should not create the user account" do
+              visit sign_up_path
+              fill_in 'Email', :with => 'joe@citizen.org'
+              fill_in 'Password', :with => 'pass'
+              fill_in 'Password confirmation', :with => 'pass'
+              check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+              click_button 'Sign up'
+              page.should have_content 'Password is too short (minimum is 8 characters)'
+            end
+          end 
         end
         
         context "when a third-party user exists with the same email but a different uid and provider" do

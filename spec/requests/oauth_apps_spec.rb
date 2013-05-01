@@ -3,11 +3,11 @@ require 'spec_helper'
 describe "OauthApps" do
   before do
     create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'password')
     @user.confirm!
 
     create_approved_beta_signup('second@user.org')
-    @user2 = User.create!(:email => 'second@user.org', :password => 'random')
+    @user2 = User.create!(:email => 'second@user.org', :password => 'password')
     @user2.confirm!
     
     app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}

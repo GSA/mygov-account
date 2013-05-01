@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Apis" do
   before do
     create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'password')
     @user.confirm!
     @app = App.create(:name => 'App1', :redirect_uri => "http://localhost/")
     @app.oauth_scopes = OauthScope.all
@@ -24,7 +24,6 @@ describe "Apis" do
           response.code.should == "200"
           parsed_json = JSON.parse(response.body)
           parsed_json.should_not be_nil
-          puts parsed_json.inspect
           parsed_json["email"].should == 'joe@citizen.org'
           parsed_json.reject{|k,v| k == "email"}.each do |key, value|
             parsed_json[key].should be_nil
@@ -57,7 +56,7 @@ describe "Apis" do
   describe "POST /api/notifications" do
     before do
       create_approved_beta_signup('jane@citizen.org')
-      @other_user = User.create!(:email => 'jane@citizen.org', :password => 'random')
+      @other_user = User.create!(:email => 'jane@citizen.org', :password => 'password')
       @app2 = App.create!(:name => 'App2', :redirect_uri => "http://localhost:3000/")
       @app2.oauth_scopes << OauthScope.all
       create_logged_in_user(@user)

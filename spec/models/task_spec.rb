@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Task do
   before do
     create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
+    @user = User.create!(:email => 'joe@citizen.org', :password => 'password')
     @app = App.create!(:name => 'Test App', :redirect_uri => "http://localhost:3000/")
     @valid_attributes = {
       :name => 'Test task'

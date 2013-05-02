@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130424165101) do
+ActiveRecord::Schema.define(:version => 20130502165245) do
 
   create_table "app_oauth_scopes", :force => true do |t|
     t.integer  "app_id"
@@ -204,7 +204,6 @@ ActiveRecord::Schema.define(:version => 20130424165101) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "authentication_token"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "provider"

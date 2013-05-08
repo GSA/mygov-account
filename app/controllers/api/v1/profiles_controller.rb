@@ -1,4 +1,4 @@
-class Api::ProfilesController < Api::ApiController
+class Api::V1::ProfilesController < Api::ApiController
   before_filter :validate_oauth
   
   EMPTY_PROFILE = {:title => nil, 

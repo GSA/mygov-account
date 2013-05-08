@@ -1,3 +1,5 @@
+require 'api_constraints'
+
 Mygov::Application.routes.draw do
   devise_for :users, :path => '', :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => 'users/registrations', :confirmations => 'users/confirmations' }
   devise_scope :user do
@@ -31,11 +33,13 @@ Mygov::Application.routes.draw do
   resources :task_items, :only => [:update, :destroy]
   resources :beta_signups, :only => [:create]
   namespace :api, :defaults => {:format => :json} do
-    resource :profile, :only => [:show]
-    resources :notifications, :only => [:create]
-    resources :tasks, :only => [:index, :create, :show]
-    resources :forms, :only => [:create, :show]
-    resources :apps, :only => [:index, :show, :edit]
+    scope :module => :v1, :constraints => ApiConstraints.new(:version => 1, :default => true) do
+      resource :profile, :only => [:show]
+      resources :notifications, :only => [:create]
+      resources :tasks, :only => [:index, :create, :show]
+      resources :forms, :only => [:create, :show]
+      resources :apps, :only => [:index, :show, :edit]
+    end
   end
   match "/404", :to => "errors#not_found"
   rack_error_handler = ActionDispatch::PublicExceptions.new('public/')

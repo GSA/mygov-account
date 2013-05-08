@@ -1,4 +1,4 @@
-class Api::NotificationsController < Api::ApiController
+class Api::V1::NotificationsController < Api::ApiController
   before_filter :oauthorize_scope
   
   def create

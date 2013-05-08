@@ -1,4 +1,4 @@
-class Api::FormsController < Api::ApiController
+class Api::V1::FormsController < Api::ApiController
   before_filter :oauthorize_scope
   
   respond_to :json, :xml

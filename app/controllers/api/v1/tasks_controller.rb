@@ -1,4 +1,4 @@
-class Api::TasksController < Api::ApiController
+class Api::V1::TasksController < Api::ApiController
   before_filter :oauthorize_scope
   
   def index

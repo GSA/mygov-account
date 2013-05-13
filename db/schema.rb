@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502192418) do
+ActiveRecord::Schema.define(:version => 20130513175649) do
 
   create_table "app_oauth_scopes", :force => true do |t|
     t.integer  "app_id"
@@ -138,19 +138,6 @@ ActiveRecord::Schema.define(:version => 20130502192418) do
 
   add_index "oauth_scopes", ["scope_name"], :name => "index_oauth_scopes_on_scope_name"
 
-  create_table "rails_admin_histories", :force => true do |t|
-    t.text     "message"
-    t.string   "username"
-    t.integer  "item"
-    t.string   "table"
-    t.integer  "month",      :limit => 2
-    t.integer  "year",       :limit => 8
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
-  end
-
-  add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
-
   create_table "related_urls", :force => true do |t|
     t.string   "url"
     t.string   "other_url"
@@ -218,7 +205,6 @@ ActiveRecord::Schema.define(:version => 20130502192418) do
     t.datetime "updated_at",                             :null => false
     t.string   "provider"
     t.string   "uid"
-    t.boolean  "is_admin"
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

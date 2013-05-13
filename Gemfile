@@ -12,7 +12,6 @@ gem 'oauth2-provider', :require => 'oauth2/provider', :git => 'https://github.co
 gem 'rvm-capistrano'
 gem 'bigdecimal'
 gem 'will_paginate', '~> 3.0'
-gem 'rails_admin'
 gem 'cancan'
 gem 'google-analytics-rails'
 gem 'quiet_assets'

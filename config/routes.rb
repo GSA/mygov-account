@@ -24,7 +24,6 @@ Mygov::Application.routes.draw do
   get 'xrds' => "home#xrds", :as => :xrds
 
   resources :tasks, :only => [:show, :update, :destroy]
-  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   resources :apps do
     member do
       get :uninstall

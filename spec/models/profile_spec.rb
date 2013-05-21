@@ -32,7 +32,7 @@ describe Profile do
   describe "as_json" do
     before do
       create_approved_beta_signup('joe@citizen.org')
-      @user = User.create!(:email => 'joe@citizen.org', :password => 'random')
+      @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
       @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen', :phone_number => '202-555-1212', :gender => 'male')
       @user.confirm!      
     end

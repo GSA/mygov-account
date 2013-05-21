@@ -20,12 +20,12 @@ Mygov::Application.routes.draw do
   get 'oauth/unknown_app' => 'oauth#unknown_app', :as => :unknown_app
   resources :beta_signups, :only => [:create]
   resource :user, :only => [:destroy]
-  resource :profile, :only => [:show]
   resources :settings, :only => [:index] do
     collection do
       resources :authentications
     end
   end
+  resource :profile, :only => [:show, :edit, :update]
   resources :notifications, :only => [:index, :show, :create, :destroy]
   resources :tasks, :only => [:show, :update, :destroy]
   resources :apps do

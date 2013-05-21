@@ -5,10 +5,12 @@ describe "Apps" do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
     @user.confirm!
-    
+    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+
     create_approved_beta_signup('jane@citizen.org')
     @user2 = User.create!(:email => 'jane@citizen.org', :password => 'Password1')
     @user2.confirm!
+    @user2.profile = Profile.new(:first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
         
     @app1 = @user.apps.create(name: 'Public App 1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")
     @app1.is_public = true

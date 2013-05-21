@@ -5,17 +5,19 @@ describe "OauthApps" do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
     @user.confirm!
+    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
 
     create_approved_beta_signup('second@user.org')
     @user2 = User.create!(:email => 'second@user.org', :password => 'Password1')
     @user2.confirm!
-
-    @app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
-    @app1.is_public = true
-    @app1.save!
-    @app1.oauth_scopes << OauthScope.all
-    @app1_client_auth = @app1.oauth2_client
-
+    @user2.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    
+    app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
+    app1.is_public = true
+    app1.save!
+    app1.oauth_scopes << OauthScope.all
+    @app1_client_auth = app1.oauth2_client
+    
     app2 = App.create(name: 'App2'){|app| app.redirect_uri = "http://localhost/"}
     app2.is_public = true
     app2.save!
@@ -122,7 +124,7 @@ describe "OauthApps" do
         page.should have_content('The App1 application wants to:')
         click_button('Allow')
         @user.app_activity_logs.count.should == 1
-        @user.app_activity_logs.first.app.should == @app1
+        @user.app_activity_logs.first.app.should == App.find_by_name('App1')
       end
     end
 

@@ -9,6 +9,7 @@ describe Notification do
     }
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
+    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen')
     @app = App.create!(:name => 'App1', :redirect_uri => 'http://localhost/')
   end
   %w{subject received_at user_id}.each do |e|
@@ -35,7 +36,7 @@ describe Notification do
         email.to.should == [@user.email]
         email.subject.should == "[MYUSA] #{notification.subject}"
         email.parts.map do |part|
-          expect(part.body).to include("Hello, #{@user.email}")
+          expect(part.body).to include("Hello, #{@user.profile.first_name}")
           expect(part.body).to include('A notification for you from MyUSA')
           expect(part.body).to include("#{notification.body}")
         end
@@ -51,7 +52,7 @@ describe Notification do
         email.to.should == [@user.email]
         email.subject.should == "[MYUSA] [#{notification.app.name}] #{notification.subject}"
         email.parts.map do |part|
-          expect(part.body).to include("Hello, #{@user.email}")
+          expect(part.body).to include("Hello, #{@user.profile.first_name}")
           expect(part.body).to include("The \"#{notification.app.name}\" MyUSA application has sent you the following message")
           expect(part.body).to include("#{notification.body}")
         end

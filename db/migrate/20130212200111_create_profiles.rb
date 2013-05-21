@@ -1,5 +1,5 @@
 class CreateProfiles < ActiveRecord::Migration
-  def change
+  def up
     create_table :profiles do |t|
       t.string :title, :limit => 10
       t.string :first_name

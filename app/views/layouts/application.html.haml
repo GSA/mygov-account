@@ -50,10 +50,10 @@
             .six.columns
               %a{ :href => root_url }
                 %h1
-                  - if current_user
+                  - if current_user and current_user.profile.first_name.present?
                     %span.personal-name
-                      Your
-                  My<span>USA</span>
+                      #{current_user.profile.first_name}'s
+                  My<span>USA</span><span class="beta">Beta</span>
             .six.columns.align-right
               - if !current_user && request.path != sign_in_path
                 %h3.tagline
@@ -83,7 +83,7 @@
                 %span.notification-label
                   Notifications
             %li.right.sign-out= link_to "Sign out", sign_out_path
-            %li.right.profile= link_to "Your profile", profile_path
+            %li.right.profile= link_to(current_user.profile.name || "Your profile", profile_path)
             %li.right.settings= link_to "Settings", settings_path
           
       /

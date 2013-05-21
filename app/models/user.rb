@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include OAuth2::Model::ResourceOwner  
   validate :email_is_whitelisted_or_user_had_existing_account, if: :valid_email?
+  has_one :profile, :dependent => :destroy
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :submitted_forms, :dependent => :destroy
@@ -13,6 +14,7 @@ class User < ActiveRecord::Base
   validate :validate_password_strength
 
   before_validation :generate_uid
+  after_create :create_profile
   after_create :create_default_notification
   after_destroy :send_account_deleted_notification
   
@@ -24,6 +26,10 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :terms_of_service, :unconfirmed_email, :as => [:default, :admin]
 
   WHITELISTED_DOMAINS = %w{ .gov .mil usps.com }
+  attr_accessible :first_name, :last_name, :as => [:default]
+  attr_accessor :just_created
+  
+  PROFILE_ATTRIBUTES = [:title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone, :mobile, :gender, :marital_status, :is_parent, :is_retired, :is_student, :is_veteran]
 
   def sandbox_apps
     self.apps.sandbox
@@ -42,6 +48,7 @@ class User < ActiveRecord::Base
         signed_in_resource
       else
         user = User.new(:email => data['email'], :password => Devise.friendly_token[0,20])
+        user.profile = Profile.new(:first_name => data["first_name"], :last_name => data["last_name"], :name => data["name"])
         user.skip_confirmation!
         user.authentications.new(:uid => access_token.uid, :provider => access_token.provider, :data => access_token)
         user.save
@@ -55,19 +62,28 @@ class User < ActiveRecord::Base
 
   end
   
+  def first_name
+    self.profile ? self.profile.first_name : @first_name
+  end
+
+  def first_name=(first_name)
+    @first_name = first_name
+  end
+
+  def last_name
+    self.profile ? self.profile.last_name : @last_name
+  end
+
+  def last_name=(last_name)
+    @last_name = last_name
+  end
+  
   def confirm!
     if is_reconfirmation = is_reconfirmation?
       sync_beta_signup_with_changes
     end
-
     super_response = super
-
-    if is_reconfirmation
-      create_email_changed_notification
-    else
-      create_default_notification
-    end
-
+    is_reconfirmation ? create_email_changed_notification : create_default_notification
     super_response
   end
 
@@ -92,6 +108,10 @@ class User < ActiveRecord::Base
   end
   
   private
+  
+  def create_profile
+    self.profile = Profile.new(:first_name => @first_name, :last_name => @last_name) unless self.profile
+  end
   
   def valid_email?
     self.email? && self.email =~ Devise.email_regexp

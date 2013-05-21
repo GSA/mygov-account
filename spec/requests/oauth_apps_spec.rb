@@ -5,10 +5,12 @@ describe "OauthApps" do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
     @user.confirm!
+    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
 
     create_approved_beta_signup('second@user.org')
     @user2 = User.create!(:email => 'second@user.org', :password => 'Password1')
     @user2.confirm!
+    @user2.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     
     app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
     app1.is_public = true

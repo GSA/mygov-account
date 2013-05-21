@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include OAuth2::Model::ResourceOwner  
   validate :email_is_whitelisted, if: :valid_email?
+  has_one :profile, :dependent => :destroy
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :submitted_forms, :dependent => :destroy
@@ -11,6 +12,7 @@ class User < ActiveRecord::Base
   validate :validate_password_strength
 
   before_validation :generate_uid_and_provider
+  after_create :create_profile
   after_create :create_default_notification
   after_destroy :send_account_deleted_notification
   
@@ -20,8 +22,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :lockable, :timeoutable, :confirmable
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :terms_of_service, :as => [:default, :admin]
+  attr_accessible :first_name, :last_name, :as => [:default]
   attr_accessor :just_created
   
+  PROFILE_ATTRIBUTES = [:title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone, :mobile, :gender, :marital_status, :is_parent, :is_retired, :is_student, :is_veteran]
+
   def sandbox_apps
     self.apps.sandbox
   end
@@ -37,11 +42,28 @@ class User < ActiveRecord::Base
         user.provider = access_token.provider
         user.uid = access_token.uid
         user.just_created = true
+        user.profile = Profile.new(:first_name => data["first_name"], :last_name => data["last_name"], :name => data["name"])
         user.skip_confirmation!
         user.save
         user
       end
     end  
+  end
+  
+  def first_name
+    self.profile ? self.profile.first_name : @first_name
+  end
+
+  def first_name=(first_name)
+    @first_name = first_name
+  end
+
+  def last_name
+    self.profile ? self.profile.last_name : @last_name
+  end
+
+  def last_name=(last_name)
+    @last_name = last_name
   end
   
   def confirm!
@@ -59,6 +81,10 @@ class User < ActiveRecord::Base
   end
   
   private
+  
+  def create_profile
+    self.profile = Profile.new(:first_name => @first_name, :last_name => @last_name) unless self.profile
+  end
   
   def valid_email?
     self.email? && self.email =~ Devise.email_regexp

@@ -1,5 +1,5 @@
 %p
-  Hello, #{@notification.user.email}:
+  Hello, #{@notification.user.profile.first_name}:
 
 - if @notification.app.present?
   %p

@@ -48,6 +48,7 @@ describe User do
   describe "confirm!" do
     before do
       @user = User.create!(@valid_attributes)
+      @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen')
       @user.confirmation_token.should_not be_nil
     end
     

@@ -33,6 +33,7 @@ describe "Users" do
       before do
         create_approved_beta_signup('joe@citizen.org')      
         @user = User.create(:email => 'joe@citizen.org', :password => 'Password1')
+        @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen')
         @user.confirm!
         create_logged_in_user(@user)
       end
@@ -174,6 +175,7 @@ describe "Users" do
           end 
         end
         
+<<<<<<< HEAD
         context "when a third-party user exists with the same email but a different uid and provider" do
           before do
             user = User.new(:email => 'joe@citizen.org', :password => 'Password1')
@@ -205,6 +207,22 @@ describe "Users" do
             page.should have_content 'We already have an account with that email. Make sure login with the service you used to create the account.'
           end
         end 
+=======
+        it "should set the user's name" do
+          visit sign_up_path
+          fill_in 'First name', :with => 'Joe'
+          fill_in 'Last name', :with => 'Citizen'
+          fill_in 'Email', :with => 'joe@citizen.org'
+          fill_in 'Password', :with => 'password'
+          fill_in 'Password confirmation', :with => 'password'
+          check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+          click_button 'Sign up'
+          page.should have_content 'Thank you for signing up'
+          ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
+          ActionMailer::Base.deliveries.last.from.should == ["projectmygov@gsa.gov"]
+          User.find_by_email('joe@citizen.org').profile.name.should == 'Joe Citizen'
+        end    
+>>>>>>> parent of a159c6b... [Completes #47130405] Remove profile.
       end
     end
   end
@@ -233,8 +251,16 @@ describe "Users" do
     
   describe "sign out process" do
     before do
+<<<<<<< HEAD
       create_approved_beta_signup('joe@citizen.org')      
       @user = User.create(:email => 'joe@citizen.org', :password => 'Password1')
+=======
+      beta_signup = BetaSignup.new(:email => 'joe@citizen.org')
+      beta_signup.is_approved = true
+      beta_signup.save!
+      @user = User.create(:email => beta_signup.email, :password => 'password')
+      @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+>>>>>>> parent of a159c6b... [Completes #47130405] Remove profile.
       @user.confirm!
       create_logged_in_user(@user)
     end
@@ -244,6 +270,27 @@ describe "Users" do
       click_link 'Sign out'
       page.should have_content "Sign in"
       page.should have_content "Didn't receive confirmation instructions?"
+    end
+  end
+
+  describe "change your name" do
+    before do
+      beta_signup = BetaSignup.new(:email => 'joe@citizen.org')
+      beta_signup.is_approved = true
+      beta_signup.save!
+      @user = User.create(:email => beta_signup.email, :password => 'password')
+      @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen')
+      @user.confirm!
+      create_logged_in_user(@user)
+    end
+    
+    it "should change the user's name when first or last name changes" do
+      visit edit_profile_path
+      fill_in 'First name', :with => 'Jane'
+      click_button 'Update profile'
+      page.should have_content "Sign out"
+      page.should have_content "Edit profile"
+      page.should have_content "Jane Citizen"
     end
   end
 end

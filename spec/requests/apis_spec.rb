@@ -4,6 +4,7 @@ describe "Apis" do
   before do
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
+    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
     @user.confirm!
     @app = App.create(:name => 'App1', :redirect_uri => "http://localhost/")
     @app.oauth_scopes = OauthScope.all
@@ -57,6 +58,7 @@ describe "Apis" do
     before do
       create_approved_beta_signup('jane@citizen.org')
       @other_user = User.create!(:email => 'jane@citizen.org', :password => 'Password1')
+      @other_user.profile = Profile.new(:first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
       @app2 = App.create!(:name => 'App2', :redirect_uri => "http://localhost:3000/")
       @app2.oauth_scopes << OauthScope.all
       create_logged_in_user(@user)

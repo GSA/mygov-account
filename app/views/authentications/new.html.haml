@@ -1,0 +1,8 @@
+.row
+  .eight.columns
+    %h2
+      Add a new authentication provider
+    %p
+      Are you a U.S. federal government employee?  Verify your employment status with MAX.gov.
+    %p
+      = link_to 'Connect your MAX.gov account', user_omniauth_authorize_path(:provider => :maxgov)

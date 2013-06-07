@@ -17,4 +17,5 @@
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'PayPal'
   inflect.acronym 'VeriSign'
+  inflect.acronym 'MAX.gov'
 end

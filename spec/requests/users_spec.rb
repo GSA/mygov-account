@@ -229,6 +229,19 @@ describe "Users" do
       ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
       ActionMailer::Base.deliveries.last.subject.should == 'Unlock Instructions'
     end
+    
+    context "when the user has connected their MAX.gov account" do
+      before do
+        @user.authentications.create(:provider => "max.gov", :uid => 'joe.citizen@usa.gov')
+      end
+      
+      it "should allow the user to log in using their MAX.gov account" do
+        visit sign_in_path
+        click_link 'More sign in options'
+        click_link 'Sign in with MAX.gov'
+        page.should have_content 'Your profile'
+      end
+    end
   end
     
   describe "sign out process" do

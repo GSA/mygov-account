@@ -53,16 +53,12 @@
                   - if current_user
                     %span.personal-name
                       Your
-                  My<span>USA</span><span class="beta">Beta</span>
+                  My<span>USA</span>
             .six.columns.align-right
               - if !current_user && request.path != sign_in_path
                 %h3.tagline
                   =t('sign_in_prompt')
                   =link_to t('sign_in_link'), sign_in_path
-              %h3.disclaimer
-                Experimental Version
-                %em
-                  (For Testing purposes only)
       #main
         %a{:name => "top"}
         .nav-container.group

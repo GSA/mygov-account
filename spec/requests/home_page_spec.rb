@@ -17,7 +17,7 @@ describe "HomePage" do
         
         it "should not let a user sign up for the beta without providing their email address" do
           visit root_path
-          page.should have_content("Navigating government just got easier.")
+          page.should have_content("Take control of how you interact with government.")
           fill_in 'Email', :with => ''
           click_button "Sign up"
           page.should_not have_content("Thanks for signing up")
@@ -26,7 +26,7 @@ describe "HomePage" do
         
         it "should let a user sign up for the beta by providing their email address" do
           visit root_path
-          page.should have_content("Navigating government just got easier.")
+          page.should have_content("Take control of how you interact with government.")
           fill_in 'Email', :with => 'joe@citizen.org'
           click_button "Sign up"
           BetaSignup.find_by_email('joe@citizen.org').should_not be_nil
@@ -60,7 +60,7 @@ describe "HomePage" do
       
       it "should show the user the dashboard" do
         visit root_path
-        page.should have_content "MyUSABeta"
+        page.should have_content "MyUSA"
         click_link 'Your profile'
         page.should have_content 'Your Profile'
       end
@@ -97,7 +97,7 @@ describe "HomePage" do
         
         it "should show the tasks on the dashboard" do
           visit root_path
-          page.should have_content "MyUSABeta"
+          page.should have_content "MyUSA"
           page.should have_content "Tasks"
           page.should have_content "Change your name"
         end

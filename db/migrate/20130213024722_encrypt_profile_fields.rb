@@ -1,6 +1,6 @@
 class EncryptProfileFields < ActiveRecord::Migration
   def up
-    Profile.all.each do |profile|
+    User.all.each do |profile|
       profile.first_name = profile.encrypted_first_name
       profile.middle_name = profile.encrypted_middle_name
       profile.last_name = profile.encrypted_last_name
@@ -17,8 +17,8 @@ class EncryptProfileFields < ActiveRecord::Migration
   end
 
   def down
-    Profile.all.each do |profile|
-      Profile::ENCRYPTED_FIELDS.each do |field_name|
+    User.all.each do |profile|
+      [:first_name, :middle_name, :last_name, :name, :address, :address2, :city, :state, :zip, :phone, :mobile].each do |field_name|
         profile.send("encrypted_#{field_name.to_s}=", profile.send(field_name.to_s)) if profile.send("encrypted_#{field_name.to_s}")
       end
       profile.save

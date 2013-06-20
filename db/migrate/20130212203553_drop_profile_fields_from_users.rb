@@ -1,6 +1,6 @@
 class DropProfileFieldsFromUsers < ActiveRecord::Migration
   def up
-    User::PROFILE_ATTRIBUTES.each do |field|
+    [:title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone, :mobile, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired].map do |field|
       remove_column :users, field
     end
   end

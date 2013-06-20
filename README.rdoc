@@ -18,7 +18,7 @@ To get your Rails development environment setup, here's the steps to follow.  We
 
     In some directory where you want to store your development files, do the following:
 
-      git clone https://github.com/GSA-OCSIT/mygov.git
+      git clone https://github.com/GSA-OCSIT/mygov-account.git
 
   4.  bundle install
 

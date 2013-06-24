@@ -47,6 +47,7 @@ group :development do
   gem 'hpricot'
   gem 'ruby_parser'
   gem "letter_opener"
+  gem 'railroady'
 end
 
 group :test, :development do

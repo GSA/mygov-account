@@ -8,7 +8,7 @@ To get your Rails development environment setup, here's the steps to follow.  We
 
   1.  Install RVM
 
-      curl -L https://get.rvm.io | bash -s stable --ruby
+      \curl -L https://get.rvm.io | bash -s stable --ruby
 
   2.  Install the Ruby 1.9.3 rvm instance
 

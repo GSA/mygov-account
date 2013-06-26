@@ -48,6 +48,8 @@ group :development do
   gem 'ruby_parser'
   gem "letter_opener"
   gem 'railroady'
+  gem 'pry'
+  gem 'pry-nav'
 end
 
 group :test, :development do

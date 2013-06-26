@@ -28,7 +28,7 @@
               %i.general.foundicon-mail
               = link_to notification.subject, notification_path(notification)
             %td
-              = time_ago_in_words(notification.received_at)
+              = pretty_time(notification.received_at)
             %td              
               = link_to notification_path(notification, :page => params[:page]), :method => :delete, :class => 'small alert button' do
                 %i{:class => 'foundicon-remove'}

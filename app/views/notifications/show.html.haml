@@ -9,7 +9,7 @@
         = @notification.subject
       %ul.meta-list
         %li
-          Received at: #{time_ago_in_words(@notification.received_at)}
+          Received: #{pretty_time(@notification.received_at)}
         %li
           - if @notification.app
             From: #{@notification.app.name}

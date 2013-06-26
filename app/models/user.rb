@@ -20,8 +20,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :lockable, :timeoutable, :confirmable
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :terms_of_service, :as => [:default, :admin]
-  attr_accessor :just_created
-  
+
   def sandbox_apps
     self.apps.sandbox
   end
@@ -36,7 +35,6 @@ class User < ActiveRecord::Base
         user = User.new(:email => data["email"], :password => Devise.friendly_token[0,20])
         user.provider = access_token.provider
         user.uid = access_token.uid
-        user.just_created = true
         user.skip_confirmation!
         user.save
         user

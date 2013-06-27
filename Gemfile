@@ -25,6 +25,7 @@ gem "paperclip", "~> 3.0"
 gem "rabl"
 gem "rb-readline"
 gem 'omniauth-openid', :git => 'https://github.com/GSA-OCSIT/omniauth-openid.git', :branch => 'pape'
+gem 'omniauth-cas'
 
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA-OCSIT/rack-openid.git', :branch => 'pape'

@@ -1,12 +1,13 @@
 require 'api_constraints'
 
 Mygov::Application.routes.draw do
-  devise_for :users, :path => '', :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => 'users/registrations', :confirmations => 'users/confirmations' }
+  devise_for :users, :path => '', :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => 'users/registrations', :confirmations => 'users/confirmations', :sessions => 'users/sessions' }
   devise_scope :user do
     get 'sign_up', :to => 'users/registrations#new', :as => :sign_up
     get 'thank_you', :to => 'users/registrations#thank_you', :as => :thank_you
-    get 'sign_in', :to => 'devise/sessions#new', :as => :sign_in
-    get 'sign_out', :to => 'devise/sessions#destroy', :as => :sign_out
+    get 'sign_in', :to => 'users/sessions#new', :as => :sign_in
+    get 'sign_out', :to => 'users/sessions#destroy', :as => :sign_out
+    get 'more_sign_in_options', :to => 'users/sessions#more_sign_in_options', :as => :more_sign_in_options
   end
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'
@@ -37,6 +38,11 @@ Mygov::Application.routes.draw do
       resources :notifications, :only => [:create]
       resources :tasks, :only => [:index, :create, :show]
       resources :forms, :only => [:create, :show]
+    end
+  end
+  resources :settings, :only => [:index] do
+    collection do
+      resources :authentications
     end
   end
   match "/404", :to => "errors#not_found"

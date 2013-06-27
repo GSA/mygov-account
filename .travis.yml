@@ -3,6 +3,7 @@ after_failure:
   - cat ./config/database.yml
   - echo $RAILS_ENV
   - bundle exec rake --version
+  - ruby env
 before_script:
   - cp config/database.yml.example config/database.yml
   - cp config/initializers/01_mygov.rb.example config/initializers/01_mygov.rb
@@ -15,17 +16,8 @@ script:
   - bundle exec rake db:schema:load
   - bundle exec rake db:test:prepare
   - bundle exec rake spec
-after_failure:
-  - "mysql -e 'show databases;'"
-  - "cat ./config/database.yml"
-  - "echo $RAILS_ENV"
-  - "bundle exec rake --version"
 services: mysql
 rvm:
   - 2.0.0
   - 1.9.3
   - 1.9.2
-  - jruby-19mode
-  - rbx-19mode
-  - ruby-head
-  - jruby-head

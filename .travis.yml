@@ -12,6 +12,16 @@ before_script:
 install:
   - bundle install --without development
 language: ruby
+notifications:
+  email:
+    recipients:
+      - alison.rowland@gsa.gov
+      - amos.stone@businessusa.gov
+      - gregory.gershman@gsa.gov
+      - john.felleman@gsa.gov
+      - john.kemp@gsa.gov
+      - justin.grevich@gsa.gov
+      - raphael.villas@gsa.gov
 script: 
   - bundle exec rake db:schema:load
   - bundle exec rake db:test:prepare

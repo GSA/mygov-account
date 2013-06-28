@@ -31,17 +31,39 @@ describe "Notifications" do
     
     context "when the user has notifications" do
       before do
-        Notification.all.each { |notification| notification.destroy(:force) }
+        Notification.delete_all
         1.upto(14) do |index|
           @notification = Notification.create!({:subject => "Notification ##{index}", :received_at => (Time.now - 1.hour + index.minutes), :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app1.id}, :as => :admin)
         end
         @other_user_notification = Notification.create!({:subject => 'Other User Notification', :received_at => (Time.now - 1.hour + 15.minutes), :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app1.id}, :as => :admin)
         @other_app_notification = Notification.create!({:subject => 'Other App Notification', :received_at => (Time.now - 1.hour + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
+        
+        
+        @day_old_notification = Notification.create!({:subject => 'Day Old Notification', :received_at => (Time.now - 2.days + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
+        
+        @month_old_notification = Notification.create!({:subject => 'Week Old Notification', :received_at => (DateTime.new(2013,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
+        
+        @year_old_notification = Notification.create!({:subject => 'Year Old Notification', :received_at => (DateTime.new(2012,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
       end
       
+      it "returns the date using words + 'ago' when the notification is less than a week old" do
+        visit notification_path(@day_old_notification)
+        page.should have_content '2 days ago'
+      end
+      
+      it "returns the date in 'Month DD' format when the notification is greater than a week but less than a year old" do
+        visit notification_path(@month_old_notification)
+        page.should have_content 'May 13'
+      end
+
+      it "returns the date in 'MM/DD/YYYY' format when the notification is greater than a week but less than a year old" do
+        visit notification_path(@year_old_notification)
+        page.should have_content '05/13/2012'
+      end
+
       it "should put indicate such on the dashboard" do
         visit dashboard_path
-        page.should have_content "15"
+        page.should have_content "18"
       end
       
       context "when notifications have been deleted" do
@@ -51,7 +73,7 @@ describe "Notifications" do
         
         it "should show a count for only the non-deleted notifications" do
           visit dashboard_path
-          page.should have_content "14"
+          page.should have_content "17"
         end
       end
       

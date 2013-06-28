@@ -1,9 +1,10 @@
 class Api::ApiController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_filter :oauthorize
-  
+  after_filter {|controller| log_activity(controller)}
+
   protected
-  
+
   def oauthorize
     @token = OAuth2::Provider.access_token(@user, [], request)
     if @token.valid?
@@ -30,5 +31,9 @@ class Api::ApiController < ApplicationController
       render :json => {:status => 'Error', :message => "You do not have access to #{oauth_scope.name.downcase} for that user."}, :status => 403
       return false
     end
+  end
+
+  def log_activity(controller)
+    AppActivityLog.create!(:app => @app, :controller => controller.controller_name, :action => controller.action_name, :user => @user)
   end
 end

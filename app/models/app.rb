@@ -5,6 +5,7 @@ class App < ActiveRecord::Base
   has_many :submitted_forms
   has_many :app_oauth_scopes, :dependent => :destroy
   has_many :oauth_scopes, :through => :app_oauth_scopes
+  has_many :app_activity_logs
   accepts_nested_attributes_for :app_oauth_scopes
 
   validates_presence_of :name, :slug, :redirect_uri

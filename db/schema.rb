@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130607124046) do
+ActiveRecord::Schema.define(:version => 20130626161639) do
+
+  create_table "app_activity_logs", :force => true do |t|
+    t.integer  "app_id"
+    t.integer  "user_id"
+    t.string   "controller"
+    t.string   "action"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "app_oauth_scopes", :force => true do |t|
     t.integer  "app_id"

@@ -1,5 +1,8 @@
 class OauthController < ApplicationController
-  
+  after_filter ({ :only => :authorize }) do |controller|
+    controller.log_app_authorization(controller)
+  end
+
   def authorize
     @oauth2 = OAuth2::Provider.parse(current_user, request)
     if @oauth2.redirect?
@@ -36,4 +39,9 @@ class OauthController < ApplicationController
     return pass
   end
 
+  protected
+
+  def log_app_authorization(controller)
+    AppActivityLog.create!(:app => @app, :controller => controller.controller_name, :action => controller.action_name, :user => current_user)
+  end
 end

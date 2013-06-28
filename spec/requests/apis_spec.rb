@@ -29,7 +29,16 @@ describe "Apis" do
             parsed_json[key].should be_nil
           end
         end
-      
+
+        it "should log the profile request" do
+          get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+          log = AppActivityLog.find(:all, :order => :created_at).last
+          log.action.should == "show"
+          log.controller.should == "profiles"
+          log.app.name.should == "App1"
+          log.user.email.should == "joe@citizen.org"
+        end
+
         context "when the schema parameter is set" do
           it "should render the response in a Schema.org hash" do
             get "/api/profile", {"schema" => "true"}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}

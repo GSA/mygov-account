@@ -1,6 +1,8 @@
 require 'api_constraints'
 
 Mygov::Application.routes.draw do
+  get "activity_log", to: 'activity_log#list', as: 'activity_log'
+
   devise_for :users, :path => '', :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => 'users/registrations', :confirmations => 'users/confirmations', :sessions => 'users/sessions' }
   devise_scope :user do
     get 'sign_up', :to => 'users/registrations#new', :as => :sign_up

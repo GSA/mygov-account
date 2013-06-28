@@ -45,6 +45,13 @@ describe "OauthApps" do
         code = (params["code"] || []).first
         code.should_not be_empty
       end
+
+      it "should log the sandbox application authorization activity, associated with the user" do
+        visit(url_for(controller: 'oauth', action: 'authorize', response_type: 'code', client_id: @sandbox_client_auth.client_id, redirect_uri: 'http://localhost/'))
+        page.should have_content('The sandbox application wants to:')
+        click_button('Allow')
+        @user.app_activity_logs.count.should == 1
+      end
     end
   end
 

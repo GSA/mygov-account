@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :submitted_forms, :dependent => :destroy
   has_many :apps, :dependent => :destroy
   has_many :authentications, :dependent => :destroy
+  has_many :app_activity_logs
   validates_acceptance_of :terms_of_service
   validates_presence_of :uid, :provider
   validates_uniqueness_of :uid, :scope => [:provider]

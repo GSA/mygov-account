@@ -51,6 +51,7 @@ group :development do
   gem 'railroady'
   gem 'pry'
   gem 'pry-nav'
+  gem "brakeman", :require => false
 end
 
 group :test, :development do

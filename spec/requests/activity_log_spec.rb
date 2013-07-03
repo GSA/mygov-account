@@ -50,6 +50,20 @@ describe "Activity Log" do
           visit activity_log_path
           expect(page).to have_content("#{@app1.name} pushed a notification")
         end
+
+        it "should show the user only the latest ten API activities" do
+          post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+
+          10.times do
+            get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+          end
+
+          login(@user)
+          visit activity_log_path
+          expect(page).to have_content('Account Activity')
+          expect(page).to have_selector('ul.activity_list li', :count => 10)
+          expect(page).to have_no_content("#{@app1.name} created a notification")
+        end
       end
   end
 end

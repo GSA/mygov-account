@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/GSA-OCSIT/mygov-account.png?branch=master)](http://travis-ci.org/GSA-OCSIT/mygov-account)
+
 ## MyUSA
 
 MyUSA is a platform for citizen identity.

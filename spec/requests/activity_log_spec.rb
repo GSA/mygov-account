@@ -23,7 +23,7 @@ describe "Activity Log" do
       end
 
     end
-      context "when an app has accessed the user's profile" do
+      context "when the user has authorized an app" do
         before do
           @app1.oauth_scopes = OauthScope.all
           authorization = OAuth2::Model::Authorization.new
@@ -35,20 +35,20 @@ describe "Activity Log" do
           @token = OAuth2::AccessToken.new(client, access_token)
         end
 
-        it "should show the user the authorization in their activity log" do
+        it "should show the user in the activity log when their profile has been accessed" do
           get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "200"
           login(@user)
           visit activity_log_path
-          expect(page).to have_content("#{@app1.name} accessed profiles\#show")
+          expect(page).to have_content("#{@app1.name} viewed your profile")
         end
 
-        it "should show the user the authorization in their activity log" do
+        it "should show the user in the activity log that a notification has been created" do
           post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "200"
           login(@user)
           visit activity_log_path
-          expect(page).to have_content("#{@app1.name} accessed notifications\#create")
+          expect(page).to have_content("#{@app1.name} pushed a notification")
         end
       end
   end

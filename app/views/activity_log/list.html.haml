@@ -4,7 +4,7 @@
   .thirteen.columns.dashboard
     - unless @activity_logs.empty?
       %ul.activity_list
-      - @activity_logs.each do |item|
-        %li #{h item.app.name} accessed humanize_log_item(item)
+        - @activity_logs.each do |item|
+          %li.activity_item #{h item.app.name} #{h humanize_log_item(item)}
     - else
       %p No activity to report.

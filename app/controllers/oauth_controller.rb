@@ -1,4 +1,6 @@
 class OauthController < ApplicationController
+  before_filter :set_client_app, {:only => [:authorize, :allow]}
+
   after_filter ({ :only => :authorize }) do |controller|
     controller.log_app_authorization(controller)
   end
@@ -29,8 +31,6 @@ class OauthController < ApplicationController
 
   def pass_sandbox_check params
     pass = false
-    @outh2_client =  OAuth2::Model::Client.find_by_client_id(params[:client_id])
-    @app = App.find(@outh2_client.oauth2_client_owner_id)
     if @app.sandbox?
       pass = @app.user == current_user ? true : false
     else
@@ -40,6 +40,13 @@ class OauthController < ApplicationController
   end
 
   protected
+
+  def set_client_app
+    begin
+      @outh2_client =  OAuth2::Model::Client.find_by_client_id(params[:client_id])
+      @app = App.find(@outh2_client.oauth2_client_owner_id)
+    end
+  end
 
   def log_app_authorization(controller)
     AppActivityLog.create!(:app => @app, :controller => controller.controller_name, :action => controller.action_name, :user => current_user)

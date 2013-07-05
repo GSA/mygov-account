@@ -9,13 +9,13 @@ describe "OauthApps" do
     create_approved_beta_signup('second@user.org')
     @user2 = User.create!(:email => 'second@user.org', :password => 'Password1')
     @user2.confirm!
-    
-    app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
-    app1.is_public = true
-    app1.save!
-    app1.oauth_scopes << OauthScope.all
-    @app1_client_auth = app1.oauth2_client
-    
+
+    @app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
+    @app1.is_public = true
+    @app1.save!
+    @app1.oauth_scopes << OauthScope.all
+    @app1_client_auth = @app1.oauth2_client
+
     app2 = App.create(name: 'App2'){|app| app.redirect_uri = "http://localhost/"}
     app2.is_public = true
     app2.save!
@@ -26,8 +26,8 @@ describe "OauthApps" do
     app3.save!
     @app3_client_auth = app3.oauth2_client
 
-    sandbox = App.create({name:  'sandbox', user_id: @user.id, redirect_uri: "http://localhost/"}, :as => :admin)
-    @sandbox_client_auth = sandbox.oauth2_client
+    @sandbox = App.create({name:  'sandbox', user_id: @user.id, redirect_uri: "http://localhost/"}, :as => :admin)
+    @sandbox_client_auth = @sandbox.oauth2_client
   end
   
   context "when logged in" do
@@ -51,6 +51,7 @@ describe "OauthApps" do
         page.should have_content('The sandbox application wants to:')
         click_button('Allow')
         @user.app_activity_logs.count.should == 1
+        @user.app_activity_logs.first.app.should == @sandbox
       end
     end
   end
@@ -103,8 +104,16 @@ describe "OauthApps" do
         response.code.should == "200"
         response.body.should match /access_token/
       end
+
+      it "should log the application authorization activity, associated with the user" do
+        visit(url_for(controller: 'oauth', action: 'authorize', response_type: 'code', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))
+        page.should have_content('The App1 application wants to:')
+        click_button('Allow')
+        @user.app_activity_logs.count.should == 1
+        @user.app_activity_logs.first.app.should == @app1
+      end
     end
-    
+
     describe "Authorize application with scopes" do
       it "should ask for authorization and redirect after clicking 'Allow'" do
         visit(url_for(controller: 'oauth', action: 'authorize',

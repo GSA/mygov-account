@@ -70,7 +70,7 @@ Mygov::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
 
-OAuth2::Provider.enforce_ssl = true
+Songkick::OAuth2::Provider.enforce_ssl = true
 
 # Google Analytics
 GA.tracker = "YOUR GOOGLE ANALYTICS CODE"

@@ -1,5 +1,5 @@
 class App < ActiveRecord::Base
-  include OAuth2::Model::ClientOwner
+  include Songkick::OAuth2::Model::ClientOwner
   
   belongs_to :user
   has_many :submitted_forms
@@ -78,7 +78,7 @@ class App < ActiveRecord::Base
   end
   
   def create_oauth2_client
-    @oauth2_client = OAuth2::Model::Client.new(:name => self.name, :redirect_uri => @redirect_uri)
+    @oauth2_client = Songkick::OAuth2::Model::Client.new(:name => self.name, :redirect_uri => @redirect_uri)
     @oauth2_client.oauth2_client_owner_type = 'App'
     @oauth2_client.oauth2_client_owner_id = self.id
     @oauth2_client.save!

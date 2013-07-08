@@ -72,5 +72,5 @@ module Mygov
     config.session_timeout_warning_seconds = 20
   end
 end
-OAuth2::Provider.enforce_ssl = false
-OAuth2::Provider.realm = 'MyUSA'
+Songkick::OAuth2::Provider.enforce_ssl = false
+Songkick::OAuth2::Provider.realm = 'MyUSA'

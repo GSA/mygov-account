@@ -6,7 +6,7 @@ class OauthController < ApplicationController
   end
 
   def authorize
-    @oauth2 = OAuth2::Provider.parse(current_user, request)
+    @oauth2 = Songkick::OAuth2::Provider.parse(current_user, request)
     if @oauth2.redirect?
       redirect_to @oauth2.redirect_uri, :status => @oauth2.response_status
     else
@@ -20,7 +20,7 @@ class OauthController < ApplicationController
   end
   
   def allow
-    @auth = OAuth2::Provider::Authorization.new(current_user, params)
+    @auth = Songkick::OAuth2::Provider::Authorization.new(current_user, params)
     if params[:allow] == '1' and params[:commit] == 'Allow' && pass_sandbox_check(params)
       @auth.grant_access!
     else
@@ -43,7 +43,7 @@ class OauthController < ApplicationController
 
   def set_client_app
     begin
-      @outh2_client =  OAuth2::Model::Client.find_by_client_id(params[:client_id])
+      @outh2_client =  Songkick::OAuth2::Model::Client.find_by_client_id(params[:client_id])
       @app = App.find(@outh2_client.oauth2_client_owner_id)
     end
   end

@@ -1,15 +1,4 @@
 GIT
-  remote: https://github.com/GSA-OCSIT/oauth2-provider.git
-  revision: c0460701eb38960aee67d1835f9126b37fe002bc
-  branch: bearer-header
-  specs:
-    oauth2-provider (0.1.0)
-      activerecord
-      bcrypt-ruby
-      json
-      rack
-
-GIT
   remote: https://github.com/GSA-OCSIT/omniauth-openid.git
   revision: eb8c84632b5b75ac6217c077ea4f238e3fcad0e5
   branch: pape
@@ -32,6 +21,15 @@ GIT
   revision: 46b832f7c778cc73f45ebc84cffba03c33294928
   specs:
     validates_email_format_of (1.5.3)
+
+PATH
+  remote: /Users/greggersh/rails/mygov/oauth2-provider
+  specs:
+    songkick-oauth2-provider (0.10.2)
+      activerecord
+      bcrypt-ruby
+      json
+      rack
 
 GEM
   remote: http://rubygems.org/
@@ -338,7 +336,6 @@ DEPENDENCIES
   maruku
   mysql2
   oauth2
-  oauth2-provider!
   omniauth
   omniauth-cas
   omniauth-openid!
@@ -358,6 +355,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   shoulda-matchers
   simplecov
+  songkick-oauth2-provider!
   therubyracer (~> 0.11.1)
   thin
   uglifier (>= 1.0.3)

@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include OAuth2::Model::ResourceOwner  
+  include Songkick::OAuth2::Model::ResourceOwner  
   validate :email_is_whitelisted, if: :valid_email?
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy

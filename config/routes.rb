@@ -1,8 +1,6 @@
 require 'api_constraints'
 
 Mygov::Application.routes.draw do
-  get "activity_log", to: 'activity_log#list', as: 'activity_log'
-
   devise_for :users, :path => '', :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => 'users/registrations', :confirmations => 'users/confirmations', :sessions => 'users/sessions' }
   devise_scope :user do
     get 'sign_up', :to => 'users/registrations#new', :as => :sign_up
@@ -14,18 +12,15 @@ Mygov::Application.routes.draw do
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/allow' => 'oauth#allow'
+  resources :beta_signups, :only => [:create]
   resource :user, :only => [:destroy]
   resource :profile, :only => [:show]
+  resources :settings, :only => [:index] do
+    collection do
+      resources :authentications
+    end
+  end
   resources :notifications, :only => [:index, :show, :create, :destroy]
-  get 'dashboard' => "home#dashboard"
-  get 'discovery' => "home#discovery"
-  get 'developer' => "home#developer"
-  get 'privacy-policy' => "home#privacy_policy", :as => :privacy_policy
-  get 'terms-of-service' => "home#terms_of_service", :as => :terms_of_service
-  get 'about' => "home#about", :as => :about
-  get 'paperwork-reduction-act-statement' => "home#pra", :as => :pra
-  get 'xrds' => "home#xrds", :as => :xrds
-
   resources :tasks, :only => [:show, :update, :destroy]
   resources :apps do
     member do
@@ -33,18 +28,23 @@ Mygov::Application.routes.draw do
     end
   end
   resources :task_items, :only => [:update, :destroy]
-  resources :beta_signups, :only => [:create]
+
+  get 'dashboard' => "home#dashboard"
+  get 'discovery' => "home#discovery"
+  get 'developer' => "home#developer"
+  get 'privacy-policy' => "home#privacy_policy", :as => :privacy_policy
+  get 'terms-of-service' => "home#terms_of_service", :as => :terms_of_service
+  get 'about' => "home#about", :as => :about
+  get 'paperwork-reduction-act-statement' => "home#pra", :as => :pra
+  get 'activity-log' => "home#activity_log", :as => :activity_log
+  get 'xrds' => "home#xrds", :as => :xrds
+
   namespace :api, :defaults => {:format => :json} do
     scope :module => :v1, :constraints => ApiConstraints.new(:version => 1, :default => true) do
       resource :profile, :only => [:show]
       resources :notifications, :only => [:create]
       resources :tasks, :only => [:index, :create, :show]
       resources :forms, :only => [:create, :show]
-    end
-  end
-  resources :settings, :only => [:index] do
-    collection do
-      resources :authentications
     end
   end
   match "/404", :to => "errors#not_found"

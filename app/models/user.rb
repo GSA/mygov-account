@@ -6,13 +6,13 @@ class User < ActiveRecord::Base
   has_many :submitted_forms, :dependent => :destroy
   has_many :apps, :dependent => :destroy
   has_many :authentications, :dependent => :destroy
-  has_many :app_activity_logs
+  has_many :app_activity_logs, :dependent => :destroy
   validates_acceptance_of :terms_of_service
-  validates_presence_of :uid, :provider
-  validates_uniqueness_of :uid, :scope => [:provider]
+  validates_presence_of :uid
+  validates_uniqueness_of :uid
   validate :validate_password_strength
 
-  before_validation :generate_uid_and_provider
+  before_validation :generate_uid
   after_create :create_default_notification
   after_destroy :send_account_deleted_notification
   
@@ -31,13 +31,13 @@ class User < ActiveRecord::Base
     
     def find_for_open_id(access_token, signed_in_resource = nil)
       data = access_token.info
-      if user = User.where(:uid => access_token.uid, :provider => access_token.provider).first
-        user
+      authentication = Authentication.find_by_uid_and_provider(access_token.uid, access_token.provider)
+      if authentication
+        authentication.user
       else
-        user = User.new(:email => data["email"], :password => Devise.friendly_token[0,20])
-        user.provider = access_token.provider
-        user.uid = access_token.uid
+        user = User.new(:email => data['email'], :password => Devise.friendly_token[0,20])
         user.skip_confirmation!
+        user.authentications.new(:uid => access_token.uid, :provider => access_token.provider, :data => access_token)
         user.save
         user
       end
@@ -72,11 +72,8 @@ class User < ActiveRecord::Base
     errors.add(:password, "must include at least one lower case letter, one upper case letter and one digit.") if password.present? and not password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+/)
   end
   
-  def generate_uid_and_provider
-    if self.uid.blank? and self.provider.blank?
-      self.provider = 'myusa'
-      self.uid = "https://my.usa.gov/id/" + SecureRandom.urlsafe_base64(30)
-    end
+  def generate_uid
+    self.uid = SecureRandom.uuid if self.uid.blank?
   end
     
   def send_account_deleted_notification

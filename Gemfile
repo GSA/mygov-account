@@ -23,7 +23,7 @@ gem "permanent_records", "~> 2.3.0"
 gem "httparty"
 gem "paperclip", "~> 3.0"
 gem "rabl"
-gem "rb-readline"
+gem 'rb-readline', '~> 0.4.2'
 gem 'omniauth-openid', :git => 'https://github.com/GSA-OCSIT/omniauth-openid.git', :branch => 'pape'
 gem 'omniauth-cas'
 
@@ -42,6 +42,14 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :test, :development do
+  gem 'rspec-rails'
+  gem 'oauth2'
+  gem "brakeman", :require => false
+  gem 'pry'
+  gem 'pry-nav'
+end
+
 group :development do
   gem 'thin'
   gem 'haml-rails'
@@ -49,18 +57,10 @@ group :development do
   gem 'ruby_parser'
   gem "letter_opener"
   gem 'railroady'
-  gem 'pry'
-  gem 'pry-nav'
-end
-
-group :test, :development do
-  gem 'rspec-rails'
-  gem 'oauth2'
-  gem "brakeman", :require => false
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '~> 1.1.4'
   gem 'launchy'
   gem 'database_cleaner'
   gem 'shoulda-matchers'

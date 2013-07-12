@@ -63,15 +63,23 @@ describe "Users" do
         page.should have_content "I'm sorry, your account hasn't been approved yet."
       end
       
-      it "should not let the user create an approved beta signup record by manipulating the post" do
+      it "should not let the user create an approved beta signup record by passing in is_approved to the post request" do
         test_email = 'shady@citizen.org'
-        visit sign_up_path
         begin
-          post beta_signups_path, 'beta_signup' => { 'email' => test_email, 'is_approved' => '1' }
+          post "beta_signups", 'beta_signup' => { 'email' => test_email, 'is_approved' => '1' }
         rescue ActiveModel::MassAssignmentSecurity::Error
           nil
         end
         BetaSignup.where(email: test_email, is_approved: true).first.should eq nil
+      end
+      
+      it "should not let the user create an approved beta signup record by manipulating the email address" do
+        test_email = "shady@citizen.org"
+        visit root_path
+        fill_in 'Email', :with => test_email + "&is_approved=1"
+        click_button 'Sign up'
+        BetaSignup.find_by_email(test_email).should be_nil
+        BetaSignup.find_by_email(test_email + "&is_approved=1").should be_nil
       end
     end
     
@@ -177,8 +185,7 @@ describe "Users" do
         context "when a third-party user exists with the same email but a different uid and provider" do
           before do
             user = User.new(:email => 'joe@citizen.org', :password => 'Password1')
-            user.provider = "someotherprovider"
-            user.uid = "joe@citizen.org"
+            user.authentications.new(:provider => 'other_provider', :uid => 'joe@citizen.org')
             user.save!
           end
           

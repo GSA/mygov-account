@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/GSA-OCSIT/oauth2-provider.git
-  revision: c0460701eb38960aee67d1835f9126b37fe002bc
+  revision: 50ae2be0cd090c9407eb1f29b7adad9af23ff539
   branch: bearer-header
   specs:
     oauth2-provider (0.1.0)
@@ -68,7 +68,7 @@ GEM
       builder
       girl_friday
     arel (3.0.2)
-    bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.1.1)
     bigdecimal (1.1.0)
     brakeman (1.8.3)
       activesupport
@@ -165,7 +165,7 @@ GEM
       syntax (>= 1.0.0)
     method_source (0.8.1)
     mime-types (1.23)
-    multi_json (1.7.5)
+    multi_json (1.7.7)
     multi_xml (0.5.1)
     multipart-post (1.1.5)
     mysql2 (0.3.11)

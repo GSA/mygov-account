@@ -68,13 +68,17 @@ describe User do
       @access_token = mock(Object)
       @access_token.stub!(:provider).and_return "google"
       @access_token.stub!(:uid).and_return "UID"
-      @access_token.stub(:info).and_return @valid_attributes.stringify_keys
+      # @access_token.stub_chain(:info, :email).and_return 'jane@citizen.org'
+      @access_token.stub!(:info).and_return Hash.new()
+      # @access_token.stub(:info['email']).and_return 'jane@citizen.org'
+      @access_token.info.stub!(['email']).and_return 'jane@citizen.org'
       User.destroy_all
     end
     
     context "when the user already exists" do
       before do
-        User.create!(@valid_attributes)
+        user = User.create!(@valid_attributes)
+        authentication = Authentication.create!(:uid => "UID", :provider => "google", :user => user)
       end
       
       it "should simply return the user" do
@@ -85,11 +89,18 @@ describe User do
     end
     
     context "when the user does not exist" do
-      it "should create a new user with the access token information" do
+      before do
+        Authentication.destroy_all
+      end
+
+      it "should create a new user and authentication with the access token information" do
         User.count.should == 0
+        Authentication.count.should == 0
         user = User.find_for_open_id(@access_token)
         user.errors.should be_empty
+        User.all.last.email.should == 'jane@citizen.org'
         User.count.should == 1
+        Authentication.count.should == 1
       end
     end
   end

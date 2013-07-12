@@ -8,7 +8,7 @@ gem 'haml'
 gem 'devise'
 gem 'capistrano'
 gem 'omniauth'
-gem 'oauth2-provider', :require => 'oauth2/provider', :git => 'https://github.com/GSA-OCSIT/oauth2-provider.git', :branch => 'bearer-header'
+gem 'oauth2-provider', :path => '~/code/gems/oauth2-provider' #  :require => 'oauth2/provider', :git => 'https://github.com/GSA-OCSIT/oauth2-provider.git', :branch => 'params_fix_for_redirect'
 gem 'rvm-capistrano'
 gem 'bigdecimal'
 gem 'will_paginate', '~> 3.0'
@@ -49,8 +49,6 @@ group :development do
   gem 'ruby_parser'
   gem "letter_opener"
   gem 'railroady'
-  gem 'pry'
-  gem 'pry-nav'
   gem "brakeman", :require => false
 end
 
@@ -58,6 +56,8 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'oauth2'
   gem "brakeman", :require => false
+  gem 'pry'
+  gem 'pry-nav'
 end
 
 group :test do

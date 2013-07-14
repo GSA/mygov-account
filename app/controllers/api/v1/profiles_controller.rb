@@ -22,9 +22,9 @@ class Api::V1::ProfilesController < Api::ApiController
   
   def show
     if params[:schema].present?
-      render :json => {:email => @user.email, :id => @user.uid}
+      render :json => {:email => @user.email, :uid => @user.uid}
     else
-      render :json => EMPTY_PROFILE.merge(:email => @user.email, :id => @user.uid)
+      render :json => EMPTY_PROFILE.merge(:email => @user.email, :uid => @user.uid)
     end
   end
 end

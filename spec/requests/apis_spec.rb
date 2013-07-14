@@ -19,13 +19,14 @@ describe "Apis" do
   describe "GET /api/profile" do
     context "when the request has a valid token" do
       context "when the user queried exists" do
-        it "should return JSON with an empty profile with only email" do
+        it "should return JSON with a user profile with email and UID" do
           get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "200"
           parsed_json = JSON.parse(response.body)
           parsed_json.should_not be_nil
           parsed_json["email"].should == 'joe@citizen.org'
-          parsed_json.reject{|k,v| k == "email"}.each do |key, value|
+          parsed_json["uid"].should_not be_nil
+          parsed_json.reject{|k,v| k == "email" or k == "uid"}.each do |key, value|
             parsed_json[key].should be_nil
           end
         end

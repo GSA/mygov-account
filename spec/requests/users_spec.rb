@@ -64,10 +64,11 @@ describe "Users" do
       end
       
       it "should not let the user create an approved beta signup record by manipulating the post" do
-        test_email = 'shady@citizen.org'
+        test_email = 'shady@citizen.org&is_approved=1'
         visit sign_up_path
         begin
-          post beta_signups_path, 'beta_signup' => { 'email' => test_email, 'is_approved' => '1' }
+          # post :beta_signups_path, 'beta_signup' => { 'email' => test_email, 'is_approved' => '1' }
+          click_button 'Sign up'
         rescue ActiveModel::MassAssignmentSecurity::Error
           nil
         end
@@ -177,8 +178,7 @@ describe "Users" do
         context "when a third-party user exists with the same email but a different uid and provider" do
           before do
             user = User.new(:email => 'joe@citizen.org', :password => 'Password1')
-            user.provider = "someotherprovider"
-            user.uid = "joe@citizen.org"
+            auth = Authentication.new(:provider => 'other_provider', :uid => 'joe@citizen.org', :user => user)
             user.save!
           end
           

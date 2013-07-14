@@ -30,15 +30,14 @@ class User < ActiveRecord::Base
   class << self
     
     def find_for_open_id(access_token, signed_in_resource = nil)
-      binding.pry
       data = access_token.info
-      existing_user = User.joins(:authentications).where('authentications.uid' => access_token.uid, 'authentications.provider' => access_token.provider)
+      existing_user = User.find :all, :select => 'users.*', :joins => [:authentications], :conditions => ["authentications.uid = ? and authentications.provider = ?", access_token.uid, access_token.provider]
       if existing_user.any?
         existing_user.first
       else
         user = User.new(:email => data['email'], :password => Devise.friendly_token[0,20])
         user.skip_confirmation!
-        user.save!
+        user.save
         Authentication.create(:user => user, :data => access_token, :provider => access_token.provider, :uid => access_token.uid)
         user
       end

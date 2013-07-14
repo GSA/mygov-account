@@ -8,7 +8,7 @@ gem 'haml'
 gem 'devise'
 gem 'capistrano'
 gem 'omniauth'
-gem 'oauth2-provider', :path => '~/code/gems/oauth2-provider' #  :require => 'oauth2/provider', :git => 'https://github.com/GSA-OCSIT/oauth2-provider.git', :branch => 'params_fix_for_redirect'
+gem 'oauth2-provider', :require => 'oauth2/provider', :git => 'https://github.com/GSA-OCSIT/oauth2-provider.git', :branch => 'bearer-header'
 gem 'rvm-capistrano'
 gem 'bigdecimal'
 gem 'will_paginate', '~> 3.0'
@@ -23,7 +23,7 @@ gem "permanent_records", "~> 2.3.0"
 gem "httparty"
 gem "paperclip", "~> 3.0"
 gem "rabl"
-gem "rb-readline"
+gem 'rb-readline', '~> 0.4.2'
 gem 'omniauth-openid', :git => 'https://github.com/GSA-OCSIT/omniauth-openid.git', :branch => 'pape'
 gem 'omniauth-cas'
 

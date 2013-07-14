@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130708211943) do
+ActiveRecord::Schema.define(:version => 20130714195306) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20130708211943) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "authentications", ["uid"], :name => "index_authentications_on_uid"
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
   create_table "beta_signups", :force => true do |t|

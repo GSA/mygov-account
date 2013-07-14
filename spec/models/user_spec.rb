@@ -13,6 +13,14 @@ describe User do
     it "should create a new User with valid attributes" do
       User.create!(@valid_attributes)
     end
+
+    it "should create a new User with a unique ID" do
+      user = User.create!(@valid_attributes)
+      user.errors.should be_empty
+      user.uid.should_not be_empty
+      user.uid.length.should >= 36
+      User.where(:uid => user.uid).size.should == 1
+    end
     
     it "should not create a user without an email" do
       user = User.create(@valid_attributes.reject{|k,v| k == :email })
@@ -65,16 +73,17 @@ describe User do
   
   describe "#find_for_open_id" do
     before do
-      @access_token = mock(Object)
-      @access_token.stub!(:provider).and_return "google"
-      @access_token.stub!(:uid).and_return "UID"
-      @access_token.stub(:info).and_return @valid_attributes.stringify_keys
+      @access_token = Hash.new
+      @access_token.stub(:provider).and_return "google"
+      @access_token.stub(:uid).and_return "UID"
+      @access_token.stub_chain(:info, :[]).and_return 'jane@citizen.org'
       User.destroy_all
     end
     
     context "when the user already exists" do
       before do
-        User.create!(@valid_attributes)
+        user = User.create!(@valid_attributes)
+        authentication = Authentication.create!(:uid => "UID", :provider => "google", :user => user)
       end
       
       it "should simply return the user" do
@@ -85,12 +94,22 @@ describe User do
     end
     
     context "when the user does not exist" do
-      it "should create a new user with the access token information" do
+      before do
+        User.destroy_all
+        Authentication.destroy_all
+        create_approved_beta_signup('jane@citizen.org')
+      end
+
+      it "should create a new user and authentication with the access token information" do
         User.count.should == 0
+        Authentication.count.should == 0
         user = User.find_for_open_id(@access_token)
         user.errors.should be_empty
+        User.all.last.email.should == 'jane@citizen.org'
         User.count.should == 1
+        Authentication.count.should == 1
       end
+
     end
   end
 end

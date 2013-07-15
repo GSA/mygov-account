@@ -57,6 +57,7 @@ group :development do
   gem 'ruby_parser'
   gem "letter_opener"
   gem 'railroady'
+  gem 'awesome_print'
 end
 
 group :test do

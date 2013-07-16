@@ -10,7 +10,7 @@
         items completed.
       - if @task.completed?
         %h5
-          Task completed at #{@task.completed_at}
+          Task completed at #{pretty_time(@task.completed_at)}
       - else
       %ol.item-list.clear
         - @task.task_items.each do |task_item|
@@ -18,7 +18,7 @@
             = task_item_link(task_item)
             - if task_item.completed?
               %span.actions.align-right
-                Item completed at: #{task_item.completed_at}
+                Item completed at: #{pretty_time(task_item.completed_at)}
             - else
               %span.actions.align-right
                 = link_to  task_item_path(task_item, :completed => true), :method => :put, :class => '' do

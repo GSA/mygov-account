@@ -1,9 +1,52 @@
 module ApplicationHelper
+
+  def error_messages(resource)
+    if resource.errors.any?
+      html = ""
+      errors = content_tag :div, :class => 'alert-box alert' do
+        messages = resource.errors.collect do |key, msg|
+          content_tag(:div, t("#{key}_error".to_sym), :class => key).html_safe
+        end
+        messages.join(" ").html_safe
+      end
+      html << errors
+      html.html_safe
+    else
+      ""
+    end
+  end
   
+  def gender_options
+    [["Male", "male"], ["Female", "female"]]
+  end
+
   def in_or_up
     controller_name == 'sessions' ? 'in' : 'up'
   end
-    
+
+  def marital_status_options
+    [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic_partnership"], ["Widowed", "widowed"]]
+  end
+
+  def pretty_time(time)
+    case
+    when Time.now - time < 1.week
+      "#{distance_of_time_in_words(Time.now, time)} ago"
+    when Time.now - time < 1.year
+      "#{time.strftime('%B %e')}"
+    else
+      "#{time.strftime('%m/%d/%Y')}"
+    end
+  end
+
+  def refresh_meta_tag_conent
+    if @session_will_expire
+      tag('meta', :'http-equiv' => "refresh", :content => @wait_until_refresh)
+    else
+      tag('meta', :'http-equiv' => "refresh", :content => "#{@wait_until_refresh};#{url_for(params.merge(no_keep_alive: 1))}")
+    end
+  end
+
   def session_timeout_message
     if @session_will_expire
       here = link_to(t('remain_logged_in'), url_for(params.reject{ |k,v| k == "no_keep_alive" }))
@@ -17,23 +60,15 @@ module ApplicationHelper
       end
     end
   end
-  
-  def refresh_meta_tag_conent
-    if @session_will_expire
-      tag('meta', :'http-equiv' => "refresh", :content => @wait_until_refresh)
-    else
-      tag('meta', :'http-equiv' => "refresh", :content => "#{@wait_until_refresh};#{url_for(params.merge(no_keep_alive: 1))}")
-    end
-  end
-  
-  def title_options
-    ["Mr.","Mrs.","Miss","Ms."]
-  end
-  
+
   def suffix_options
     ["Jr.","Sr.","II","III","IV"]
   end
-  
+
+  def title_options
+    ["Mr.","Mrs.","Miss","Ms."]
+  end
+
   def us_state_options
     [
       ['Alabama', 'AL'],
@@ -90,32 +125,9 @@ module ApplicationHelper
       ['Wyoming', 'WY']
     ]
   end
-  
-  def gender_options
-    [["Male", "male"], ["Female", "female"]]
-  end
-  
-  def marital_status_options
-    [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic_partnership"], ["Widowed", "widowed"]]
-  end
-  
+
   def yes_or_no(value)
     value ? "Yes" : "No"
   end
-    
-  def error_messages(resource)
-    if resource.errors.any?
-      html = ""
-      errors = content_tag :div, :class => 'alert-box alert' do
-        messages = resource.errors.collect do |key, msg|
-          content_tag(:div, t("#{key}_error".to_sym), :class => key).html_safe
-        end
-        messages.join(" ").html_safe
-      end
-      html << errors
-      html.html_safe
-    else
-      ""
-    end
-  end
+
 end

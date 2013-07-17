@@ -5,7 +5,6 @@ SimpleCov.start 'rails'
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'capybara/rspec'
 require 'webmock/rspec'
 
@@ -51,6 +50,17 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+  end
+  
+  config.before(:each) { GC.disable }
+  config.after(:each) { GC.enable }
+  
+  config.before(:all) do
+    DeferredGarbageCollection.start
+  end
+
+  config.after(:all) do
+    DeferredGarbageCollection.reconsider
   end
   
   config.before(:each) do

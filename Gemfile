@@ -48,6 +48,8 @@ group :test, :development do
   gem "brakeman", :require => false
   gem 'pry'
   gem 'pry-nav'
+  gem 'guard'
+  gem 'guard-rspec'
 end
 
 group :development do
@@ -67,6 +69,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'simplecov', :require => false
   gem 'webmock'
+  gem 'zeus'
 end
 
 # To use ActiveModel has_secure_password

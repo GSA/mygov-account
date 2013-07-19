@@ -43,33 +43,35 @@ group :assets do
 end
 
 group :test, :development do
-  gem 'rspec-rails'
-  gem 'oauth2'
   gem "brakeman", :require => false
-  gem 'pry'
-  gem 'pry-nav'
+  gem 'database_cleaner'
   gem 'guard'
   gem 'guard-rspec'
+  gem 'oauth2'
+  gem "parallel_tests"
+  gem 'pry'
+  gem 'pry-nav'
+  gem 'rspec-rails'
+  gem "zeus-parallel_tests"
 end
 
 group :development do
-  gem 'thin'
+  gem 'awesome_print'
+  gem 'guard-livereload'
   gem 'haml-rails'
   gem 'hpricot'
-  gem 'ruby_parser'
   gem "letter_opener"
   gem 'railroady'
-  gem 'awesome_print'
+  gem 'ruby_parser'
+  gem 'thin'
 end
 
 group :test do
   gem 'capybara', '~> 1.1.4'
   gem 'launchy'
-  gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'simplecov', :require => false
   gem 'webmock'
-  gem 'zeus'
 end
 
 # To use ActiveModel has_secure_password

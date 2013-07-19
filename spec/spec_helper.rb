@@ -52,6 +52,17 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
   
+  config.before(:each) { GC.disable }
+  config.after(:each) { GC.enable }
+  
+  config.before(:all) do
+    DeferredGarbageCollection.start
+  end
+
+  config.after(:all) do
+    DeferredGarbageCollection.reconsider
+  end
+  
   config.before(:each) do
     OauthScope.seed_data.each { |os| OauthScope.create os } if OauthScope.all.empty?
   end

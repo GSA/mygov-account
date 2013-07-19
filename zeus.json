@@ -11,10 +11,14 @@
           "server": ["s"],
           "generate": ["g"],
           "destroy": ["d"],
-          "dbconsole": []
+          "dbconsole": [],
+          "parallel_rspec": ["pr"]
         },
         "test_environment": {
-          "test_helper": {"test": ["rspec"]}
+          "test_helper": {
+            "test": ["rspec", "testrb"],
+            "parallel_rspec_worker": []
+          }
         }
       }
     }

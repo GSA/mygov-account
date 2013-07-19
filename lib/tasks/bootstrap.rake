@@ -2,7 +2,7 @@ namespace :bootstrap do
   
   desc "Create required files based on .example files - WARNING: This will overwrite existing config files."
   task :de_example do
-    system 'for i in `find . -name *.example`;do cp -- "$i" "${i//.example/}";done'
+    system 'for i in `find . -name "*.example"`;do cp -- "$i" "${i//.example/}";done'
   end
 
   desc "Generate new secret and add to initializer"

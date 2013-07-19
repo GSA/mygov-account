@@ -13,6 +13,7 @@ capybara-*.html
 dump.rdb
 pickle-email-*.html
 rerun.txt
+zeus.json
 
 # folders
 config/*.yml

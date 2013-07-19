@@ -10,9 +10,11 @@
 
 # root files
 capybara-*.html
+custom_plan.rb
 dump.rdb
 pickle-email-*.html
 rerun.txt
+zeus.json
 
 # folders
 config/*.yml

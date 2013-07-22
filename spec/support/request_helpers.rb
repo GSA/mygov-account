@@ -10,6 +10,12 @@ def login(user)
   login_as user, scope: :user
 end
 
+def create_confirmed_user
+  create_approved_beta_signup('joe@citizen.org')
+  @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
+  @user.confirm!
+end
+
 def create_approved_beta_signup(email_or_hash)
   email_or_hash = {email: email_or_hash} unless email_or_hash.kind_of? Hash
   beta_signup = BetaSignup.new(email_or_hash)

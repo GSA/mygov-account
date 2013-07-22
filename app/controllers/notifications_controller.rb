@@ -9,6 +9,7 @@ class NotificationsController < ApplicationController
   
   def show
     @notification = @user_notifications.find(params[:id])
+    @notification.update_attribute :viewed_at, Time.now
   end
 
   def destroy
@@ -27,4 +28,5 @@ class NotificationsController < ApplicationController
   def find_notifications
     @user_notifications = @user.notifications.not_deleted
   end
+
 end

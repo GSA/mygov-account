@@ -11,6 +11,10 @@ class Notification < ActiveRecord::Base
     order('received_at DESC, id DESC')
   end
   
+  def self.not_viewed
+    where(viewed_at: nil)
+  end
+  
   private
   
   def deliver_notification

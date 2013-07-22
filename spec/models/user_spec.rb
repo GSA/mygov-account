@@ -37,12 +37,12 @@ describe User do
       # Should have an error for the invalid email
       user.errors.should_not be_empty
     end
-    
+
     context "when no beta signup exists for the user's email" do
       before do
         BetaSignup.destroy_all
       end
-      
+
       it "should not create the user for unapproved emails" do
         user = User.create(@valid_attributes)
         user.id.should be_nil
@@ -58,21 +58,90 @@ describe User do
     end
   end
 
-  describe "confirm!" do
-    before do
-      @user = User.create!(@valid_attributes)
-      @user.confirmation_token.should_not be_nil
+  describe "#update" do
+    context "when the user changes their email address" do
+      let(:user) do
+          user = User.create(@valid_attributes)
+          user.confirm!
+
+          user.email = 'joseph@citizen.org'
+          user.save!
+          user.reload
+      end
+
+      context "when the user has not yet confirmed their new address" do
+        it "should keep the original email unchanged" do
+          user.email.should == 'joe@citizen.org'
+        end
+
+        it "should store the new email address as unconfirmed" do
+          user.unconfirmed_email.should == 'joseph@citizen.org'
+        end
+      end
     end
-    
+  end
+
+  describe "confirm!" do
+    let(:user) do
+      user = User.create!(@valid_attributes)
+      user.confirmation_token.should_not be_nil
+      user
+    end
+
     context "when the user is confirmed" do
       before do
-        @user.confirm!
+        user.confirm!
+        user.reload
       end
-      
-      it "should create a default notification" do
-        @user.notifications.size.should == 1
-        @user.notifications.first.subject.should == "Welcome to MyUSA"
+
+      context 'when it is a new account' do
+        it "should create a default notification" do
+          user.notifications.size.should == 1
+          user.notifications.first.subject.should == "Welcome to MyUSA"
+        end
       end
+
+      context "when it is a reconfirmation of an email address" do
+        before do
+          user.email = 'joseph@citizen.org'
+          user.save
+          user.confirm!
+          user.reload
+        end
+
+        it 'should send a notification about the change' do
+          user.notifications.size.should == 2
+          user.notifications.last.subject.should == 'You changed your email address'
+        end
+
+        context "when there is an associated BetaSignup record" do
+          it "should update the BetaSignup" do
+            beta_signup = BetaSignup.where(:email => 'joseph@citizen.org')
+            beta_signup.should_not be_nil
+          end
+        end
+
+        context 'when there is no associated BetaSignup record' do
+          let(:gov_user) do
+            gov_user = User.create(:email => 'joe@citizen.gov', :password => 'Password1')
+            gov_user.confirm!
+            gov_user
+          end
+
+          it 'should let the user change their address and confirm it' do
+            gov_user.email = 'joseph@citizen.gov'
+            gov_user.save
+
+            gov_user.reload
+            gov_user.confirm!
+
+            gov_user.reload
+            gov_user.email.should == 'joseph@citizen.gov'
+            gov_user.unconfirmed_email.should be_nil
+          end
+        end
+      end
+
     end
   end
   
@@ -84,20 +153,31 @@ describe User do
       @access_token.stub_chain(:info, :[]).and_return 'jane@citizen.org'
       User.destroy_all
     end
-    
+
     context "when the user already exists" do
       before do
-        user = User.create!(@valid_attributes)
-        user.authentications << Authentication.new(:uid => "UID", :provider => "google")
+        @user = User.create!(@valid_attributes)
+        @user.authentications << Authentication.new(:uid => "UID", :provider => "google")
       end
-      
+
       it "should simply return the user" do
         User.count.should == 1
-        user = User.find_for_open_id(@access_token)
-        User.count.should == 1
+        User.find_for_open_id(@access_token).email.should == 'joe@citizen.org'
+      end
+
+      context "when the user has changed their email address" do
+        before do
+          @user.email = 'janet@citizen.org'
+          @user.save!
+          @user.confirm!
+        end
+
+        it "should still return the user" do
+          User.find_for_open_id(@access_token).email.should == 'janet@citizen.org'
+        end
       end
     end
-    
+
     context "when the user does not exist" do
       before do
         User.destroy_all
@@ -109,7 +189,7 @@ describe User do
         User.count.should == 0
         Authentication.count.should == 0
         user = User.find_for_open_id(@access_token)
-        user.errors.should be_empty
+        user.errors.count.should == 0
         User.all.last.email.should == 'jane@citizen.org'
         User.count.should == 1
         Authentication.count.should == 1

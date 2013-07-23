@@ -34,6 +34,7 @@ describe BetaSignup do
     it "should automatically approve a signup if it's a .gov email address and send an email" do
       beta_signup = BetaSignup.create!(:email => 'test@america.gov')
       beta_signup.is_approved.should be_true
+      beta_signup.save
       ActionMailer::Base.deliveries.size.should == 1
       email = ActionMailer::Base.deliveries.first
       email.body.should =~ /Welcome to the MyUSA beta/

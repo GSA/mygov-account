@@ -1,5 +1,4 @@
 class Api::V1::ProfilesController < Api::ApiController
-  before_filter :dump_params
   before_filter :validate_oauth
 
   EMPTY_PROFILE = {:title => nil, 
@@ -27,13 +26,5 @@ class Api::V1::ProfilesController < Api::ApiController
     else
       render :json => EMPTY_PROFILE.merge(:email => @user.email, :id => @user.uid)
     end
-  end
-
-  def dump_params
-    logger.info 'PARAMZZ'
-    logger.info params
-    # logger.info request.headers.inspect
-    logger.info request.headers['HTTP_AUTHORIZATION']
-    # binding.pry
   end
 end

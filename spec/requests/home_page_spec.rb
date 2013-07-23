@@ -48,7 +48,7 @@ describe "HomePage" do
         
         it "should serve the privacy policy" do
             visit privacy_policy_path
-            page.should have_content "Privacy Policy"
+            page.should have_content "Privacy policy"
         end
       end
     end

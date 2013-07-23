@@ -64,8 +64,8 @@ class User < ActiveRecord::Base
     self.email? && self.email =~ Devise.email_regexp
   end
   
-  def email_is_whitelisted    
-    errors.add(:base, "I'm sorry, your account hasn't been approved yet.") if BetaSignup.find_by_email_and_is_approved(self.email, true).nil?
+  def email_is_whitelisted
+    errors.add(:base, "I'm sorry, your account hasn't been approved yet.") unless BetaSignup.find_by_email_and_is_approved(self.email, true) or self.email.end_with?(".gov")
   end
   
   def validate_password_strength

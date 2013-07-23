@@ -43,12 +43,17 @@ describe User do
         BetaSignup.destroy_all
       end
       
-      it "should not create the user and fill the errors" do
+      it "should not create the user for unapproved emails" do
         user = User.create(@valid_attributes)
         user.id.should be_nil
         user.errors.should_not be_empty
         user.errors.first.first.should == :base
         user.errors.first.last.should == "I'm sorry, your account hasn't been approved yet."
+      end
+
+      it "should create a user account for a user with a .gov email" do
+        user = User.create(@valid_attributes.merge!(:email => 'leslie.knope@parks.gov'))
+        user.errors.should be_empty
       end
     end
   end

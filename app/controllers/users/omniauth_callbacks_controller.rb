@@ -47,7 +47,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.find_for_open_id(request.env["omniauth.auth"], current_user)
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => provider_name.capitalize
-      sign_in_and_redirect @user, :event => :authentication
+      if @user == current_user
+        sign_in_and_redirect @user, :event => :authentication
+      else # send user to dashboard if newly registered instead of devise redirect
+        sign_in @user
+        redirect_to :dashboard
+      end
     else
       session["devise.#{provider_name}_data"] = request.env["omniauth.auth"].except("extra")
       if @user.errors[:base].include?("I'm sorry, your account hasn't been approved yet.")

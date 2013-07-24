@@ -30,7 +30,7 @@ describe ActivityLogHelper do
         @log1 = AppActivityLog.create!(:app => @app1, :user => @user, :controller => 'foo', :action => 'bar')
       end
 
-      it "should replace the controller#action format with a human-readable message" do
+      it "should use the controller#action format" do
         helper.humanize_log_item(@log1).should == "accessed foo#bar"
       end
     end

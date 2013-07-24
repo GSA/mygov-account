@@ -34,9 +34,11 @@ describe Notification do
         email.from.should == ["projectmyusa@gsa.gov"]
         email.to.should == [@user.email]
         email.subject.should == "[MYUSA] #{notification.subject}"
-        email.body.should =~ /Hello, #{@user.email}/
-        email.body.should =~ /A notification for you from MyUSA/
-        email.body.should =~ /#{notification.body}/
+        email.parts.map do |part|
+          expect(part.body).to include("Hello, #{@user.email}")
+          expect(part.body).to include('A notification for you from MyUSA')
+          expect(part.body).to include("#{notification.body}")
+        end
       end
     end
     
@@ -48,9 +50,11 @@ describe Notification do
         email.from.should == ["projectmyusa@gsa.gov"]
         email.to.should == [@user.email]
         email.subject.should == "[MYUSA] [#{notification.app.name}] #{notification.subject}"
-        email.body.should =~ /Hello, #{@user.email}/
-        email.body.should =~ /The \"#{notification.app.name}\" MyUSA application has sent you the following message/
-        email.body.should =~ /#{notification.body}/
+        email.parts.map do |part|
+          expect(part.body).to include("Hello, #{@user.email}")
+          expect(part.body).to include("The \"#{notification.app.name}\" MyUSA application has sent you the following message")
+          expect(part.body).to include("#{notification.body}")
+        end
       end
     end
   end

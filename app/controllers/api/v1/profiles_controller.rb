@@ -1,6 +1,6 @@
 class Api::V1::ProfilesController < Api::ApiController
   before_filter :validate_oauth
-  
+
   EMPTY_PROFILE = {:title => nil, 
     :first_name => nil, 
     :middle_name => nil, 

@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
       seconds_since_last_request  = [(Time.now.to_i - last_request).seconds, 0].max
       @wait_until_refresh         = [User.timeout_in - seconds_since_last_request, 0].max
       @session_will_expire        = true if @wait_until_refresh > 0 && (warden.session(:user)['last_request_at'] + current_user.timeout_in) <= @warning_seconds.from_now
-    end   
+    end
   end
 
   def assign_user

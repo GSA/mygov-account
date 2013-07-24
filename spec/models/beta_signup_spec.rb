@@ -21,22 +21,23 @@ describe BetaSignup do
     beta_signup = BetaSignup.create!(@valid_attributes)
     beta_signup.is_approved = true
     beta_signup.save!
-    ActionMailer::Base.deliveries.size.should == 1    
+    ActionMailer::Base.deliveries.size.should == 1
     email = ActionMailer::Base.deliveries.first
     email.from.should == ["projectmyusa@gsa.gov"]
     email.to.should == [beta_signup.email]
     email.subject.should =~ /MyUSA/
     email.subject.should =~ /Beta/
-    email.body.should =~ /Welcome to the MyUSA beta/
+    email.parts.map {|part| expect(part.body).to include('Welcome to the MyUSA beta')}
   end
   
   context "when signing up with a .gov email address" do
     it "should automatically approve a signup if it's a .gov email address and send an email" do
       beta_signup = BetaSignup.create!(:email => 'test@america.gov')
       beta_signup.is_approved.should be_true
+      beta_signup.save
       ActionMailer::Base.deliveries.size.should == 1
       email = ActionMailer::Base.deliveries.first
-      email.body.should =~ /Welcome to the MyUSA beta/
+      email.parts.map {|part| expect(part.body).to include('Welcome to the MyUSA beta')}
     end
   end  
 end

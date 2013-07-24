@@ -63,7 +63,7 @@
         %a{:name => "top"}
         .nav-container.group
           .row
-            .twelve.columns      
+            .twelve.columns
         .container.group
           = session_timeout_message
           = yield
@@ -77,9 +77,9 @@
               = link_to 'MyUSA', root_path
             %li.left.notifications
               = link_to notifications_path do
-                - if current_user.notifications.not_deleted.count > 0
+                - if current_user.notifications.not_viewed.count > 0
                   %span.jujitsu
-                    = current_user.notifications.not_deleted.count
+                    = current_user.notifications.not_viewed.count
                 %span.notification-label
                   Notifications
             %li.right.sign-out= link_to "Sign out", sign_out_path

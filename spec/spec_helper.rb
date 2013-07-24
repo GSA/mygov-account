@@ -68,6 +68,8 @@ RSpec.configure do |config|
   end
   
   config.include IntegrationSpecHelper, :type => :request
+  config.include Devise::TestHelpers, :type => :controller
+  
 end
 
 Capybara.default_host = "http://citizen.org"

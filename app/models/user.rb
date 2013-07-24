@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   include OAuth2::Model::ResourceOwner  
-  validate :email_is_whitelisted, if: :valid_email?
+  validate :email_is_whitelisted_or_user_had_existing_account, if: :valid_email?
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :submitted_forms, :dependent => :destroy
@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :lockable, :timeoutable, :confirmable
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :terms_of_service, :as => [:default, :admin]
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :terms_of_service, :unconfirmed_email, :as => [:default, :admin]
 
   def sandbox_apps
     self.apps.sandbox
@@ -45,15 +45,37 @@ class User < ActiveRecord::Base
   end
   
   def confirm!
+    if is_reconfirmation = is_reconfirmation?
+      sync_beta_signup_with_changes
+    end
+
     super_response = super
-    create_default_notification
+
+    if is_reconfirmation
+      create_email_changed_notification
+    else
+      create_default_notification
+    end
+
     super_response
   end
-    
+
   def create_default_notification
-    notification = self.notifications.create(:subject => 'Welcome to MyUSA', :body => File.read(Rails.root.to_s + "/lib/assets/text/welcome_email_body.html").html_safe, :received_at => Time.now)  if self.confirmation_token.nil?
+    notification = self.notifications.create(
+      :subject     => 'Welcome to MyUSA',
+      :body        => File.read(Rails.root.to_s + "/lib/assets/text/welcome_email_body.html").html_safe,
+      :received_at => Time.now,
+    ) if self.confirmation_token.nil?
   end
-  
+
+  def create_email_changed_notification
+    notification = self.notifications.create(
+      :subject     => 'You changed your email address',
+      :body        => File.read(Rails.root.to_s + "/lib/assets/text/email_changed_body.html").html_safe,
+      :received_at => Time.now,
+    ) if self.confirmation_token.nil?
+  end
+
   def installed_apps
     self.oauth2_authorizations.map(&:client).map(&:oauth2_client_owner)
   end
@@ -63,11 +85,28 @@ class User < ActiveRecord::Base
   def valid_email?
     self.email? && self.email =~ Devise.email_regexp
   end
-  
-  def email_is_whitelisted
-    errors.add(:base, "I'm sorry, your account hasn't been approved yet.") unless BetaSignup.find_by_email_and_is_approved(self.email, true) or self.email.end_with?(".gov")
+
+  def email_is_whitelisted_or_user_had_existing_account
+    if self.id.nil?
+      unless self.email.end_with?('.gov') or BetaSignup.find_by_email_and_is_approved(self.email, true)
+        errors.add(:base, "I'm sorry, your account hasn't been approved yet.")
+      end
+    end
   end
-  
+
+  def sync_beta_signup_with_changes
+    if beta_signup = BetaSignup.find_by_email_and_is_approved(self.email, true)
+      beta_signup.email = self.unconfirmed_email
+      beta_signup.save!
+    end
+
+    return false
+  end
+
+  def is_reconfirmation?
+    self.unconfirmed_email.present?
+  end
+
   def validate_password_strength
     errors.add(:password, "must include at least one lower case letter, one upper case letter and one digit.") if password.present? and not password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+/)
   end
@@ -79,4 +118,5 @@ class User < ActiveRecord::Base
   def send_account_deleted_notification
     UserMailer.account_deleted(self.email).deliver
   end
+
 end

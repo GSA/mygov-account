@@ -15,6 +15,7 @@ def create_approved_beta_signup(email_or_hash)
   beta_signup = BetaSignup.new(email_or_hash)
   beta_signup.is_approved = true
   beta_signup.save!
+  beta_signup
 end
 
 def have_timeout_warning_metatag

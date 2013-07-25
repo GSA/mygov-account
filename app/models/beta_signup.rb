@@ -7,14 +7,14 @@ class BetaSignup < ActiveRecord::Base
 
   attr_accessible :email, :ip_address, :referrer, :as => [:default, :admin]
   attr_accessible :is_approved, :as => :admin
-  
+
   private
-  
+
   def send_beta_invite
     UserMailer.beta_invite(self.email).deliver if is_approved_changed? && is_approved == true
   end
-  
-  def approve_dot_gov_emails    
-    self.is_approved = true if self.email.end_with?(".gov")
+
+  def approve_dot_gov_emails
+    self.is_approved = true if User.email_is_whitelisted?(self.email)
   end
 end

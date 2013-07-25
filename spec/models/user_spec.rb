@@ -55,6 +55,16 @@ describe User do
         user = User.create(@valid_attributes.merge!(:email => 'leslie.knope@parks.gov'))
         user.errors.should be_empty
       end
+
+      it "should create a user account for a user with a .mil email" do
+        user = User.create(@valid_attributes.merge!(:email => 'private.benjamin@army.mil'))
+        user.errors.should be_empty
+      end
+
+      it "should create a user account for a user with a usps.com email" do
+        user = User.create(@valid_attributes.merge!(:email => 'themailman@usps.com'))
+        user.errors.should be_empty
+      end
     end
   end
 
@@ -189,7 +199,7 @@ describe User do
         User.count.should == 0
         Authentication.count.should == 0
         user = User.find_for_open_id(@access_token)
-        user.errors.count.should == 0
+        user.errors.should be_empty
         User.all.last.email.should == 'jane@citizen.org'
         User.count.should == 1
         Authentication.count.should == 1

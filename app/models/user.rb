@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :terms_of_service, :unconfirmed_email, :as => [:default, :admin]
 
+  WHITELISTED_DOMAINS = %w{ .gov .mil usps.com }
+
   def sandbox_apps
     self.apps.sandbox
   end
@@ -41,7 +43,12 @@ class User < ActiveRecord::Base
         user.save
         user
       end
-    end  
+    end
+
+    def email_is_whitelisted?(email)
+      return WHITELISTED_DOMAINS.any? {|d| email.end_with?(d)}
+    end
+
   end
   
   def confirm!
@@ -88,7 +95,7 @@ class User < ActiveRecord::Base
 
   def email_is_whitelisted_or_user_had_existing_account
     if self.id.nil?
-      unless self.email.end_with?('.gov') or BetaSignup.find_by_email_and_is_approved(self.email, true)
+      unless User.email_is_whitelisted?(self.email) or BetaSignup.find_by_email_and_is_approved(self.email, true)
         errors.add(:base, "I'm sorry, your account hasn't been approved yet.")
       end
     end

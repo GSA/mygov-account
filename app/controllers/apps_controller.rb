@@ -45,10 +45,12 @@ class AppsController < ApplicationController
 
   def update
     respond_to do |format|
+      @app.app_oauth_scopes.each { |scope| scope.destroy }
+
       if @app.update_attributes(params[:app])
         format.html { redirect_to @app, :alert => "App was successfully updated."}
       else
-        render :action => 'new' 
+        render :action => 'new'
       end
     end
   end

@@ -88,10 +88,3 @@ OmniAuth.config.add_mock(:maxgov, {
   :credentials => {:ticket => 'ticket-test.gov'},
   :extra => {:attributes => {'Agency-Name' => 'Super Agency', "Email-Address" => 'joe.citizen@usa.gov'}}
 })
-OmniAuth.config.add_mock(:mygov, {
-  :info => {
-    :email => 'joe@citizen.org',
-    :uid => '12345'
-  },
-  :uid => '12345',
-})

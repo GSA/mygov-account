@@ -48,7 +48,7 @@ class Api::V1::ProfilesController < Api::ApiController
     auth = request.env["omniauth.auth"]
     #pp session['user.session_attributes']
     if params[:schema].present?
-      render :json => {:email => @user.email, :id => @user.uid}
+      render :json => {:email => @user.email, :uid => @user.uid}
     elsif !session['user.session_attributes'].nil?
       session_attribs = session['user.session_attributes']
       render :json => EXTENDED_PROFILE.merge(:session_authentication_method => session_attribs['samlAuthenticationStatementAuthMethod'],
@@ -63,7 +63,7 @@ class Api::V1::ProfilesController < Api::ApiController
                                              }
       )
     else
-      render :json => EMPTY_PROFILE.merge(:email => @user.email, :id => @user.uid)
+      render :json => EMPTY_PROFILE.merge(:email => @user.email, :uid => @user.uid)
     end
   end
 end

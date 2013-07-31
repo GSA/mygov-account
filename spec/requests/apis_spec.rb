@@ -26,7 +26,7 @@ describe "Apis" do
           parsed_json.should_not be_nil
           parsed_json["email"].should == 'joe@citizen.org'
           parsed_json["id"].should_not be_nil
-          parsed_json.reject{|k,v| k == "email" or k == "id"}.each do |key, value|
+          parsed_json.reject{|k,v| k == "email" or k == "id" or k == "uid"}.each do |key, value|
             parsed_json[key].should be_nil
           end
         end

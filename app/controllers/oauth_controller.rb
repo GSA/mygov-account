@@ -43,8 +43,8 @@ class OauthController < ApplicationController
 
   def set_client_app
     begin
-      @outh2_client =  OAuth2::Model::Client.find_by_client_id(params[:client_id])
-      @app = App.find(@outh2_client.oauth2_client_owner_id)
+      @oauth2_client =  OAuth2::Model::Client.find_by_client_id(params[:client_id])
+      @app = App.find(@oauth2_client.oauth2_client_owner_id)
     end
   end
 

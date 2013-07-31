@@ -23,6 +23,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   
   def maxgov
     auth = request.env["omniauth.auth"]
+    ## @@TODO: this is specific to Maxgov, and should be made generic
+    session['user.session_attributes'] = auth['extra']
+    #pp session['user.session_attributes']
     if current_user
       authentication = current_user.authentications.find_or_create_by_provider_and_uid("max.gov", auth.uid)
       if authentication.errors.empty?

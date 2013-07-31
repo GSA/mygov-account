@@ -17,6 +17,7 @@ Mygov::Application.routes.draw do
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/allow' => 'oauth#allow'
+  get 'oauth/unknown_app' => 'oauth#unknown_app', :as => :unknown_app
   resources :beta_signups, :only => [:create]
   resource :user, :only => [:destroy]
   resource :profile, :only => [:show]

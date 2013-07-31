@@ -30,7 +30,7 @@ describe "OauthApps" do
     @sandbox_client_auth = @sandbox.oauth2_client
   end
   
-  context "when logged in" do
+  context "when logged in with a user who owns a sandboxed app" do
     before do
       create_logged_in_user(@user)
     end
@@ -56,7 +56,7 @@ describe "OauthApps" do
     end
   end
 
-  context "when logged in" do
+  context "when logged in with a user who does not own the sandboxed app" do
     before do
       create_logged_in_user(@user2)
     end
@@ -74,10 +74,22 @@ describe "OauthApps" do
   end
 
   describe "Authorize application" do
-    it "should redirect to a login page to authorize a new app" do
-      get(url_for(controller: 'oauth', action: 'authorize',
-              response_type: 'code', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/')
-      ).should redirect_to(sign_in_path)
+    context "when the app is known" do
+      it "should redirect to a login page to authorize a new app" do
+        get(url_for(controller: 'oauth', action: 'authorize',
+                response_type: 'code', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/')
+        ).should redirect_to(sign_in_path)
+      end
+    end
+
+    context "when the app is not known" do
+      it "should redirect to a friendly error page if the app is unknown" do
+        visit(url_for(controller: 'oauth', action: 'authorize',
+                response_type: 'code', client_id: 'xyz', redirect_uri: 'http://localhost/')
+        )
+        page.should have_content("We're Sorry")
+        page.should have_content("The app you are attempting to use is not known or is not properly identifying itself to MyUSA.")
+      end
     end
   end
 

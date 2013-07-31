@@ -39,12 +39,17 @@ class OauthController < ApplicationController
     return pass
   end
 
+  def unknown_app
+  end
+
   protected
 
   def set_client_app
     begin
       @oauth2_client =  OAuth2::Model::Client.find_by_client_id(params[:client_id])
       @app = App.find(@oauth2_client.oauth2_client_owner_id)
+    rescue NoMethodError
+      redirect_to unknown_app_path
     end
   end
 

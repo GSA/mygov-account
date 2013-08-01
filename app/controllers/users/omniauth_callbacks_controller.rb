@@ -47,7 +47,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.find_for_open_id(request.env["omniauth.auth"], current_user)
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => provider_name.capitalize
-      if @user == current_user
+      if @user == current_user or !@user.id_changed?
         sign_in_and_redirect @user, :event => :authentication
       else # send user to dashboard if newly registered instead of devise redirect
         sign_in @user

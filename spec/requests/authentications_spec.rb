@@ -9,16 +9,45 @@ describe "Authentications" do
   end
   
   describe "adding a new authentication" do
-    context "when the user does not have any additional authentication providers" do
+    context "when the user does not have a MAX authentication" do
       it "should allow the user to connect their MAX.gov account" do
         visit root_path
         click_link 'Settings'
         click_link 'Authentication providers'
         click_link 'Add an authentication provider to your account'
         click_link 'Connect your MAX.gov account'
-        page.should have_content 'max.gov'
+        page.should have_content 'Max.Gov'
       end
     end
+
+    context "when the user already has a MAX authentication" do
+      before do
+        @user.authentications << Authentication.create!(:uid => '12345', :provider => 'max.gov')
+      end
+
+      it "should not allow the user to connect their MAX.gov account" do
+        visit root_path
+        click_link 'Settings'
+        click_link 'Authentication providers'
+        click_link 'Add an authentication provider to your account'
+        page.should_not have_content 'Max.Gov'
+      end
+    end
+
+    context "when the user does not have a google authentication" do
+      before do
+        @user.authentications.each {|auth| auth.destroy}
+      end
+
+      it "should allow the user to connect to google" do
+        visit root_path
+        click_link 'Settings'
+        click_link 'Authentication providers'
+        click_link 'Add an authentication provider to your account'
+        page.should have_content 'Google'
+      end
+    end
+
   end
   
   describe "deleting an authentication" do
@@ -31,9 +60,9 @@ describe "Authentications" do
         visit root_path
         click_link 'Settings'
         click_link 'Authentication providers'
-        page.should have_content 'max.gov'
+        page.should have_content 'Max.Gov'
         click_link 'Delete'
-        page.should_not have_content 'max.gov'
+        page.should_not have_content 'Max.Gov'
         click_link 'Sign out'
         visit sign_in_path
         click_link 'More sign in options'

@@ -13,6 +13,6 @@
       - @authentications.each do |authentication|
         %tr
           %th
-            = authentication.provider
+            = authentication.provider.titleize
           %th
             = link_to 'Delete', authentication_path(authentication), :method => :delete

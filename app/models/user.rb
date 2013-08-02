@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
       authentication = Authentication.find_by_uid_and_provider(access_token.uid, access_token.provider)
       if authentication
         authentication.user
+      elsif signed_in_resource
+        signed_in_resource.authentications.new(:uid => access_token.uid, :provider => access_token.provider, :data => access_token)
+        signed_in_resource.save
+        signed_in_resource
       else
         user = User.new(:email => data['email'], :password => Devise.friendly_token[0,20])
         user.skip_confirmation!

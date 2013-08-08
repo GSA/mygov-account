@@ -13,7 +13,7 @@ class Profile < ActiveRecord::Base
   
   ENCRYPTED_FIELDS = [:first_name, :middle_name, :last_name, :name, :address, :address2, :city, :state, :zip, :phone, :mobile]
   
-  attr_accessible :title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired, :as => [:default, :admin]
+  attr_accessible :title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired, :as => [:default, :admin]
   attr_accessible :user_id, :phone, :mobile, :as => :admin
     
   def phone_number=(value)
@@ -41,11 +41,11 @@ class Profile < ActiveRecord::Base
   end
   
   def as_json(options = {})
-    super(:only => [:id, :title, :suffix, :date_of_birth, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired], :methods => ENCRYPTED_FIELDS + [:email])
+    super(:only => [:id, :title, :suffix, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired], :methods => ENCRYPTED_FIELDS + [:email])
   end
   
   def to_schema_dot_org_hash
-    {"email" => self.user.email, "givenName" => self.first_name, "additionalName" => self.middle_name, "familyName" => self.last_name, "homeLocation" => {"streetAddress" => [self.address, self.address2].reject{|s| s.blank? }.join(','), "addressLocality" => self.city, "addressRegion" => self.state, "postalCode" => self.zip}, "birthDate" => self.date_of_birth.to_s, "telephone" => self.phone, "gender" => self.print_gender }
+    {"email" => self.user.email, "givenName" => self.first_name, "additionalName" => self.middle_name, "familyName" => self.last_name, "homeLocation" => {"streetAddress" => [self.address, self.address2].reject{|s| s.blank? }.join(','), "addressLocality" => self.city, "addressRegion" => self.state, "postalCode" => self.zip}, "telephone" => self.phone, "gender" => self.print_gender }
   end
   
   def email

@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :as => [:default]
   attr_accessor :just_created
   
-  PROFILE_ATTRIBUTES = [:title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone, :mobile, :gender, :marital_status, :is_parent, :is_retired, :is_student, :is_veteran]
+  PROFILE_ATTRIBUTES = [:title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :phone, :mobile, :gender, :marital_status, :is_parent, :is_retired, :is_student, :is_veteran]
 
   def sandbox_apps
     self.apps.sandbox

@@ -184,7 +184,6 @@ ActiveRecord::Schema.define(:version => 20130812022411) do
     t.integer  "user_id"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
-    t.date     "date_of_birth"
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"

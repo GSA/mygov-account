@@ -21,7 +21,7 @@
                 Item completed at: #{pretty_time(task_item.completed_at)}
             - else
               %span.actions.align-right
-                = link_to  task_item_path(task_item, :completed => true), :method => :put, :class => '' do
+                = link_to task_item_path(task_item, :completed => true), :method => :put, :class => '' do
                   %i{:class => 'foundicon-checkmark'}
                   Mark complete
               %span.actions.align-right

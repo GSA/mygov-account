@@ -57,7 +57,6 @@ describe "Apis" do
         get "/api/profile", {"schema" => "true"}, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
         response.code.should == "403"
         parsed_json = JSON.parse(response.body)
-        parsed_json["status"].should == "Error"
         parsed_json["message"].should == "You do not have access to read that user's profile."
       end
     end
@@ -96,7 +95,6 @@ describe "Apis" do
           post "/api/notifications", {:notification => {:body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "400"
           parsed_response = JSON.parse(response.body)
-          parsed_response["status"].should == "Error"
           parsed_response["message"]["subject"].should == ["can't be blank"]
         end
       end
@@ -119,7 +117,6 @@ describe "Apis" do
         post "/api/notifications", {:notification => {:body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token3.token}"}
         response.code.should == "403"
         parsed_json = JSON.parse(response.body)
-        parsed_json["status"].should == "Error"
         parsed_json["message"].should == "You do not have access to notifications for that user."
       end
     end
@@ -129,7 +126,6 @@ describe "Apis" do
         post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer fake_token"}
         response.code.should == "403"
         parsed_response = JSON.parse(response.body)
-        parsed_response["status"].should == "Error"
         parsed_response["message"].should == "You do not have access to send notifications to that user."
       end
     end
@@ -170,7 +166,6 @@ describe "Apis" do
         get "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token4.token}"}
         response.code.should == "403"
         parsed_json = JSON.parse(response.body)
-        parsed_json["status"].should == "Error"
         parsed_json["message"].should == "You do not have access to tasks for that user."
       end
     end
@@ -180,7 +175,6 @@ describe "Apis" do
         get "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
         response.code.should == "403"
         parsed_json = JSON.parse(response.body)
-        parsed_json["status"].should == "Error"
         parsed_json["message"].should == "You do not have access to view tasks for that user."
       end
     end
@@ -190,7 +184,7 @@ describe "Apis" do
     context "when the caller has a valid token" do
       context "when the appropriate parameters are specified" do
         it "should create a new task for the user" do
-          post "/api/tasks", {:task => { :name => 'New Task' }}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}" }
+          post "/api/tasks", {:task => { :name => 'New Task' }}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "200"
           parsed_json = JSON.parse(response.body)
           parsed_json.should_not be_nil
@@ -204,7 +198,6 @@ describe "Apis" do
           post "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "400"
           parsed_json = JSON.parse(response.body)
-          parsed_json["status"].should == "Error"
           parsed_json["message"].should == {"name"=>["can't be blank"]}
         end
       end
@@ -215,7 +208,6 @@ describe "Apis" do
         post "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
         response.code.should == "403"
         parsed_json = JSON.parse(response.body)
-        parsed_json["status"].should == "Error"
         parsed_json["message"].should == "You do not have access to create tasks for that user."
       end
     end
@@ -241,7 +233,6 @@ describe "Apis" do
         get "/api/tasks/#{@task.id}", nil, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
         response.code.should == "403"
         parsed_json = JSON.parse(response.body)
-        parsed_json["status"].should == "Error"
         parsed_json["message"].should == "You do not have access to view tasks for that user."
       end
     end
@@ -258,7 +249,6 @@ describe "Apis" do
           post "/api/forms", {:data => {:first_name => 'Joe', :last_name => 'Citizen'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "400"
           parsed_json = JSON.parse(response.body)
-          parsed_json["status"].should == "Error"
           parsed_json["message"].should == "Please supply a form number."
         end
       end
@@ -287,7 +277,6 @@ describe "Apis" do
             post "/api/forms", {:form_number => 'ss-5', :data => {:first_name => 'Joe', :last_name => 'Citizen'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
             response.code.should == "400"
             parsed_json = JSON.parse(response.body)
-            parsed_json["status"].should == "Error"
           end
         end
       end
@@ -301,7 +290,6 @@ describe "Apis" do
           post "/api/forms", {:form_number => 'ss-5', :data => {:first_name => 'Joe', :last_name => 'Citizen'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "400"
           parsed_json = JSON.parse(response.body)
-          parsed_json["status"].should == "Error"
           parsed_json["message"].should == "There was an error in creating your form."
         end
       end      
@@ -324,7 +312,6 @@ describe "Apis" do
         post "/api/forms", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token5.token}"}
         response.code.should == "403"
         parsed_json = JSON.parse(response.body)
-        parsed_json["status"].should == "Error"
         parsed_json["message"].should == "You do not have access to submit forms for that user."
       end
     end
@@ -334,7 +321,6 @@ describe "Apis" do
         post "/api/forms", nil, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
         response.code.should == "403"
         parsed_json = JSON.parse(response.body)
-        parsed_json["status"].should == "Error"
         parsed_json["message"].should == "You do not have permission to submit forms for this user."
       end
     end

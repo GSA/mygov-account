@@ -3,22 +3,22 @@ class Api::V1::TasksController < Api::ApiController
   
   def index
     tasks = @user.tasks.where(:app_id => @app.id)
-    render :json => tasks
+    render :json => tasks, :status => 200
   end
   
   def create
     task = @user.tasks.build(params[:task] || {})
     task.app_id = @app.id
     if task.save
-      render :json => task
+      render :json => task, :status => 200
     else
-      render :json => {:status => "Error", :message => task.errors }, :status => 400
+      render :json => {:message => task.errors}, :status => 400
     end
   end
   
   def show
     task = @token.owner.tasks.find_by_id(params[:id])
-    render :json => task
+    render :json => task, :status => 200
   end
   
   protected

@@ -5,7 +5,7 @@ class Api::V1::FormsController < Api::ApiController
   
   def create
     unless form_number = params[:form_number]
-      render :json => {:status => "Error", :message => "Please supply a form number."}, :status => 400
+      render :json => {:message => "Please supply a form number."}, :status => 400
     else
       form_number = params[:form_number]
       data = params[:data] || {}
@@ -17,10 +17,10 @@ class Api::V1::FormsController < Api::ApiController
         if submitted_form.save
           respond_with submitted_form, :location => api_form_url(submitted_form)
         else
-          render :json => {:status => "Error", :message => submitted_form.errors}, :status => 400
+          render :json => {:message => submitted_form.errors}, :status => 400
         end
       else
-        render :json => {:status => "Error", :message => "There was an error in creating your form."}, :status => 400
+        render :json => {:message => "There was an error in creating your form."}, :status => 400
       end
     end
   end

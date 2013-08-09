@@ -19,7 +19,7 @@ class Api::ApiController < ApplicationController
   
   def validate_oauth(oauth_scope = nil)
     unless @token.valid?
-      render :json => {:status => "Error", :message => self.no_scope_message}, :status => 403
+      render :json => {:message => self.no_scope_message}, :status => 403
       return false
     end
     

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130722025946) do
+ActiveRecord::Schema.define(:version => 20130812022411) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -173,7 +173,6 @@ ActiveRecord::Schema.define(:version => 20130722025946) do
     t.string   "city"
     t.string   "state",          :limit => 5
     t.string   "zip",            :limit => 5
-    t.date     "date_of_birth"
     t.string   "phone",          :limit => 12
     t.string   "mobile",         :limit => 12
     t.string   "gender",         :limit => 6
@@ -185,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20130722025946) do
     t.integer  "user_id"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+    t.date     "date_of_birth"
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"

@@ -25,6 +25,7 @@ config/deploy.rb
 config/deploy
 config/environments/production.rb
 config/initializers/01_mygov.rb
+config/initializers/recaptcha.rb
 coverage
 db/*.sqlite3
 log/*

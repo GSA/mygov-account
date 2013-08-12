@@ -1,4 +1,27 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+
+  def create
+    if session[:omniauth] == nil
+      pp "session is nil"
+      if verify_recaptcha
+        pp "captcha verified"
+        super
+        session[:omniauth] = nil unless @user.new_record? 
+      else
+        pp "captcha did not verify!"
+        pp sign_up_params
+        build_resource( sign_up_params )
+        clean_up_passwords(resource)
+        resource.errors.add(:base, "There was an error with the code below. Please re-enter!")
+        render :new
+        session[:omniauth] = nil
+        return false
+      end
+    else
+      super
+      session[:omniauth] = nil unless @user.new_record? 
+    end
+  end
   
   def thank_you
   end
@@ -6,4 +29,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_inactive_sign_up_path_for(resource)
     thank_you_path
   end
+
 end

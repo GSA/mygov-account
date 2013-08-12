@@ -26,6 +26,7 @@ gem "rabl"
 gem 'rb-readline', '~> 0.4.2'
 gem 'omniauth-openid', :git => 'https://github.com/GSA-OCSIT/omniauth-openid.git', :branch => 'pape'
 gem 'omniauth-cas'
+gem 'recaptcha', :require => 'recaptcha/rails'
 
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA-OCSIT/rack-openid.git', :branch => 'pape'

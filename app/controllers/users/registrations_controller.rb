@@ -2,14 +2,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     if session[:omniauth] == nil
-      pp "session is nil"
       if verify_recaptcha
-        pp "captcha verified"
         super
         session[:omniauth] = nil unless @user.new_record? 
       else
-        pp "captcha did not verify!"
-        pp sign_up_params
         build_resource( sign_up_params )
         clean_up_passwords(resource)
         resource.errors.add(:base, "There was an error with the code below. Please re-enter!")

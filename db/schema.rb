@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130812022411) do
+ActiveRecord::Schema.define(:version => 20130816010317) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -171,10 +171,10 @@ ActiveRecord::Schema.define(:version => 20130812022411) do
     t.string   "address"
     t.string   "address2"
     t.string   "city"
-    t.string   "state",          :limit => 5
-    t.string   "zip",            :limit => 5
-    t.string   "phone",          :limit => 12
-    t.string   "mobile",         :limit => 12
+    t.string   "state",          :limit => 25
+    t.string   "zip",            :limit => 25
+    t.string   "phone",          :limit => 50
+    t.string   "mobile",         :limit => 50
     t.string   "gender",         :limit => 6
     t.string   "marital_status", :limit => 15
     t.boolean  "is_parent"
@@ -245,26 +245,27 @@ ActiveRecord::Schema.define(:version => 20130812022411) do
   add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
+    t.string   "email",                                :default => "", :null => false
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",                        :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
     t.string   "uid"
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "encrypted_password",                   :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        :default => 0
+    t.integer  "failed_attempts",                      :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.string   "key_storage_name",       :limit => 25
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

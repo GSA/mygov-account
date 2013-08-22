@@ -8,4 +8,5 @@
           = link_to 'Authentication providers', authentications_path
         %li
           = link_to 'Change email address', edit_user_registration_path(@user.id)
-      
+        %li
+          = link_to 'Encrypt profile', edit_settings_encryption_path(@user.id)

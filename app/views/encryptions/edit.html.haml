@@ -1,0 +1,14 @@
+.row
+  .eight.columns
+    %h2
+      Change Your Encryption Settings
+    = form_tag({:action => 'create', :controller => 'encryptions'}, {:onsubmit => "return encrypt_set_key( this ) ;"}) do
+      %fieldset
+        %label{:for => ""} Encryption Passphrase
+        %input{:type => "password", :id => "passphrase"}
+        %br/
+        %label{:for => ""} Confirm Encryption Passphrase
+        %input{:type => "password", :id => "confirm_passphrase"}
+        %br/
+        %input{:type => "submit", :value => "Encrypt my profile"}
+        %input{:type => "hidden", :id => "key_name", :name => "key_name"}

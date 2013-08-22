@@ -5,7 +5,8 @@ Mygov::Application.routes.draw do
     :omniauth_callbacks => "users/omniauth_callbacks",
     :registrations => 'users/registrations',
     :confirmations => 'users/confirmations',
-    :sessions => 'users/sessions'
+    :sessions => 'users/sessions',
+    :settings => 'users/settings'
   }
   devise_scope :user do
     get 'sign_up', :to => 'users/registrations#new', :as => :sign_up
@@ -20,10 +21,11 @@ Mygov::Application.routes.draw do
   get 'oauth/unknown_app' => 'oauth#unknown_app', :as => :unknown_app
   resources :beta_signups, :only => [:create]
   resource :user, :only => [:destroy]
-  resources :settings, :only => [:index] do
+  resource :settings, :only => [:index] do
     collection do
       resources :authentications
     end
+    resource :encryption, :only => [:show, :edit, :create]
   end
   resource :profile, :only => [:show, :edit, :update]
   resources :notifications, :only => [:index, :show, :create, :destroy]
@@ -35,6 +37,7 @@ Mygov::Application.routes.draw do
   end
   resources :task_items, :only => [:update, :destroy]
 
+  get 'settings' => "settings#index"
   get 'dashboard' => "home#dashboard"
   get 'discovery' => "home#discovery"
   get 'developer' => "home#developer"

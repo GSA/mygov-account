@@ -6,11 +6,13 @@
   .eight.columns
     %h2
       Edit your profile
-    = form_for @profile do |form|
+    = form_for @profile, :html => { :name => "profile_form", :onsubmit => "return encrypt_if_chosen( this );" } do |form|
       - if flash[:error]
         .alert-box
           = flash[:error]
       %fieldset
+        = hidden_field(:user, :key_storage_name, {:name => ''})
+        %input{:type => "hidden", :id => "is_encrypted", :name => ""}
         %legend
           Name
         %ol
@@ -90,10 +92,14 @@
             
           %li.full
             = form.check_box :is_retired
-            = form.label :is_retired, "Retired"      
+            = form.label :is_retired, "Retired"   
       = form.submit "Update profile", :class => 'large button positive'
       = link_to 'Cancel', profile_path
   .four.columns
     .panel.sidebar.tertiary
       = render :partial => 'home/administrative_sidebar'
 
+  :javascript
+    window.onload = function(){
+      encrypt_decrypt( document.forms["profile_form"] ) ;
+    } ;

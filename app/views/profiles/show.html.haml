@@ -9,24 +9,17 @@
 .row
   .six.columns
     .panel.listing
+      = hidden_field(:user, :key_storage_name, {:name => '', :id => 'user_key_storage_name'})
       %h3
         Name
-      %ul.profile      
+      %ul.profile{:id => "profile_name"}
         %li
           Title: #{@profile.title}
-        %li
-          First name: #{@profile.first_name}
-        %li
-          Middle name: #{@profile.middle_name}
-        %li
-          Last name: #{@profile.last_name}
-        %li
-          Suffix: #{@profile.suffix}
     
     .panel.listing
       %h3
         Address
-      %ul.profile 
+      %ul.profile{:id => "profile_address"}
         %li
           Address: #{@profile.address}
         %li
@@ -41,13 +34,13 @@
     .panel.listing
       %h3
         Date of birth
-      %ul.profile   
+      %ul.profile{:id => "profile_dob"}
         %li
           #{@profile.date_of_birth}
     .panel.listing
       %h3 
         Phone
-      %ul.profile   
+      %ul.profile{:id => "profile_phone"}
         %li
           Phone: #{@profile.phone_number}
         %li
@@ -71,5 +64,84 @@
         %li
           Retired: #{yes_or_no(@profile.is_retired)}
 .row
+:javascript
+  window.onload = function(){
+    var ul = document.getElementById("profile_name") ;
+    var ul2 = document.getElementById("profile_address") ;
+    var ul3 = document.getElementById("profile_phone") ;
+    var key_name = document.getElementById("user_key_storage_name").value ;
+    var key ;
 
+    if ( key_name ){
+        key = sjcl.codec.hex.toBits(sessionStorage[key_name]) ;
+    }
+
+    var li = document.createElement("li") ;
+    var text ;
+
+    text = key ? document.createTextNode("First name: " + encrypt_decrypt_item("#{@profile.first_name}", key )) : document.createTextNode("First name: #{@profile.first_name}") ;
+
+    li.appendChild( text ) ;
+    ul.appendChild( li ) ;
+
+    li = document.createElement("li") ;
+    text = key ? document.createTextNode("Middle name: " + encrypt_decrypt_item("#{@profile.middle_name}", key )) : document.createTextNode("Middle name: #{@profile.middle_name}" ;
+
+    li.appendChild( text ) ;
+    ul.appendChild( li ) ;
+
+    li = document.createElement("li") ;
+    text = key ? document.createTextNode("Last name: " + encrypt_decrypt_item("#{@profile.last_name}", key )) : document.createTextNode("Last name: #{@profile.last_name}") ;
+
+    li.appendChild( text ) ;
+    ul.appendChild( li ) ;    
+
+    li = document.createElement("li") ;
+    text = document.createTextNode("Suffix: " + "#{@profile.suffix}") ;
+
+    li.appendChild( text ) ;
+    ul.appendChild( li ) ;
+
+    li = document.createElement("li") ;
+    text = key ? document.createTextNode("Address: " + encrypt_decrypt_item("#{@profile.address}", key)) : document.createTextNode("Address: #{@profile.address}") ;
+
+    li.appendChild( text ) ;
+    ul2.appendChild( li ) ;   
+  
+    li = document.createElement("li") ;
+    text = key ? document.createTextNode("Address (Line 2): " + encrypt_decrypt_item("#{@profile.address2}")) : document.createTextNode("Address (Line 2): #{@profile.address2}") ;
+
+    li.appendChild( text ) ;
+    ul2.appendChild( li ) ;   
+
+    li = document.createElement("li") ;
+    text = key ? document.createTextNode("City: " + encrypt_decrypt_item("#{@profile.city}", key)) : document.createTextNode("City: #{@profile.city}") ;
+
+    li.appendChild( text ) ;
+    ul2.appendChild( li ) ; 
+  
+    li = document.createElement("li") ;
+    text = key ? document.createTextNode("State: " + encrypt_decrypt_item("#{@profile.state}", key)) : document.createTextNode("State: #{@profile.state}") ;
+
+    li.appendChild( text ) ;
+    ul2.appendChild( li ) ;   
+
+    li = document.createElement("li") ;
+    text = key ? document.createTextNode("Zip: " + encrypt_decrypt_item("#{@profile.zip}", key)) : document.createTextNode("Zip: #{@profile.zip}") ;
+
+    li.appendChild( text ) ;
+    ul2.appendChild( li ) ;  
+
+    li = document.createElement("li") ;
+    text = document.createTextNode("Phone: " + encrypt_decrypt_item("#{@profile.phone_number}")) ;
+
+    li.appendChild( text ) ;
+    ul3.appendChild( li ) ;   
+
+    li = document.createElement("li") ;
+    text = document.createTextNode("Mobile: " + encrypt_decrypt_item("#{@profile.mobile_number}")) ;
+
+    li.appendChild( text ) ;
+    ul3.appendChild( li ) ;  
+  } ;
 

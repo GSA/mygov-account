@@ -10,12 +10,22 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    if @profile.update_attributes(params[:profile])
-      flash[:notice] = "Your profile was sucessfully updated."
+
+    pp params
+
+    if params[:is_encrypted] == "true"
+      pp "ENCRYPTED, SO SKIP VALIDATIONS"
+      @profile.attributes = params[:profile]
+      @profile.save(validate: false)
       redirect_to profile_path
     else
-      flash.now[:error] = "Something went wrong."
-      render :edit
+      if @profile.update_attributes(params[:profile])
+        flash[:notice] = "Your profile was successfully updated."
+        redirect_to profile_path
+      else
+        flash.now[:error] = "Something went wrong."
+        render :edit
+      end
     end
   end
 

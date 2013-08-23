@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  ensure_security_headers
+  skip_before_filter :set_csp_header
   protect_from_forgery
   prepend_before_filter :set_no_keep_alive
   before_filter :set_segment
@@ -38,7 +40,6 @@ class ApplicationController < ActionController::Base
   end
   
   def set_response_headers
-    headers['X-Frame-Options'] = 'SAMEORIGIN'
     headers['X-XRDS-Location'] = url_for(:action => 'xrds', :controller => 'home', :protocol => 'https', :only_path => false, :format => :xml)
   end
 end

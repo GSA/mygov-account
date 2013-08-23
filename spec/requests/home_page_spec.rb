@@ -9,6 +9,15 @@ describe "HomePage" do
   end
   
   describe "GET /" do
+    it "sets secure headers (X-Frame-Options, X-XSS-Protection, and X-XRDS-Location)" do
+      # NOTE: the app also sets X-Content-Type-Options: nosniff, but that is only set for IE browsers
+      visit root_url
+      
+      expect(page.response_headers["X-Frame-Options"]).to eq "SAMEORIGIN"
+      expect(page.response_headers["X-XSS-Protection"]).to eq "1; mode=block"
+      expect(page.response_headers["X-XRDS-Location"]).to eq "https://www.example.com/xrds.xml"
+    end
+    
     context "when not logged in" do
       context "when signing up for the beta" do
         before do

@@ -12,7 +12,7 @@ class Notification < ActiveRecord::Base
   end
   
   def self.not_viewed
-    where(viewed_at: nil)
+    where(viewed_at: nil, deleted_at: nil)
   end
   
   private

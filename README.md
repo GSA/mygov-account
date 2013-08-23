@@ -15,6 +15,10 @@ https://help.github.com/articles/set-up-git
 
         curl -L https://get.rvm.io | bash -s stable --ruby
 
+      Note: you may need to have previously installed
+      MacPorts/Homebrew and other dependencies for rvm/ruby (on OS X at least)
+      prior to running this command
+
     2.  Install the Ruby 1.9.3 rvm instance
 
         rvm install ruby-1.9.3
@@ -31,7 +35,17 @@ https://help.github.com/articles/set-up-git
 
         bundle install
 
-    5.  Create the development and test databases
+      Note: MySQL must be previously installed for the mysql gem install to work
+
+    5.  Create your configuration files
+
+      cp config/database.yml.example config/database.yml
+      cp config/initializers/01_mygov.rb.example config/initializers/01_mygov.rb
+      (check these configuration files to ensure they look correct for your environment)
+      rake secret
+      (copy the result of the above rake command to the RAILS_SECRET_TOKEN variable in config/initializers/01_mygov.rb)
+
+    6.  Create the development and test databases
 
       Make sure you have MySQL running.  By default, the development environment looks to connect to MySQL using the root MySQL user with no password.
 

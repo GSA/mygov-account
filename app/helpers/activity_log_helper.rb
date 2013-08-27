@@ -1,4 +1,9 @@
 module ActivityLogHelper
+  
+  def activity_time(time)
+    Time.now - time > 1.week ? "on #{pretty_time(time)}" : pretty_time(time)
+  end
+  
   def humanize_log_item(item)
     map = {
       :profiles => {

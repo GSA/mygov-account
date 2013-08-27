@@ -35,23 +35,23 @@ describe "Activity Log" do
           @token = OAuth2::AccessToken.new(client, access_token)
         end
 
-        it "should show the user in the activity log when their profile has been accessed" do
+        it "shows the user that their profile has been accessed in the activity log with a time stamp" do
           get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "200"
           login(@user)
           visit activity_log_path
-          expect(page).to have_content("#{@app1.name} viewed your profile")
+          expect(page).to have_content("#{@app1.name} viewed your profile less than a minute ago")
         end
 
-        it "should show the user in the activity log that a notification has been created" do
+        it "shows the user that a notification has been created in the activity log with a time stamp" do
           post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "200"
           login(@user)
           visit activity_log_path
-          expect(page).to have_content("#{@app1.name} pushed a notification")
+          expect(page).to have_content("#{@app1.name} pushed a notification less than a minute ago")
         end
 
-        it "should show the user only the latest ten API activities" do
+        it "shows the user only the last ten API activities" do
           post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
 
           10.times do

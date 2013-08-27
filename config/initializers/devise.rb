@@ -38,7 +38,7 @@ Devise.setup do |config|
     config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'verisign', :identifier => 'https://pip.verisignlabs.com/user/DIRECTED_IDENTITY_USER/yadisxrds', :require => 'omniauth-openid', :require => 'omniauth-openid', :preferred_auth_policies => PAPE_FIELDS[:preferred_auth_policies], :max_auth_age => PAPE_FIELDS[:max_auth_age], :required => ["email"], :optional => []
     config.omniauth :cas,
       :name => 'maxgov',
-      :host => "login.test.max.gov",
+      :host => "login.max.gov",
       :login_url => "/cas/login",
       :service_validate_url => "/cas/serviceValidate",
       :logout_url => "/cas/logout",

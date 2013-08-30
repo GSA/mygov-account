@@ -2,9 +2,12 @@
   %h1 Account Activity
 .row
   .thirteen.columns.dashboard
-    - unless @activity_logs.empty?
-      %ul.activity_list
-        - @activity_logs.each do |item|
-          %li.activity_item #{h item.app.name} #{h humanize_log_item(item)} #{activity_time(item.created_at)}
+    - unless @user.grouped_activity_logs.empty?
+      - @user.grouped_activity_logs.each do |group|
+        %h2
+          = group.first
+        %ul.activity_list
+          - group.last.each do |item|
+            %li.activity_item #{item}
     - else
       %p No activity to report.

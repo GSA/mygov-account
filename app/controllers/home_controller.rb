@@ -33,11 +33,7 @@ class HomeController < ApplicationController
   
   def pra
   end
-  
-  def activity_log
-    @activity_logs = @user.app_activity_logs.order(:created_at).reverse_order.first(10)
-  end
-  
+    
   def xrds
     response.content_type = "application/xrds+xml"
   end

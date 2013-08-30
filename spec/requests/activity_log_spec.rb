@@ -40,7 +40,7 @@ describe "Activity Log" do
           response.code.should == "200"
           login(@user)
           visit activity_log_path
-          expect(page).to have_content("#{@app1.name} viewed your profile less than a minute ago")
+          expect(page).to have_content("#{@app1.name} viewed your profile at #{@user.app_activity_logs.first.created_at.strftime('%H:%M %p')}")
         end
 
         it "shows the user that a notification has been created in the activity log with a time stamp" do
@@ -48,7 +48,7 @@ describe "Activity Log" do
           response.code.should == "200"
           login(@user)
           visit activity_log_path
-          expect(page).to have_content("#{@app1.name} pushed a notification less than a minute ago")
+          expect(page).to have_content("#{@app1.name} pushed a notification at #{@user.app_activity_logs.first.created_at.strftime('%H:%M %p')}")
         end
 
         it "shows the user only the last ten API activities" do

@@ -434,11 +434,17 @@ ul.button-list a {
   height: 4em;
   margin-top: -4em; /* negative value of footer height */
 	clear:both;
-	float: left; 
+	float: left;
+	
+	.nav-bar { background: #fff; background: #FBFCFC; background: rgba(255,255,255,.88); overflow-x: hidden; border-top: 1px solid #ccc; border-top: 1px solid rgba(255,255,255,.5); 
+	  li { height:56px; }
+	  li.profile { border-right: 1px solid #eee; }
+	  li.settings { padding:0;
+	    a { padding:0 20px; }
+	  }
+	}
+  
 }
-
-.nav-bar {background: #fff; background: #FBFCFC; background: rgba(255,255,255,.88); overflow-x: hidden; border-top: 1px solid #ccc; border-top: 1px solid rgba(255,255,255,.5); }
-
 
 
 .nav-bar ul {height: 4em;}
@@ -507,7 +513,7 @@ span.jujitsu {
 
 .nav-bar li.mygov a {background:  image-url("sprite.png") 68% 6px no-repeat;  border-right: 1px solid #eee;}
 .nav-bar li.notifications a {background: image-url("sprite.png") 55% -109px no-repeat; border-left:none;}
-.nav-bar li.profile a {background:  image-url("sprite.png") 65% -229px no-repeat; border-left: 1px solid #eee;}
+.nav-bar li.profile a {background:  image-url("sprite.png") 65% -229px no-repeat; }
 .nav-bar li.sign-out a {background: image-url("sprite.png") 65% -350px no-repeat;}
 
 
@@ -557,7 +563,7 @@ span.jujitsu {
 
 .nav-bar li.mygov a {background-image:  image-url("sprite-2x.png");  border-right: 1px solid #eee; background-size: 40px;}
 .nav-bar li.notifications a {background-image: image-url("sprite-2x.png"); border-left:none; background-size: 40px;}
-.nav-bar li.profile a {background-image:  image-url("sprite-2x.png"); border-left: 1px solid #eee; background-size: 40px;}
+.nav-bar li.profile a {background-image:  image-url("sprite-2x.png"); background-size: 40px;}
 .nav-bar li.sign-out a {background-image: image-url("sprite-2x.png"); background-size: 40px;}
 }
 
@@ -1247,7 +1253,6 @@ h5 span {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weigh
    */
    -webkit-overflow-scrolling:touch;
    overflow: hidden;
-   
   }
   
 

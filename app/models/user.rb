@@ -125,6 +125,10 @@ class User < ActiveRecord::Base
     grouped_logs
   end
 
+  def send_reset_password_confirmation
+    UserMailer.reset_password_confirmation(self.email).deliver
+  end
+  
   private
   
   def create_profile

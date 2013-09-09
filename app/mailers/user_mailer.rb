@@ -8,6 +8,12 @@ class UserMailer < ActionMailer::Base
   
   def account_deleted(email)
     @email = email
-    mail(:to => email, :subject => 'Your MyUSA account has been deleted.')
+    mail(:to => email, :subject => 'Your MyUSA account has been deleted')
   end
+  
+  def reset_password_confirmation(email)
+    @email = email
+    mail(to: email, subject: 'Your MyUSA password has been changed')
+  end
+  
 end

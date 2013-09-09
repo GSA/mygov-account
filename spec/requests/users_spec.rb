@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "Users" do
-  describe "sign-in links" do
+  describe "sign in links" do
     context "when a user is not signed in" do
       it "should have a sign-in link" do
         visit sign_up_path
@@ -302,6 +302,37 @@ describe "Users" do
       page.should have_content "Sign out"
       page.should have_content "Edit profile"
       page.should have_content "Jane Citizen"
+    end
+  end
+  
+  describe "change your password" do
+    before do
+      beta_signup = BetaSignup.new(:email => 'joe@citizen.org')
+      beta_signup.is_approved = true
+      beta_signup.save!
+      @user = User.create(:email => beta_signup.email, :password => 'password')
+      @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen')
+      @user.confirm!
+    end
+    
+    it "changes the user's password and sends notification and confirmation emails" do
+      visit sign_in_path
+      click_link "Forgot your password?"
+      fill_in 'Email', :with => 'joe@citizen.org'
+      click_button "Email password reset instructions"
+      
+      expect(ActionMailer::Base.deliveries.last.subject).to eq('Reset password instructions')
+      
+      @user.reload
+
+      expect(@user.reset_password_token.blank?).to be false
+
+      visit edit_user_password_path(reset_password_token: @user.reset_password_token)
+      fill_in 'user_password', :with => 'Secure_passw0rd'
+      fill_in 'user_password_confirmation', :with => 'Secure_passw0rd'
+      click_button "Change my password"
+
+      expect(ActionMailer::Base.deliveries.last.subject).to eq('Your MyUSA password has been changed')
     end
   end
 end

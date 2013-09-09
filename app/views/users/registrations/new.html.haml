@@ -40,10 +40,10 @@
                 = f.email_field :email
               %li
                 = f.label :password
-                = f.password_field :password
+                = f.password_field :password, autocomplete: 'off'
               %li
                 = f.label :password_confirmation
-                = f.password_field :password_confirmation
+                = f.password_field :password_confirmation, autocomplete: 'off'
               %li
                 = f.label :terms_of_service do
                   = f.check_box :terms_of_service

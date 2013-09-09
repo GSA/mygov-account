@@ -16,9 +16,6 @@ class AppActivityLog < ActiveRecord::Base
   
   def humanize_log_item(item)
     map = {
-      forms: {
-        create: 'created a form'
-      },
       profiles: {
         show: 'viewed your profile'
       },

@@ -107,7 +107,7 @@ describe "Apis" do
         @app3 = App.create(:name => 'App3', :redirect_uri => "http://localhost/")
         @app3.oauth_scopes = OauthScope.all
         authorization = OAuth2::Model::Authorization.new
-        authorization.scope = "submit_forms" # this is the wrong scope for notifications
+        authorization.scope = "tasks" # this is the wrong scope for notifications
         authorization.client = @app3.oauth2_client
         authorization.owner = @user
         access_token = authorization.generate_access_token
@@ -156,7 +156,7 @@ describe "Apis" do
         @app4 = App.create(:name => 'App4', :redirect_uri => "http://localhost/")
         @app4.oauth_scopes = OauthScope.all
         authorization = OAuth2::Model::Authorization.new
-        authorization.scope = "submit_forms"
+        authorization.scope = "notifications"
         authorization.client = @app4.oauth2_client
         authorization.owner = @user
         access_token = authorization.generate_access_token
@@ -236,94 +236,6 @@ describe "Apis" do
         response.code.should == "403"
         parsed_json = JSON.parse(response.body)
         parsed_json["message"].should == "You do not have access to view tasks for that user."
-      end
-    end
-  end
-
-  describe "POST /api/forms" do
-    before do
-      @form_number = "ss-5"
-    end
-    
-    context "when the caller has a valid token" do
-      context "when no form number is provided" do
-        it "should return an error" do
-          post "/api/forms", {:data => {:first_name => 'Joe', :last_name => 'Citizen'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-          response.code.should == "400"
-          parsed_json = JSON.parse(response.body)
-          parsed_json["message"].should == "Please supply a form number."
-        end
-      end
-      
-      context "when everything works the way it's supposed to" do
-        before do
-          stub_request(:post, "http://localhost:3002/api/forms/ss-5/submissions").to_return(:status => 201, :body => '{"guid":"1234567890"}', :headers => {:location => 'http://localhost:3002/forms/ss-5/submissions/1234567890'})
-        end
-        
-        context "when the form saves properly" do
-          it "should return the Form's generated guid" do
-            post "/api/forms", {:form_number => 'ss-5', :data => {:first_name => 'Joe', :last_name => 'Citizen'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-            response.code.should == "201"
-            parsed_json = JSON.parse(response.body)
-            parsed_json["data_url"].should == "http://localhost:3002/forms/ss-5/submissions/1234567890"
-            response.headers["location"].should =~ /http:\/\/www.example.com\/api\/forms\/.*/
-          end
-        end
-        
-        context "when there is a problem saving the response" do
-          before do
-            SubmittedForm.any_instance.stub(:save).and_return false
-          end
-          
-          it "should return an error" do
-            post "/api/forms", {:form_number => 'ss-5', :data => {:first_name => 'Joe', :last_name => 'Citizen'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-            response.code.should == "400"
-            parsed_json = JSON.parse(response.body)
-          end
-        end
-      end
-      
-      context "when there is an error in submitting the form" do
-        before do
-          stub_request(:post, "http://localhost:3002/api/forms/ss-5/submissions").to_return(:status => 500)
-        end
-        
-        it "should return an error message" do
-          post "/api/forms", {:form_number => 'ss-5', :data => {:first_name => 'Joe', :last_name => 'Citizen'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-          response.code.should == "400"
-          parsed_json = JSON.parse(response.body)
-          parsed_json["message"].should == "There was an error in creating your form."
-        end
-      end      
-    end
-    
-    context "when the the app does not have the proper scope" do
-      before do
-        @app5 = App.create(:name => 'App5', :redirect_uri => "http://localhost/")
-        @app5.oauth_scopes = OauthScope.all
-        authorization = OAuth2::Model::Authorization.new
-        authorization.scope = "notifications" # this is the wrong scope for submitting forms
-        authorization.client = @app5.oauth2_client
-        authorization.owner = @user
-        access_token = authorization.generate_access_token
-        client = OAuth2::Client.new(@app5.oauth2_client.client_id, @app5.oauth2_client.client_secret, :site => 'http://localhost/', :token_url => "/oauth/authorize")
-        @token5 = OAuth2::AccessToken.new(client, access_token)
-      end
-      
-      it "should return an error message" do
-        post "/api/forms", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token5.token}"}
-        response.code.should == "403"
-        parsed_json = JSON.parse(response.body)
-        parsed_json["message"].should == "You do not have access to submit forms for that user."
-      end
-    end
-    
-    context "when the request does not have a valid token" do
-      it "should return an error message" do
-        post "/api/forms", nil, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
-        response.code.should == "403"
-        parsed_json = JSON.parse(response.body)
-        parsed_json["message"].should == "You do not have permission to submit forms for this user."
       end
     end
   end

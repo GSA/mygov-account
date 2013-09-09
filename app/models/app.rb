@@ -2,7 +2,6 @@ class App < ActiveRecord::Base
   include OAuth2::Model::ClientOwner
   
   belongs_to :user
-  has_many :submitted_forms
   has_many :app_oauth_scopes, :dependent => :destroy
   has_many :oauth_scopes, :through => :app_oauth_scopes
   has_many :app_activity_logs

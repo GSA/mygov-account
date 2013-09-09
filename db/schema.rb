@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130813153725) do
+ActiveRecord::Schema.define(:version => 20130909200354) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -70,37 +70,6 @@ ActiveRecord::Schema.define(:version => 20130813153725) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.boolean  "is_approved", :default => false
-  end
-
-  create_table "filled_forms", :force => true do |t|
-    t.integer  "form_id"
-    t.integer  "user_id"
-    t.integer  "app_id"
-    t.text     "values"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "filled_forms", ["form_id"], :name => "index_filled_forms_on_form_id"
-  add_index "filled_forms", ["user_id"], :name => "index_filled_forms_on_user_id"
-
-  create_table "form_fields", :force => true do |t|
-    t.string   "name"
-    t.string   "type"
-    t.text     "description"
-    t.string   "values"
-    t.integer  "form_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  create_table "forms", :force => true do |t|
-    t.string   "name"
-    t.string   "number"
-    t.string   "agency"
-    t.string   "landing_page_url"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
   end
 
   create_table "notifications", :force => true do |t|
@@ -207,18 +176,6 @@ ActiveRecord::Schema.define(:version => 20130813153725) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
-
-  create_table "submitted_forms", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "app_id"
-    t.string   "form_number"
-    t.string   "data_url"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "submitted_forms", ["app_id"], :name => "index_submitted_forms_on_app_id"
-  add_index "submitted_forms", ["user_id"], :name => "index_submitted_forms_on_user_id"
 
   create_table "task_items", :force => true do |t|
     t.string   "name"

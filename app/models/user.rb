@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
   has_one :profile, :dependent => :destroy
   has_many :notifications, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
-  has_many :submitted_forms, :dependent => :destroy
   has_many :apps, :dependent => :destroy
   has_many :authentications, :dependent => :destroy
   has_many :app_activity_logs, :dependent => :destroy

@@ -66,3 +66,13 @@ en:
         subject: 'Reset password instructions'
       unlock_instructions:
         subject: 'Unlock Instructions'
+  errors:
+    messages:
+      already_confirmed: "may already confirmed or it does not exist. Please try signing in or signing up."
+      confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+      expired: "has expired, please request a new one"
+      not_found: "may already confirmed or it does not exist. Please try signing in or signing up."
+      not_locked: "was not locked"
+      not_saved:
+        one: "1 error prohibited this %{resource} from being saved:"
+        other: "%{count} errors prohibited this %{resource} from being saved:"

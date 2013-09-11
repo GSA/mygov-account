@@ -28,6 +28,7 @@ en:
       unconfirmed: 'First we ask that you confirm your account. Please refer to the email we sent you.'
       locked: 'Your account is locked.'
       invalid: "We don't recognize that email or password."
+      not_found_in_database: "We don't recognize that email or password."
       invalid_token: "We don't recognize this. Please visit try again."
       timeout: 'Your session expired. Please sign in again.'
       inactive: "Your account hasn't been activated yet."
@@ -40,10 +41,14 @@ en:
       updated_not_active: 'Your password was changed successfully.'
       send_paranoid_instructions: "If we have your email address, you'll receive an email in a few minutes explaining next steps regarding your password."
       no_token: "In order to access this page, you must arrive from a password reset email. If you came from a password reset email, please make sure you used the full URL provided."
+      user:
+        ambiguous_email: Instructions will be sent to the email if it exists in our system
     confirmations:
       send_instructions: "You'll receive an email explaining how to confirm your account in a few minutes."
       send_paranoid_instructions: "If we have your email address, you'll receive an email in a few minutes explaining how to confirm your account."
       confirmed: "Your account was successfully confirmed. You're now signed in."
+      user:
+        ambiguous_email: Instructions to confirm the account will be sent to the email if it exists in our system and if the account has not already been confirmed.
     registrations:
       signed_up: 'Welcome. You have signed up successfully.'
       signed_up_but_unconfirmed: "You'll be receiving an email confirmation. Please click the link in the email to activate your account."
@@ -56,6 +61,8 @@ en:
       send_instructions: "You'll receive an email with instructions about how to unlock your account in a few minutes."
       unlocked: 'Your account has been unlocked successfully. Please sign in to continue.'
       send_paranoid_instructions: "If your account exists, you'll receive an email with instructions explaining how to unlock it in a few minutes."
+      user:
+        ambiguous_email: Instructions to unlock the account will be sent to the email if it exists in our system and if the account is locked.
     omniauth_callbacks:
       success: 'Successfully authenticated from %{kind} account.'
       failure: 'Could not authenticate you from %{kind} because "%{reason}".'
@@ -71,8 +78,8 @@ en:
       already_confirmed: "may already confirmed or it does not exist. Please try signing in or signing up."
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "has expired, please request a new one"
-      not_found: "may already confirmed or it does not exist. Please try signing in or signing up."
-      not_locked: "was not locked"
+      not_found: "Please check your inbox for an email from MyUSA."
+      not_locked: "not found."
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"

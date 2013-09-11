@@ -2,10 +2,8 @@ require 'spec_helper'
 
 describe "Activity Log" do
   before do
-    create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-    @user.confirm!
-
+    create_confirmed_user_with_profile
+    
     @app1 = @user.apps.create(name: 'Public App 1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")
     @app1.is_public = true
     @app1.save!
@@ -13,9 +11,7 @@ describe "Activity Log" do
 
   describe "GET /activity_log" do
     context "when the user is logged in" do
-      before do
-        login(@user)
-      end
+      before {login(@user)}
 
       it "gives the user a friendly message" do
         visit activity_log_path
@@ -54,9 +50,7 @@ describe "Activity Log" do
         it "shows the user only the last ten API activities" do
           post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
 
-          10.times do
-            get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-          end
+          10.times { get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"} }
 
           login(@user)
           visit activity_log_path

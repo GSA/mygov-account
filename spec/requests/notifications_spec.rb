@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe "Notifications" do
   before do
-    create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-    @user.confirm!
-    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    create_confirmed_user_with_profile
     create_approved_beta_signup('jane@citizen.org')
     @other_user = User.create!(:email => 'jane@citizen.org', :password => 'Password1')
     @other_user.profile = Profile.new(:first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
@@ -21,9 +18,7 @@ describe "Notifications" do
     end
     
     context "when the user has no notifications" do
-      before do
-        @user.notifications.destroy_all
-      end
+      before {@user.notifications.destroy_all}
       
       it "should inform the user they have no notifications" do
         visit notifications_path
@@ -90,10 +85,8 @@ describe "Notifications" do
       end
       
       context "when some notifications do not have an associated app" do
-        before do
-          @user.notifications.create!(:subject => 'Appless notification', :received_at => Time.now)
-        end
-        
+        before {@user.notifications.create!(:subject => 'Appless notification', :received_at => Time.now)}
+
         it "should load the page just fine" do
           visit notifications_path
           page.should have_content "Appless notification"

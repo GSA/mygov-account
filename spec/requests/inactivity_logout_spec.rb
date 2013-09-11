@@ -4,19 +4,14 @@ describe "auto_logout" do
   context "User is logged in" do
     before do
       @inactivity_warning_text = "We noticed you haven't been very active in MyUSA"
-      Devise.setup do |config|
-        config.timeout_in = 3
-      end
-      
+      Devise.setup { |config| config.timeout_in = 3 }
       Rails.application.config.session_timeout_warning_seconds = 1
-      create_approved_beta_signup('joe@citizen.org')
-      @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-      @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen', :is_student => true)
-      @user.confirm!
+
+      create_confirmed_user_with_profile
       visit(sign_in_path)
       fill_in 'user_email', :with => @user.email
       fill_in 'user_password', :with => @user.password
-      click_button 'Sign in'  
+      click_button 'Sign in'
     end
   
     describe "test auto warn of imminent logout" do

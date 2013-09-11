@@ -1,12 +1,7 @@
 require 'spec_helper'
 
 describe "HomePage" do
-  before do
-    create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
-    @user.confirm!
-  end
+  before {create_confirmed_user_with_profile}
   
   describe "GET /" do
     it "sets secure headers (X-Frame-Options, X-XSS-Protection, and X-XRDS-Location)" do
@@ -52,21 +47,19 @@ describe "HomePage" do
       
       context "when the user views a static page" do
         it "should serve the terms of service" do
-            visit terms_of_service_path
-            page.should have_content "Terms of Service"
+          visit terms_of_service_path
+          page.should have_content "Terms of Service"
         end
         
         it "should serve the privacy policy" do
-            visit privacy_policy_path
-            page.should have_content "Privacy policy"
+          visit privacy_policy_path
+          page.should have_content "Privacy policy"
         end
       end
     end
     
     context "when already logged in" do
-      before do
-        create_logged_in_user(@user)
-      end
+      before {login(@user)}
       
       it "should show the user the dashboard" do
         visit root_path
@@ -82,9 +75,7 @@ describe "HomePage" do
       end
       
       context "when the user does not have a first, last or any other name" do
-        before do
-          @user.profile.update_attributes(:name => nil)
-        end
+        before {@user.profile.update_attributes(:name => nil)}
         
         it "should link to the profile page with 'Your profile'" do
           visit root_path
@@ -96,9 +87,7 @@ describe "HomePage" do
       end
       
       context "when the user does not have tasks" do
-        before do
-          @user.tasks.destroy_all
-        end
+        before { @user.tasks.destroy_all }
         
         it "should not show sidebar tabs or dashboard sections for tasks or info" do
           visit root_path
@@ -148,9 +137,7 @@ describe "HomePage" do
       end
     
       context "when deleting their account" do
-        before do
-          @mail_size = ActionMailer::Base.deliveries.size
-        end
+        before {@mail_size = ActionMailer::Base.deliveries.size}
         
         it "should log out the user and destroy the account" do
           visit root_path
@@ -188,9 +175,7 @@ describe "HomePage" do
     end
     
     context "when logged in" do
-      before do
-        create_logged_in_user(@user)
-      end
+      before {login(@user)}
       
       it "should show the discovery page" do
         visit discovery_path

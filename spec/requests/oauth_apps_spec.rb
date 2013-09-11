@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe "OauthApps" do
   before do
-    create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-    @user.confirm!
-    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    create_confirmed_user_with_profile
 
     create_approved_beta_signup('second@user.org')
     @user2 = User.create!(:email => 'second@user.org', :password => 'Password1')
@@ -33,9 +30,7 @@ describe "OauthApps" do
   end
   
   context "when logged in with a user who owns a sandboxed app" do
-    before do
-      create_logged_in_user(@user)
-    end
+    before {login(@user)}
     
     describe "Authorize sandbox application by owner" do
       it "should ask for authorization and redirect after clicking 'Allow'" do
@@ -59,9 +54,7 @@ describe "OauthApps" do
   end
 
   context "when logged in with a user who does not own the sandboxed app" do
-    before do
-      create_logged_in_user(@user2)
-    end
+    before {login(@user2)}
     
     describe "Does not allow sandbox application installation by non owner" do
       it "code in params should not have a value" do
@@ -96,9 +89,7 @@ describe "OauthApps" do
   end
 
   context "when logged in" do
-    before do
-      create_logged_in_user(@user)
-    end
+    before {login(@user)}
     
     describe "Authorize application" do
       it "should ask for authorization and redirect after clicking 'Allow'" do

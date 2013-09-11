@@ -2,10 +2,8 @@ require 'spec_helper'
 
 describe "Apis" do
   before do
-    create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
-    @user.confirm!
+    create_confirmed_user_with_profile
+
     @app = App.create(:name => 'App1', :redirect_uri => "http://localhost/")
     @app.oauth_scopes = OauthScope.all
     authorization = OAuth2::Model::Authorization.new
@@ -70,7 +68,7 @@ describe "Apis" do
       @other_user.profile = Profile.new(:first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
       @app2 = App.create!(:name => 'App2', :redirect_uri => "http://localhost:3000/")
       @app2.oauth_scopes << OauthScope.all
-      create_logged_in_user(@user)
+      login(@user)
       1.upto(14) do |index|
         @notification = Notification.create!({:subject => "Notification ##{index}", :received_at => Time.now - 1.hour, :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app.id}, :as => :admin)
       end
@@ -216,9 +214,7 @@ describe "Apis" do
   end
   
   describe "GET /api/tasks/:id.json" do
-    before do
-      @task = Task.create!({:name => 'New Task', :user_id => @user.id, :app_id => @app.id}, :as => :admin)
-    end
+    before {@task = Task.create!({:name => 'New Task', :user_id => @user.id, :app_id => @app.id}, :as => :admin)}
     
     context "when the token is valid" do
       it "should retrieve the task" do

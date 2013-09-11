@@ -1,19 +1,12 @@
 require 'spec_helper'
 
 describe "Profile" do
-  before do
-    create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen', :is_student => true)
-    @user.confirm!
-  end
+  before {create_confirmed_user_with_profile}
 
   describe "GET /profile" do    
     context "when visiting the web site via a browser" do
       context "when logged in" do
-        before do
-          create_logged_in_user(@user)
-        end
+        before {login(@user)}
 
         it "should show a user their profile" do
           visit profile_path

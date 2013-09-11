@@ -1,12 +1,7 @@
 require 'spec_helper'
 
 describe "Authentications" do
-  before do
-    create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-    @user.confirm!
-    create_logged_in_user(@user)
-  end
+  before {create_confirmed_user_with_profile; login(@user)}
   
   describe "adding a new authentication" do
     context "when the user does not have a MAX authentication" do
@@ -21,9 +16,7 @@ describe "Authentications" do
     end
 
     context "when the user already has a MAX authentication" do
-      before do
-        @user.authentications << Authentication.create!(:uid => '12345', :provider => 'max.gov')
-      end
+      before {@user.authentications << Authentication.create!(:uid => '12345', :provider => 'max.gov')}
 
       it 'does not allow the user to connect their Max.gov account' do
         visit root_path
@@ -35,9 +28,7 @@ describe "Authentications" do
     end
 
     context "when the user does not have a google authentication" do
-      before do
-        @user.authentications.each {|auth| auth.destroy}
-      end
+      before { @user.authentications.each {|auth| auth.destroy} }
 
       it 'allows the user to connect to google' do
         visit root_path
@@ -52,9 +43,7 @@ describe "Authentications" do
   
   describe "deleting an authentication" do
     context "when the user has an authentication" do
-      before do
-        @user.authentications.create(:provider => "max.gov", :uid => 'joe.citizen@usa.gov')
-      end
+      before {@user.authentications.create(:provider => "max.gov", :uid => 'joe.citizen@usa.gov')}
       
       it 'allows the user to delete their authentication which disables login with that provider' do
         visit root_path

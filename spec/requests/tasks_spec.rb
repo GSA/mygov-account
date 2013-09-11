@@ -3,18 +3,14 @@ require 'spec_helper'
 describe "Tasks" do
   describe "GET /task/:id" do
     before do
-      create_approved_beta_signup('joe@citizen.org')
-      @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-      @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
-      @user.confirm!
-
+      create_confirmed_user_with_profile
+      login(@user)
       @app = App.create!(:name => 'Change your name', :redirect_uri => "http://localhost:3000/")
       
       @task = @user.tasks.create!({:app_id => @app.id, :name => 'Change your name'}, :as => :admin)
       @task.task_items.create!(:name => 'Get Married!')
       @task.task_items.create!(:name => 'Get Divorced!')
       
-      create_logged_in_user(@user)
       visit task_path(@task)
     end
     
@@ -50,8 +46,7 @@ describe "Tasks" do
     end
     
     it "should complete the task if the user completes all the items" do
-      click_link "Mark complete"
-      click_link "Mark complete"
+      2.times {click_link "Mark complete"}
       page.should have_content "2 of 2 items completed."
       page.should have_content "Task completed at"
       page.should have_content "Item completed at"
@@ -60,8 +55,7 @@ describe "Tasks" do
     end
     
     it "should complete the task if the user removes all the items" do
-      click_link "Remove"
-      click_link "Remove"
+      2.times {click_link "Remove"}
       page.should have_content "0 of 0 items completed."
       page.should have_content "Task completed at"
       page.should have_no_content "Item completed at"

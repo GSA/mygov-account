@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe "Apps" do  
   before do
-    create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-    @user.confirm!
-    @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    create_confirmed_user_with_profile
 
     create_approved_beta_signup('jane@citizen.org')
     @user2 = User.create!(:email => 'jane@citizen.org', :password => 'Password1')
@@ -35,9 +32,7 @@ describe "Apps" do
     end
     
     context "when a user is logged in" do
-      before do
-        create_logged_in_user(@user)
-      end
+      before {login(@user)}
       
       it "should show a list of public apps, and those sandboxed apps that are owned by the logged in user" do
         visit apps_path
@@ -51,15 +46,11 @@ describe "Apps" do
       end
       
       context "when the user has authorized an application" do
-        before do
-          @user.grant_access!(@app2.oauth2_client, scopes: ["profile"], duration: nil)
-        end
+        before {@user.grant_access!(@app2.oauth2_client, scopes: ["profile"], duration: nil)}
         
         it "should show that the user has authorized that app" do
           visit apps_path
-          within('h3', :text => 'Public App 2') do
-            page.should have_content 'Authorized'
-          end
+          within('h3', :text => 'Public App 2') {page.should have_content 'Authorized'}
           click_link 'Public App 2'
           click_link('Revoke access')
           current_url.should have_content("apps/public-app-2")
@@ -88,9 +79,7 @@ describe "Apps" do
     end
     
     context "when a user is signed in" do
-      before do
-        create_logged_in_user(@user)
-      end
+      before {login(@user)}
       
       it "should let a user create a new app, show them the the client id and secret id, and edit the app" do
         visit new_app_path
@@ -157,9 +146,7 @@ describe "Apps" do
     end
     
     context "when a user is logged in" do
-      before do
-        create_logged_in_user(@user)
-      end
+      before {login(@user)}
       
       context "for the app owner" do
         context "for public apps" do

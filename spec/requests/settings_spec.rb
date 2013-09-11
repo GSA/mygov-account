@@ -1,17 +1,11 @@
 require 'spec_helper'
 
 describe "SettingsPage" do
-  before do
-    @beta_signup = create_approved_beta_signup('joe@citizen.org')
-    @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-    @user.confirm!
-  end
+  before {create_confirmed_user}
 
   describe "GET /settings" do
     context "when the user is logged in" do
-      before do
-        create_logged_in_user(@user)
-      end
+      before {login(@user)}
 
       it "should show the user a link to change their email address" do
         visit settings_path
@@ -22,9 +16,7 @@ describe "SettingsPage" do
 
   describe "GET /user/edit" do
     context "when the user is logged in" do
-      before do
-        create_logged_in_user(@user)
-      end
+      before {login(@user)}
 
       it "should show the user a form with their current email address filled in" do
         visit edit_user_registration_path(@user)

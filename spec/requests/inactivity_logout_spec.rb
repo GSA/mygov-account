@@ -4,8 +4,8 @@ describe "auto_logout" do
   context "User is logged in" do
     before do
       @inactivity_warning_text = "We noticed you haven't been very active in MyUSA"
-      Devise.setup { |config| config.timeout_in = 3 }
-      Rails.application.config.session_timeout_warning_seconds = 1
+      Devise.setup { |config| config.timeout_in = 4 }
+      Rails.application.config.session_timeout_warning_seconds = 2
 
       create_confirmed_user_with_profile
       visit(sign_in_path)
@@ -26,7 +26,7 @@ describe "auto_logout" do
         page.should have_timeout_warning_metatag
       end
 
-      it "should display warning when page auto refreshes to check remaining session time and then confirm user is logged out" do
+      it "displays a warning when page auto refreshes to check remaining session time and logs out the use when the session has expired" do
         visit(dashboard_path(no_keep_alive: 1))
         page.should_not have_content(@inactivity_warning_text)
         sleep(2)
@@ -34,13 +34,12 @@ describe "auto_logout" do
         page.should have_content(@inactivity_warning_text)
         # Make sure that after warning, page will redirect to inactivity timeout
         page.should have_xpath("//meta[@http-equiv=\"refresh\"]")
-        sleep(1)
+        sleep(2)
         visit(dashboard_path)
         page.should have_content("Your session expired. Please sign in again.")
       end
     end
   end
-
 
   context "User is not logged in" do
     describe "test auto warn of imminent logout" do

@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     request.env["devise.skip_trackable"] = true if !params[:no_keep_alive].blank?
   end
 
-  def set_session_will_expire    
+  def set_session_will_expire
     @warning_seconds = Rails.application.config.session_timeout_warning_seconds.seconds
     @wait_until_refresh = User.timeout_in - @warning_seconds 
     if current_user && !params[:no_keep_alive].blank?

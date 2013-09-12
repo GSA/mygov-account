@@ -112,6 +112,7 @@ describe "Notifications" do
 
       it "should show the notification in detail and allow the user to delete it" do
         visit notifications_path
+        puts "show the notification in detail and allow the user to delete it - ERROR IN TEST!!!!! ERROR IN TEST!!!!!\n" + page.text if page.text.include?("Notification #5")
         page.should_not have_content "Notification #5"
         click_link "Notification #9"
         page.should have_content "Notifications"

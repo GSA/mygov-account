@@ -9,11 +9,11 @@ describe "Apps" do
     @user2.confirm!
     @user2.profile = Profile.new(:first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
         
-    @app1 = @user.apps.create(name: 'Public App 1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")
+    @app1 = @user.apps.create(name: 'Public App 1', :url => 'http://www.agency.gov/app1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")
     @app1.is_public = true
     @app1.save!
     
-    @app2 = @user2.apps.create(name: 'Public App 2', :short_description => 'Public Application 2', :description => 'A public app 2', redirect_uri: "http://localhost/")
+    @app2 = @user2.apps.create(name: 'Public App 2', :url => 'http://www.agency.gov/app2', :short_description => 'Public Application 2', :description => 'A public app 2', redirect_uri: "http://localhost/")
     @app2.is_public = true
     @app2.save!
     
@@ -89,7 +89,7 @@ describe "Apps" do
         fill_in 'Redirect uri', :with => 'http://www.myapp.com/redirect'
         check("Read your profile information")
         click_button('Register new MyUSA App')
-        page.should have_link 'My sandbox app', :href => "http://www.myapp.com"
+        page.should have_link 'My sandbox app', :href => "/apps/my-sandbox-app/leaving"
         page.should have_content "An app!"
         page.should have_content("Your application has been created.")
         page.text.should match(/OAuth Client ID: [a-zA-Z0-9]+/)
@@ -126,6 +126,14 @@ describe "Apps" do
   end
   
   describe "GET /app/:slug" do
+    it "should link to the app home page via an interstitial page that warns the user they are leaving MyUSA" do
+      visit app_path @app1
+      page.should have_link @app1.name
+      click_link @app1.name
+      page.should have_content "You are leaving MyUSA"
+      page.should have_link @app1.url, :href => @app1.url
+    end
+    
     context "when a user is not logged in" do
       context "for public apps" do
         it "should show the app page, but not provide a link to edit the app" do

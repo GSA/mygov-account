@@ -1,7 +1,7 @@
 class AppsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :authenticate_user!, :except => [:index, :show, :leaving]
   before_filter :assign_user
-  before_filter :assign_app, :only => [:show, :edit, :update, :uninstall]
+  before_filter :assign_app, :only => [:show, :edit, :update, :uninstall, :leaving]
   before_filter :assign_user_installed_apps, :only => [:index, :show]
   before_filter :assign_oauth_scopes, :only => [:new, :create, :edit, :update]
   before_filter :verify_app_owner, :only =>  [:edit, :update]
@@ -58,6 +58,9 @@ class AppsController < ApplicationController
   def uninstall
     @user.oauth2_authorizations.find{|oauth_authorization| oauth_authorization.client.owner == @app}.destroy
     redirect_to app_path(@app)
+  end
+  
+  def leaving
   end
   
   private

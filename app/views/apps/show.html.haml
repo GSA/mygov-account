@@ -17,7 +17,7 @@
     = image_tag @app.logo.url(:medium)
   .ten.columns
     %h3
-      = link_to @app.name, @app.url
+      = link_to @app.name, leaving_app_path(@app)
     %h5
       = @app.short_description
     %p

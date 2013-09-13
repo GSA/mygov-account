@@ -14,7 +14,7 @@
             = f.label :password_confirmation, "Confirm new password"
             %br/
             = f.password_field :password_confirmation, autocomplete: 'off'
-          %div= f.submit "Change my password"
+          %div= f.submit "Change my password", class: 'large button positive'
     .four.columns
       .panel.side-panel
         = render "devise/shared/links"

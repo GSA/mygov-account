@@ -21,7 +21,11 @@ $('#new_user').submit(function() {
         dataType: "JSON" 
     }).success(function(json){
 	// decrypt key with password
-	sessionStorage[json.user_key_storage_name] = encrypt_decrypt_key( json.user_key_storage_name, password ) ;
+
+	if ( json.user_key_storage_name && localStorage[json.user_key_storage_name] ){
+	    sessionStorage[json.user_key_storage_name] = encrypt_decrypt_key( json.user_key_storage_name, password ) ;
+	}
+
 	window.location.replace(json.after_signin_path) ;
     });
     return false; // prevents normal behaviour

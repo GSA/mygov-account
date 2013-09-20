@@ -3,6 +3,7 @@ class EncryptionsController < ApplicationController
   before_filter :assign_user
 
   def show
+    render :show
   end
 
   def edit    
@@ -10,14 +11,18 @@ class EncryptionsController < ApplicationController
   end
 
   def create
-    pp "STORE USER KEY NAME AND REDIRECT!"
 
     if @user
-      pp "FOUND USER", @user
-      @user.update_attribute(:key_storage_name, params[:key_name])
+      if @user.valid_password?(params[:password])
+        @user.update_attribute(:key_storage_name, params[:key_name])
+        redirect_to edit_profile_path({:first_encrypt => 'yes'})
+      else
+        flash[:error] = "password must be entered, and match your login password!"
+        render :edit
+      end
+
     end
 
-    redirect_to edit_profile_path
   end
 
 end

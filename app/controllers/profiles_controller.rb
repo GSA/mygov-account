@@ -11,10 +11,8 @@ class ProfilesController < ApplicationController
 
   def update
 
-    pp params
-
-    if params[:is_encrypted] == "true"
-      pp "ENCRYPTED, SO SKIP VALIDATIONS"
+    if params[:profile][:is_encrypted] == "1"
+      ### "ENCRYPTED, SO SKIP VALIDATIONS"
       @profile.attributes = params[:profile]
       @profile.save(validate: false)
       redirect_to profile_path

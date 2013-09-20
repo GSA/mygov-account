@@ -200,7 +200,6 @@ describe User do
         User.count.should == 0
         Authentication.count.should == 0
         user = User.find_for_open_id(@access_token)
-        puts "should create a new user and authentication with the access token information - ERROR IN TEST!!!!! ERROR IN TEST!!!!!\n" + user.errors unless user.errors.empty?
         user.errors.should be_empty
         User.all.last.email.should == 'jane@citizen.org'
         User.count.should == 1

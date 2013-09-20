@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
         signed_in_resource.save
         signed_in_resource
       else
-        user = User.new(:email => data['email'], :password => Devise.friendly_token[0,20])
+        user = User.new(:email => data['email'], :password => "13#{Devise.friendly_token[0,20]}")
         user.profile = Profile.new(:first_name => data["first_name"], :last_name => data["last_name"], :name => data["name"])
         user.skip_confirmation!
         user.authentications.new(:uid => access_token.uid, :provider => access_token.provider, :data => access_token)

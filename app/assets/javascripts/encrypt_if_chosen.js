@@ -1,6 +1,8 @@
 encrypt_encrypt_form = function( form ){
 
-    if ( form.profile_is_encrypted.checked ){
+    console.log( "Encryption before submit: " + form.profile_is_encrypted.defaultChecked ) ;
+
+    if ( form.profile_is_encrypted.checked && !form.profile_is_encrypted.defaultChecked ){
 
 	if ( sessionStorage )
 	{
@@ -13,58 +15,66 @@ encrypt_encrypt_form = function( form ){
 		
 		if ( key ){
 		    
-		    if ( form.profile_first_name.value  && form.profile_first_name.value != form.profile_first_name.defaultValue ){
+		    if ( form.profile_first_name.value  && 
+			 ( form.profile_first_name.value != form.profile_first_name.defaultValue || !form.profile_is_encrypted.defaultChecked) ){
 			var enc_first_name = encrypt_encrypt_string(form.profile_first_name.value, key);
 			form.profile_first_name.value = enc_first_name ;
 		    }
 		    
-		    if ( form.profile_middle_name.value && form.profile_middle_name.value != form.profile_middle_name.defaultValue ){
+		    if ( form.profile_middle_name.value && 
+			 ( form.profile_middle_name.value != form.profile_middle_name.defaultValue || !form.profile_is_encrypted.defaultChecked)){
 			var enc_middle_name = encrypt_encrypt_string(form.profile_middle_name.value, key);
 			form.profile_middle_name.value = enc_middle_name ;
 		    }
 		    
-		    if ( form.profile_last_name.value && form.profile_last_name.value != form.profile_last_name.defaultValue ){
+		    if ( form.profile_last_name.value && 
+			 ( form.profile_last_name.value != form.profile_last_name.defaultValue || !form.profile_is_encrypted.defaultChecked)){
 			var enc_last_name = encrypt_encrypt_string(form.profile_last_name.value, key);
 			form.profile_last_name.value = enc_last_name ;
 		    }
 		    
-		    if ( form.profile_address.value && form.profile_address.value != form.profile_address.defaultValue ){
+		    if ( form.profile_address.value && 
+			 ( form.profile_address.value != form.profile_address.defaultValue || !form.profile_is_encrypted.defaultChecked)){
 			var enc_address = encrypt_encrypt_string(form.profile_address.value, key);
 			form.profile_address.value = enc_address ;
 		    }		
 
-		    if ( form.profile_address2.value && form.profile_address2.value != form.profile_address2.defaultValue ){
+		    if ( form.profile_address2.value && 
+			 ( form.profile_address2.value != form.profile_address2.defaultValue || !form.profile_is_encrypted.defaultChecked)){
 			var enc_address2 = encrypt_encrypt_string(form.profile_address2.value, key);
 			form.profile_address2.value = enc_address2 ;
 		    }
 		    
-		    if ( form.profile_city.value && form.profile_city.value != form.profile_city.defaultValue ){
+		    if ( form.profile_city.value && 
+			 ( form.profile_city.value != form.profile_city.defaultValue || !form.profile_is_encrypted.defaultChecked)){
 			var enc_city = encrypt_encrypt_string(form.profile_city.value, key);
 			form.profile_city.value = enc_city ;
 		    }
 		    
-		    if ( form.profile_state.value && form.profile_state.value != form.profile_state.defaultValue ){
-			var enc_state = encrypt_encrypt_string(form.profile_state.value, key);
-			form.profile_state.value = enc_state ;
-		    }
+		    // @@TODO: fix the check for default value changed
+
+//		    if ( form.profile_state.value && ( form.profile_state.value != form.profile_state.defaultValue || !form.profile_is_encrypted.defaultChecked)){
+//			var enc_state = encrypt_encrypt_string(form.profile_state.value, key);
+//			form.profile_state.value = enc_state ;
+//		    }
 		    
-		    if ( form.profile_zip.value && form.profile_zip.value != form.profile_zip.defaultValue ){
+		    if ( form.profile_zip.value && ( form.profile_zip.value != form.profile_zip.defaultValue || !form.profile_is_encrypted.defaultChecked)){
 			var enc_zip = encrypt_encrypt_string(form.profile_zip.value, key);
 			form.profile_zip.value = enc_zip ;
 		    }
 		    
-		    if ( form.profile_phone_number.value && form.profile_phone_number.value != form.profile_phone_number.defaultValue ) {
+		    if ( form.profile_phone_number.value && ( form.profile_phone_number.value != form.profile_phone_number.defaultValue || !form.profile_is_encrypted.defaultChecked)) {
 			var enc_phone = encrypt_encrypt_string(form.profile_phone_number.value, key);
 			form.profile_phone_number.value = enc_phone ;
 		    }
 		    
-		    if ( form.profile_mobile_number.value && form.profile_mobile_number.value != form.profile_mobile_number.defaultValue ){
+		    if ( form.profile_mobile_number.value && ( form.profile_mobile_number.value != form.profile_mobile_number.defaultValue || !form.profile_is_encrypted.defaultChecked)){
 			var enc_mobile_phone = encrypt_encrypt_string(form.profile_mobile_number.value, key) ;
 			form.profile_mobile_number.value = enc_mobile_phone ;
 		    }
 		    
 		    if ( enc_first_name ){
-			console.log( sjcl.codec.utf8String.fromBits(sjcl.mode.ccm.decrypt( blockCipher, enc_first_name, iv ))) ;
+			console.log( sjcl.codec.utf8String.fromBits(sjcl.mode.ccm.decrypt( blockCipher, sjcl.codec.hex.toBits(encrypt_get_ciphertext(enc_first_name)), sjcl.codec.hex.toBits(encrypt_get_iv( enc_first_name )) ))) ;
 		    }
 		    
 		    //		console.log( sjcl.codec.utf8String.fromBits(sjcl.mode.ccm.decrypt( blockCipher, enc_last_name, iv ))) ;
@@ -80,6 +90,9 @@ encrypt_encrypt_form = function( form ){
     }
 } ;
 
+// should maybe have an encrypt_item which does the append in the
+// correct format?
+
 encrypt_encrypt_string = function( cleartext, key, iv ){
     var blockCipher = new sjcl.cipher.aes(key);
 
@@ -88,24 +101,43 @@ encrypt_encrypt_string = function( cleartext, key, iv ){
     else
 	iv = sjcl.random.randomWords(2) ;
 
-    return sjcl.codec.hex.fromBits(sjcl.mode.ccm.encrypt(blockCipher, sjcl.codec.utf8String.toBits(cleartext), iv)) + "&" + sjcl.codec.hex.fromBits( iv ) ;
+    return "0x" + sjcl.codec.hex.fromBits(sjcl.mode.ccm.encrypt(blockCipher, sjcl.codec.utf8String.toBits(cleartext), iv)) + "&" + sjcl.codec.hex.fromBits( iv ) ;
 } ;
 
 encrypt_decrypt_string = function( ciphertext, key, iv ){
-    var blockCipher = new sjcl.cipher.aes(key);
+    var blockCipher = new sjcl.cipher.aes(sjcl.codec.hex.toBits(key));
 
-    return sjcl.codec.utf8String.fromBits(sjcl.mode.ccm.decrypt(blockCipher, sjcl.codec.hex.toBits(ciphertext), iv)) ;
+    return sjcl.codec.utf8String.fromBits(sjcl.mode.ccm.decrypt(blockCipher, sjcl.codec.hex.toBits(ciphertext), sjcl.codec.hex.toBits(iv))) ;
 } ;
 
 // @@TODO - what should these return if there's an error, 
 // or should they throw an exception?
 
+encrypt_is_encrypted = function( item ){
+    if ( item.substring(0,2) == "0x")
+	return true ;
+    else
+	return false ;
+} ;
+
 encrypt_decrypt_item = function( item, key ){
 
-    var ciphertext = encrypt_get_ciphertext( item ) ;
-    var iv = encrypt_get_iv( item ) ;
+    if ( item && item != "" && encrypt_is_encrypted( item )){
+	var ciphertext = encrypt_get_ciphertext( item.substring( 2 ) ) ;
+	var iv = encrypt_get_iv( item.substring( 2 ) ) ;
 
-    return encrypt_decrypt_string( ciphertext, key, iv ) ;
+	return encrypt_decrypt_string( ciphertext, key, iv ) ;
+    }
+    else
+	return item ;
+
+} ;
+
+encrypt_decrypt_document_item = function( item ){
+
+    var key_name = document.getElementById("user_key_storage_name").value ;
+    var key = sessionStorage[key_name] ;
+    return encrypt_decrypt_item( item, key ) ;
 } ;
 
 encrypt_get_ciphertext = function( item ){
@@ -143,21 +175,20 @@ encrypt_decrypt_form = function( form ){
 		
 		if ( key ){
 		    
-		    var first_name = form.profile_first_name.value ? encrypt_decrypt_string(encrypt_get_ciphertext(form.profile_first_name.value), key, encrypt_get_iv(form.profile_first_name.value)) : "" ;
-		    var middle_name = form.profile_middle_name.value ? encrypt_decrypt_string(encrypt_get_ciphertext(form.profile_middle_name.value), key, encrypt_get_iv(form.profile_middle_name.value)) : "" ;
-		    var last_name = form.profile_last_name.value ? encrypt_decrypt_string(encrypt_get_ciphertext(form.profile_last_name.value), key, encrypt_get_iv(form.profile_last_name.value)) : "" ;
-		    var address = form.profile_address.value ? encrypt_decrypt_string(encrypt_get_ciphertext(form.profile_address.value), key, encrypt_get_iv(form.profile_address.value)) : "" ;
-		    var address2 = form.profile_address2.value ? encrypt_decrypt_string(encrypt_get_ciphertext(form.profile_address2.value), key, encrypt_get_iv(form.profile_address2.value)) : "" ;
+		    var first_name = encrypt_decrypt_document_item(form.profile_first_name.value) ;
+		    var middle_name = encrypt_decrypt_document_item(form.profile_middle_name.value) ;
+		    var last_name = encrypt_decrypt_document_item(form.profile_last_name.value) ;
+		    var address = encrypt_decrypt_document_item(form.profile_address.value) ;
+		    var address2 = encrypt_decrypt_document_item(form.profile_address2.value) ;
 		    
-		    var city = form.profile_city.value ? encrypt_decrypt_string(encrypt_get_ciphertext(form.profile_city.value), key, encrypt_get_iv(form.profile_city.value)) : "" ;
-		    var state = form.profile_state.value ? encrypt_decrypt_string(encrypt_get_ciphertext(form.profile_state.value), key, encrypt_get_iv(form.profile_state.value)) : "" ;
-		    var zip = form.profile_zip.value ? encrypt_decrypt_string(encrypt_get_ciphertext(form.profile_zip.value), key, encrypt_get_iv(form.profile_zip.value)) : "" ;
-		    var phone = form.profile_phone_number.value ? encrypt_decrypt_string(encrypt_get_ciphertext(form.profile_phone_number.value), key, encrypt_get_iv(form.profile_phone_number.value)) : "" ;
-		    var mobile_phone = form.profile_mobile_number.value ? encrypt_decrypt_string(encrypt_get_ciphertext(form.profile_mobile_number.value), key, encrypt_get_iv(form.profile_mobile_number.value)) : "" ;
+		    var city = encrypt_decrypt_document_item(form.profile_city.value) ;
+		    //var state = form.profile_state.value ? encrypt_decrypt_item(form.profile_state.value, key) : "" ;
+		    var zip = encrypt_decrypt_document_item(form.profile_zip.value) ;
+		    var phone = encrypt_decrypt_document_item(form.profile_phone_number.value) ;
+		    var mobile_phone = encrypt_decrypt_document_item(form.profile_mobile_number.value) ;
 		    
 		    console.log( first_name ) ;
 		    console.log( last_name ) ;
-		    console.log( state, iv ) ;
 		    
 		    form.profile_first_name.value = first_name ;
 		    form.profile_middle_name.value = middle_name ;
@@ -165,7 +196,7 @@ encrypt_decrypt_form = function( form ){
 		    form.profile_address.value = address ;
 		    form.profile_address2.value = address2 ;
 		    form.profile_city.value = city ;
-		    form.profile_state.value = state ;
+		    //form.profile_state.value = state ;
 		    form.profile_zip.value = zip ;
 		    form.profile_phone_number.value = phone ;
 		    form.profile_mobile_number.value = mobile_phone ;

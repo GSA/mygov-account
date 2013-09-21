@@ -9,4 +9,4 @@
         %li
           = link_to 'Change email address', edit_user_registration_path(@user.id)
         %li
-          = link_to 'Encrypt profile', edit_settings_encryption_path(@user.id)
+          = link_to 'Profile encryption', :controller => "encryptions", :action => "show"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130816010317) do
+ActiveRecord::Schema.define(:version => 20130906224456) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -182,9 +182,10 @@ ActiveRecord::Schema.define(:version => 20130816010317) do
     t.boolean  "is_student"
     t.boolean  "is_retired"
     t.integer  "user_id"
-    t.datetime "created_at",                   :null => false
+    t.datetime "created_at"                    :null => false
     t.datetime "updated_at",                   :null => false
     t.date     "date_of_birth"
+    t.boolean  "is_encrypted",                 :default => false
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"

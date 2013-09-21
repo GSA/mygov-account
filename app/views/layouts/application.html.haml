@@ -29,6 +29,7 @@
     = stylesheet_link_tag "fonts", :media => "all" 
     = stylesheet_link_tag "application", :media => "all"
     = stylesheet_link_tag "general_foundicons", :media => "all"
+
     /[if !IE 7]
       = stylesheet_link_tag "ie7", :media => "all"
       
@@ -50,10 +51,7 @@
             .six.columns
               %a{ :href => root_url }
                 %h1
-                  - if current_user and current_user.profile.first_name.present?
-                    %span.personal-name
-                      #{current_user.profile.first_name}'s
-                  My<span>USA</span><span class="beta">Beta</span>
+                  %span.personal-name{ :id => "personal_name" }
             .six.columns.align-right
               - if !current_user && request.path != sign_in_path
                 %h3.tagline
@@ -71,6 +69,7 @@
           .no-toolbar
           
       - if current_user
+        = hidden_field(:user, :key_storage_name, {:name => '', :id => 'user_key_storage_name'})
         .discovery-bar  
           %ul.nav-bar
             %li.mygov
@@ -82,10 +81,20 @@
                     = current_user.notifications.not_viewed.count
                 %span.notification-label
                   Notifications
-            %li.right.sign-out= link_to "Sign out", sign_out_path
+            %li.right.sign-out= link_to "Sign out", sign_out_path, :id => "sign_out_link"
             %li.right.profile= link_to(current_user.profile.name || "Your profile", profile_path)
             %li.right.settings= link_to "Settings", settings_path
-          
+          :javascript
+            old_fun = window.onload ;
+            window.onload = function(){
+              // What if not encrypted?
+              var name = encrypt_is_encrypted( "#{current_user.profile.first_name}" ) ? encrypt_decrypt_document_item("#{current_user.profile.first_name}") : "#{current_user.profile.first_name}" ;
+              var first_name = document.getElementById("personal_name") ;
+              console.log("Name: " + name ) ;
+              var text = document.createTextNode( name + "'s MyUSA Beta" ) ;
+              first_name.appendChild( text ) ;
+              old_fun() ;
+            } ;
       /
         Javascripts
         \==================================================
@@ -94,3 +103,4 @@
       = content_for :scripts
       = render :partial => "shared/ab", :locals => { :segment => @segment }
       = analytics_init if Rails.env.production?
+

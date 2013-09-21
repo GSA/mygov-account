@@ -13,7 +13,8 @@ class Profile < ActiveRecord::Base
   
   ENCRYPTED_FIELDS = [:first_name, :middle_name, :last_name, :name, :address, :address2, :city, :state, :zip, :phone, :mobile]
   
-  attr_accessible :title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired, :as => [:default, :admin]
+  attr_accessible :title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :date_of_birth, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired, :is_encrypted, :as => [:default, :admin]
+
   attr_accessible :user_id, :phone, :mobile, :as => :admin
     
   def phone_number=(value)
@@ -21,7 +22,14 @@ class Profile < ActiveRecord::Base
   end
   
   def phone_number
-    pretty_print_phone(self.phone)
+
+    pp self.is_encrypted
+
+    if !self.is_encrypted
+      pretty_print_phone(self.phone)
+    else
+      self.phone
+    end
   end
   
   def mobile_number=(value)
@@ -29,7 +37,11 @@ class Profile < ActiveRecord::Base
   end
   
   def mobile_number
-    pretty_print_phone(self.mobile)
+    if !self.is_encrypted
+      pretty_print_phone(self.mobile)
+    else
+      self.mobile
+    end
   end
 
   def print_gender

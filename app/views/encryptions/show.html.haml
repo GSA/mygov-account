@@ -1,0 +1,39 @@
+.row
+  .eight.columns
+    %h2
+      Your Encryption Settings
+    %p
+      Your profile data may be encrypted with a passphrase known only
+      to you. This passphrase is used to create the encryption key
+      using the PBKDF2-HMAC-SHA256 password key derivation algorithm. 
+    %p
+      Once you have entered and confirmed your encryption passphrase,
+      please enter your MyUSA login password to confirm your
+      encryption passphrase. You will then be shown your profile page. 
+    %p
+      In order to complete the process of encrypting your profile, you
+      MUST also click 'update' on your profile page to submit this
+      change to your profile.
+    %p
+.row
+  .six.columns
+    .panel.listing
+      = hidden_field(:user, :key_storage_name, {:name => '', :id => 'user_key_storage_name'})
+      %ul.encryption{:id => "encryption_set"}
+          
+:javascript
+  window.onload = function(){
+    var ul = document.getElementById("encryption_set") ;
+    var key_name = document.getElementById("user_key_storage_name").value ;
+    var link = document.createElement("a") ;
+
+    link.setAttribute('href', '/settings/encryption/edit') ;
+    link.appendChild(document.createTextNode('here'));
+
+    var text = key_name ? document.createTextNode("Your profile is encrypted; change your passphrase ") : document.createTextNode("Your profile is NOT encrypted - you can encrypt your profile ") ;
+    var li = document.createElement("li") ;
+    
+    li.appendChild( text ) ;
+    li.appendChild( link ) ;
+    ul.appendChild( li ) ;
+  } ;

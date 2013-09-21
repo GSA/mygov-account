@@ -20,16 +20,6 @@
       %h3
         Address
       %ul.profile{:id => "profile_address"}
-        %li
-          Address: #{@profile.address}
-        %li
-          Address (Line 2): #{@profile.address2}
-        %li
-          City: #{@profile.city}
-        %li
-          State: #{@profile.state}
-        %li
-          Zip: #{@profile.zip}
   .six.columns        
     .panel.listing
       %h3
@@ -41,10 +31,6 @@
       %h3 
         Phone
       %ul.profile{:id => "profile_phone"}
-        %li
-          Phone: #{@profile.phone_number}
-        %li
-          Mobile: #{@profile.mobile_number}    
     .panel.listing
       %h3
         Information about you
@@ -73,7 +59,7 @@
     var key ;
 
     if ( key_name ){
-        key = sjcl.codec.hex.toBits(sessionStorage[key_name]) ;
+        key = sessionStorage[key_name] ;
     }
 
     var li = document.createElement("li") ;
@@ -121,7 +107,7 @@
     ul2.appendChild( li ) ; 
   
     li = document.createElement("li") ;
-    text = key ? document.createTextNode("State: " + encrypt_decrypt_item("#{@profile.state}", key)) : document.createTextNode("State: #{@profile.state}") ;
+    text = document.createTextNode("State: #{@profile.state}") ;
 
     li.appendChild( text ) ;
     ul2.appendChild( li ) ;   
@@ -133,13 +119,13 @@
     ul2.appendChild( li ) ;  
 
     li = document.createElement("li") ;
-    text = document.createTextNode("Phone: " + encrypt_decrypt_item("#{@profile.phone_number}")) ;
+    text = document.createTextNode("Phone: " + encrypt_decrypt_item("#{@profile.phone_number}", key)) ;
 
     li.appendChild( text ) ;
     ul3.appendChild( li ) ;   
 
     li = document.createElement("li") ;
-    text = document.createTextNode("Mobile: " + encrypt_decrypt_item("#{@profile.mobile_number}")) ;
+    text = document.createTextNode("Mobile: " + encrypt_decrypt_item("#{@profile.mobile_number}", key)) ;
 
     li.appendChild( text ) ;
     ul3.appendChild( li ) ;  

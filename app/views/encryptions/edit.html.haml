@@ -1,14 +1,39 @@
+- if @user && !@user.errors.blank?
+  - content_for :scripts do
+    = javascript_tag do
+      $('html,body').animate({scrollTop: $('.field_with_errors').offset().top},'slow');
 .row
   .eight.columns
     %h2
       Change Your Encryption Settings
+    %p
+      Your profile data may be encrypted with a passphrase known only
+      to you. This passphrase is used to create the encryption key
+      using the PBKDF2-HMAC-SHA256 password key derivation algorithm. 
+    %p
+      Once you have entered and confirmed your encryption passphrase,
+      please enter your MyUSA login password to confirm your
+      encryption passphrase. You will then be shown your profile page. 
+    %p
+      In order to complete the process of encrypting your profile, you
+      MUST also click 'update' on your profile page to submit this
+      change to your profile.
+    %p
+    %div
     = form_tag({:action => 'create', :controller => 'encryptions'}, {:onsubmit => "return encrypt_set_key( this ) ;"}) do
+      - if flash[:error]
+        .alert-box.alert
+          = flash[:error]
       %fieldset
+        = hidden_field(:user, :key_storage_name, {:name => ''})
         %label{:for => ""} Encryption Passphrase
         %input{:type => "password", :id => "passphrase"}
         %br/
         %label{:for => ""} Confirm Encryption Passphrase
         %input{:type => "password", :id => "confirm_passphrase"}
         %br/
+        %label{:for => ""} Your MyUSA login password
+        %i (we need your current password to confirm your changes)
+        %input{:type => "password", :id => "password", :name => "password"}
         %input{:type => "submit", :value => "Encrypt my profile"}
         %input{:type => "hidden", :id => "key_name", :name => "key_name"}

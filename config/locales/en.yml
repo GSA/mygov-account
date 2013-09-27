@@ -75,7 +75,7 @@ en:
         subject: 'Unlock Instructions'
   errors:
     messages:
-      already_confirmed: "may already confirmed or it does not exist. Please try signing in or signing up."
+      already_confirmed: "may already have been confirmed or it does not exist. Please try signing in or signing up."
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "has expired, please request a new one"
       not_found: "Please check your inbox for an email from MyUSA."

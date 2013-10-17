@@ -10,9 +10,9 @@ def login(user)
   login_as user, scope: :user
 end
 
-def create_confirmed_user
-  create_approved_beta_signup('joe@citizen.org')
-  @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
+def create_confirmed_user(email = 'joe@citizen.org')
+  create_approved_beta_signup(email)
+  @user = User.create!(:email => email, :password => 'Password1')
   @user.confirm!
 end
 

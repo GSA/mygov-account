@@ -77,14 +77,8 @@ Capybara.default_host = "http://citizen.org"
 OmniAuth.config.test_mode = true
 OmniAuth.config.add_mock(:google, {
   :info => {
-    :email => 'joe@citizen.org',
+    :email => 'joe.citizen@gmail.com',
     :name => 'Joe Citizen'
   },
   :uid => '12345',
-})
-OmniAuth.config.add_mock(:maxgov, {
-  :uid => 'joe.citizen@usa.gov',
-  :user => 'joe.citizen.@usa.gov',
-  :credentials => {:ticket => 'ticket-test.gov'},
-  :extra => {:attributes => {'Agency-Name' => 'Super Agency', "Email-Address" => 'joe.citizen@usa.gov'}}
 })

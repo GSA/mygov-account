@@ -2,16 +2,6 @@
 	.eight.columns
 		%h2
 			Add a new authentication provider
-		- unless current_user.authentications.collect { |auth| auth.provider.to_sym }.include?(:"max.gov")
-			.row
-				.six.columns
-					%p
-						Are you a U.S. federal government employee?  Verify your employment status with MAX.gov.
-				.six.columns
-					.panel.side-panel
-						%ul.button-list
-							%li
-								= link_to 'Connect your MAX.gov account', user_omniauth_authorize_path(:provider => :maxgov)
 		
 .container
 	.row

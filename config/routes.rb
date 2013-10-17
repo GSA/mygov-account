@@ -13,7 +13,6 @@ Mygov::Application.routes.draw do
     get 'thank_you', :to => 'users/registrations#thank_you', :as => :thank_you
     get 'sign_in', :to => 'users/sessions#new', :as => :sign_in
     get 'sign_out', :to => 'users/sessions#destroy', :as => :sign_out
-    get 'more_sign_in_options', :to => 'users/sessions#more_sign_in_options', :as => :more_sign_in_options
   end
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'

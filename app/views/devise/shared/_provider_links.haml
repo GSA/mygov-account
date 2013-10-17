@@ -4,5 +4,3 @@
       - unless [:maxgov].include?(provider)
         %li
           = link_to "Sign #{in_or_up} with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider)
-    %li
-      = link_to "More sign in options", more_sign_in_options_path  

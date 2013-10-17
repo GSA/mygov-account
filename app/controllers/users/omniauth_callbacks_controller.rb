@@ -21,26 +21,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     callback('testid')
   end
   
-  def maxgov
-    auth = request.env["omniauth.auth"]
-    if current_user
-      authentication = current_user.authentications.find_or_create_by_provider_and_uid("max.gov", auth.uid)
-      if authentication.errors.empty?
-        redirect_to authentications_path
-      else
-        redirect_to new_authentication_path
-      end
-    else
-      authentication = Authentication.find_by_provider_and_uid("max.gov", auth.uid)
-      if authentication and authentication.user
-        sign_in_and_redirect authentication.user, :event => :authentication
-      else
-        flash[:alert] = "I'm sorry, we don't have an account associated with your MAX.gov account.  Please login and visit Settings -> Authentication providers to associate your MyUSA account with your MAX.gov account."
-        redirect_to sign_in_path
-      end
-    end
-  end
-  
   private
   
   def callback(provider_name)

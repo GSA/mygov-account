@@ -176,7 +176,9 @@ describe "Users" do
         end
         
         context "when a local user exists with the same email" do
-          before { User.create(:email => 'joe@citizen.org', :password => 'Password1') }
+          before do
+            create_confirmed_user('joe.citizen@gmail.com')
+          end
           
           it "should not let someone sign in with a third party service that identifies the user with the same email" do
             visit sign_in_path
@@ -212,18 +214,7 @@ describe "Users" do
       @user.unlock_token.should_not be_nil
       ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
       ActionMailer::Base.deliveries.last.subject.should == 'Unlock Instructions'
-    end
-    
-    context "when the user has connected their MAX.gov account" do
-      before {@user.authentications.create(:provider => "max.gov", :uid => 'joe.citizen@usa.gov')}
-      
-      it "should allow the user to log in using their MAX.gov account" do
-        visit sign_in_path
-        click_link 'More sign in options'
-        click_link 'Sign in with MAX.gov'
-        page.should have_content 'Your profile'
-      end
-    end
+    end    
   end
     
   describe "sign out process" do

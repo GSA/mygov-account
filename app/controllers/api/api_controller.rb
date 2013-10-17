@@ -6,7 +6,7 @@ class Api::ApiController < ApplicationController
   protected
 
   def oauthorize
-    @token = OAuth2::Provider.access_token(@user, [], request)
+    @token = OAuth2::Provider.access_token(nil, [], request)
     if @token.valid?
       @app = @token.authorization.client.owner
       @user = @token.owner
@@ -14,23 +14,28 @@ class Api::ApiController < ApplicationController
   end
   
   def no_scope_message
-    "You do not have access to read that user's profile."
+    "You do not have permission to read that user's profile."
   end
   
   def validate_oauth(oauth_scope = nil)
     unless @token.valid?
-      render :json => {:message => self.no_scope_message}, :status => 403
+      render :json => {:message => "Invalid token"}, :status => @token.response_status
       return false
     end
-    
+
     return true unless oauth_scope
     
     auth = @token.authorization
     scope_list = auth && auth.scope
-    unless (scope_list || "").split(" ").member?(oauth_scope.scope_name)
-      render :json => {:status => 'Error', :message => "You do not have access to #{oauth_scope.name.downcase} for that user."}, :status => 403
+    unless scope_in_scope_list?(oauth_scope, scope_list)
+      render :json => {:message => no_scope_message}, :status => 403
       return false
     end
+  end
+  
+  def scope_in_scope_list?(oauth_scope, scope_list)
+    return true if (scope_list || "").split(" ").member?(oauth_scope.scope_name)
+    return false
   end
 
   def log_activity(controller)

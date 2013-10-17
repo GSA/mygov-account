@@ -16,7 +16,7 @@ class Api::V1::NotificationsController < Api::ApiController
   protected
   
   def no_scope_message
-    "You do not have access to send notifications to that user."
+    "You do not have permission to send notifications to that user."
   end
   
   def oauthorize_scope

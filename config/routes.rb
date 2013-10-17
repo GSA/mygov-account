@@ -53,6 +53,7 @@ Mygov::Application.routes.draw do
       resources :notifications, :only => [:create]
       resources :tasks, :only => [:index, :create, :show]
       resources :forms, :only => [:create, :show]
+      get "credentials/verify" => "credentials#verify", :as => :verify_credentials
     end
   end
   match "/404", :to => "errors#not_found"

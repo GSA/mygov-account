@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/GSA-OCSIT/oauth2-provider.git
-  revision: 50ae2be0cd090c9407eb1f29b7adad9af23ff539
+  revision: 51f390a43f92340c940f8c22ad037bb4adb9979a
   branch: bearer-header
   specs:
     oauth2-provider (0.1.0)
@@ -70,7 +70,7 @@ GEM
       json
     arel (3.0.2)
     awesome_print (1.1.0)
-    bcrypt-ruby (3.1.1)
+    bcrypt-ruby (3.1.2)
     bigdecimal (1.2.1)
     brakeman (2.1.1)
       erubis (~> 2.6)
@@ -191,7 +191,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.24)
     mini_portile (0.5.1)
-    multi_json (1.7.9)
+    multi_json (1.8.0)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     mysql2 (0.3.13)

@@ -24,7 +24,7 @@ class Api::V1::TasksController < Api::ApiController
   protected
   
   def no_scope_message
-    "You do not have access to #{self.action_name == 'create' ? 'create' : 'view'} tasks for that user."
+    "You do not have permission to #{self.action_name == 'create' ? 'create' : 'view'} tasks for that user."
   end
   
   def oauthorize_scope

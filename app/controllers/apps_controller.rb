@@ -74,7 +74,7 @@ class AppsController < ApplicationController
   end
   
   def assign_oauth_scopes
-    @oauth_scopes = OauthScope.all
+    @oauth_scopes = OauthScope.where(:scope_type => 'user')
   end
   
   def verify_public_or_is_owner

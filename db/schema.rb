@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130909200354) do
+ActiveRecord::Schema.define(:version => 20130918174058) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -124,8 +124,9 @@ ActiveRecord::Schema.define(:version => 20130909200354) do
     t.string   "name"
     t.text     "description"
     t.string   "scope_name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.string   "scope_type",  :limit => 20
   end
 
   add_index "oauth_scopes", ["scope_name"], :name => "index_oauth_scopes_on_scope_name"

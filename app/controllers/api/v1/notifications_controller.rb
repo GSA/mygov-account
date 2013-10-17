@@ -7,9 +7,9 @@ class Api::V1::NotificationsController < Api::ApiController
     notification.user_id = @user.id
     notification.app_id = @app.id
     if notification.save
-      render :json => {:status => 'OK', :message => 'Your notification was successfully created.'}
+      render :json => notification, :status => 200
     else
-      render :json => {:status => 'Error', :message => notification.errors}, :status => 400
+      render :json => {:message => notification.errors}, :status => 400
     end
   end
   

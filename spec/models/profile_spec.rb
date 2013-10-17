@@ -31,20 +31,56 @@ describe Profile do
   
   describe "as_json" do
     before do
-      create_approved_beta_signup('joe@citizen.org')
-      @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-      @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen', :phone_number => '202-555-1212', :gender => 'male')
-      @user.confirm!      
+      @user = create_confirmed_user_with_profile
+      @user.profile.update_attributes(:phone_number => '202-555-1212', :gender => 'male')
     end
     
-    it "should output the clear text versions of the encrypted fields, and none of the encrypted fields" do
-      json = @user.profile.as_json
-      json[:first_name].should == 'Joe'
-      json[:last_name].should == 'Citizen'
-      json[:email].should == 'joe@citizen.org'
-      json[:encrypted_first_name].should be_nil
-      json[:encrypted_last_name].should be_nil
-      json[:encrypted_address].should be_nil
+    context "when called without any parameters" do
+      it "should output the full profile in JSON" do
+        json = @user.profile.as_json
+        json["first_name"].should == 'Joe'
+        json["last_name"].should == 'Citizen'
+        json["email"].should == 'joe@citizen.org'
+        json["phone_number"].should == '202-555-1212'
+        json["gender"].should == 'male'
+        json["mobile_number"].should be_blank
+      end
     end
+    
+    context "when called with a scope list that includes the profile scope" do
+      it "should return the full profile" do
+        json = @user.profile.as_json(:scope_list => ["profile", "tasks", "notifications"])
+        json["first_name"].should == 'Joe'
+        json["last_name"].should == 'Citizen'
+        json["email"].should == 'joe@citizen.org'
+        json["phone_number"].should == '202-555-1212'
+        json["gender"].should == 'male'
+        json["mobile_number"].should be_blank
+      end
+      
+      context "and there are other profile scopes as well" do
+        it "should return the full profile" do
+          json = @user.profile.as_json(:scope_list => ["profile", "tasks", "notifications", "profile.first_name", "profile.gender"])
+          json["first_name"].should == 'Joe'
+          json["last_name"].should == 'Citizen'
+          json["email"].should == 'joe@citizen.org'
+          json["phone_number"].should == '202-555-1212'
+          json["gender"].should == 'male'
+          json["mobile_number"].should be_blank
+        end
+      end
+    end
+    
+    context "when called with a set of specific profile scopes" do
+      it "should return only those profile fields" do
+        json = @user.profile.as_json(:scope_list => ["profile.first_name", "profile.email", "profile.mobile_number"])
+        json["first_name"].should == 'Joe'
+        json["last_name"].should be_nil
+        json["email"].should == 'joe@citizen.org'
+        json["phone_number"].should be_nil
+        json["gender"].should be_nil
+        json["mobile_number"].should be_blank
+      end
+    end   
   end
 end

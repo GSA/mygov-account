@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe "Authentications" do
   before do
-    create_confirmed_user_with_profile; login(@user)
+    @user = create_confirmed_user_with_profile
+    login(@user)
   end
   
   describe "adding a new authentication" do

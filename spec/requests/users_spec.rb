@@ -30,7 +30,7 @@ describe "Users" do
     end
     
     context "when a user is signed in" do
-      before {create_confirmed_user; login(@user)}
+      before {@user = create_confirmed_user; login(@user)}
       
       it "should not ask the user to sign in" do
         visit dashboard_path
@@ -204,7 +204,7 @@ describe "Users" do
   end
 
   describe "sign in process" do
-    before {create_confirmed_user}
+    before {@user = create_confirmed_user}
 
     it "should lock the account if the user fails to login five times" do
       visit sign_in_path
@@ -218,7 +218,7 @@ describe "Users" do
   end
     
   describe "sign out process" do
-    before {create_confirmed_user_with_profile; login(@user)}
+    before {@user = create_confirmed_user_with_profile; login(@user)}
 
     it "should redirect the user to the sign in page" do
       visit dashboard_path
@@ -229,7 +229,7 @@ describe "Users" do
   end
 
   describe "change your name" do
-    before {create_confirmed_user_with_profile; login(@user)}
+    before {@user = create_confirmed_user_with_profile; login(@user)}
     
     it "should change the user's name when first or last name changes" do
       visit edit_profile_path
@@ -242,7 +242,7 @@ describe "Users" do
   end
   
   describe "change your password" do
-    before {create_confirmed_user}
+    before {@user = create_confirmed_user}
     
     it "changes the user's password and sends notification and confirmation emails" do
       visit sign_in_path
@@ -266,7 +266,7 @@ describe "Users" do
   end
   
   describe "login, confirmation, and unlock messages" do
-    before { create_confirmed_user }
+    before { @user = create_confirmed_user }
     
     it "yields the same message irregardless of the email's existence in the db for login attempts" do
       visit sign_in_path

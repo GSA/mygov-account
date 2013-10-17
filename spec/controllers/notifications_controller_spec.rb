@@ -4,7 +4,7 @@ describe NotificationsController do
 
   describe "GET #show" do
     before do
-      create_confirmed_user
+      @user = create_confirmed_user
       sign_in(@user)
       @notification = @user.notifications.last
     end

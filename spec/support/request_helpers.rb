@@ -12,15 +12,17 @@ end
 
 def create_confirmed_user(email = 'joe@citizen.org')
   create_approved_beta_signup(email)
-  @user = User.create!(:email => email, :password => 'Password1')
-  @user.confirm!
+  user = User.create!(:email => email, :password => 'Password1')
+  user.confirm!
+  user
 end
 
-def create_confirmed_user_with_profile
-  create_approved_beta_signup('joe@citizen.org')
-  @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-  @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen', :is_student => true)
-  @user.confirm!
+def create_confirmed_user_with_profile(email = 'joe@citizen.org', password = 'Password1', first_name = 'Joe', last_name = 'Citizen', other_attributes = {})
+  create_approved_beta_signup(email)
+  user = User.create!(:email => email, :password => password)
+  user.profile = Profile.new({:first_name => first_name, :last_name => last_name}.merge(other_attributes))
+  user.confirm!
+  user
 end
 
 def create_approved_beta_signup(email_or_hash)
@@ -39,7 +41,7 @@ def create_sandbox_app(user)
   @user.apps.create(name: 'Sandboxed App', is_public: false, user_id: user.id, redirect_uri: 'http://localhost')
 end
 
-def fill_in_email_and_password(options={email:'joe@citizen.org', password:'Password1'})
+def fill_in_email_and_password(options = {email:'joe@citizen.org', password:'Password1'})
   fill_in 'Email', :with => options[:email]
   fill_in 'Password', :with => options[:password]
   fill_in 'Password confirmation', :with => options[:password]

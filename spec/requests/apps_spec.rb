@@ -2,12 +2,8 @@ require 'spec_helper'
 
 describe "Apps" do  
   before do
-    create_confirmed_user_with_profile
-
-    create_approved_beta_signup('jane@citizen.org')
-    @user2 = User.create!(:email => 'jane@citizen.org', :password => 'Password1')
-    @user2.confirm!
-    @user2.profile = Profile.new(:first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
+    @user = create_confirmed_user_with_profile
+    @user2 = create_confirmed_user_with_profile('jane@citizen.org', 'Password1', 'Jane')
         
     @app1 = @user.apps.create(name: 'Public App 1', :url => 'http://www.agency.gov/app1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")
     @app1.is_public = true

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Activity Log" do
   before do
-    create_confirmed_user_with_profile
+    @user = create_confirmed_user_with_profile
     
     @app1 = @user.apps.create(name: 'Public App 1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")
     @app1.is_public = true
@@ -21,7 +21,7 @@ describe "Activity Log" do
     end
       context "when the user has authorized an app" do
         before do
-          @app1.oauth_scopes = OauthScope.all
+          @app1.oauth_scopes = OauthScope.top_level_scopes
           authorization = OAuth2::Model::Authorization.new
           authorization.scope = @app1.oauth_scopes.collect{ |s| s.scope_name }.join(" ")
           authorization.client = @app1.oauth2_client

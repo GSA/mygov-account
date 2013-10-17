@@ -2,10 +2,8 @@ require 'spec_helper'
 
 describe "Notifications" do
   before do
-    create_confirmed_user_with_profile
-    create_approved_beta_signup('jane@citizen.org')
-    @other_user = User.create!(:email => 'jane@citizen.org', :password => 'Password1')
-    @other_user.profile = Profile.new(:first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
+    @user = create_confirmed_user_with_profile
+    @other_user = create_confirmed_user_with_profile('jane@citizen.org', 'Password1', 'Jane', 'Citizen')
     @app1 = App.create!(:name => 'App1', :redirect_uri => 'http://localhost/')
     @app2 = App.create!(:name => 'App2', :redirect_uri => 'http://localhost/')
     create_logged_in_user(@user)

@@ -12,10 +12,10 @@ describe "Apis" do
   end
   
   before do
-    create_confirmed_user_with_profile
+    @user = create_confirmed_user_with_profile
     
     @app = App.create(:name => 'App1', :redirect_uri => "http://localhost/")
-    @app.oauth_scopes = OauthScope.where(:scope_type => 'user')
+    @app.oauth_scopes = OauthScope.top_level_scopes.where(:scope_type => 'user')
   end
   
   describe "GET /api/credentials/verify" do
@@ -105,16 +105,15 @@ describe "Apis" do
     
     context "when the request has a valid token" do
       context "when the user queried exists" do
-        it "should return JSON with a user profile with email and unique ID" do
+        it "should return JSON with a user profile with an id and a unique identifier" do
           get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
           response.code.should == "200"
           parsed_json = JSON.parse(response.body)
           parsed_json.should_not be_nil
           parsed_json["email"].should == 'joe@citizen.org'
           parsed_json["id"].should_not be_nil
-          parsed_json.reject{|k,v| k == "email" or k == "id" or k == "uid"}.each do |key, value|
-            parsed_json[key].should be_nil
-          end
+          parsed_json["uid"].should_not be_nil
+          parsed_json["first_name"].should == 'Joe'
         end
 
         it "should log the profile request" do
@@ -151,14 +150,9 @@ describe "Apis" do
   describe "POST /api/notifications" do
     before do
       @token = build_access_token(@app)
-    end
-    
-    before do
-      create_approved_beta_signup('jane@citizen.org')
-      @other_user = User.create!(:email => 'jane@citizen.org', :password => 'Password1')
-      @other_user.profile = Profile.new(:first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
+      @other_user = create_confirmed_user_with_profile('jane@citizen.org', 'Password1', 'Jane', 'Citizen')
       @app2 = App.create!(:name => 'App2', :redirect_uri => "http://localhost:3000/")
-      @app2.oauth_scopes << OauthScope.all
+      @app2.oauth_scopes << OauthScope.top_level_scopes
       login(@user)
       1.upto(14) do |index|
         @notification = Notification.create!({:subject => "Notification ##{index}", :received_at => Time.now - 1.hour, :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app.id}, :as => :admin)
@@ -194,7 +188,7 @@ describe "Apis" do
     context "when the the app does not have the proper scope" do
       before do
         @app3 = App.create(:name => 'App3', :redirect_uri => "http://localhost/")
-        @app3.oauth_scopes << OauthScope.find_by_scope_name("tasks")
+        @app3.oauth_scopes << OauthScope.find_by_scope_name('tasks')
         @token3 = build_access_token(@app3)
       end
       
@@ -242,7 +236,7 @@ describe "Apis" do
       context "when the the app does not have the proper scope" do
         before do
           @app4 = App.create(:name => 'App4', :redirect_uri => "http://localhost/")
-          @app4.oauth_scopes << OauthScope.find_by_scope_name("notifications")
+          @app4.oauth_scopes << OauthScope.find_by_scope_name('notifications')
           @token4 = build_access_token(@app4)
         end
       

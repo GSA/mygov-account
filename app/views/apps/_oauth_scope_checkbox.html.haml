@@ -1,0 +1,3 @@
+= label_tag oauth_scope.scope_name do
+  = check_box_tag "app[app_oauth_scopes_attributes][#{index}][oauth_scope_id]", oauth_scope.id, @app.app_oauth_scopes.collect(&:oauth_scope_id).include?(oauth_scope.id) ? true : false      
+  = oauth_scope.description

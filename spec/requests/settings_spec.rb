@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe "SettingsPage" do
-  before {create_confirmed_user}
+  before do
+    @user = create_confirmed_user
+  end
 
   describe "GET /settings" do
     context "when the user is logged in" do

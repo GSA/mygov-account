@@ -7,7 +7,7 @@ describe "auto_logout" do
       Devise.setup { |config| config.timeout_in = 4 }
       Rails.application.config.session_timeout_warning_seconds = 2
 
-      create_confirmed_user_with_profile
+      @user = create_confirmed_user_with_profile
       visit(sign_in_path)
       fill_in 'user_email', :with => @user.email
       fill_in 'user_password', :with => @user.password

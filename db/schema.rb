@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130918174058) do
+ActiveRecord::Schema.define(:version => 20131013041434) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -137,7 +137,6 @@ ActiveRecord::Schema.define(:version => 20130918174058) do
     t.string   "middle_name"
     t.string   "last_name"
     t.string   "suffix",         :limit => 10
-    t.string   "name"
     t.string   "address"
     t.string   "address2"
     t.string   "city"

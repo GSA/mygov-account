@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :as => [:default]
   attr_accessor :just_created
   
-  PROFILE_ATTRIBUTES = [:title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :phone, :mobile, :gender, :marital_status, :is_parent, :is_retired, :is_student, :is_veteran]
+  PROFILE_ATTRIBUTES = [:title, :first_name, :middle_name, :last_name, :suffix, :address, :address2, :city, :state, :zip, :phone, :mobile, :gender, :marital_status, :is_parent, :is_retired, :is_student, :is_veteran]
 
   def sandbox_apps
     self.apps.sandbox
@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
         signed_in_resource
       else
         user = User.new(:email => data['email'], :password => "13#{Devise.friendly_token[0,20]}")
-        user.profile = Profile.new(:first_name => data["first_name"], :last_name => data["last_name"], :name => data["name"])
+        user.profile = Profile.new(:first_name => data["first_name"], :last_name => data["last_name"])
         user.skip_confirmation!
         user.authentications.new(:uid => access_token.uid, :provider => access_token.provider, :data => access_token)
         user.save

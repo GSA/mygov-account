@@ -6,10 +6,9 @@ class HomeController < ApplicationController
     if current_user
       @notice = flash.notice && current_user.profile.name ? "Hi #{current_user.profile.name}. #{flash.notice}" : flash.notice
       redirect_to :dashboard, notice: @notice
-
     else
       @beta_signup = BetaSignup.new
-      render :layout => 'signup'
+      render :layout => 'signup_new'
     end
   end
 

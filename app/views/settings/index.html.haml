@@ -1,11 +1,17 @@
 .row
-  .eight.columns
+  .col-md-2
+    =render 'home/settings_nav'
+
+  .col-md-10
     %h2
-      Settings
+      - if @user.profile.name
+        = "Settings for #{@user.profile.name}"
+      - else
+        My Settings
     %p
       %ul
         %li
           = link_to 'Authentication providers', authentications_path
         %li
           = link_to 'Change email address', edit_user_registration_path
-      
+

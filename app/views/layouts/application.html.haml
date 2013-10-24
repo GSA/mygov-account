@@ -4,93 +4,95 @@
     %meta(charset="utf-8")
 
     %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
-    
+
     %meta{:name => "viewport", :content => "width=device-width"}
     - if current_user && request.get? # If it's a post, then no redirect
-      = refresh_meta_tag_conent    
+      = refresh_meta_tag_conent
     %meta{:name => "format-detection", :content => "telephone=yes"}
     %meta(name="apple-mobile-web-app-capable" content="yes")
-    
+
     %meta(name="HandheldFriendly" content="True")
     %meta(http-equiv="cleartype" content="on")
-    
+
     %meta(property="fb:app_id"               content="MyUSA")
     %meta(property="og:type"                 content="website")
-    %meta(property="og:url"                  content="http://my.usa.gov/") 
+    %meta(property="og:url"                  content="http://my.usa.gov/")
     %meta(property="og:image"                content="http://my.usa.gov/assets/apple-touch-icon-114x114-precomposed.png")
     %meta(property="og:title"                content="MyUSA")
     %meta(property="og:description"          content="A platform for connecting people and government")
-    
+
     %meta(name="apple-mobile-web-app-title" content="MyUSA")
 
     %title= content_for?(:title) ? yield(:title) : "MyUSA"
     = csrf_meta_tags
 
-    = stylesheet_link_tag "fonts", :media => "all" 
-    = stylesheet_link_tag "application", :media => "all"
-    = stylesheet_link_tag "general_foundicons", :media => "all"
+    = stylesheet_link_tag "bootstrap", :media => "all"
+    = stylesheet_link_tag "dashboard", :media => "all"
+
     /[if !IE 7]
-      = stylesheet_link_tag "ie7", :media => "all"
-      
-    
+
     /[if lt IE 9]
       = stylesheet_link_tag "general_foundicons_ie7", :media => "all"
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
-    = favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-    = favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :sizes => '72x72', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-    = favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :sizes => '114x114', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-    = favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :sizes => '144x144', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
     = javascript_include_tag 'modernizr'
 
   %body
-    #wrap
-      #header
-        .nav-container.group
-          .row
-            .six.columns
-              %a{ :href => root_url }
+    #header
+      %nav{:class=>'navbar-wrapper navbar-default navbar-fixed-top', :role=>'navigation'}
+        .navbar-inner
+          .container
+            .navbar-header.col-md-6
+
+              %button{"type"=>"button","class"=>"navbar-toggle","data-toggle"=>"collapse", "data-target"=>".navbar-ex1-collapse"}
+                %span.sr-only
+                  Toggle navigation
+                %span.icon-bar
+                %span.icon-bar
+                %span.icon-bar
+
+              %a{:href => root_url, :class => 'navbar-brand'}
                 %h1
-                  - if current_user and current_user.profile.first_name.present?
-                    %span.personal-name
-                      #{current_user.profile.first_name}'s
                   My<span>USA</span>
-            .six.columns.align-right
+
+            - if current_user
+              .collapse.navbar-collapse.navbar-ex1-collapse
+                %ul.nav.navbar-nav.col-md-6
+                  %li.active
+                    %a{:href=> dashboard_path}
+                      Dashboard
+                  %li
+                    %a{:href=>settings_path}
+                      Settings
+                  %li
+                    %a{:href=>'#'}
+                      Help
+                  %li
+                    %a{:href=>sign_out_path, :class=>'btn btn-default'}
+                      Logout
+
+
+
+            .col-md-12
               - if !current_user && request.path != sign_in_path
                 %h3.tagline
                   =t('sign_in_prompt')
                   =link_to t('sign_in_link'), sign_in_path
-      #main
-        %a{:name => "top"}
-        .nav-container.group
-          .row
-            .twelve.columns
-        .container.group
-          = session_timeout_message
-          = yield
-        - unless current_user
-          .no-toolbar
-          
-      - if current_user
-        .discovery-bar  
-          %ul.nav-bar
-            %li.mygov
-              = link_to 'MyUSA', root_path
-            %li.left.notifications
-              = link_to notifications_path do
-                - if current_user.notifications.not_viewed.count > 0
-                  %span.jujitsu
-                    = current_user.notifications.not_viewed.count
-                %span.notification-label
-                  Notifications
-            %li.right.sign-out= link_to "Sign out", sign_out_path
-            %li.right.profile= link_to(current_user.profile.name || "Your profile", profile_path)
-            %li.right.settings= link_to "Settings", settings_path
-          
-      /
-        Javascripts
-        \==================================================
-      / Placed at the end of the document so the pages load faster
-      = javascript_include_tag "application"
-      = content_for :scripts
-      = render :partial => "shared/ab", :locals => { :segment => @segment }
-      = analytics_init if Rails.env.production?
+    #main
+      %a{:name => "top"}
+      .nav-container
+        .row
+          .twelve.columns
+      .container
+        = session_timeout_message
+        = yield
+      - unless current_user
+        .no-toolbar
+
+    /
+      Javascripts
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    = javascript_include_tag "application"
+    = content_for :scripts
+    = render :partial => "shared/ab", :locals => { :segment => @segment }
+    = analytics_init if Rails.env.production?

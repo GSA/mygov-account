@@ -1,0 +1,23 @@
+%h5
+  Dashboard
+
+%ul.nav.nav-pills.nav-stacked
+  - if @notifications.any?
+    %li
+      %a.smoothScroll{:href => "#notifications"}
+        Notifications
+
+      - if @user.notifications.not_viewed.count > 0
+        %span
+          = @user.notifications.not_viewed.count
+      - else
+        wassup!
+
+  - if @uncompleted_tasks.any?
+    %li
+      %a.smoothScroll{:href => "#tasks"}
+        Tasks
+
+  %li
+    %a.smoothScroll{:href => "#apps"}
+      Apps

@@ -1,0 +1,65 @@
+Searching 448 files for "wait_until_refresh" (regex)
+
+/Projects/pif/mygov-account/app/controllers/application_controller.rb:
+   22:     @wait_until_refresh = User.timeout_in - @warning_seconds
+   26:       # @wait_until_refresh         = [User.timeout_in - seconds_since_last_request, 0].max
+   27:       @session_will_expire        = true if @wait_until_refresh > 0 && (warden.session(:user)['last_request_at'] + current_user.timeout_in) <= @warning_seconds.from_now
+
+/Projects/pif/mygov-account/app/helpers/application_helper.rb:
+   44:       tag('meta', :'http-equiv' => "refresh", :content => @wait_until_refresh)
+   46:       tag('meta', :'http-equiv' => "refresh", :content => "#{@wait_until_refresh};#{url_for(params.merge(no_keep_alive: 1))}")
+
+/Projects/pif/mygov-account/coverage/index.html:
+ 2354:           <code class="ruby">    @wait_until_refresh = User.timeout_in - @warning_seconds </code>
+ 2378:           <code class="ruby">      @wait_until_refresh         = [User.timeout_in - seconds_since_last_request, 0].max</code>
+ 2384:           <code class="ruby">      @session_will_expire        = true if @wait_until_refresh &gt; 0 &amp;&amp; (warden.session(:user)['last_request_at'] + current_user.timeout_in) &lt;= @warning_seconds.from_now</code>
+ 6452:           <code class="ruby">      tag('meta', :'http-equiv' =&gt; &quot;refresh&quot;, :content =&gt; @wait_until_refresh)</code>
+ 6464:           <code class="ruby">      tag('meta', :'http-equiv' =&gt; &quot;refresh&quot;, :content =&gt; &quot;#{@wait_until_refresh};#{url_for(params.merge(no_keep_alive: 1))}&quot;)</code>
+
+10 matches across 3 files
+
+
+Searching 447 files for "smoothscroll.*tasks" (regex)
+
+/Projects/pif/mygov-account/app/views/home/_dashboard_nav.haml:
+    5:         %a.smoothScroll.tasks{:href => "#tasks"}
+
+/Projects/pif/mygov-account/app/views/home/_dashboard_nav_new.haml:
+    5:         %a.smoothScroll.tasks{:href => "#notifications"}
+   10:       %a.smoothScroll.apps{:href => "#tasks"}
+
+3 matches across 2 files
+
+
+Searching 447 files for "name.*tasks" (regex)
+
+/Projects/pif/mygov-account/app/controllers/api/v1/tasks_controller.rb:
+   27:     "You do not have permission to #{self.action_name == 'create' ? 'create' : 'view'} tasks for that user."
+   31:     validate_oauth(OauthScope.find_by_scope_name('tasks'))
+
+/Projects/pif/mygov-account/app/models/oauth_scope.rb:
+   11:       {name: 'Tasks', description: 'Create tasks in your account', scope_name: 'tasks', :scope_type => 'user'},
+
+/Projects/pif/mygov-account/app/views/home/_dashboard_tasks.html.haml:
+    2:   %a{:name => "tasks"}
+    6:     %a{:name => "tasks"}
+
+/Projects/pif/mygov-account/app/views/home/privacy_policy.html.haml:
+   40:       The Service offers the opportunity to store personally identifiable information (such as your name or address). We want you to feel comfortable trusting MyUSA with this basic profile information. Storing such information allows MyUSA to better customize many common tasks, such as pre-filling common fields across multiple forms. This information will remain private to your account, and will only be shared with government agencies if you explicitly grant permission on a case-by-case basis or where required by law.  You may delete your personal information at any time.
+
+/Projects/pif/mygov-account/coverage/index.html:
+ 2168:           <code class="ruby">    &quot;You do not have permission to #{self.action_name == 'create' ? 'create' : 'view'} tasks for that user.&quot;</code>
+ 2192:           <code class="ruby">    validate_oauth(OauthScope.find_by_scope_name('tasks'))</code>
+ 8852:           <code class="ruby">      {name: 'Tasks', description: 'Create tasks in your account', scope_name: 'tasks', :scope_type =&gt; 'user'},</code>
+
+/Projects/pif/mygov-account/db/schema.rb:
+  201:   add_index "tasks", ["app_id"], :name => "index_tasks_on_app_id"
+  202:   add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
+
+/Projects/pif/mygov-account/db/migrate/20121221190323_create_oauth_scopes.rb:
+    6:        {name: 'Tasks', description: 'Create tasks in your account', scope_name: 'tasks'},
+
+/Projects/pif/mygov-account/spec/requests/apis_spec.rb:
+  197:         @app3.oauth_scopes << OauthScope.find_by_scope_name("tasks")
+
+13 matches across 8 files

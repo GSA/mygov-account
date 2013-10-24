@@ -58,6 +58,7 @@ group :test, :development do
   gem 'pry-nav'
   gem 'rspec-rails'
   gem "zeus-parallel_tests"
+  gem "factory_girl_rails", "~> 4.0"
 end
 
 group :development do

@@ -1,9 +1,15 @@
 FactoryGirl.define do
   factory :task do
     name 'Test task'
-    user_id User.first.id
+    # @user = User.count>0 ? User.first.id : User.create(
+    #     :email => 'test@test.gov',
+    #     :password => '1a2B3cPassword'
+    #   )
+    # @user.confirm!
 
-    app_id App.first.id || App.create(
+    user_id 12345
+
+    app_id App.create(
             name: 'TestApp',
             description: 'A description for our test app',
             short_description: 'Short test description',

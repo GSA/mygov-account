@@ -7,24 +7,16 @@
     Apps are services that use your MyUSA Account to make interacting with government easier.
   %h4
     Here are some apps we're working on:
-  .row.news
-    .four.columns
-      .panel.ideas
-        %h5
-          = link_to 'Change your name', "https://apps.my.usa.gov/change-your-name"
-        %p
-          An application that simplifies the confusing process of changing your name.
-    .four.columns
-      .panel.ideas
-        %h5
-          = link_to 'Benefits', "https://apps.my.usa.gov/benefits.gov"
-        %p
-          See what government benefits are available to you.
-    .four.columns
-      .panel.ideas
-        %p
-          Check out all available apps in the #{link_to 'App Gallery', apps_path}.
-        %p
-          Are you a developer?
-          %br
-          #{link_to 'Learn how to create your own MyUSA app', developer_path}.
+  .row
+    .col-md-3
+      %h5
+        = link_to 'Change your name', "https://apps.my.usa.gov/change-your-name"
+      %p
+        An application that simplifies the confusing process of changing your name.
+
+  .row
+    .col-md-12
+      %p
+        = link_to 'View all MyUSA Apps', apps_path
+      %p
+        = link_to 'Manage Your Connected Apps', apps_path

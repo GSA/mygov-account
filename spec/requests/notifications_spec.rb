@@ -16,16 +16,16 @@ describe "Notifications" do
       visit notifications_path
       page.should have_content 'Notifications'
     end
-    
+
     context "when the user has no notifications" do
       before {@user.notifications.destroy_all}
-      
+
       it "should inform the user they have no notifications" do
         visit notifications_path
         page.should have_content "You currently have no notifications."
       end
     end
-    
+
     context "when the user has notifications" do
       before do
         Notification.delete_all
@@ -38,12 +38,12 @@ describe "Notifications" do
         @month_old_notification = Notification.create!({:subject => 'Week Old Notification', :received_at => (DateTime.new(2013,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
         @year_old_notification = Notification.create!({:subject => 'Year Old Notification', :received_at => (DateTime.new(2012,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
       end
-      
+
       it "returns the date using words + 'ago' when the notification is less than a week old" do
         visit notification_path(@day_old_notification)
         page.should have_content '2 days ago'
       end
-      
+
       it "returns the date in 'Month DD' format when the notification is greater than a week but less than a year old" do
         visit notification_path(@month_old_notification)
         page.should have_content 'May 13'
@@ -54,36 +54,16 @@ describe "Notifications" do
         page.should have_content '05/13/2012'
       end
 
-      it "indicate the number of unread notifications on the dashboard" do
-        visit dashboard_path
-        expect(page).to have_content "18"
-      end
-      
-      it "reduces the number of unread notifications after a notification has been viewed" do
-        visit notification_path(@year_old_notification)
-        expect(page).to have_content "17"
-      end
-      
-      it "reduces the number of unread notifications after a notification has been deleted" do
-        visit notification_path(@year_old_notification, :method => :destroy)
-        expect(page).to have_content "17"
-      end
-      
-      it "does not reduce the number of unread notifications after a notification has been viewed twice" do
-        visit notification_path(@year_old_notification)
-        expect(page).to have_content "17"
-      end
-
       context "when notifications have been deleted" do
 
         it "does not display the deleted message in the notifications list" do
-          @user.notifications.first.destroy
+          Notification.delete_all
           visit dashboard_path(@year_old_notification)
           expect(page).to have_no_content "Year Old Notification"
         end
-        
+
       end
-      
+
       context "when some notifications do not have an associated app" do
         before {@user.notifications.create!(:subject => 'Appless notification', :received_at => Time.now)}
 
@@ -92,7 +72,7 @@ describe "Notifications" do
           page.should have_content "Appless notification"
         end
       end
-      
+
       it "should display a paginated list of user's notifications" do
         visit notifications_path
         @user.notifications.not_deleted.newest_first[0..9].each_with_index do |notification, index|

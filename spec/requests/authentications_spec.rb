@@ -5,7 +5,7 @@ describe "Authentications" do
     create_confirmed_user_with_profile
     login(@user)
   end
-  
+
   describe "adding a new authentication" do
     context "when the user does not have a google authentication" do
       before { @user.authentications.each {|auth| auth.destroy} }
@@ -42,13 +42,13 @@ describe "Authentications" do
       end
     end
   end
-  
+
   describe "deleting an authentication" do
     context "when the user has an authentication" do
       before do
         @user.authentications.create(:provider => "google", :uid => 'joe.citizen@gmail.com')
       end
-      
+
       it 'allows the user to delete their authentication which disables login with that provider' do
         visit root_path
         click_link 'Settings'
@@ -57,7 +57,7 @@ describe "Authentications" do
         click_link 'Delete'
         current_path.should eq authentications_path
         page.should_not have_content 'Google'
-        click_link 'Sign out'
+        click_link 'Logout'
         visit sign_in_path
         click_link 'Sign in with Google'
         current_path.should eq sign_in_path

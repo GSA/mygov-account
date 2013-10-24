@@ -6,17 +6,17 @@ class ApplicationController < ActionController::Base
   before_filter :set_segment
   before_filter :set_session_will_expire
   after_filter :set_response_headers
-  
+
   def after_sign_out_path_for(resource_or_scope)
     sign_in_path
   end
-  
+
   def after_sign_in_path_for(resource_or_scope)
     session[:after_auth_return_to] || super(resource_or_scope)
   end
-  
+
   protected
-      
+
   def set_no_keep_alive
     request.env["devise.skip_trackable"] = true unless params[:no_keep_alive].blank?
   end
@@ -42,14 +42,14 @@ class ApplicationController < ActionController::Base
   def assign_user
     @user = current_user
   end
-  
+
   def set_segment
     if !session[:segment]
       session[:segment] = rand(2) == 0 ? "A" : "B"
     end
     @segment = session[:segment]
   end
-  
+
   def set_response_headers
     headers['X-XRDS-Location'] = url_for(:action => 'xrds', :controller => 'home', :protocol => 'https', :only_path => false, :format => :xml)
   end

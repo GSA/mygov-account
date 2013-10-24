@@ -2,6 +2,7 @@
   .twelve.columns
     %h2
       Notifications
+
     - if @notifications.empty?
       %p
         You currently have no notifications.
@@ -29,7 +30,7 @@
               = link_to notification.subject, notification_path(notification)
             %td
               = pretty_time(notification.received_at)
-            %td              
+            %td
               = link_to notification_path(notification, :page => params[:page]), :method => :delete, :class => 'small alert button' do
                 %i{:class => 'foundicon-remove'}
                 Remove

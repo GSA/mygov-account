@@ -1,0 +1,11 @@
+.row
+  .col-md-2
+    = render :partial => 'dashboard_nav_new'
+  .col-md-8
+    = render :partial => 'dashboard_notifications'
+    = render :partial => 'dashboard_tasks' if @uncompleted_tasks.any?
+    = render :partial => 'dashboard_apps'
+    = render :partial => 'administrative_settings'
+  .col-md-2
+    = render :partial => 'dashboard_welcome'
+    = render :partial => 'dashboard_recent_activity'

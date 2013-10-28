@@ -127,4 +127,4 @@ If you're really done with your feature, clean up your local branch:
 For more information on how to properly develop with git and feature branches,
 see:
 
-    http://blog.hasmanythrough.com/2008/12/18/agile-git-and-the-story-branch-pattern/
+    http://blog.hasmanythrough.com/2008/12/18/agile-git-and-the-story-branch-pattern

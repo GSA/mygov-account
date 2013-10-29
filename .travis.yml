@@ -22,7 +22,9 @@ notifications:
       - john.kemp@gsa.gov
       - justin.grevich@gsa.gov
       - raphael.villas@gsa.gov
-script: 
+      - mike@mobomo.com
+      - adam@mobomo.com
+script:
   - bundle exec rake db:schema:load
   - bundle exec rake db:test:prepare
   - bundle exec rake spec

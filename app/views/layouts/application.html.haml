@@ -12,7 +12,13 @@
     = stylesheet_link_tag "bootstrap", :media => "all"
     = stylesheet_link_tag "dashboard", :media => "all"
 
+    = stylesheet_link_tag "fonts", :media => "all"
+    = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag "general_foundicons", :media => "all"
+
+    %link{:href=>'http://fonts.googleapis.com/css?family=Raleway:400,300,500,700', :rel=>'stylesheet', :type=>'text/css'}
     /[if !IE 7]
+      = stylesheet_link_tag "ie7", :media => "all"
 
     /[if lt IE 9]
       = stylesheet_link_tag "general_foundicons_ie7", :media => "all"

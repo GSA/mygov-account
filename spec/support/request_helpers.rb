@@ -16,11 +16,17 @@ def create_confirmed_user(email = 'joe@citizen.org')
   @user.confirm!
 end
 
-def create_confirmed_user_with_profile
-  create_approved_beta_signup('joe@citizen.org')
-  @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
-  @user.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen', :is_student => true)
+def create_confirmed_user_with_profile(email_or_hash = {})
+  email_or_hash = {email: email_or_hash} unless email_or_hash.kind_of? Hash
+  profile = email_or_hash.reverse_merge(email: 'joe@citizen.org', password: 'Password1',
+                                        first_name: 'Joe', last_name: 'Citizen', name: 'Joe Citizen', is_student: true)
+  create_approved_beta_signup(profile[:email])
+  user_create_hash = profile.select {|key,val| [:email, :password].member?(key)}
+  @user = User.create!(user_create_hash)
+  profile_create_hash = profile.select {|key,val| [:first_name, :last_name, :name, :is_student].member?(key)}
+  @user.profile = Profile.new(profile_create_hash)
   @user.confirm!
+  @user
 end
 
 def create_approved_beta_signup(email_or_hash)

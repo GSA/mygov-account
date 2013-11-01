@@ -11,6 +11,8 @@ p.small-pitch {
 }
 
 h1, h2, h3, h4 {
+  font-family: 'Raleway', sans-serif;
+  font-weight: bolder;
   color: #00346b;
 }
 
@@ -135,11 +137,17 @@ h1, h2, h3, h4 {
     font-size: 2.5em;
 
     #elevator-pitch {
+      font-family: 'Raleway', sans-serif;
+      font-weight: lighter;
       display: inline-block;
       text-align: left;
       height: 366px;
       padding-top: 75px;
       margin-bottom: auto;
+
+      strong {
+        font-weight: bolder;
+      }
     }
   }
 
@@ -257,18 +265,18 @@ h1, h2, h3, h4 {
 }
 
 .tagline {
+  font-family: 'Raleway', sans-serif;
   font-size: 1.75em;
+  font-weight: lighter;
   color: $base-blue;
 }
 
 .home-mission-statement {
   width: 100%;
-
-
+  font-family: 'Raleway', sans-serif;
+  font-weight: lighter;
   position: absolute;
   bottom: 0;
-
-
   height: 225px;
   background-color: #002d5b;
   background: rgba(0, 45, 91, 0.5);
@@ -276,6 +284,10 @@ h1, h2, h3, h4 {
   text-align: center;
   font-size: 2.65em;
   padding-top: 50px;
+
+  strong {
+    font-weight: normal;
+  }
 }
 
 .footer-nav-region {

@@ -4,35 +4,37 @@
     %meta(charset="utf-8")
 
     %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
-    
+
     %meta{:name => "viewport", :content => "width=device-width"}
     - if current_user && request.get? # If it's a post, then no redirect
-      = refresh_meta_tag_conent    
+      = refresh_meta_tag_conent
     %meta{:name => "format-detection", :content => "telephone=yes"}
     %meta(name="apple-mobile-web-app-capable" content="yes")
-    
+
     %meta(name="HandheldFriendly" content="True")
     %meta(http-equiv="cleartype" content="on")
-    
+
     %meta(property="fb:app_id"               content="MyUSA")
     %meta(property="og:type"                 content="website")
-    %meta(property="og:url"                  content="http://my.usa.gov/") 
+    %meta(property="og:url"                  content="http://my.usa.gov/")
     %meta(property="og:image"                content="http://my.usa.gov/assets/apple-touch-icon-114x114-precomposed.png")
     %meta(property="og:title"                content="MyUSA")
     %meta(property="og:description"          content="A platform for connecting people and government")
-    
+
     %meta(name="apple-mobile-web-app-title" content="MyUSA")
 
     %title= content_for?(:title) ? yield(:title) : "MyUSA"
     = csrf_meta_tags
 
-    = stylesheet_link_tag "fonts", :media => "all" 
+    = stylesheet_link_tag "fonts", :media => "all"
     = stylesheet_link_tag "application", :media => "all"
     = stylesheet_link_tag "general_foundicons", :media => "all"
+
+    %link{:href=>'http://fonts.googleapis.com/css?family=Raleway:400,300,500,700', :rel=>'stylesheet', :type=>'text/css}
     /[if !IE 7]
       = stylesheet_link_tag "ie7", :media => "all"
-      
-    
+
+
     /[if lt IE 9]
       = stylesheet_link_tag "general_foundicons_ie7", :media => "all"
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
@@ -69,9 +71,9 @@
           = yield
         - unless current_user
           .no-toolbar
-          
+
       - if current_user
-        .discovery-bar  
+        .discovery-bar
           %ul.nav-bar
             %li.mygov
               = link_to 'MyUSA', root_path
@@ -85,7 +87,7 @@
             %li.right.sign-out= link_to "Sign out", sign_out_path
             %li.right.profile= link_to(current_user.profile.name || "Your profile", profile_path)
             %li.right.settings= link_to "Settings", settings_path
-          
+
       /
         Javascripts
         \==================================================

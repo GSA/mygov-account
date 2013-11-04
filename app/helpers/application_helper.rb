@@ -40,15 +40,15 @@ module ApplicationHelper
   end
 
   def refresh_meta_tag_conent
-    if @session_will_expire
-      tag('meta', :'http-equiv' => "refresh", :content => @wait_until_refresh)
+    if @session_to_expire_soon
+      tag('meta', :'http-equiv' => "refresh", :content => @wait_until_refresh) # If go to url and then go to login, doesn't have no_keep_alive.
     else
       tag('meta', :'http-equiv' => "refresh", :content => "#{@wait_until_refresh};#{url_for(params.merge(no_keep_alive: 1))}")
     end
   end
 
   def session_timeout_message
-    if @session_will_expire
+    if @session_to_expire_soon
       here = link_to(t('remain_logged_in'), url_for(params.reject{ |k,v| k == "no_keep_alive" }))
       content_tag :div, :class => "row" do
         content_tag :div, :class => "twelve columns" do

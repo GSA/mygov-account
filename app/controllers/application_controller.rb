@@ -11,20 +11,31 @@ class ApplicationController < ActionController::Base
     sign_in_path
   end
   
+  def after_sign_in_path_for(resource_or_scope)
+    session[:after_auth_return_to] || super(resource_or_scope)
+  end
+  
   protected
       
   def set_no_keep_alive
-    request.env["devise.skip_trackable"] = true if !params[:no_keep_alive].blank?
+    request.env["devise.skip_trackable"] = true unless params[:no_keep_alive].blank?
   end
 
   def set_session_will_expire
-    @warning_seconds = Rails.application.config.session_timeout_warning_seconds.seconds
-    @wait_until_refresh = User.timeout_in - @warning_seconds 
-    if current_user && !params[:no_keep_alive].blank?
-      last_request                = warden.session(:user)['last_request_at'].to_i
-      seconds_since_last_request  = [(Time.now.to_i - last_request).seconds, 0].max
-      @wait_until_refresh         = [User.timeout_in - seconds_since_last_request, 0].max
-      @session_will_expire        = true if @wait_until_refresh > 0 && (warden.session(:user)['last_request_at'] + current_user.timeout_in) <= @warning_seconds.from_now
+    # Devise.setup { |config| config.timeout_in = 20 }                # For testing
+    # Rails.application.config.session_timeout_warning_seconds = 10   # For testing
+    @warning_seconds    = Rails.application.config.session_timeout_warning_seconds.seconds # default number of seconds before timeout to display warning message
+    @wait_until_refresh = User.timeout_in - @warning_seconds # actual number of seconds to wait for refresh to display warning message
+    if current_user && params[:no_keep_alive].present?
+      last_request                = warden.session(:user)['last_request_at'] # date/time of last activity
+      seconds_since_last_request  = [(Time.now.to_i - last_request.to_i).seconds, 0].max
+      seconds_left_in_session     = [User.timeout_in - seconds_since_last_request, 0].max # recalculates number of seconds left in current session
+      @session_to_expire_soon     = true if seconds_left_in_session > 0 && (last_request + current_user.timeout_in - @warning_seconds) <= Time.now
+      if @session_to_expire_soon
+        @wait_until_refresh       = seconds_left_in_session + 1 # recalculates number of seconds left in current session
+      else
+        @wait_until_refresh       = [User.timeout_in + 1 - seconds_since_last_request - @warning_seconds, 1].max # recalculates number of seconds left until warning
+      end
     end
   end
 

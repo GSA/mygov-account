@@ -3,10 +3,12 @@ class AuthenticationsController < ApplicationController
   before_filter :assign_user
 
   def index
+    session[:after_auth_return_to] = authentications_path
     @authentications = @user.authentications
   end
   
   def new
+    
   end
   
   def show

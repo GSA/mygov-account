@@ -3,6 +3,9 @@
     %h2
       Authentication providers
     %p
+      - if flash.notice
+        .alert-box.blue
+          = flash.notice
       = link_to 'Add an authentication provider to your account', new_authentication_path
     %table
       %tr

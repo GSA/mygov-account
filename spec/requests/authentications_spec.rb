@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe "Authentications" do
   before do
-    create_confirmed_user_with_profile; login(@user)
+    create_confirmed_user_with_profile
+    login(@user)
   end
   
   describe "adding a new authentication" do
@@ -15,9 +16,11 @@ describe "Authentications" do
         click_link 'Authentication providers'
         click_link 'Add an authentication provider to your account'
         expect(page).to have_content 'Google'
+        visit user_omniauth_authorize_path(:provider => :google)
+        page.should have_content "Successfully authenticated from Google account"
+        current_path.should eq authentications_path        
       end
     end
-
   end
   
   describe "deleting an authentication" do

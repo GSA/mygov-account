@@ -53,11 +53,11 @@ class ApplicationController < ActionController::Base
   def set_response_headers
     headers['X-XRDS-Location'] = url_for(:action => 'xrds', :controller => 'home', :protocol => 'https', :only_path => false, :format => :xml)
   end
-  
+
   def forgot_password_link(text)
     view_context.link_to(text, new_user_password_path)
   end
-  
+
   def validate_email_devise
     email = resource_params[:email]
     if email.blank?

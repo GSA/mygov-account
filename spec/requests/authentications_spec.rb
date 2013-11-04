@@ -16,11 +16,13 @@ describe "Authentications" do
         click_link 'Authentication providers'
         click_link 'Add an authentication provider to your account'
         click_link 'Google'
+        expect(page).to have_content 'Google'
+        visit user_omniauth_authorize_path(:provider => :google)
         page.should have_content "Successfully authenticated from Google account"
-        current_path.should eq authentications_path        
+        current_path.should eq authentications_path
       end
     end
-    
+
     context "when another user has a google authentication with the same account" do
       before do
         @user.authentications.create(:provider => "google", :uid => '12345')
@@ -38,7 +40,7 @@ describe "Authentications" do
         click_link 'Add an authentication provider to your account'
         click_link 'Google'
         page.should have_content "This external account is already linked to another MyUSA account"
-        current_path.should eq authentications_path        
+        current_path.should eq authentications_path
       end
     end
   end
@@ -65,14 +67,14 @@ describe "Authentications" do
       end
     end
   end
-  
+
   describe "attempting to log in from Google" do
     context "when the user does not have a google authentication but has an account with the same email" do
       before do
         create_confirmed_user_with_profile(email: 'joe.citizen@gmail.com')
         logout
       end
-      
+
       it "provides a proper message explaining that the corresponding account doesn't allow Google authentication" do
         visit sign_in_path
         click_link 'Sign in with Google'

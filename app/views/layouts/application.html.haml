@@ -58,19 +58,13 @@
               .collapse.navbar-collapse.navbar-ex1-collapse
                 %ul.nav.navbar-nav.col-md-6
                   %li.active
-                    %a{:href=> dashboard_path}
-                      Dashboard
+                    = link_to "Dashboard", dashboard_path
                   %li
-                    %a{:href=>settings_path}
-                      Settings
+                    = link_to "Settings", settings_path
                   %li
-                    %a{:href=>'#'}
-                      Help
+                    = link_to "Help", help_path
                   %li
-                    %a{:href=>sign_out_path, :class=>'btn btn-default'}
-                      Logout
-
-
+                    = link_to "Logout", sign_out_path, class: 'btn btn-default'
 
             .col-md-12
               - if !current_user && request.path != sign_in_path

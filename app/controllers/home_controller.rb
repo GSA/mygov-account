@@ -39,4 +39,7 @@ class HomeController < ApplicationController
   def xrds
     response.content_type = "application/xrds+xml"
   end
+
+  def help
+  end
 end

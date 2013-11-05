@@ -352,6 +352,8 @@ GEM
     sexp_processor (4.3.0)
     shoulda-matchers (2.2.0)
       activesupport (>= 3.0.0)
+    simple-navigation (3.11.0)
+      activesupport (>= 2.3.2)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -465,6 +467,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   secure_headers
   shoulda-matchers
+  simple-navigation
   simplecov
   therubyracer (~> 0.11.1)
   thin

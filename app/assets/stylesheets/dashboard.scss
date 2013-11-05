@@ -11,3 +11,28 @@
 body {
   padding-top: 125px;
 }
+
+ol.inline {
+  li {
+    list-style: none;
+    padding: 5px;
+  }
+}
+
+ol.sign-in-panel {
+  border-right: 1px solid #ccc;
+}
+
+#sign-up-options {
+  ul {
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+}
+
+.actions {
+  margin-top: 25px;
+}

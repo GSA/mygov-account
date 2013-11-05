@@ -7,11 +7,9 @@
       %a.smoothScroll{:href => "#notifications"}
         Notifications
 
-      - if @user.notifications.not_viewed.count > 0
-        %span
-          = @user.notifications.not_viewed.count
-      - else
-        wassup!
+        - if @user.notifications.not_viewed.count > 0
+          %span.badge
+            = @user.notifications.not_viewed.count
 
   - if @uncompleted_tasks.any?
     %li

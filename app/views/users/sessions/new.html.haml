@@ -1,42 +1,48 @@
-- if flash.alert
-  - content_for :scripts do
-    = javascript_tag do
-      $('html,body').animate({scrollTop: $('.alert-box').offset().top},'slow');
+.col-md-12
+  %h2
+    Sign in
+  - if flash[:alert]
+    .alert.alert-danger
+      = flash[:alert]
+
 .row
-  .twelve.columns
-    %h2
-      Sign in
-.row
-  .eight.columns
-    .panel
-      = form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {novalidate: true}) do |f|
-        - if flash.alert
-          .alert-box
-            = flash.alert
-        %fieldset.plain
-          %ol.inline
-            %li
+  .col-md-7
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      %fieldset.plain
+        %ol.inline.sign-in-panel
+          %li.row
+            .col-md-2
               = f.label :email
+            .col-md-2
               = f.email_field :email
-            %li.no-margin
+          %li.no-margin.row
+            .col-md-2
               = f.label :password
+            .col-md-2
               = f.password_field :password, autocomplete: 'off'
-            - if devise_mapping.rememberable?
-              %li.full
+          - if devise_mapping.rememberable?
+            %li.row
+              .col-md-2
+              .col-md-6
                 = f.check_box :remember_me
                 = f.label :remember_me
-          - if devise_mapping.recoverable? && controller_name != 'passwords'
-            = link_to "Forgot your password?", new_password_path(resource_name)    
-        .actions      
-          = f.submit "Sign in", :class => 'large positive button'
-          - if devise_mapping.registerable? && controller_name != 'registrations'
-            = link_to "Sign up", new_registration_path(resource_name)
-    .four.columns
-  .four.columns
-    .panel.side-panel
-      = render "devise/shared/links"
-  .four.columns
-    .panel.tertiary
-      %h4
-        Help
-      = render "devise/shared/help"
+
+                - if devise_mapping.recoverable? && controller_name != 'passwords'
+                  %br
+                  = link_to "Forgot your password?", new_password_path(resource_name)
+
+                .actions
+                  = f.submit "Sign in", :class => 'btn btn-default'
+                  - if devise_mapping.registerable? && controller_name != 'registrations'
+                    or
+                    %strong
+                      = link_to "Sign up for a new account", new_registration_path(resource_name)
+
+  #sign-up-options.col-md-5
+    %h4
+      Other Sign in Options
+    = render "devise/shared/links"
+
+    %h4
+      Help
+    = render "devise/shared/help"

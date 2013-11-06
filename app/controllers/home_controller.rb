@@ -15,7 +15,7 @@ class HomeController < ApplicationController
     @today = Date.current
     @uncompleted_tasks = @user.tasks.uncompleted.order('created_at DESC')
     @notifications = @user.notifications
-    render 'dashboard_new'
+    render 'dashboard'
   end
 
   def developer

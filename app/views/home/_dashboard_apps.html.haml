@@ -1,22 +1,28 @@
-.panel.group{"data-magellan-destination" => "apps"}
-  %a{:name => "apps"}
-  %h3
-    %i{:class => "foundicon-website"}
-    Apps
-  %p
-    Apps are services that use your MyUSA Account to make interacting with government easier.
-  %h4
-    Here are some apps we're working on:
-  .row
-    .col-md-3
-      %h5
-        = link_to 'Change your name', "https://apps.my.usa.gov/change-your-name"
-      %p
-        An application that simplifies the confusing process of changing your name.
+%a{:name => "apps"}
 
-  .row
-    .col-md-12
-      %p
-        = link_to 'View all MyUSA Apps', apps_path
-      %p
-        = link_to 'Manage Your Connected Apps', apps_path
+%h3
+  %i{:class => "foundicon-website"}
+  Apps
+%p
+  Apps are services that use your MyUSA Account to make interacting with government easier.
+
+
+.panel.panel-default
+  .panel-heading
+    %h4
+      Here are some apps we're working on:
+
+  .panel-body
+    .row
+      .col-md-3
+        %h5
+          = link_to 'Change your name', "https://apps.my.usa.gov/change-your-name"
+        %p
+          An application that simplifies the confusing process of changing your name.
+
+    .row
+      .col-md-12
+        %p
+          = link_to 'View all MyUSA Apps', apps_path
+        %p
+          = link_to 'Manage Your Connected Apps', apps_path

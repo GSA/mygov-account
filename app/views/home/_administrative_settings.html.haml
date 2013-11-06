@@ -1,23 +1,16 @@
-.panel.tertiary
-  %ul.inline-list
-    %li
-      %a.smoothScroll{:href => "#top"}
-        %i{:class => "foundicon-up-arrow"}
-        Go to top
-    %li
-      = link_to terms_of_service_path do
-        Terms of service
-    %li
-      = link_to privacy_policy_path do
-        Privacy policy
-    %li
-      = link_to "http://bit.ly/mygovideascale" do
-        Give MyUSA feedback
-    %li
-      = link_to pra_path do
-        Paperwork Reduction Act Statement
-    %li
-      = link_to activity_log_path do
-        Account Activity
-    %li
-      = link_to "Delete", user_path, :method => :delete, :class => 'button positive'
+%ul.inline-list
+  %li
+    = link_to terms_of_service_path do
+      Terms of service
+  %li
+    = link_to privacy_policy_path do
+      Privacy policy
+  %li
+    = link_to "http://bit.ly/mygovideascale" do
+      Give MyUSA feedback
+  %li
+    = link_to pra_path do
+      Paperwork Reduction Act Statement
+  %li
+    = link_to activity_log_path do
+      Account Activity

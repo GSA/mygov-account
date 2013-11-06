@@ -1,35 +1,43 @@
-%h4
-  Recent Notifications
-- if @notifications.empty?
-  %p
-    You currently have no notifications.
-- else
-  %table
-    %tr
-      %th{:scope => "col"}
-        From
-      %th{:scope => "col"}
-        Subject
-      %th{:scope => "col"}
+.panel.panel-default
+  .panel-heading
 
-      %th{:scope => "col"}
-        Actions
-    - @notifications.each do |notification|
+    %h4
+      Recent Notifications
+
+  - if @notifications.empty?
+    .panel-body
+      %p
+        You currently have no notifications.
+  - else
+
+    %table.table
       %tr
-        - if notification.app
-          %td
-            = notification.app.name
-        - else
-          %td
-            MyUSA
-        %td
-          %i.general.foundicon-mail
-          = link_to notification.subject, notification_path(notification)
-        %td
-          = pretty_time(notification.received_at)
-        %td
-          = link_to notification_path(notification, :page => params[:page]), :method => :delete, :class => 'small alert button' do
-            %i{:class => 'foundicon-remove'}
-            Remove
+        %th{:scope => "col"}
+          From
+        %th{:scope => "col"}
+          Subject
+        %th{:scope => "col"}
 
-  = link_to 'See all my notifications',notifications_path
+        %th{:scope => "col"}
+          Actions
+      - @notifications.each do |notification|
+        %tr
+          - if notification.app
+            %td
+              = notification.app.name
+          - else
+            %td
+              MyUSA
+          %td
+            %i.general.foundicon-mail
+            = link_to notification.subject, notification_path(notification)
+          %td
+            = pretty_time(notification.received_at)
+          %td
+            = link_to notification_path(notification, :page => params[:page]), :method => :delete, :class => 'small alert button' do
+              %i{:class => 'foundicon-remove'}
+              Remove
+
+      %tr
+        %td{:colspan=>4}
+          = link_to 'See all my notifications',notifications_path

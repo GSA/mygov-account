@@ -49,7 +49,7 @@
                   = f.check_box :terms_of_service
                   I agree to the MyUSA #{link_to 'Terms of Service', terms_of_service_path} and #{link_to 'Privacy Policy', privacy_policy_path}
               %li
-                = recaptcha_tags
+                = recaptcha_tags display: {theme: 'clean'}
               %li= f.submit 'Sign up', :class => 'button positive'
                    
   .four.columns

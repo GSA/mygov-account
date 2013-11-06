@@ -1,16 +1,20 @@
-.navbar-brand h1 {
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-  text-indent: -5000px;
-  background-image: url('/assets/img-myusa-logo.gif');
-  width: 203px;
-  height: 57px;
+h1 {
+  color: #112137;
 }
 
-body { padding-top: 125px; }
+.navbar-brand {
+  padding: 0;
+  h1 {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+body { padding-top: 100px; }
 
 ol.inline {
+  padding: 0;
   li {
     list-style: none;
     padding: 5px;
@@ -51,6 +55,36 @@ a.thumbnail img {
   }
 }
 
+#header h1 {
+  text-shadow: 0 1px 0 rgba(255,255,255,0.9);
+  font-size: 2em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: -.05em;
+  display: block;
+  margin: 0;
+  text-align: center;
+  position: relative;
+  line-height: 1em;
+  padding: .65em 2em .5em 48px;
+  background: asset-url('logo.png', image) 0 50% no-repeat;
+}
+
+#header h1 span {font-weight: normal;}
+
+.navbar-default li {
+  a.btn-primary {
+    padding: 10px;
+    margin: 5px;
+    color: #fff;
+  }
+
+  a.btn-primary:hover {
+    color: #fff;
+    background-color: #357ebd;
+  }
+}
+
 #recent-activity {
-  margin-top: 100px;
+  margin-top: 90px;
 }

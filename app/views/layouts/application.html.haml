@@ -51,12 +51,16 @@
       %a{:name => "top"}
       .nav-container
         .row
-          .twelve.columns
+          .col-md-12
       .container
         = session_timeout_message
         = yield
-      - unless current_user
-        .no-toolbar
+
+        - if current_user
+          .row
+          .col-md-2
+          .col-md-10
+            = render :partial => 'home/administrative_settings'
 
     /
       Javascripts

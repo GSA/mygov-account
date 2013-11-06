@@ -4,7 +4,9 @@ class HomeController < ApplicationController
 
   def index
     if current_user
-      redirect_to :dashboard
+      @notice = flash.notice && current_user.profile.name ? "Hi #{current_user.profile.name}. #{flash.notice}" : flash.notice
+      redirect_to :dashboard, notice: @notice
+
     else
       @beta_signup = BetaSignup.new
       render :layout => 'signup'

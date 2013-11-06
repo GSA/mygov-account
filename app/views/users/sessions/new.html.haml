@@ -1,9 +1,13 @@
 .col-md-12
   %h2
     Sign in
-  - if flash[:alert]
+  - if flash.alert
     .alert.alert-danger
-      = flash[:alert]
+      = flash.alert
+
+  - if flash.notice
+    .alert.alert-success
+      = flash.notice
 
 .row
   .col-md-7
@@ -31,18 +35,14 @@
                   %br
                   = link_to "Forgot your password?", new_password_path(resource_name)
 
+
                 .actions
-                  = f.submit "Sign in", :class => 'btn btn-default'
+                  = f.submit "Sign in", :class => 'btn btn-primary'
                   - if devise_mapping.registerable? && controller_name != 'registrations'
                     or
                     %strong
                       = link_to "Sign up for a new account", new_registration_path(resource_name)
 
-  #sign-up-options.col-md-5
-    %h4
-      Other Sign in Options
-    = render "devise/shared/links"
+  = render 'shared/signup_options'
 
-    %h4
-      Help
-    = render "devise/shared/help"
+

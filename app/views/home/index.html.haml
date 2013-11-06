@@ -20,9 +20,10 @@
             - if flash.alert
               .alert-box
                 = flash.alert
+
             = form.label :email
             = form.email_field :email
             = form.submit 'Sign up', :class => 'large button positive '
-  
+
       %p.disclaimer
         %a.plain{:href => "http://presidential-innovation-fellows.github.com/mygov/about/"} Read more about MyUSA

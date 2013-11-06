@@ -2,14 +2,13 @@
   Dashboard
 
 %ul.nav.nav-pills.nav-stacked
-  - if @notifications.any?
-    %li
-      %a.smoothScroll{:href => "#notifications"}
-        Notifications
+  %li
+    %a.smoothScroll{:href => "#notifications"}
+      Notifications
 
-        - if @user.notifications.not_viewed.count > 0
-          %span.badge
-            = @user.notifications.not_viewed.count
+      - if @user.notifications.not_viewed.count > 0
+        %span.badge
+          = @user.notifications.not_viewed.count
 
   - if @uncompleted_tasks.any?
     %li

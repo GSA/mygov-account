@@ -1,35 +1,43 @@
-%h4
-  Recent Notifications
-- if @notifications.empty?
-  %p
-    You currently have no notifications.
-- else
-  %table
-    %tr
-      %th{:scope => "col"}
-        From
-      %th{:scope => "col"}
-        Subject
-      %th{:scope => "col"}
+.panel.panel-default
+  .panel-heading
 
-      %th{:scope => "col"}
-        Actions
-    - @notifications.each do |notification|
+    %h4
+      Recent Notifications
+
+  - if @notifications.empty?
+    .panel-body
+      %p
+        You currently have no notifications.
+  - else
+
+    %table.table
       %tr
-        - if notification.app
+        %th{:scope => "col"}
+          From
+        %th{:scope => "col"}
+          Subject
+        %th{:scope => "col"}
+          Date Received
+        %th{:scope => "col"}
+          Actions
+      - @notifications.each do |notification|
+        %tr
+          - if notification.app
+            %td
+              = notification.app.name
+          - else
+            %td
+              MyUSA
           %td
-            = notification.app.name
-        - else
+            %i.general.foundicon-mail
+            = link_to notification.subject, notification_path(notification)
           %td
-            MyUSA
-        %td
-          %i.general.foundicon-mail
-          = link_to notification.subject, notification_path(notification)
-        %td
-          = pretty_time(notification.received_at)
-        %td
-          = link_to notification_path(notification, :page => params[:page]), :method => :delete, :class => 'small alert button' do
-            %i{:class => 'foundicon-remove'}
-            Remove
+            = pretty_time(notification.received_at)
+          %td
+            = link_to notification_path(notification, :page => params[:page]), :method => :delete, :class => 'small alert button' do
+              %i{:class => 'foundicon-remove'}
+              Remove
 
-  = link_to 'See all my notifications',notifications_path
+      %tr
+        %td{:colspan=>4, :class=>"text-center"}
+          = link_to 'See all my notifications',notifications_path

@@ -12,17 +12,30 @@
     %h4
       Here are some apps we're working on:
 
-  .panel-body
+  #app-gallery.panel-body
     .row
-      .col-md-3
-        %h5
-          = link_to 'Change your name', "https://apps.my.usa.gov/change-your-name"
+      .col-md-4
+        %h4
+          = link_to 'Benefits.gov', "#"
+        %a{:href=>'#', :class=>'thumbnail'}
+          %img{:src=>"/assets/app-logo-benefits-gov.jpg", :alt=>"...", :class=>""}
         %p
-          An application that simplifies the confusing process of changing your name.
+          An application description will go here. An application description will go here.
+        %p
+          = link_to "Read more", "#"
 
-    .row
-      .col-md-12
         %p
-          = link_to 'View all MyUSA Apps', apps_path
+          = link_to "Deactivate this app", "#"
+
+      .col-md-4
+        %h4
+          = link_to 'Business USA', "#"
+        %a{:href=>'#', :class=>'thumbnail'}
+          %img{:src=>'/assets/app-logo-mybizusa-gov.jpg', :alt=>"...", :class=>""}
         %p
-          = link_to 'Manage Your Connected Apps', apps_path
+          An application description will go here.
+        %p
+          = link_to "Read more", "#"
+
+        %p
+          = link_to "Activate this app", "#"

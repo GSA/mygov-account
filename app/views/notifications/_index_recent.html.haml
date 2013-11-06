@@ -17,7 +17,7 @@
         %th{:scope => "col"}
           Subject
         %th{:scope => "col"}
-
+          Date Received
         %th{:scope => "col"}
           Actions
       - @notifications.each do |notification|
@@ -39,5 +39,5 @@
               Remove
 
       %tr
-        %td{:colspan=>4}
+        %td{:colspan=>4, :class=>"text-center"}
           = link_to 'See all my notifications',notifications_path

@@ -1,28 +1,20 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_filter :verify_authenticity_token
-  
+
   def google
     callback('google')
   end
-  
+
   def paypal
     callback('paypal')
   end
-  
+
   def verisign
     callback('verisign')
   end
-  
-  def ficamidp
-    callback('ficamidp')
-  end
-  
-  def testid
-    callback('testid')
-  end
-  
+
   private
-  
+
   def callback(provider_name)
     @user = User.find_for_open_id(request.env["omniauth.auth"], current_user)
     if @user.persisted?

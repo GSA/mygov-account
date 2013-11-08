@@ -327,7 +327,7 @@ describe "Users" do
     it "changes the user's password and sends notification and confirmation emails" do
       visit sign_in_path
       click_link "Forgot your password?"
-      fill_in 'Email', :with => 'joe@citizen.org'
+      fill_in 'user_email', :with => 'joe@citizen.org'
       click_button "Email password reset instructions"
 
       expect(ActionMailer::Base.deliveries.last.subject).to eq('Reset password instructions')
@@ -352,24 +352,24 @@ describe "Users" do
       visit sign_in_path
       fill_in 'user_email', with: 'joe@citizen.org'
       click_button "Sign in"
-      alert_message = find('div.alert-box').text.squish
+      alert_message = find('div.alert-danger').text.squish
 
       fill_in 'user_email', with: 'joe_schmoe@citizen.org'
       click_button "Sign in"
 
-      expect(find('div.alert-box').text.squish).to eq alert_message
+      expect(find('div.alert-danger').text.squish).to eq alert_message
     end
 
     it "yields the same message irregardless of the email's existence in the db when submitting to the password reset form" do
       visit new_user_password_path
       fill_in 'user_email', with: 'joe@citizen.org'
       click_button "Email password reset instructions"
-      alert_message = find('div.alert-box').text.squish
+      alert_message = find('div.alert-info').text.squish
 
       fill_in 'user_email', with: 'joe_schmoe@citizen.org'
       click_button "Email password reset instructions"
 
-      expect(find('div.alert-box').text.squish).to eq alert_message
+      expect(find('div.alert-info').text.squish).to eq alert_message
     end
 
     it "yields the same message irregardless of the email's existence in the db when submitting to the confirmation instructions form" do

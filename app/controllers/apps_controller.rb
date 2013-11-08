@@ -1,10 +1,10 @@
 class AppsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show, :leaving]
   before_filter :assign_user
-  before_filter :assign_app, :only => [:show, :edit, :update, :uninstall, :leaving]
+  before_filter :assign_app, :only => [:show, :edit, :destroy, :update, :uninstall, :leaving]
   before_filter :assign_user_installed_apps, :only => [:index, :show]
-  before_filter :assign_oauth_scopes, :only => [:new, :create, :edit, :update]
-  before_filter :verify_app_owner, :only =>  [:edit, :update]
+  before_filter :assign_oauth_scopes, :only => [:new, :create, :edit, :destroy, :update]
+  before_filter :verify_app_owner, :only =>  [:edit, :update, :destroy]
   before_filter :verify_public_or_is_owner, :only => [:show]
 
   def index
@@ -61,6 +61,22 @@ class AppsController < ApplicationController
   end
   
   def leaving
+  end
+
+  def destroy
+    unless @app
+      redirect_to apps_path(:page => params[:page]), notice: "App could not be found."
+      return
+    end
+    
+    unless @app.can_delete?
+      redirect_to app_path(@app), notice: "App cannot be deleted."
+      return
+    end
+    
+    @app.destroy
+    flash[:notice] = "The app has been deleted."
+    redirect_to apps_path(:page => params[:page])
   end
   
   private

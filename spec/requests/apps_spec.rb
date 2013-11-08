@@ -196,6 +196,49 @@ describe "Apps" do
           end
         end
       end
+      
+      context "for an owner-user" do
+        context "app can be deleted (not public and no logs)" do
+          it "should allow a user to delete an app" do
+            visit apps_path
+            page.should have_content @sandboxed_app1.name
+            visit app_path @sandboxed_app1
+            click_link 'Edit app information'
+            click_link "Remove"
+            #verify url is /apps
+            visit apps_path
+            page.should have_no_content @sandboxed_app1.name
+          end
+        end
+        
+        context "app can be deleted and matches another deleted app" do
+          before do
+            @app1.destroy
+            @app1 = @user.apps.create(name: 'Public App 1', :url => 'http://www.agency.gov/app1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")
+            @app1.is_public = true
+            @app1.save!
+          end
+          
+          it "should allow a user to delete an app" do
+            visit apps_path
+            page.should have_content @sandboxed_app1.name
+            visit app_path @sandboxed_app1
+            click_link 'Edit app information'
+            click_link "Remove"
+            #verify url is /apps
+            visit apps_path
+            page.should have_no_content @sandboxed_app1.name
+          end
+        end
+        
+        context "app cannot be deleted (is public)" do
+          it "should not allow a user to delete an app" do
+            visit app_path @app1
+            click_link 'Edit app information'
+            page.should have_no_link 'Remove'
+          end
+        end
+      end
     end
   end
 end

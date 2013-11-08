@@ -8,3 +8,8 @@
       = render :partial => "form", :locals => {:f => f}
       = f.submit 'Update your MyUSA App', :class => 'button positive'
       = link_to 'Cancel', app_path(@app)
+      &nbsp;&nbsp;
+      - if @app.can_delete?
+        = link_to app_path(@app), :method => :delete, :data => { :confirm => 'This cannot be undone.' }, :class => '' do
+          %i{:class => 'foundicon-remove'}
+          Remove 

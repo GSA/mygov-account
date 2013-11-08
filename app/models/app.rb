@@ -9,7 +9,7 @@ class App < ActiveRecord::Base
 
   validates_presence_of :name, :slug, :redirect_uri
   validates_inclusion_of :is_public, :in => [true, false]
-  validates_uniqueness_of :slug
+  validates_uniqueness_of :slug, :scope => :deleted_at
 
   before_validation :generate_slug
   after_create :create_oauth2_client
@@ -20,6 +20,17 @@ class App < ActiveRecord::Base
   attr_accessible :user, :user_id, :is_public, :as => :admin
 
   has_attached_file :logo, :styles => { :medium => "300x300>", :thumb => "200x200>" }, :default_url => '/assets/app-icon.png'
+  
+  default_scope where(:deleted_at => nil)
+  
+  def self.deleted
+    self.unscoped.where('deleted_at IS NOT NULL')
+  end
+  
+  # Apps can only be deleted if they are not public and they do not have activity
+  def can_delete?
+    !self.is_public? && self.app_activity_logs.blank?
+  end
   
   class << self
     

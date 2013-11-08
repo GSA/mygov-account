@@ -41,16 +41,18 @@ module ApplicationHelper
 
   def refresh_meta_tag_conent
     if @session_to_expire_soon
-      tag('meta', :'http-equiv' => "refresh", :content => @wait_until_refresh) # If go to url and then go to login, doesn't have no_keep_alive.
+      tag('meta', :'http-equiv' => "refresh", :content => @wait_until_refresh, :id => 'meta-refresh') # If go to url and then go to login, doesn't have no_keep_alive.
     else
-      tag('meta', :'http-equiv' => "refresh", :content => "#{@wait_until_refresh};#{url_for(params.merge(no_keep_alive: 1))}")
+      tag('meta', :'http-equiv' => "refresh", :content => "#{@wait_until_refresh};#{url_for(params.merge(no_keep_alive: 1))}", :id => 'meta-refresh')
     end
   end
 
-  def session_timeout_message
+  def session_about_to_timeout_message
+    puts "AAAA"
     if @session_to_expire_soon
+      puts "BBBB"
       here = link_to(t('remain_logged_in'), url_for(params.reject{ |k,v| k == "no_keep_alive" }))
-      content_tag :div, :class => "row" do
+      content_tag :div, :id => 'inactivity_warning', :style=>"display:inline;", :class => "row" do
         content_tag :div, :class => "twelve columns" do
           content_tag :div, :class => "alert-box blue" do
             content_tag('div', t('session_expiration_warning', link: here.html_safe, time: pluralize(Rails.application.config.session_timeout_warning_seconds, 'second')).html_safe) + "\n" +
@@ -60,6 +62,21 @@ module ApplicationHelper
       end
     end
   end
+
+  def session_timeout_message
+    #if @session_to_expire_soon
+      here = link_to(t('remain_logged_in'), url_for(params.reject{ |k,v| k == "no_keep_alive" }))
+      content_tag :div, :id => 'inactivity_warning', :style=>"display:inline;", :class => "row" do
+        content_tag :div, :class => "twelve columns" do
+          content_tag :div, :class => "alert-box blue" do
+            content_tag('div', t('custom_session_timeout', link: here.html_safe, time: pluralize(Rails.application.config.session_timeout_warning_seconds, 'second')).html_safe) + "\n" +
+            link_to("&times;".html_safe, nil, class: 'close')
+          end.html_safe
+        end
+      end
+    #end
+  end
+
 
   def suffix_options
     ["Jr.","Sr.","II","III","IV"]

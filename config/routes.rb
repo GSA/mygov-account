@@ -1,18 +1,23 @@
 require 'api_constraints'
 
 Mygov::Application.routes.draw do
+
   devise_for :users, :path => '', :controllers => {
     :omniauth_callbacks => "users/omniauth_callbacks",
     :registrations => 'users/registrations',
     :confirmations => 'users/confirmations',
     :sessions => 'users/sessions',
     :unlocks => 'users/unlocks'
+    
   }
   devise_scope :user do
-    get 'sign_up', :to => 'users/registrations#new', :as => :sign_up
+    get 'sign_up',   :to => 'users/registrations#new', :as => :sign_up
     get 'thank_you', :to => 'users/registrations#thank_you', :as => :thank_you
-    get 'sign_in', :to => 'users/sessions#new', :as => :sign_in
-    get 'sign_out', :to => 'users/sessions#destroy', :as => :sign_out
+    get 'login',     :to => 'users/sessions#new', :as => :sign_in
+    get 'sign_in',   :to => 'users/sessions#new', :as => :sign_in
+    get 'sign_out',  :to => 'users/sessions#destroy', :as => :sign_out
+    get 'active'  => 'users/sessions#active',  via: :get
+    get 'timeout' => 'users/sessions#timeout', via: :get
   end
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'

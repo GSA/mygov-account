@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  #Add protected before_timedout action
+  before_timedout_action
   ensure_security_headers
   skip_before_filter :set_csp_header
   protect_from_forgery
@@ -6,7 +8,11 @@ class ApplicationController < ActionController::Base
   before_filter :set_segment
   before_filter :set_session_will_expire
   after_filter :set_response_headers
+
+
   
+  auto_session_timeout User.timeout_in.seconds
+
   def after_sign_out_path_for(resource_or_scope)
     sign_in_path
   end

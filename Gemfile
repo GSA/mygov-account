@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.14'
 gem 'mysql2'
-gem 'jquery-rails'
+gem "jquery-rails", "~> 2.3.0"
 gem 'json', '~> 1.8.0'
 gem 'haml'
 gem 'devise'
@@ -27,7 +27,7 @@ gem 'rb-readline', '~> 0.4.2'
 gem 'omniauth-openid', :git => 'https://github.com/GSA-OCSIT/omniauth-openid.git', :branch => 'pape'
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'secure_headers'
-
+gem 'auto-session-timeout-warning'
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA-OCSIT/rack-openid.git', :branch => 'pape'
 end

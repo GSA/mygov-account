@@ -68,11 +68,6 @@ describe "HomePage" do
         page.should have_content 'Joe Citizen'
       end
 
-      it "should provide a link to the app gallery" do
-        visit root_path
-        page.should have_link "Apps", :href => apps_path
-      end
-
       context "the user does not have a profile name" do
         before {@user.profile.update_attributes(:name=>nil)}
 
@@ -140,20 +135,6 @@ describe "HomePage" do
             visit root_path
             page.should have_content "_gaq.push(['_setCustomVar',1,'Segment','A', 2]);"
           end
-        end
-      end
-
-      context "when deleting their account" do
-        before {@mail_size = ActionMailer::Base.deliveries.size}
-
-        it "should log out the user and destroy the account" do
-          visit root_path
-          click_link "Delete"
-          page.should have_content "Your MyUSA account has been deleted"
-          page.should have_content "Sign up"
-          User.find_by_email('joe@citizen.org').should be_nil
-          ActionMailer::Base.deliveries.size.should == @mail_size + 1
-          ActionMailer::Base.deliveries.last.subject.should == "Your MyUSA account has been deleted"
         end
       end
     end

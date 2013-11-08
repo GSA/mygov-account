@@ -37,7 +37,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       else
         flash[:alert] = "An unexpected error has occured; please try to sign up again."
       end
-      redirect_to new_user_registration_url
+      omniauth_params = env["omniauth.params"]
+      redirect_to (omniauth_params && omniauth_params["error_return_to"]) || new_user_registration_url
     end
   end
 end

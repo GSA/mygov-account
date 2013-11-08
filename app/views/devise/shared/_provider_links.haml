@@ -3,4 +3,4 @@
     - resource_class.omniauth_providers.each do |provider|
       - unless [:maxgov].include?(provider)
         %li
-          = link_to "Sign #{in_or_up} with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider)
+          = link_to "Sign #{in_or_up} with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider, :error_return_to => sign_in_url)

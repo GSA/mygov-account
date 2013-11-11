@@ -19,7 +19,13 @@ Mygov::Application.routes.draw do
   post 'oauth/allow' => 'oauth#allow'
   get 'oauth/unknown_app' => 'oauth#unknown_app', :as => :unknown_app
   resources :beta_signups, :only => [:create]
-  resource :user, :only => [:destroy]
+  #resource :user, :only => [:destroy]
+  resource :user, only: [:edit, :destroy] do
+    collection do
+      get 'edit_password'
+      put 'update_password'
+    end
+  end
   resources :settings, :only => [:index] do
     collection do
       resources :authentications

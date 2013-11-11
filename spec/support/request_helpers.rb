@@ -29,6 +29,10 @@ def create_confirmed_user_with_profile(email_or_hash = {})
   @user
 end
 
+def get_random_password
+  (0...9).map { (65 + rand(26)).chr }.join + 'a' + '1'
+end
+
 def create_approved_beta_signup(email_or_hash)
   email_or_hash = {email: email_or_hash} unless email_or_hash.kind_of? Hash
   beta_signup = BetaSignup.new(email_or_hash)

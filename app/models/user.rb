@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   validates_presence_of :uid
   validates_uniqueness_of :uid
   validate :validate_password_strength
+  validates_email_format_of :email, {:allow_blank => true}
 
   before_validation :generate_uid
   after_create :create_profile

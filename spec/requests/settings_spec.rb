@@ -42,6 +42,16 @@ describe "SettingsPage" do
         expect(email.body).not_to include('joe@citizen.org')
       end
 
+      it "should not allow the user change their email address to an invalid value" do
+        visit edit_user_registration_path(@user)
+        fill_in('Email', :with => 'chaudet, roy@epa.gov')
+        fill_in('Current password', :with => 'Password1')
+        click_button('Update')
+        # Change the rest of this to the invalid message
+        expect(page).to have_no_content('You updated your account successfully, but we need to verify your new email address.')
+        page.should have_content('Email does not appear to be valid')
+      end
+
       context "when the user changes their email address" do
         it "should change their beta invite address once they have confirmed the new one" do
           visit edit_user_registration_path(@user)

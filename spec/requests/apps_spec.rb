@@ -205,8 +205,7 @@ describe "Apps" do
             visit app_path @sandboxed_app1
             click_link 'Edit app information'
             click_link "Remove"
-            #verify url is /apps
-            visit apps_path
+            current_path.should eq apps_path
             page.should have_no_content @sandboxed_app1.name
           end
         end
@@ -225,8 +224,7 @@ describe "Apps" do
             visit app_path @sandboxed_app1
             click_link 'Edit app information'
             click_link "Remove"
-            #verify url is /apps
-            visit apps_path
+            current_path.should eq apps_path
             page.should have_no_content @sandboxed_app1.name
           end
         end

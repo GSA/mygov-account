@@ -60,7 +60,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem "zeus-parallel_tests"
   gem "factory_girl_rails", "~> 4.0"
-  gem "turnip"
+  gem 'turnip'
 end
 
 group :development do

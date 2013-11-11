@@ -1,5 +1,4 @@
 source 'http://rubygems.org'
-gem 'strong_parameters'
 gem 'rails', '3.2.14'
 gem 'mysql2'
 gem 'jquery-rails'

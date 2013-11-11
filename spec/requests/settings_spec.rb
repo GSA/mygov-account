@@ -19,20 +19,22 @@ describe "SettingsPage" do
       before {login(@user)}
 
       it "should allow password change" do
-        # visit settings_path(@user)
-        # click_link 'Change your password'
-        # fill_in('user_password', :with => 'asdf')      # Fill in with invalid input to test validation
-        # click_button('Change my password')
-        # page.should have_content("Password doesn't match confirmation")
-        # fill_in('user_password', :with => 'Password2') # Use valid password, different from create_confirmed_user pasword
-        # fill_in('user_password_confirmation', :with => 'Password2')
-        # click_button('Change my password')
-        # page.should have_content("Your password was sucessfully updated.")
-        # click_link 'Sign out'                           # Sign out and sign back in
-        # fill_in 'Email', :with => 'joe@citizen.org'
-        # fill_in 'Password', :with => 'Password2'
-        # click_button 'Sign in'
-        # current_path.should match('dashboard')
+        visit settings_path(@user)
+        click_link 'Change your password'
+        fill_in('user_password', :with => 'asdf')      # Fill in with invalid input to test validation
+        click_button('Change my password')
+        page.should have_content("Password doesn't match confirmation")
+        new_password = get_random_password
+        puts new_password
+        fill_in('user_password', :with => new_password) # Use valid password, different from create_confirmed_user pasword
+        fill_in('user_password_confirmation', :with => new_password)
+        click_button('Change my password')
+        page.should have_content("Your password was sucessfully updated.")
+        click_link 'Sign out'                           # Sign out and sign back in
+        fill_in 'Email', :with => 'joe@citizen.org'
+        fill_in 'Password', :with => new_password
+        click_button 'Sign in'
+        current_path.should match('dashboard')
 
       end
 

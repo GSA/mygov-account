@@ -17,7 +17,8 @@ class UsersController < ApplicationController
 
   def update_password
     @user = User.find(current_user.id)
-    if @user.update_attributes(user_params)
+    new_params =  {password: params[:user][:password], password_confirmation: params[:user][:password_confirmation]}
+    if @user.update_attributes(new_params)
       # Sign in the user by passing validation in case his password changed
       sign_in @user, :bypass => true
       flash[:notice] = "Your password was sucessfully updated."
@@ -27,14 +28,4 @@ class UsersController < ApplicationController
       render 'edit_password'
     end
   end
-  
-  private
-
-  def user_params
-    # NOTE: Using `strong_parameters` gem
-    params.required(:user).permit(:password, :password_confirmation)
-  end
-
-
-
 end

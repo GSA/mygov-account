@@ -172,7 +172,7 @@ p.small-pitch {
 }
 
 
-/* AMBER WAVES
+/* FEATURES
  * ------------------------------------------------ */
 
 .features-region {
@@ -187,13 +187,20 @@ p.small-pitch {
   }
   .col-md-4 {
     text-align: center;
-    xpadding: 250px 30px 0 30px;
+    padding-right: 55px;
+    padding-left: 55px;
+    h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 500;
+    }
+    p {
+    line-height: 1.5em;
+    }
   }
   img {
     padding-top: 20px;
-    width: 75px;
-    float: left;
-    margin-right: 18px;
+    height: 180px;
   }
 } 
 
@@ -319,33 +326,6 @@ p.tagline-highlight {
   }
 }
 
-@media screen and (min-width: 992px) {
-
-  .features-region {
-    .left {
-      min-height: 203px;
-      background-image: url('/assets/icon_govt_your_way.png');
-      background-repeat: no-repeat;
-      background-size: 203px 203px;
-      background-position: center;
-    }
-    .middle {
-      min-height: 203px;
-      background-image: url('/assets/icon_login_myusa.png');
-      background-repeat: no-repeat;
-      background-size: 178px 202px;
-      background-position: center;
-    }
-    .right {
-      min-height: 203px;
-      background-image: url('/assets/icon_no_paper_forms.png');
-      background-repeat: no-repeat;
-      background-size: 232px 203px;
-      background-position: center;
-    }
-  }
-}
-
 /* Tablets */
 @media screen and (min-width: 767px) and (max-width: 992px) {
   #elevator-pitch {
@@ -359,6 +339,34 @@ p.tagline-highlight {
         width: 320px;
       }
     }
+.features-region {
+  padding-bottom: 15px;
+  padding-top: 10px;
+  .col-md-12 h2 {
+    margin-bottom: 15px;
+  }
+  .col-md-4 {
+    height: 150px;
+    h3 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    }
+    p {
+    line-height: 1.5em;
+    font-size: 1.3em;
+    }
+  }
+  img {
+    float: left;
+    padding-top: 20px;
+    padding-right: 20px;
+    height: 110px;
+  }
+  .tabScreenFix {
+    float:right;
+    width: 460px;
+  }
+} 
   p.footer-info {
     clear: both;
   }

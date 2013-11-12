@@ -3,7 +3,7 @@
   %head(prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#")
     %meta(charset="utf-8")
     %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
-    %meta(name="viewport" content="width=device-width, user-scalable=yes")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes")
     %meta(name="format-detection" content="telephone=yes")
     %meta(name="HandheldFriendly" content="True")
     %meta(http-equiv="cleartype" content="on")
@@ -39,36 +39,40 @@
 
 
     #navigation-region
-      %nav.navbar.navbar-default{role: "navigation"}
-        / Brand and toggle get grouped for better mobile display
-        .navbar-header
-          .navbar-brand
-            %h1
-              MyUSA
-            .tagline
-              Re-imagining online government
-
-        / Collect the nav links, forms, and other content for toggling
-        %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", type: "button"}
-          %span.sr-only Toggle navigation
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
-
-        .collapse.navbar-collapse.navbar-ex1-collapse
-          .navbar-right
-            Already have an account?
-            %a{:href=>'#', :class=>'btn btn-primary'} Log In
-
-            %ul.nav.navbar-nav
-              %li
-                %a{href: "#"} What's MyUSA?
-              %li
-                %a{href: "#"} Get an Account
-              %li
-                %a{href: "#"} Build with MyUSA
-
-        / /.navbar-collapse
+      .container
+        .row
+          %nav.navbar.navbar-default{role: "navigation"}
+            / Brand and toggle get grouped for better mobile display
+            .navbar-header
+              .navbar-brand
+                %img{:src => "/assets/shield.gif"}
+                %h1
+                  <span>My</span>USA
+                -#.tagline
+                  Re-imagining online government
+    
+            / Collect the nav links, forms, and other content for toggling
+            %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", type: "button"}
+              %span.sr-only Toggle navigation
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+    
+            .collapse.navbar-collapse.navbar-ex1-collapse
+              .navbar-right
+                <p> Already have an account?
+                %a{:href=>'#', :class=>'btn btn-primary'} Log In
+                </p>
+    
+                %ul.nav.navbar-nav
+                  %li
+                    %a{href: "#"} What's MyUSA?
+                  %li
+                    %a{href: "#"} Get an Account
+                  %li
+                    %a{href: "#"} Build with MyUSA
+    
+            / /.navbar-collapse
 
 
     .banner-region.row

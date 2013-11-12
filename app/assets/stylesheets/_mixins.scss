@@ -1,0 +1,34 @@
+/**
+Mixins and functions for USA.gov SCSS
+ */
+
+/*Many thanks to http://sachagreif.com/useful-sass-mixins/*/
+
+/* opacity for black and white */
+/* USE
+.my-class{
+    background:black(0.15);
+    color:white(0.9);
+}
+*/
+@function black($opacity){
+    @return rgba(0,0,0,$opacity)
+}
+@function white($opacity){
+    @return rgba(255,255,255,$opacity)
+}
+
+/* hide text offscreen */
+/* USE
+.logo{
+    background: url("logo.png");
+    height:100px;
+    width:200px;
+    @include hide-text;
+}
+*/
+@mixin hide-text{
+    overflow:hidden;
+    text-indent:-9000px;
+    display:block;
+}

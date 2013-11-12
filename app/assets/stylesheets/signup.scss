@@ -204,107 +204,77 @@ p.small-pitch {
   }
 } 
 
-
-
-
-
-#floater-left, #floater-right {
-    height: 100px;
-    float: left;
-  }
-
-
-.account-links {
-  margin-top: 8px;
-  display: inline-block;
-
-  a {
-    color: #fff;
-  }
-}
-
-#section-links {
-  display: inline-block;
-}
-
-
-
-
-
-
+/* GET INVOLVED
+ * ------------------------------------------------ */
 
 .get-involved-region {
   width: 100%;
-  padding-left: 100px;
-
+  background-color: $white;
+  height: 500px;
   a {
     display: inline-block;
     background-color: $maroon;
-    color: #fff;
+    color: $white;
     padding: 5px 8px;
     margin: 0 20px 10px 0;
     text-decoration: none;
     font-weight: bold;
   }
-
   h2 {
     margin-top: 75px;
+    font-weight: 800;
+    color: $shieldBottom;
   }
-
-  .left {
-    widht: 100%;
+  h3 {
+    font-weight: 500;
   }
-
-  background-color: #fff;
-
-  .right {
-    background-image: url('/assets/home-bg-media-screens.jpg');
+  p {
+    font-size: 1.1em;
+    line-height: 1.5em;
+  }
+  .right { /* this will need to be adjusted, but since we don't know what img we're putting here yet, waiting. */
+    /*background-image: url('/assets/home-bg-media-screens.jpg');
     background-repeat: no-repeat;
-    background-position: right top;
-    min-height: 406px;
-    background-size: 100%;
+    background-position: right top;*/
+    height: 406px;
+    position: absolute;
+    right: 0;
+   /* background-size: 100%;*/
   }
-
 }
 
-.login-link a {
-  color: #fff;
-}
+
+/* FOOTER
+ * ------------------------------------------------ */
 
 .footer-info {
   font-size: 1.25em;
 }
 
-.tagline {
-  font-family: 'Raleway', sans-serif;
-  font-size: 1.75em;
-  font-weight: lighter;
-  color: $base-blue;
-}
-
-
-
 .footer-nav-region {
   font-size: 0.9em;
   width: 100%;
   padding: 50px 100px 100px 100px;
-
+  color: $white;
+  background-color: #122337;
+  border-top: 6px solid $red;
   h4 {
-    font-size: 1.0em;
+    font-size: 1em;
     margin-bottom: 0.35em;
   }
-
   a, h4 {
-    color: #fff;
+    color: $white;
   }
-
   p {
     line-height: 1.5em;
   }
+}
 
-  color: #fff;
-  background-color: #122337;
-  border-top: 6px solid #9a3430;
+.tagline {
+  font-family: $headingFamily;
+  font-size: 1.75em;
+  font-weight: 200;
+  color: $base-blue;
 }
 
 p.tagline-highlight {
@@ -314,13 +284,14 @@ p.tagline-highlight {
   background-color: $bgblue;
 }
 
-/******
-* Responsive
-******/
-@media screen and (min-width: 768px) {
 
+
+/* RESPONSIVE
+ * ------------------------------------------------ */
+
+@media screen and (min-width: 768px) {
   .get-involved-region {
-    .left, .right {
+    .right {
       width: 50%;
     }
   }
@@ -374,7 +345,7 @@ p.tagline-highlight {
 
 /* Phones */
 @media screen and (max-width: 768px) {
-  .brand {
+  .brand { /* none of this nav on phone part has been checked yet */
     margin-left: none;
     width: 100%;
     display: block;
@@ -382,6 +353,13 @@ p.tagline-highlight {
   }
   .navbar-brand .tagline {
     font-size: 1.25em;
+  }
+.navbar-right {
+    text-align: left;
+    margin-left: 10px;
+  }
+  .navbar-brand {
+    padding-left: 10px;
   }
 
   #elevator-pitch {
@@ -400,49 +378,13 @@ p.tagline-highlight {
         width: 370px;
       }
     }
-
-  .banner-region {
-    .left {
-      display: none;
-    }
-
-    .right {
-      width: 100%;
-      #signup-form {
-        width: 100%;
-      }
-    }
-  }
   .home-mission-statement {
-    font-size: 1.30em;
+    font-size: 2em;
   }
-
   .get-involved-region, .footer-nav-region {
     padding: 0 25px;
   }
-
-  .features-region {
-    .col-md-4, .col-md-12 {
-      padding-left: 25px;
-
-    }
+  p.footer-info {
+    clear: both;
   }
-
-  p.small-pitch {
-    font-size: 1.15em;
-    font-weight: bold;
-    display: block;
-  }
-
-  .navbar-right {
-    text-align: left;
-    margin-left: 10px;
-  }
-
-  .navbar-brand {
-    padding-left: 10px;
-  }
-
 }
-
-

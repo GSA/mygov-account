@@ -11,10 +11,6 @@ Main SCSS for USA.gov
 
 /* GLOBAL
  * ------------------------------------------------ */
-p.small-pitch {
-  display: none;
-}
-
 h1, h2, h3, h4 {
   font-family: $headingFamily;
   line-height: normal;
@@ -72,6 +68,8 @@ p, a {
 .navbar-right {
   text-align: right;
   padding-top: 20px;
+  span {
+  }
   a {
   margin: 7px 0;
   padding-right: 10px;
@@ -80,7 +78,7 @@ p, a {
   font-weight: 600;
   margin-left: 10px;
   }
-  p a.btn.btn-primary { /* NOTE: hove is not working yet. Lame. */
+  p a.btn.btn-primary { /* NOTE: hover is not working yet. Lame. */
   &:hover, &:focus, &:active {
     background-color: $shieldBottom;
     }
@@ -99,8 +97,114 @@ p, a {
 }
 
 
+/* AMBER WAVES
+ * ------------------------------------------------ */
+
+.banner-region {
+  max-width: 100%;
+  background-image: url('/assets/amberWaves.jpg');
+  background-repeat: no-repeat;
+  height: 590px;
+}
+#elevator-pitch {
+      font-family: $headingFamily;
+      font-weight: lighter;
+      display: inline-block;
+      text-align: left;
+      height: 366px;
+      padding-top: 13%;
+      padding-left: 20%;
+      margin-bottom: auto;
+      font-size: $fontBig;
+      color: $white;
+      strong {
+        font-weight: bolder;
+      }
+    }
+#signup-form {
+      display: table-cell;
+      padding-top: 17%;
+      padding-left: 10%;
+      height: 366px;
+      p {
+        color: $white;
+        margin-top: 10px;
+        font-size: 1.2em;
+      }
+      .btn, input {
+        width: 350px;
+      }
+      .btn {
+        font-size: 1.15em;
+        font-weight: bold;
+        background-color: #a95248;
+        border-bottom: 4px solid $red;
+        color: $white;
+      }
+      input {
+        display: inline-block;
+        font-weight: normal;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: 2px solid #000;
+        height: 40px;
+      }
+    }
+p.small-pitch {
+  display: none;
+}
+.home-mission-statement {
+  width: 100%;
+  font-family: $headingFamily;
+  font-weight: lighter;
+  bottom: 0;
+  height: 225px;
+  background-color: $shieldBottom;
+  background: rgba(0, 45, 91, 0.8);
+  color: $white;
+  text-align: center;
+  font-size: $fontBig;
+  padding-top: 50px;
+  strong {
+    font-weight: normal;
+  }
+}
 
 
+/* AMBER WAVES
+ * ------------------------------------------------ */
+
+.features-region {
+  width: 100%;
+  display: block;
+  background-color: #f2f2f2;
+  padding-bottom: 75px;
+  padding-top: 40px;
+  .col-md-12 h2 {
+    font-weight: 800;
+    color: $shieldBottom;
+  }
+  .col-md-4 {
+    text-align: center;
+    xpadding: 250px 30px 0 30px;
+  }
+  img {
+    padding-top: 20px;
+    width: 75px;
+    float: left;
+    margin-right: 18px;
+  }
+} 
+
+
+
+
+
+#floater-left, #floater-right {
+    height: 100px;
+    float: left;
+  }
 
 
 .account-links {
@@ -116,154 +220,11 @@ p, a {
   display: inline-block;
 }
 
-#navbar-topright {
-  /*float: right;*/
-
-/*  .account-links {
-    position: absolute;
-    top: 0;
-    right: 15px;
-  }
-
-  ul {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
-*/}
-
-.navbar-nav {
-  float: none;
-}
-
-.navbar-inner {
-  border-bottom: 6px solid #9a3430;
-
-  .navbar-nav li {
-    display: inline-block;
-    border-right: 1px solid $midgray;
-    margin: 0 0 6px 0;
-  }
-}
 
 
 
 
-/* BANNER
- * ------------------------------------------------ */
 
-.banner-region {
-  width: 100%;
-  background-image: url('/assets/home-banner-1.jpg');
-  background-repeat: no-repeat;
-
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-
-  height: 590px;
-
-  #floater-left, #floater-right {
-    height: 100px;
-    float: left;
-  }
-
-  .left, .right {
-    width: 50%;
-    height: 366px;
-    text-align: center;
-  }
-
-  .left {
-    color: #fff;
-    font-size: 2.5em;
-
-    #elevator-pitch {
-      font-family: 'Raleway', sans-serif;
-      font-weight: lighter;
-      display: inline-block;
-      text-align: left;
-      height: 366px;
-      padding-top: 75px;
-      margin-bottom: auto;
-
-      strong {
-        font-weight: bolder;
-      }
-    }
-  }
-
-  .right {
-    #signup-form {
-      display: table-cell;
-      vertical-align: middle;
-      height: 366px;
-      width: 350px;
-
-      p {
-        color: #fff;
-        margin-top: 10px;
-      }
-
-      .btn, input {
-        width: 350px;
-      }
-
-      .btn {
-        font-size: 1.15em;
-        font-weight: bold;
-        background-color: #a95248;
-        color: #fff;
-      }
-
-      input {
-        display: inline-block;
-        font-weight: normal;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-
-      }
-
-    }
-
-  }
-
-}
-
-
-.features-region h3, .get-involved-region h3 {
-  color: $charcoal;
-  font-size: 1.35em;
-}
-
-.features-region {
-  width: 100%;
-  float: left;
-  display: block;
-  background-color: #f2f2f2;
-  padding-bottom: 75px;
-
-
-  img {
-    padding-top: 20px;
-    width: 75px;
-    float: left;
-    margin-right: 18px;
-  }
-
-  .col-md-4, .col-md-12 {
-    padding-left: 100px;
-
-  }
-
-  .left, .middle, .right {
-    display: inline-block;
-    float: left;
-  }
-
-}
 
 .get-involved-region {
   width: 100%;
@@ -314,24 +275,7 @@ p, a {
   color: $base-blue;
 }
 
-.home-mission-statement {
-  width: 100%;
-  font-family: 'Raleway', sans-serif;
-  font-weight: lighter;
-  position: absolute;
-  bottom: 0;
-  height: 225px;
-  background-color: #002d5b;
-  background: rgba(0, 45, 91, 0.5);
-  color: #fff;
-  text-align: center;
-  font-size: 2.65em;
-  padding-top: 50px;
 
-  strong {
-    font-weight: normal;
-  }
-}
 
 .footer-nav-region {
   font-size: 0.9em;
@@ -378,7 +322,6 @@ p.tagline-highlight {
 @media screen and (min-width: 992px) {
 
   .features-region {
-
     .left {
       min-height: 203px;
       background-image: url('/assets/icon_govt_your_way.png');
@@ -386,7 +329,6 @@ p.tagline-highlight {
       background-size: 203px 203px;
       background-position: center;
     }
-
     .middle {
       min-height: 203px;
       background-image: url('/assets/icon_login_myusa.png');
@@ -394,7 +336,6 @@ p.tagline-highlight {
       background-size: 178px 202px;
       background-position: center;
     }
-
     .right {
       min-height: 203px;
       background-image: url('/assets/icon_no_paper_forms.png');
@@ -402,11 +343,26 @@ p.tagline-highlight {
       background-size: 232px 203px;
       background-position: center;
     }
-
   }
-
 }
 
+/* Tablets */
+@media screen and (min-width: 767px) and (max-width: 992px) {
+  #elevator-pitch {
+      height: 300px;
+      padding-left: 20px;
+    }
+  #signup-form {
+      padding-left: 5%;
+      height: 300px;
+      .btn, input {
+        width: 320px;
+      }
+    }
+  p.footer-info {
+    clear: both;
+  }
+}
 
 /* Phones */
 @media screen and (max-width: 768px) {
@@ -419,6 +375,23 @@ p.tagline-highlight {
   .navbar-brand .tagline {
     font-size: 1.25em;
   }
+
+  #elevator-pitch {
+      padding-top: 20px;
+      padding-left: 0;
+      text-align: center;
+      width: 100%;
+      height: 130px;
+    }
+  #signup-form {
+      padding-left: 0;
+      padding-top: 40px;
+      text-align: center;
+      height: 220px;
+      .btn, input {
+        width: 370px;
+      }
+    }
 
   .banner-region {
     .left {
@@ -464,10 +437,4 @@ p.tagline-highlight {
 
 }
 
-/* Tablets */
-@media screen and (max-width: 992px) {
 
-  p.footer-info {
-    clear: both;
-  }
-}

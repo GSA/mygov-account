@@ -73,11 +73,13 @@
         = session_timeout_message
         = yield
 
-        - if current_user
-          .row
-          .col-md-2
-          .col-md-10
-            = render :partial => 'home/administrative_settings'
+        .row
+          .col-md-1
+          .col-md-11
+            - if current_user
+              = render :partial => 'home/administrative_settings'
+            - else
+              = render :partial => 'home/footer_links'
 
     /
       Javascripts

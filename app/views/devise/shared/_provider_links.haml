@@ -1,4 +1,7 @@
-%ul.button-list
+%h4
+  Other sign up options
+
+%ol.inline
   - if devise_mapping.omniauthable?
     - resource_class.omniauth_providers.each do |provider|
       - unless [:maxgov].include?(provider)

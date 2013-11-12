@@ -1,23 +1,26 @@
-%row
-  .twelve.columns
+.row
+  .col-md-12
+    - unless resource.errors.empty?
+      .alert.alert-danger
+        = devise_error_messages!
+    - if flash.notice
+      .alert.alert-info
+        = flash.notice
+
+.row
+  .col-md-12
     %h2
       Didn't receive unlock instructions?
     %p
       Enter your email address below and we'll resend them to you.
-  .eight.columns
-    .panel
-      %fieldset.plain
-        = form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post, novalidate: true }) do |f|
-          = devise_error_messages!
-          - if flash.notice
-            .alert-box.blue
-              = flash.notice
-          %ol
-            %li
-              = f.label :email
-              = f.email_field :email
-          %div= f.submit "Send", :class => 'large button positive'
-
-  .four.columns
-    .panel.side-panel
-      = render "devise/shared/links"
+  .col-md-8
+    %fieldset
+      = form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post, novalidate: true }) do |f|
+        %ol.inline
+          %li
+            .row
+              .col-md-1
+                = f.label :email
+              .col-md-7
+                = f.email_field :email
+                .actions= f.submit "Send instructions", :class => 'btn btn-primary'

@@ -42,11 +42,10 @@
               .collapse.navbar-collapse.navbar-ex1-collapse
                 = render_navigation
 
-            .col-md-12
+            #sign-in-utility.col-md-6
               - if !current_user && request.path != sign_in_path
-                %h3.tagline
-                  =t('sign_in_prompt')
-                  =link_to t('sign_in_link'), sign_in_path
+                =t('sign_in_prompt')
+                =link_to t('sign_in_link'), sign_in_path, class: 'btn btn-default'
     #main
       %a{:name => "top"}
       .nav-container

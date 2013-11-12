@@ -60,7 +60,7 @@
     
             .collapse.navbar-collapse.navbar-ex1-collapse
               .navbar-right
-                <p> Already have an account?
+                <p><span class="hidden-sm hidden-xs">Already have an account?</span>
                 %a{:href=>'#', :class=>'btn btn-primary'} Log In
                 </p>
     
@@ -75,59 +75,62 @@
             / /.navbar-collapse
 
 
-    .banner-region.row
-      .left.col-md-6
-        #elevator-pitch
-          Save
-          %strong time.
-          %br
-          Stay
-          %strong informed.
-          %br
-          Get
-          %strong connected.
-
-      .right.col-md-6
-        #signup-form
-          %p.small-pitch
-            Save time. Stay informed. Get connected.
-
-          %input{:type=>'text', :value=>'Enter your email address'}
-
-          %a{:href=>'#', :class=>'btn'}
-            Sign Up
-
-          %p
-            Or Sign up with Google, Paypal, and more
-
+    .banner-region
+      .container
+        .row
+          .col-md-6.col-sm-6
+            #elevator-pitch
+              Save
+              <strong>time</strong>.
+              %br
+              Stay
+              <strong>informed</strong>.
+              %br
+              Get
+              <strong>connected</strong>.
+    
+          .col-md-6.col-sm-6
+            #signup-form
+    
+              %input{:type=>'text', :value=>'Enter your email address'}
+    
+              %a{:href=>'#', :class=>'btn'}
+                Sign Up
+    
+              %p
+                Or sign up with Google, Paypal, and more.
+    
       .home-mission-statement.col-md-12
         <p><strong>MyUSA</strong> has a mission and it is awesome.</p>
         <p>Reinventing citizenship, one app at a time.</p>
 
     .features-region
-      .col-md-12
-        %h2 Why Do You Need this?
-      .col-md-4.left
-        .hidden-md.hidden-lg.hidden-xs
-          %img{:src=>'/assets/icon_govt_your_way.png'}
-        %h3 Government Your Way
-        %p Stay informed and connected to your government through simple and easy-to-use
-        %a{:href=>'#'} MyUSA Apps
-
-      .col-md-4.middle
-        .hidden-md.hidden-lg.hidden-xs
-          %img{:src=>'/assets/icon_login_myusa.png'}
-        %h3 Log in with MyUSA
-        %p
-          The
-          %a{:href=>'#'} MyUSA
-          Account is your single point of access to government information and services
-
-      .col-md-4.right
-        .hidden-md.hidden-lg.hidden-xs
-          %img{:src=>'/assets/icon_no_paper_forms.png'}
-        %h3 No more paper forms
-        %p Tired of PDFs? So are we. MyUSA Forms will help make government forms easier to find and fill out online.
+      .container
+        .row
+          .col-md-12
+            %h2 Why Do You Need This?
+        .row
+          .col-md-4.left
+            .hidden-md.hidden-lg.hidden-xs
+              %img{:src=>'/assets/icon_govt_your_way.png'}
+            %h3 Government Your Way
+            %p Stay informed and connected to your government through simple and easy-to-use
+            %a{:href=>'#'} MyUSA Apps
+    
+          .col-md-4.middle
+            .hidden-md.hidden-lg.hidden-xs
+              %img{:src=>'/assets/icon_login_myusa.png'}
+            %h3 Log in with MyUSA
+            %p
+              The
+              %a{:href=>'#'} MyUSA
+              Account is your single point of access to government information and services
+    
+          .col-md-4.right
+            .hidden-md.hidden-lg.hidden-xs
+              %img{:src=>'/assets/icon_no_paper_forms.png'}
+            %h3 No more paper forms
+            %p Tired of PDFs? So are we. MyUSA Forms will help make government forms easier to find and fill out online.
 
     .get-involved-region.row
       .col-md-12

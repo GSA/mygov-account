@@ -17,4 +17,4 @@
 								- Devise.omniauth_providers.each do |provider|
 									- unless [:maxgov].include?(provider) or current_user.authentications.collect { |auth| auth.provider.to_sym }.include?(provider)
 										%li
-											= link_to provider.to_s.titleize, user_omniauth_authorize_path(:provider => provider)
+											= link_to provider.to_s.titleize, user_omniauth_authorize_path(:provider => provider, :error_return_to => authentications_url)

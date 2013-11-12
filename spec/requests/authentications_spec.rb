@@ -20,6 +20,27 @@ describe "Authentications" do
         current_path.should eq authentications_path        
       end
     end
+    
+    context "when another user has a google authentication with the same account" do
+      before do
+        @user.authentications.create(:provider => "google", :uid => '12345')
+        @user2 = @user
+        logout
+        create_confirmed_user_with_profile('jane@citizen.org')
+        @user.authentications.each {|auth| auth.destroy}
+        login(@user)
+      end
+
+      it 'displays an error message when adding google authentication from another account' do
+        visit root_path
+        click_link 'Settings'
+        click_link 'Authentication providers'
+        click_link 'Add an authentication provider to your account'
+        click_link 'Google'
+        page.should have_content "This external account is already linked to another MyUSA account"
+        current_path.should eq authentications_path        
+      end
+    end
   end
   
   describe "deleting an authentication" do

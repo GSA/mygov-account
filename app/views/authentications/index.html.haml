@@ -3,6 +3,9 @@
     %h2
       Authentication providers
     %p
+      - if flash.alert
+        .alert-box
+          = flash.alert
       - if flash.notice
         .alert-box.blue
           = flash.notice

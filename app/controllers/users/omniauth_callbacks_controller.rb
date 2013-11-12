@@ -25,7 +25,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   
   def callback(provider_name)
     @user = User.find_for_open_id(request.env["omniauth.auth"], current_user)
-    if @user.persisted?
+    if @user.persisted? && @user.errors.blank?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => provider_name.capitalize
       sign_in_and_redirect @user, :event => :authentication
     else
@@ -34,6 +34,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         flash[:alert] = "I'm sorry, your account hasn't been approved yet."
       elsif @user.errors[:email].include?('has already been taken')
         flash[:alert] = "We already have an account with that email. Make sure login with the service you used to create the account."
+      elsif @user.errors[:authentications].include?('is invalid')
+        flash[:alert] = "This external account is already linked to another MyUSA account."
       else
         flash[:alert] = "An unexpected error has occured; please try to sign up again."
       end

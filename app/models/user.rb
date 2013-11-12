@@ -39,7 +39,8 @@ class User < ActiveRecord::Base
     
     def find_for_open_id(access_token, signed_in_resource = nil)
       data = access_token.info
-      authentication = Authentication.find_by_uid_and_provider(access_token.uid, access_token.provider)
+      authentications_scope = (signed_in_resource && signed_in_resource.authentications) || Authentication
+      authentication = authentications_scope.find_by_uid_and_provider(access_token.uid, access_token.provider)
       if authentication
         authentication.user
       elsif signed_in_resource

@@ -1132,8 +1132,10 @@ p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  ma
 .panel.task h5,
 .panel.task h6 {color: #fff; text-shadow: none;}
 
-.panel.task a, .panel.task p {color: #fff; text-shadow: none; text-decoration: underline; padding: 0; }
+.panel.task span { text-shadow: none; }
+.panel.task a, .panel.task p {color: #fff; text-shadow: none; padding: 0; }
 .panel.task a.large.button.alternate {background: #fff; font-size: 1em; color: #122137; padding: 0 2em; display: inline-block;}
+.panel.task a:hover { text-decoration: underline; }
 
 .panel.task a i {text-decoration: none; display: inline-block; margin: 0 .25em 0 0;}
 
@@ -1161,7 +1163,7 @@ p.first {border-bottom: 1px solid #eee; padding-bottom: 1em; display: block;  ma
 .panel.task a,
 .panel.task a.button,
 .panel.task a:hover, 
-.panel.task a.button:hover {border-bottom: none; text-decoration: underline; background: transparent; -webkit-box-shadow: none; margin: 0 1em 0 0; }
+.panel.task a.button:hover {border-bottom: none; background: transparent; -webkit-box-shadow: none; margin: 0 1em 0 0; }
 
 .panel.task h3 a, .panel.task h3 a:hover {margin: 0;}
 

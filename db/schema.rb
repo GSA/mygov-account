@@ -73,6 +73,37 @@ ActiveRecord::Schema.define(:version => 20131108190841) do
     t.boolean  "is_approved", :default => false
   end
 
+  create_table "filled_forms", :force => true do |t|
+    t.integer  "form_id"
+    t.integer  "user_id"
+    t.integer  "app_id"
+    t.text     "values"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "filled_forms", ["form_id"], :name => "index_filled_forms_on_form_id"
+  add_index "filled_forms", ["user_id"], :name => "index_filled_forms_on_user_id"
+
+  create_table "form_fields", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.text     "description"
+    t.string   "values"
+    t.integer  "form_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "forms", :force => true do |t|
+    t.string   "name"
+    t.string   "number"
+    t.string   "agency"
+    t.string   "landing_page_url"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
   create_table "notifications", :force => true do |t|
     t.string   "subject"
     t.text     "body"

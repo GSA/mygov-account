@@ -51,6 +51,11 @@ describe "HomePage" do
           page.should have_content "Terms of Service"
         end
         
+        it "should serve the unauthorized access warning" do
+          visit terms_of_service_path
+          page.should have_content "This computer system is for authorized users only. Unauthorized use or improper use of this system is strictly prohibited. Any use of this system may be monitored or recorded. Evidence of unauthorized use or improper use may be provided to company management and/or law enforcement officials for criminal, administrative or adverse action. By continuing to use this system, you indicate your consent to all conditions stated in this warning. Discontinue use of this system immediately if you are not an authorized user or do not agree to the conditions of this warning statement."
+        end
+        
         it "should serve the privacy policy" do
           visit privacy_policy_path
           page.should have_content "Privacy policy"

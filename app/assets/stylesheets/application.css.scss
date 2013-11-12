@@ -135,7 +135,7 @@ ul.centered {margin: 0 auto; text-align: center;}
 ul.centered li {text-align: center;}
 
 
-h1 {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #112137; text-shadow: 0 1px 0 rgba(255,255,255,.9); font-weight: normal; margin-top: .5em;}
+h1 {font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #112137; /*text-shadow: 0 1px 0 rgba(255,255,255,.9);*/ font-weight: normal; margin-top: .5em;}
 
 h2, h3, h4, h5, h6 {font-family: 'GoudyBookLetter', Georgia, 'Times New Roman', serif; font-weight: normal; text-shadow: 0 1px 0 rgba(255,255,255,.9);}
 .dashboard h2 {text-shadow: 0 1px 0 rgba(255,255,255,.9); line-height: 1.1em;}
@@ -830,7 +830,7 @@ html.cssanimations .signup-form blockquote:before {
 
 @media (device-width: 320px) and (orientation: landscape) {body.sign-up {zoom: 80%;}}
 
-.sign-up #main, .sign-up #wrap, .sign-up .container {padding: 0; margin: 0;}
+/*.sign-up #main, .sign-up #wrap, .sign-up .container {padding: 0; margin: 0;}*/
 .sign-up .signup-form a {color: #fff; font-weight: bold; display: inline-block;}
 
 .logo {display: block;  background: #fff; padding: 1em 3%;}

@@ -11,39 +11,19 @@
 
     = stylesheet_link_tag "bootstrap", :media => "all"
     = stylesheet_link_tag "dashboard", :media => "all"
-
-    = stylesheet_link_tag "fonts", :media => "all"
-    = stylesheet_link_tag "application", :media => "all"
-    = stylesheet_link_tag "general_foundicons", :media => "all"
+    = stylesheet_link_tag "signup", :media => "all"
 
     %link{:href=>'http://fonts.googleapis.com/css?family=Raleway:400,300,500,700', :rel=>'stylesheet', :type=>'text/css'}
     /[if !IE 7]
       = stylesheet_link_tag "ie7", :media => "all"
 
-    /[if lt IE 9]
-      = stylesheet_link_tag "general_foundicons_ie7", :media => "all"
-      = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
-      = favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-      = favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :sizes => '72x72', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-      = favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :sizes => '114x114', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-      = favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :sizes => '144x144', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-      = javascript_include_tag 'modernizr'
-
   %body
-    #header
-      %nav{:class=>'navbar-wrapper navbar-default navbar-fixed-top', :role=>'navigation'}
-        .navbar-inner
-          .container
-            .navbar-header.col-md-6
-
-              %button{"type"=>"button","class"=>"navbar-toggle","data-toggle"=>"collapse", "data-target"=>".navbar-ex1-collapse"}
-                %span.sr-only
-                  Toggle navigation
-                %span.icon-bar
-                %span.icon-bar
-                %span.icon-bar
-
-              %a{:href => root_url, :class => 'navbar-brand'}
+    #wrap
+      #header
+        .nav-container.group
+          .row
+            .col-md-6
+              %a{ :href => root_url }
                 %h1
                   My<span>USA</span>
 

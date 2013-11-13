@@ -126,6 +126,11 @@ p, a {
       padding-top: 17%;
       padding-left: 10%;
       height: 366px;
+      width: 350px;
+      input {
+        margin-bottom: 15px;
+      }
+
       p {
         color: $white;
         margin-top: 10px;
@@ -202,7 +207,7 @@ p.small-pitch {
     padding-top: 20px;
     height: 180px;
   }
-} 
+}
 
 /* GET INVOLVED
  * ------------------------------------------------ */
@@ -249,6 +254,25 @@ p.small-pitch {
 
 .footer-info {
   font-size: 1.25em;
+}
+
+.tagline {
+  font-size: 1.75em;
+  color: $base-blue;
+}
+
+.home-mission-statement {
+  width: 100%;
+  bottom: 0;
+
+
+  height: 225px;
+  background-color: #002d5b;
+  background: rgba(0, 45, 91, 0.5);
+  color: #fff;
+  text-align: center;
+  font-size: 2.65em;
+  padding-top: 50px;
 }
 
 .footer-nav-region {
@@ -337,7 +361,7 @@ p.tagline-highlight {
     float:right;
     width: 460px;
   }
-} 
+}
   p.footer-info {
     clear: both;
   }

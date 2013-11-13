@@ -50,20 +50,20 @@
                   <span>My</span>USA
                 -#.tagline
                   Re-imagining online government
-    
+
             / Collect the nav links, forms, and other content for toggling
             %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", type: "button"}
               %span.sr-only Toggle navigation
               %span.icon-bar
               %span.icon-bar
               %span.icon-bar
-    
+
             .collapse.navbar-collapse.navbar-ex1-collapse
               .navbar-right
-                <p><span class="hidden-sm hidden-xs">Already have an account?</span>
-                %a{:href=>'#', :class=>'btn btn-primary'} Log In
-                </p>
-    
+                %p
+                  Already have an account?
+                  = link_to 'Log In', sign_in_path, {class: 'btn btn-primary'}
+
                 %ul.nav.navbar-nav
                   %li
                     %a{href: "#"} What's MyUSA?
@@ -71,7 +71,7 @@
                     %a{href: "#"} Get an Account
                   %li
                     %a{href: "#"} Build with MyUSA
-    
+
             / /.navbar-collapse
 
 
@@ -88,18 +88,25 @@
               %br
               Get
               <strong>connected</strong>.
-    
+
           .col-md-6.col-sm-6
+
+
             #signup-form
-    
-              %input{:type=>'text', :value=>'Enter your email address'}
-    
-              %a{:href=>'#', :class=>'btn'}
-                Sign Up
-    
               %p
-                Or sign up with Google, Paypal, and more.
-    
+                =t('mygov_greeting')
+              #fieldset
+                = form_for @beta_signup do |form|
+                  - if flash.alert
+                    .alert.alert-danger
+                      = flash.alert
+
+                  = form.email_field :email, :value=>'Enter your email address'
+                  = form.submit 'Sign up', :class => 'btn'
+
+                  %p
+                    Or sign up with Google, Paypal, and more.
+
       .home-mission-statement.col-md-12
         <p><strong>MyUSA</strong> has a mission and it is awesome.</p>
         <p>Reinventing citizenship, one app at a time.</p>
@@ -115,7 +122,7 @@
             .tabScreenFix
               %h3 Government your way
               %p Stay informed and connected to your government through simple and easy-to-use <a href="#">MyUSA Apps</a>
-    
+
           .col-md-4
             %img{:src=>'/assets/icon_login_myusa.png'}
             .tabScreenFix
@@ -124,7 +131,7 @@
                 The
                 %a{:href=>'#'} MyUSA
                 Account is your single point of access to government information and services
-    
+
           .col-md-4
             %img{:src=>'/assets/icon_no_paper_forms.png'}
             .tabScreenFix
@@ -136,30 +143,30 @@
         .row
           .col-md-12
             %h2 Get Involved
-    
+
           .col-md-6.col-sm-8
             %h3 Agencies &amp; Government
             %p Learn what MyUSA can do for you: single sign on, notifications and alerts, and an application framework to help you get up and running fast.
             %p
               %a{:href=>'#'}
                 MyUSA Account
-    
+
               %a{:href=>'#'}
                 MyUSA Discovery
-    
+
               %a{:href=>'#'}
                 MyUSA Forms
-    
+
             %h3 Developers &amp; Civic Hackers
             %p Build an app, fork a repo, and help us deliver the next generation of government services.
-    
+
             %p
               %a{:href=>'#'}
                 App Gallery
-    
+
               %a{:href=>'#'}
                 MyUSA on Github
-    
+
               %a{:href=>'#'}
                 Developers
           .col-md-6.col.sm.4.right.hidden-xs
@@ -179,7 +186,7 @@
               %br
               %a{:href=>'#'}
                 Paperwork Reduction Act
-    
+
           .col-xs-4.col-md-2
             %h4 Project
             %p
@@ -194,7 +201,7 @@
               %br
               %a{:href=>'#'}
                 FAQ
-    
+
           .col-xs-4.col-md-2
             %h4 Elsewhere
             %p
@@ -206,10 +213,10 @@
               %br
               %a{:href=>'#'}
                 Github
-    
+
           .col-xs-12.col-md-5
             %p.footer-info
               MyUSA is a joint initiative between the White House and the General Services Administration to redefine how we interact with government.
-    
+
             %p.tagline-highlight
               Digital Government: Building a 21st Century Platform

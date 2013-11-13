@@ -29,7 +29,7 @@ describe "SettingsPage" do
         fill_in('user_password_confirmation', :with => new_password)
         click_button('Change my password')
         page.should have_content("Your password was sucessfully updated.")
-        click_link 'Sign out'                           # Sign out and sign back in
+        click_link 'Logout'                           # Sign out and sign back in
         fill_in 'Email', :with => 'joe@citizen.org'
         fill_in 'Password', :with => new_password
         click_button 'Sign in'

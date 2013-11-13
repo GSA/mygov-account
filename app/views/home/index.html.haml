@@ -1,15 +1,15 @@
 - if @beta_signup && !@beta_signup.errors.blank?
   - content_for :scripts do
     = javascript_tag do
-      $('html,body').animate({scrollTop: $('.alert-box').offset().top},'slow');
+      $('html,body').animate({scrollTop: $('.alert').offset().top},'slow');
 .row
-  .ten.columns.centered.banner
+  .col-md-10.text-center
     %h2
       Take control of how you interact with government.
 
 .signup-form.margin-top
   .row
-    .six.columns.centered
+    .col-md-6.text-center
       %h3
         Try it out
       #signup-form
@@ -18,11 +18,12 @@
         #fieldset
           = form_for @beta_signup do |form|
             - if flash.alert
-              .alert-box
+              .alert.alert-danger
                 = flash.alert
+
             = form.label :email
             = form.email_field :email
             = form.submit 'Sign up', :class => 'large button positive '
-  
+
       %p.disclaimer
         %a.plain{:href => "http://presidential-innovation-fellows.github.com/mygov/about/"} Read more about MyUSA

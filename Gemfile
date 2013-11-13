@@ -26,6 +26,7 @@ gem 'rb-readline', '~> 0.4.2'
 gem 'omniauth-openid', :git => 'https://github.com/GSA-OCSIT/omniauth-openid.git', :branch => 'pape'
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'secure_headers'
+gem 'simple-navigation'
 
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA-OCSIT/rack-openid.git', :branch => 'pape'
@@ -53,6 +54,8 @@ group :test, :development do
   gem 'pry-nav'
   gem 'rspec-rails'
   gem "zeus-parallel_tests"
+  gem "factory_girl_rails", "~> 4.0"
+  gem 'turnip'
 end
 
 group :development do

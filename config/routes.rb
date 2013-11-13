@@ -45,6 +45,7 @@ Mygov::Application.routes.draw do
   get 'dashboard' => "home#dashboard"
   get 'discovery' => "home#discovery"
   get 'developer' => "home#developer"
+  get 'help' => "home#help"
   get 'privacy-policy' => "home#privacy_policy", :as => :privacy_policy
   get 'terms-of-service' => "home#terms_of_service", :as => :terms_of_service
   get 'about' => "home#about", :as => :about
@@ -64,8 +65,8 @@ Mygov::Application.routes.draw do
   match "/404", :to => "errors#not_found"
   rack_error_handler = ActionDispatch::PublicExceptions.new('public/')
   match "/422" => rack_error_handler
-  match "/500" => rack_error_handler  
-  
+  match "/500" => rack_error_handler
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

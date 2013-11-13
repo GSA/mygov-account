@@ -1,9 +1,12 @@
 .row
-  .one.columns.navigation
-    = render :partial => 'dashboard_nav' 
-  .eleven.columns.dashboard
+  .col-md-2
+    = render :partial => 'dashboard_nav'
+  .col-md-8
+    - if flash.notice
+      .alert.alert-success
+        = flash.notice
+    = render :partial => 'dashboard_notifications'
     = render :partial => 'dashboard_tasks' if @uncompleted_tasks.any?
-    = render :partial => 'dashboard_apps' 
-    = render :partial => 'dashboard_info'
-    = render :partial => 'dashboard_forms'    
-    = render :partial => 'administrative_settings'
+    = render :partial => 'dashboard_apps'
+  .col-md-2
+    = render :partial => 'dashboard_recent_activity'

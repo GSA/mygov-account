@@ -1,0 +1,98 @@
+h1 {
+  color: #112137;
+}
+
+.navbar-brand {
+  padding: 0;
+  h1 {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+body { padding-top: 100px; }
+
+ol.inline {
+  padding: 0;
+  li {
+    list-style: none;
+    padding: 5px;
+  }
+}
+
+ol.sign-in-panel { border-right: 1px solid #ccc; }
+
+#sign-up-options {
+  ul {
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+}
+
+#sign-in-utility {
+  margin-top: 10px;
+}
+
+.actions { margin-top: 25px; }
+
+/*** Inline list ***/
+ul.inline-list {margin: 0 auto; padding: 0;}
+ul.inline-list li {display: inline-block; margin: 1em 0 1em 0; padding: .25em 1em .25em .5em; font-size: .95em; border-right: 1px solid rgba(0,0,0,.1);}
+ul.inline-list li:last-child {border-right: none;}
+ul.inline-list li a {color: #444;}
+
+a.thumbnail img {
+  width: 180px;
+  height: 180px;
+}
+
+#app-gallery {
+  p:first-of-type {
+    margin-top: 10px;
+  }
+  h4 {
+    text-align: center;
+  }
+}
+
+#header h1 {
+  text-shadow: 0 1px 0 rgba(255,255,255,0.9);
+  font-size: 2em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: -.05em;
+  display: block;
+  margin: 0;
+  text-align: center;
+  position: relative;
+  line-height: 1em;
+  padding: .65em 2em .5em 48px;
+  background: asset-url('logo.png', image) 0 50% no-repeat;
+}
+
+#header h1 span {font-weight: normal;}
+
+.navbar-default li {
+  a.btn-primary {
+    padding: 10px;
+    margin: 5px;
+    color: #fff;
+  }
+
+  a.btn-primary:hover {
+    color: #fff;
+    background-color: #357ebd;
+  }
+}
+
+#recent-activity {
+  margin-top: 90px;
+}
+
+.alert h2 {
+  font-size: 1.5em;
+}

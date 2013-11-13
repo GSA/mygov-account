@@ -1,0 +1,8 @@
+%h5
+  Settings
+
+%ul.nav.nav-pills.nav-stacked
+  - ['Your Profile', 'Change Password', 'Notifications & Alerts', 'Manage Applications', 'Other Networks'].each do |name|
+    %li{"data-magellan-arrival" => name}
+      %a.smoothScroll.tasks{:href => "#{name}"}
+        = name

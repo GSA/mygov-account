@@ -376,24 +376,24 @@ describe "Users" do
       visit new_user_confirmation_path
       fill_in 'user_email', with: 'joe@citizen.org'
       click_button "Send"
-      alert_message = find('div.alert-box').text.squish
+      alert_message = find('div.alert').text.squish
 
       fill_in 'user_email', with: 'joe_schmoe@citizen.org'
       click_button "Send"
 
-      expect(find('div.alert-box').text.squish).to eq alert_message
+      expect(find('div.alert').text.squish).to eq alert_message
     end
 
     it "yields the same message irregardless of the email's existence in the db for when submitting to the unlock instructions form" do
       visit new_user_unlock_path
       fill_in 'user_email', with: 'joe@citizen.org'
       click_button "Send"
-      alert_message = find('div.alert-box').text.squish
+      alert_message = find('div.alert').text.squish
 
       fill_in 'user_email', with: 'joe_schmoe@citizen.org'
       click_button "Send"
 
-      expect(find('div.alert-box').text.squish).to eq alert_message
+      expect(find('div.alert').text.squish).to eq alert_message
     end
   end
 end

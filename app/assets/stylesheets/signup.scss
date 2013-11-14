@@ -11,6 +11,10 @@ Main SCSS for USA.gov
 
 /* GLOBAL
  * ------------------------------------------------ */
+
+#main {padding-top: 40px; }
+
+
 h1, h2, h3, h4 {
   font-family: $headingFamily;
   line-height: normal;

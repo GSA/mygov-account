@@ -4,8 +4,8 @@
 en:
   hello: "Hello world"
   zip_error: "Please enter your 5 digit zip code."
-  sign_in_prompt: "Already using MyUSA?"
-  sign_in_link: "Sign in"
+  sign_in_prompt: "Already have an account?"
+  sign_in_link: "Log In"
   remain_logged_in: "Remain signed in."
   session_expiration_warning: "We noticed you haven't been very active in MyUSA. %{link}"
   mygov_greeting: ""

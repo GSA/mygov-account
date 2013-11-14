@@ -18,24 +18,29 @@
       = stylesheet_link_tag "ie7", :media => "all"
 
   %body
-    #wrap
-      #header
-        .nav-container.group
-          .row
-            .col-md-6
-              %a{ :href => root_url }
+    #navigation-region
+      .container
+        .row
+          %nav.navbar.col-md-6.navbar-default{role: "navigation"}
+            / Brand and toggle get grouped for better mobile display
+            .navbar-header
+              .navbar-brand
+                %img{:src => "/assets/shield.gif"}
                 %h1
-                  My<span>USA</span>
+                  <span>My</span>USA
+                -#.tagline
+                  Re-imagining online government
 
-            - if current_user
+          - if current_user
 
-              .collapse.navbar-collapse.navbar-ex1-collapse
-                = render_navigation
+            .collapse.navbar-collapse.navbar-ex1-collapse
+              = render_navigation
 
-            #sign-in-utility.col-md-6
-              - if !current_user && request.path != sign_in_path
-                =t('sign_in_prompt')
-                =link_to t('sign_in_link'), sign_in_path, class: 'btn btn-default'
+          #sign-in-utility.col-md-6
+            - if !current_user && request.path != sign_in_path
+              =t('sign_in_prompt')
+              =link_to t('sign_in_link'), sign_in_path, class: 'btn btn-default'
+
     #main
       %a{:name => "top"}
       .nav-container

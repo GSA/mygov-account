@@ -59,15 +59,15 @@ describe "Users" do
     context "when a user is not signed in" do
       it "should have a sign-in link" do
         visit sign_up_path
-        page.should have_content "Already using MyUSA?"
-        page.should have_content "Sign in"
-        click_link "Sign in"
+        page.should have_content "Already have an account?"
+        page.should have_content "Log In"
+        click_link "Log In"
         current_path.should == sign_in_path
 
         visit root_path
-        page.should have_content "Already using MyUSA?"
-        page.should have_content "Sign in"
-        click_link "Sign in"
+        page.should have_content "Already have an account?"
+        page.should have_content "Log In"
+        click_link "Log In"
         current_path.should == sign_in_path
       end
 
@@ -123,7 +123,7 @@ describe "Users" do
       it "should not let the user create an approved beta signup record by manipulating the email address" do
         test_email = "shady@citizen.org"
         visit root_path
-        fill_in 'Email', :with => test_email + "&is_approved=1"
+        fill_in 'beta_signup_email', :with => test_email + "&is_approved=1"
         click_button 'Sign up'
         BetaSignup.find_by_email(test_email).should be_nil
         BetaSignup.find_by_email(test_email + "&is_approved=1").should be_nil

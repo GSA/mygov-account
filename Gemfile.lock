@@ -188,6 +188,8 @@ GEM
       treetop (~> 1.4.8)
     maruku (0.6.1)
       syntax (>= 1.0.0)
+    metamagic (2.0.6)
+      rails (>= 3.0.0)
     method_source (0.8.2)
     mime-types (1.24)
     mini_portile (0.5.1)
@@ -386,6 +388,7 @@ DEPENDENCIES
   letter_opener
   libv8 (~> 3.11.8.7)
   maruku
+  metamagic
   mysql2
   oauth2
   oauth2-provider!

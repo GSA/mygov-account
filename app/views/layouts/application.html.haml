@@ -1,29 +1,12 @@
 !!! 5
 %html(lang="en")
   %head(prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#")
-    %meta(charset="utf-8")
-
-    %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
     
-    %meta{:name => "viewport", :content => "width=device-width"}
     - if current_user && request.get? # If it's a post, then no redirect
       = refresh_meta_tag_conent    
-    %meta{:name => "format-detection", :content => "telephone=yes"}
-    %meta(name="apple-mobile-web-app-capable" content="yes")
-    
-    %meta(name="HandheldFriendly" content="True")
-    %meta(http-equiv="cleartype" content="on")
-    
-    %meta(property="fb:app_id"               content="MyUSA")
-    %meta(property="og:type"                 content="website")
-    %meta(property="og:url"                  content="http://my.usa.gov/") 
-    %meta(property="og:image"                content="http://my.usa.gov/assets/apple-touch-icon-114x114-precomposed.png")
-    %meta(property="og:title"                content="MyUSA")
-    %meta(property="og:description"          content="A platform for connecting people and government")
-    
-    %meta(name="apple-mobile-web-app-title" content="MyUSA")
 
-    %title= content_for?(:title) ? yield(:title) : "MyUSA"
+    = head_metadata(content_for?(:title) ? yield(:title) : "MyUSA", content_for?(:meta_description) ? yield(:meta_description) : "A platform for connecting people and government")
+    
     = csrf_meta_tags
 
     = stylesheet_link_tag "fonts", :media => "all" 

@@ -130,4 +130,22 @@ module ApplicationHelper
     value ? "Yes" : "No"
   end
 
+  def head_metadata(title,desc)
+    meta [:charset => "utf-8"]
+    meta [:property => "og:image", :content => "http://my.usa.gov/assets/apple-touch-icon-114x114-precomposed.png"]
+    meta [:property => "og:description", :content => desc]
+    meta [:property => "og:title", :content => title]
+    meta [:property => "fb:app_id", :content => "MyUSA"]
+    meta [:property => "og:type", :content => "website"]
+    meta [:property => "og:url", :content => "http://my.usa.gov/"]
+    meta [:name => "apple-mobile-web-app-title", :content => title]
+    meta [:name => "viewport", :content => "width=device-width, user-scalable=yes"]
+    meta [:name => "format-detection", :content => "telephone=yes"]
+    meta [:name => "apple-mobile-web-app-capable", :content => "yes"]
+    meta [:name => "HandheldFriendly", :content => "True"]
+    meta ["http-equiv" => "cleartype", :content => "on"]
+    meta ["http-equiv" => "X-UA-Compatible", :content => "IE=Edge,chrome=1"]
+    meta ["http-equiv" => "X-XRDS-Location", :content => url_for(:action => 'xrds', :controller => controller_name, :protocol => 'https', :only_path => false, :format => :xml)]
+    metamagic :title => title, :description => desc
+  end
 end

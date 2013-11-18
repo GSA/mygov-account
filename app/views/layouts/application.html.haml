@@ -17,7 +17,7 @@
     /[if !IE 7]
       = stylesheet_link_tag "ie7", :media => "all"
 
-  %body
+  %body.content
     #navigation-region
       .container
         .row
@@ -39,7 +39,7 @@
           #sign-in-utility.col-md-6
             - if !current_user && request.path != sign_in_path
               =t('sign_in_prompt')
-              =link_to t('sign_in_link'), sign_in_path, class: 'btn btn-default'
+              =link_to t('sign_in_link'), sign_in_path, class: 'btn btn-primary'
 
     #main
       %a{:name => "top"}

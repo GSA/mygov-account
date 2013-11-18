@@ -1,4 +1,35 @@
 %p
-  Welcome #{@resource.unconfirmed_email}!
-%p You can confirm your account email through the link below:
-%p= link_to 'Confirm my account', user_confirmation_url(:confirmation_token => @resource.confirmation_token)
+
+  - if @resource.profile.first_name.blank?
+    Welcome to MyUSA!
+  -else
+    Welcome to MyUSA, #{@resource.profile.first_name}!
+
+%p
+  Please confirm your email by clicking this
+  = succeed "." do
+    = link_to 'link', user_confirmation_url(:confirmation_token => @resource.confirmation_token)
+  
+  You may also cut and paste the following URL into your browser’s location bar:
+  = user_confirmation_url + "?confirmation_token=#{@resource.confirmation_token}"
+%p
+
+%p
+  Once you’ve signed in, don’t forget to
+  = succeed "," do
+    = link_to 'update your profile', edit_profile_url(:profile => @resource.profile)
+  
+  = succeed "," do
+    = link_to 'edit your notification settings', settings_url
+
+  or browse the
+
+  = succeed "." do
+    = link_to 'MyUSA App Gallery', apps_url
+%p
+  Please
+  = mail_to('projectmyusa@gsa.gov', 'contact us')
+  with any questions!
+  %br
+    Team MyUSA
+

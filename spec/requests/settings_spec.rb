@@ -58,7 +58,6 @@ describe "SettingsPage" do
         email = ActionMailer::Base.deliveries.last
         email.to.should eq ['jack@citizen.org']
         email.from.should eq ["projectmyusa@gsa.gov"]
-        expect(email.body).to include('jack@citizen.org')
         expect(email.body).not_to include('joe@citizen.org')
       end
 

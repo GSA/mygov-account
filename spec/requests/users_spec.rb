@@ -124,10 +124,34 @@ describe "Users" do
             check 'I agree to the MyUSA Terms of Service and Privacy Policy'
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
+            ActionMailer::Base.deliveries.last.to.should   == ['joe@citizen.org']
+            ActionMailer::Base.deliveries.last.from.should == ["projectmyusa@gsa.gov"]
+            ActionMailer::Base.deliveries.last.should have_content("Welcome to MyUSA!")
+            ActionMailer::Base.deliveries.last.should have_content("confirmation?confirmation_token=")
+          end
+
+          it "should personalize confirmation message" do
+            visit sign_up_path
+            fill_in_email_and_password
+            fill_in 'user_first_name', :with => 'Joe'
+            check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+
+            click_button 'Sign up'
+            page.should have_content 'Thank you for signing up'
             ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
             ActionMailer::Base.deliveries.last.from.should == ["projectmyusa@gsa.gov"]
+            ActionMailer::Base.deliveries.last.should have_content("Welcome to MyUSA, Joe!")
+            email = ActionMailer::Base.deliveries.last
+            host_params = ActionMailer::Base.default_url_options
+            user = User.find_by_email('joe@citizen.org')
+            email.body.encoded.should have_link('MyUSA App Gallery', href: apps_url(host_params))
+            email.body.raw_source.should have_link('contact us')
+            email.body.raw_source.should have_link('link', href: user_confirmation_url(host_params.merge(confirmation_token: user.confirmation_token)))
+            email.body.raw_source.should have_link('edit your notification settings', href: settings_url(host_params))
+            email.body.raw_source.should have_link('update your profile', href: edit_profile_url(host_params.merge(profile: user.profile)))
+            email.body.raw_source.should have_content("confirmation?confirmation_token=#{user.confirmation_token}")
           end
-          
+
           context "when the user submits a password that has less than 8 characters" do
             it "should not create the user account" do
               visit sign_up_path

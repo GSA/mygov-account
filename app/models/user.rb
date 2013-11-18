@@ -138,7 +138,7 @@ class User < ActiveRecord::Base
   end
   
   def valid_email?
-    self.email? && self.email =~ Devise.email_regexp
+    self.email? && ValidatesEmailFormatOf::validate_email_format(self.email).nil?
   end
 
   def email_is_whitelisted_or_user_had_existing_account

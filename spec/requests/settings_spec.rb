@@ -54,10 +54,10 @@ describe "SettingsPage" do
         page.body.should =~ /jack/
         page.body.should_not =~ /joe/
         @user.reload
-        @user.unconfirmed_email.should == 'jack@citizen.org'
+        @user.unconfirmed_email.should eq 'jack@citizen.org'
         email = ActionMailer::Base.deliveries.last
-        email.to.should == ['jack@citizen.org']
-        email.from.should == ["projectmyusa@gsa.gov"]
+        email.to.should eq ['jack@citizen.org']
+        email.from.should eq ["projectmyusa@gsa.gov"]
         expect(email.body).to include('jack@citizen.org')
         expect(email.body).not_to include('joe@citizen.org')
       end
@@ -70,6 +70,7 @@ describe "SettingsPage" do
         # Change the rest of this to the invalid message
         expect(page).to have_no_content('You updated your account successfully, but we need to verify your new email address.')
         page.should have_content('Email does not appear to be valid')
+        page.should_not have_content('Email is invalid')
       end
 
       context "when the user changes their email address" do
@@ -78,12 +79,12 @@ describe "SettingsPage" do
           fill_in('Email', :with => 'jack@citizen.org')
           fill_in('Current password', :with => 'Password1')
           click_button('Update')
-          BetaSignup.where(:email => 'jack@citizen.org').count.should == 0
-          BetaSignup.where(:email => 'joe@citizen.org').count.should == 1
+          BetaSignup.where(:email => 'jack@citizen.org').count.should eq 0
+          BetaSignup.where(:email => 'joe@citizen.org').count.should eq 1
           @user.reload
           @user.confirm!
-          BetaSignup.where(:email => 'jack@citizen.org').count.should == 1
-          BetaSignup.where(:email => 'joe@citizen.org').count.should == 0
+          BetaSignup.where(:email => 'jack@citizen.org').count.should eq 1
+          BetaSignup.where(:email => 'joe@citizen.org').count.should eq 0
         end
       end
     end

@@ -17,6 +17,7 @@ Devise.setup do |config|
   config.maximum_attempts = 5
   config.password_length = 8..128
   config.reconfirmable = true
+  config.email_regexp = //
   
   if ['development', 'test'].include?(Rails.env)
     config.omniauth :open_id, :store => OpenID::Store::Filesystem.new("/tmp"), :name => 'testid', :identifier => "https://test-id.org/RP/GSALevel1.aspx", :require => 'omniauth-openid', :required => ["http://axschema.org/contact/email"], :optional => []

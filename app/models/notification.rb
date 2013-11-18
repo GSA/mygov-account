@@ -18,6 +18,6 @@ class Notification < ActiveRecord::Base
   private
   
   def deliver_notification
-    NotificationMailer.notification_email(self).deliver
+    NotificationMailer.notification_email(self.id).deliver
   end
 end

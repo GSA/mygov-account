@@ -1,4 +1,5 @@
 class UserMailer < ActionMailer::Base
+  include Resque::Mailer
   default from: DEFAULT_FROM_EMAIL
   
   def beta_invite(email)

@@ -207,7 +207,8 @@ describe "Users" do
           it "should not let someone sign in with a third party service that identifies the user with the same email" do
             visit sign_in_path
             click_link 'Sign in with Google'
-            page.should have_content 'We already have an account with that email. Make sure login with the service you used to create the account.'
+            expect(page).to have_content "There is another MyUSA account with that email. Please sign in with the service you used to create the account. You can also reset your password."
+            expect(page).to have_link("reset your password", href: new_user_password_path)
           end
         end 
 

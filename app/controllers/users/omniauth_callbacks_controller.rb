@@ -33,7 +33,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       if @user.errors[:base].include?("I'm sorry, your account hasn't been approved yet.")
         flash[:alert] = "I'm sorry, your account hasn't been approved yet."
       elsif @user.errors[:email].include?('has already been taken')
-        flash[:alert] = "We already have an account with that email. Make sure login with the service you used to create the account."
+        flash[:alert] = "There is another MyUSA account with that email. Please sign in with the service you used to create the account. You can also #{forgot_password_link('reset your password')}.".html_safe
       elsif @user.errors[:authentications].include?('is invalid')
         flash[:alert] = "This external account is already linked to another MyUSA account."
       else

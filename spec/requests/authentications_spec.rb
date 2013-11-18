@@ -77,7 +77,8 @@ describe "Authentications" do
         visit sign_in_path
         click_link 'Sign in with Google'
         current_path.should eq sign_in_path
-        expect(page).to have_content "We already have an account with that email. Make sure login with the service you used to create the account."
+        expect(page).to have_content "There is another MyUSA account with that email. Please sign in with the service you used to create the account. You can also reset your password."
+        expect(page).to have_link("reset your password", href: new_user_password_path)
       end
     end
   end

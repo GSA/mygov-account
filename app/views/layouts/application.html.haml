@@ -12,34 +12,34 @@
     = stylesheet_link_tag "bootstrap", :media => "all"
     = stylesheet_link_tag "dashboard", :media => "all"
     = stylesheet_link_tag "signup", :media => "all"
+    = stylesheet_link_tag "forms", :media => "all"
 
     %link{:href=>'http://fonts.googleapis.com/css?family=Raleway:400,300,500,700', :rel=>'stylesheet', :type=>'text/css'}
     /[if !IE 7]
       = stylesheet_link_tag "ie7", :media => "all"
 
-  %body
+  %body.content
     #navigation-region
       .container
         .row
           %nav.navbar.col-md-6.navbar-default{role: "navigation"}
             / Brand and toggle get grouped for better mobile display
             .navbar-header
-              .navbar-brand
+              %a{:class=>"navbar-brand", :href=>"/"}
                 %img{:src => "/assets/shield.gif"}
                 %h1
                   <span>My</span>USA
-                -#.tagline
-                  Re-imagining online government
 
           - if current_user
-
             .collapse.navbar-collapse.navbar-ex1-collapse
-              = render_navigation
+              = render_navigation(:context => :main)
 
-          #sign-in-utility.col-md-6
+          #sign-in-utility.col-md-5.text-right
             - if !current_user && request.path != sign_in_path
               =t('sign_in_prompt')
-              =link_to t('sign_in_link'), sign_in_path, class: 'btn btn-default'
+              =link_to t('sign_in_link'), sign_in_path, class: 'btn btn-primary'
+
+          .col-md-1
 
     #main
       %a{:name => "top"}

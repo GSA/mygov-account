@@ -21,7 +21,7 @@
     = stylesheet_link_tag "bootstrap", :media => "all"
     = stylesheet_link_tag "dashboard", :media => "all"
     = stylesheet_link_tag "signup", :media => "all"
-  %body.sign-up
+    %body
     /
       Javascripts
       \==================================================
@@ -99,11 +99,12 @@
                   = form.submit 'Sign up', :class => 'btn'
 
                   %p
-                    Or sign up with Google, Paypal, and more.
+                    = link_to "Or sign up with Google, Paypal, and more.", "/sign_up"
 
-      .home-mission-statement.col-md-12
-        <p><strong>MyUSA</strong> has a mission and it is awesome.</p>
-        <p>Reinventing citizenship, one app at a time.</p>
+      .row
+        .home-mission-statement.col-md-12
+          <p><strong>MyUSA</strong> has a mission and it is awesome.</p>
+          <p>Reinventing citizenship, one app at a time.</p>
 
     .features-region
       .container
@@ -133,12 +134,13 @@
               %p Tired of PDFs? So are we. MyUSA Forms will help make government forms easier to find and fill out online.
 
     .get-involved-region
+      %br
       .container
         .row
           .col-md-12
             %h2 Get Involved
 
-          .col-md-6.col-sm-8
+          .col-md-6.col-sm-5
             %h3 Agencies &amp; Government
             %p Learn what MyUSA can do for you: single sign on, notifications and alerts, and an application framework to help you get up and running fast.
             %p
@@ -163,7 +165,7 @@
 
               %a{:href=>'#'}
                 Developers
-          .col-md-6.col.sm.4.right.hidden-xs
+          .col-md-6.text-right.col-sm-7.hidden-xs
             %img{:src=>'/assets/home-bg-media-screens.jpg'}
 
     .footer-nav-region

@@ -1,69 +1,131 @@
+
 .row
-  .eight.columns
+  .col-md-2
+    %h5
+      Settings
+    %ul.nav.nav-pills.nav-stacked
+    = render_navigation(:context => :settings)
+
+    - if @profile && !@profile.errors.blank?
+      - content_for :scripts do
+        = javascript_tag do
+          $('html,body').animate({scrollTop: $('.field_with_errors').offset().top},'slow');
+
+  .col-md-8
     %h2
-      Your Profile
-  .four.columns.align-right.actions           
-    = link_to edit_profile_path, :class => 'small button' do
-      %i{:class => "foundicon-edit"}
-      Edit profile  
-.row
-  .six.columns
-    .panel.listing
-      %h3
-        Name
-      %ul.profile      
-        %li
-          Title: #{@profile.title}
-        %li
-          First name: #{@profile.first_name}
-        %li
-          Middle name: #{@profile.middle_name}
-        %li
-          Last name: #{@profile.last_name}
-        %li
-          Suffix: #{@profile.suffix}
-    
-    .panel.listing
-      %h3
-        Address
-      %ul.profile 
-        %li
-          Address: #{@profile.address}
-        %li
-          Address (Line 2): #{@profile.address2}
-        %li
-          City: #{@profile.city}
-        %li
-          State: #{@profile.state}
-        %li
-          Zip: #{@profile.zip}
-  .six.columns        
-    .panel.listing
-      %h3 
-        Phone
-      %ul.profile   
-        %li
-          Phone: #{@profile.phone_number}
-        %li
-          Mobile: #{@profile.mobile_number}    
-    .panel.listing
-      %h3
-        Information about you
-      %ul.profile
-        %li
-          Email: #{@user.email}
-        %li
-          Gender: #{@profile.print_gender}
-        %li
-          Marital status: #{@profile.print_marital_status}
-        %li
-          Parent: #{yes_or_no(@profile.is_parent)}
-        %li
-          Veteran: #{yes_or_no(@profile.is_veteran)}
-        %li
-          Student: #{yes_or_no(@profile.is_student)}
-        %li
-          Retired: #{yes_or_no(@profile.is_retired)}
-.row
+      My Profile
+    = form_for @profile do |form|
+      - if flash[:error]
+        .alert-box
+          = flash[:error]
+      %fieldset
+        %legend
+          Name
+        %ol.inline
+          %li.row
+            .col-md-2
+              = form.label :title
+            .col-md-6
+              = form.select :title, title_options, :include_blank => true
+          %li.row
+            .col-md-2
+              = form.label :first_name
+            .col-md-6
+              = form.text_field :first_name
+          %li.row
+            .col-md-2
+              = form.label :middle_name
+            .col-md-6
+              = form.text_field :middle_name
+          %li.row
+            .col-md-2
+              = form.label :last_name
+            .col-md-6
+              = form.text_field :last_name
+          %li.row
+            .col-md-2
+              = form.label :suffix
+            .col-md-6
+              = form.select :suffix, suffix_options, :include_blank => true
+      %fieldset
+        %legend
+          Address
+        %ol.inline
+          %li.row
+            .col-md-2
+              = form.label :address
+            .col-md-6
+              = form.text_field :address
+          %li.row
+            .col-md-2
+              = form.label "Suite or Box"
+            .col-md-6
+              = form.text_field :address2
+          %li.row
+            .col-md-2
+              = form.label :city
+            .col-md-6
+              = form.text_field :city
+          %li.row
+            .col-md-2
+              = form.label :state
+            .col-md-6
+              = form.select :state, us_state_options, :include_blank => true
+          %li.row
+            .col-md-2
+              = form.label :zip
+            .col-md-6
+              = form.text_field :zip
+      %fieldset
+        %legend
+          Phone
+        %ol.inline
+          %li.row
+            .col-md-2
+              = form.label :phone_number
+            .col-md-6
+              = form.phone_field :phone_number
+          %li.row
+            .col-md-2
+              = form.label :mobile_number
+            .col-md-6
+              = form.phone_field :mobile_number
+      %fieldset
+        %legend
+          Gender
+        %ol.inline
+          %li
+            = radio_button('profile','gender','male', { class: 'radio' })
+            = form.label :gender_male, "Male", { class: 'radio' }
+            = radio_button('profile','gender','female', { class: 'radio' })
+            = form.label :gender_female, "Female", { class: 'radio' }
 
+      %fieldset
+        %legend
+          Marital status
+        %ol.inline
+          %li.row
+            .col-md-2
+              = form.label :marital_status
+            .col-md-6
+              = form.select :marital_status, marital_status_options, :include_blank => true
+      %fieldset
+        %legend
+          About you
+        %ol.inline
+          %li.full
+            = form.check_box :is_parent
+            = form.label :is_parent, "Parent"
 
+          %li.full
+            = form.check_box :is_veteran
+            = form.label :is_veteran, "Veteran"
+
+          %li.full
+            = form.check_box :is_student
+            = form.label :is_student, "Student"
+
+          %li.full
+            = form.check_box :is_retired
+            = form.label :is_retired, "Retired"
+      = form.submit "Update profile", :class => 'btn btn-primary'

@@ -1,21 +1,41 @@
 .row
-  .eight.columns
+  .col-md-2
+    %h5
+      Settings
+
+    %ul.nav.nav-pills.nav-stacked
+    = render_navigation(:context => :settings)
+
+  .col-md-8
     %h2
-      Change Your Email Address
+      Change Your Password
+
+    %p
+      Create a new password for
+      %strong
+        = @user.email
+
+    - unless resource.errors.empty?
+      .alert.alert-danger
+        = devise_error_messages!
     - if flash.notice
-      .alert-box.blue
-        = flash.notice 
-    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, novalidate: true }) do |f|
-      = devise_error_messages!
-      %div
-        = f.label :email
-        %br
-        = f.email_field :email, value: resource.unconfirmed_email ? resource.unconfirmed_email : resource.email, :size => 30
+      .alert.alert-info
+        = flash.notice
+
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, novalidate: true, :class => 'form' }) do |f|
+
       %div
         = f.label :current_password
-        %i (we need your current password to confirm your changes)
         %br
-        = f.password_field :current_password, autocomplete: 'off'
-      %div= f.submit "Update"
-    %p
-      = link_to "Back", settings_path
+        = f.password_field :current_password
+        %br
+        = f.label :current_password, "New Password"
+        %br
+        = f.password_field :password, autocomplete: 'off'
+        %br
+        = f.label :password_confirmation, "Confirm New Password"
+        %br
+        = f.password_field :password_confirmation
+
+      %div
+        = f.submit "Update my password", :class=>'btn btn-primary form-button'

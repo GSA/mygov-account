@@ -13,6 +13,7 @@ Mygov::Application.routes.draw do
     get 'thank_you', :to => 'users/registrations#thank_you', :as => :thank_you
     get 'sign_in', :to => 'users/sessions#new', :as => :sign_in
     get 'sign_out', :to => 'users/sessions#destroy', :as => :sign_out
+    get 'change_password', :to => 'users/registrations#edit', :as => :change_password
   end
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'
@@ -31,6 +32,7 @@ Mygov::Application.routes.draw do
       resources :authentications
     end
   end
+
   resource :profile, :only => [:show, :edit, :update]
   resources :notifications, :only => [:index, :show, :create, :destroy]
   resources :tasks, :only => [:show, :update, :destroy]

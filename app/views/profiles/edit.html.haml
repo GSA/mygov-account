@@ -1,11 +1,19 @@
-- if @profile && !@profile.errors.blank?
-  - content_for :scripts do
-    = javascript_tag do
-      $('html,body').animate({scrollTop: $('.field_with_errors').offset().top},'slow');
+
 .row
-  .eight.columns
+  .col-md-2
+    %h5
+      Settings
+    %ul.nav.nav-pills.nav-stacked
+    = render_navigation(:context => :settings)
+
+    - if @profile && !@profile.errors.blank?
+      - content_for :scripts do
+        = javascript_tag do
+          $('html,body').animate({scrollTop: $('.field_with_errors').offset().top},'slow');
+
+  .col-md-8
     %h2
-      Edit your profile
+      My profile
     = form_for @profile do |form|
       - if flash[:error]
         .alert-box
@@ -13,7 +21,7 @@
       %fieldset
         %legend
           Name
-        %ol
+        %ol.inline
           %li
             = form.label :title
             = form.select :title, title_options, :include_blank => true
@@ -32,7 +40,7 @@
       %fieldset
         %legend
           Address
-        %ol
+        %ol.inline
           %li
             = form.label :address
             = form.text_field :address
@@ -47,28 +55,28 @@
             = form.select :state, us_state_options, :include_blank => true
           %li
             = form.label :zip
-            = form.text_field :zip 
+            = form.text_field :zip
       %fieldset
-        %legend 
+        %legend
           Phone
-        %ol
+        %ol.inline
           %li
             = form.label :phone_number
             = form.phone_field :phone_number
           %li
             = form.label :mobile_number
-            = form.phone_field :mobile_number    
+            = form.phone_field :mobile_number
       %fieldset
         %legend
           Gender
-        %ol 
+        %ol.inline
           %li
             = form.label :gender
             = form.select :gender, gender_options, :include_blank => true
       %fieldset
         %legend
           Marital status
-        %ol  
+        %ol.inline
           %li
             = form.label :marital_status
             = form.select :marital_status, marital_status_options, :include_blank => true
@@ -79,21 +87,22 @@
           %li.full
             = form.check_box :is_parent
             = form.label :is_parent, "Parent"
-            
+
           %li.full
             = form.check_box :is_veteran
             = form.label :is_veteran, "Veteran"
-            
+
           %li.full
             = form.check_box :is_student
             = form.label :is_student, "Student"
-            
+
           %li.full
             = form.check_box :is_retired
-            = form.label :is_retired, "Retired"      
-      = form.submit "Update profile", :class => 'large button positive'
+            = form.label :is_retired, "Retired"
+      = form.submit "Update profile", :class => 'btn btn-primary'
+      &nbsp;
       = link_to 'Cancel', profile_path
-  .four.columns
+  .col-md-4
     .panel.sidebar.tertiary
       = render :partial => 'home/administrative_sidebar'
 

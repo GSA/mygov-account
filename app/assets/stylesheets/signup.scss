@@ -94,11 +94,17 @@ body.content .navbar-brand {
   font-weight: 600;
   margin-left: 10px;
   }
-  p a.btn.btn-primary { /* NOTE: hover is not working yet. Lame. */
-  &:hover, &:focus, &:active {
-    background-color: $shieldBottom;
-    }
-  }
+
+//   p a btn { /* NOTE: hover is not working yet. Lame. */
+//   // CURRENT: FIXME hover
+//   &:hover, &:focus, &:active {
+//     background-color: $shieldBottom;
+//     }
+//   }
+}
+
+.sign-in-prompt {
+  margin-top: 15px;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -112,6 +118,14 @@ body.content .navbar-brand {
   }
 }
 
+.navbar-nav li.active {
+  background-color: #eee;
+}
+
+.navbar-nav li .btn-sm {
+  padding: 8px 15px;
+  margin: 7px;
+}
 
 /* AMBER WAVES
  * ------------------------------------------------ */

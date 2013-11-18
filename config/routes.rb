@@ -31,6 +31,9 @@ Mygov::Application.routes.draw do
       resources :authentications
     end
   end
+
+  get '/settings/change_password' => "settings#change_password"
+
   resource :profile, :only => [:show, :edit, :update]
   resources :notifications, :only => [:index, :show, :create, :destroy]
   resources :tasks, :only => [:show, :update, :destroy]

@@ -12,6 +12,7 @@
     = stylesheet_link_tag "bootstrap", :media => "all"
     = stylesheet_link_tag "dashboard", :media => "all"
     = stylesheet_link_tag "signup", :media => "all"
+    = stylesheet_link_tag "forms", :media => "all"
 
     %link{:href=>'http://fonts.googleapis.com/css?family=Raleway:400,300,500,700', :rel=>'stylesheet', :type=>'text/css'}
     /[if !IE 7]
@@ -30,15 +31,13 @@
                   <span>My</span>USA
 
           - if current_user
-
             .collapse.navbar-collapse.navbar-ex1-collapse
               = render_navigation(:context => :main)
 
-          #sign-in-utility.col-md-5
+          #sign-in-utility.col-md-5.text-right
             - if !current_user && request.path != sign_in_path
-              .sign-in-prompt.text-right
-                =t('sign_in_prompt')
-                =link_to t('sign_in_link'), sign_in_path, class: 'btn btn-primary'
+              =t('sign_in_prompt')
+              =link_to t('sign_in_link'), sign_in_path, class: 'btn btn-primary'
 
           .col-md-1
 

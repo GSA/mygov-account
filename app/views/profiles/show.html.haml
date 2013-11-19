@@ -22,57 +22,85 @@
         %legend
           Name
         %ol.inline
-          %li
-            = form.label :title
-            = form.select :title, title_options, :include_blank => true
-          %li
-            = form.label :first_name
-            = form.text_field :first_name
-          %li
-            = form.label :middle_name
-            = form.text_field :middle_name
-          %li
-            = form.label :last_name
-            = form.text_field :last_name
-          %li
-            = form.label :suffix
-            = form.select :suffix, suffix_options, :include_blank => true
+          %li.row
+            .col-md-2
+              = form.label :title
+            .col-md-6
+              = form.select :title, title_options, :include_blank => true
+          %li.row
+            .col-md-2
+              = form.label :first_name
+            .col-md-6
+              = form.text_field :first_name
+          %li.row
+            .col-md-2
+              = form.label :middle_name
+            .col-md-6
+              = form.text_field :middle_name
+          %li.row
+            .col-md-2
+              = form.label :last_name
+            .col-md-6
+              = form.text_field :last_name
+          %li.row
+            .col-md-2
+              = form.label :suffix
+            .col-md-6
+              = form.select :suffix, suffix_options, :include_blank => true
       %fieldset
         %legend
           Address
         %ol.inline
-          %li
-            = form.label :address
-            = form.text_field :address
-          %li
-            = form.label :address2
-            = form.text_field :address2
-          %li
-            = form.label :city
-            = form.text_field :city
-          %li
-            = form.label :state
-            = form.select :state, us_state_options, :include_blank => true
-          %li
-            = form.label :zip
-            = form.text_field :zip
+          %li.row
+            .col-md-2
+              = form.label :address
+            .col-md-6
+              = form.text_field :address
+          %li.row
+            .col-md-2
+              = form.label "Suite or Box"
+            .col-md-6
+              = form.text_field :address2
+          %li.row
+            .col-md-2
+              = form.label :city
+            .col-md-6
+              = form.text_field :city
+          %li.row
+            .col-md-2
+              = form.label :state
+            .col-md-6
+              = form.select :state, us_state_options, :include_blank => true
+          %li.row
+            .col-md-2
+              = form.label :zip
+            .col-md-6
+              = form.text_field :zip
       %fieldset
         %legend
           Phone
         %ol.inline
-          %li
-            = form.label :phone_number
-            = form.phone_field :phone_number
-          %li
-            = form.label :mobile_number
-            = form.phone_field :mobile_number
+          %li.row
+            .col-md-2
+              = form.label :phone_number
+            .col-md-6
+              = form.phone_field :phone_number
+          %li.row
+            .col-md-2
+              = form.label :mobile_number
+            .col-md-6
+              = form.phone_field :mobile_number
       %fieldset
         %legend
           Gender
         %ol.inline
           %li
-            = form.label :gender
-            = form.select :gender, gender_options, :include_blank => true
+            = radio_button_tag :gender, :male, false, class: 'radio'
+            = label_tag(:gender_male, 'Male', class: 'radio')
+
+            = radio_button_tag :gender, :female, false, class: "radio"
+            = label_tag(:gender_female, 'Female', class: 'radio')
+
       %fieldset
         %legend
           Marital status

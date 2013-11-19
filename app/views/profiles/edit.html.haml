@@ -1,4 +1,3 @@
-
 .row
   .col-md-2
     %h5
@@ -22,21 +21,30 @@
         %legend
           Name
         %ol.inline
-          %li
-            = form.label :title
-            = form.select :title, title_options, :include_blank => true
-          %li
-            = form.label :first_name
-            = form.text_field :first_name
-          %li
-            = form.label :middle_name
-            = form.text_field :middle_name
-          %li
-            = form.label :last_name
-            = form.text_field :last_name
-          %li
-            = form.label :suffix
-            = form.select :suffix, suffix_options, :include_blank => true
+          %li.row
+            .col-md-2
+              = form.label :title
+            .col-md-6
+              = form.select :title, title_options, :include_blank => true
+          %li.row
+            .col-md-2
+              = form.label :first_name
+            .col-md-6
+              = form.text_field :first_name
+          %li.row
+            .col-md-2
+              = form.label :middle_name
+            .col-md-6
+              = form.text_field :middle_name
+          %li.row
+            .col-md-2
+              = form.label :last_name
+            .col-md-6
+              = form.text_field :last_name
+          %li.row
+            .col-md-2
+              = form.label :suffix
+              = form.select :suffix, suffix_options, :include_blank => true
       %fieldset
         %legend
           Address

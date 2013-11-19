@@ -103,10 +103,6 @@ body.content .navbar-brand {
 //   }
 }
 
-.sign-in-prompt {
-  margin-top: 15px;
-}
-
 .navbar-default .navbar-nav > li > a {
   padding-top: 0px;
   padding-right: 0px;
@@ -118,14 +114,22 @@ body.content .navbar-brand {
   }
 }
 
-.navbar-nav li.active {
-  background-color: #eee;
+ul.nav {
+  margin-top: 10px;
+
+  li {
+    .active {
+      color: $buttonBlue;
+      background-color: #eee;
+    }
+
+    .btn-sm {
+      padding: 8px 15px;
+      margin: 7px;
+    }
+  }
 }
 
-.navbar-nav li .btn-sm {
-  padding: 8px 15px;
-  margin: 7px;
-}
 
 /* AMBER WAVES
  * ------------------------------------------------ */

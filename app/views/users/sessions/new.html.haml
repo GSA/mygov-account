@@ -9,7 +9,7 @@
 .row
   .eight.columns
     .panel
-      = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      = form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {novalidate: true}) do |f|
         - if flash.alert
           .alert-box
             = flash.alert

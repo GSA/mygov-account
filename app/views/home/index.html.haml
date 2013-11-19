@@ -16,7 +16,7 @@
         %p
           =t('mygov_greeting')
         #fieldset
-          = form_for @beta_signup do |form|
+          = form_for @beta_signup, html: {novalidate: true} do |form|
             - if flash.alert
               .alert-box
                 = flash.alert

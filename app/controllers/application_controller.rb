@@ -57,4 +57,20 @@ class ApplicationController < ActionController::Base
   def forgot_password_link(text)
     view_context.link_to(text, new_user_password_path)
   end
+  
+  def validate_email_devise
+    email = resource_params[:email]
+    if email.blank?
+      set_flash_message(:notice, 'email_required')
+      self.resource = resource_class.new
+      render :new
+      return false
+    elsif !ValidatesEmailFormatOf::validate_email_format(email).nil?
+      set_flash_message(:notice, 'email_invalid')
+      self.resource = resource_class.new
+      render :new
+      return false
+    end
+    true
+  end
 end

@@ -1,5 +1,6 @@
 class Devise::PasswordsController < DeviseController
   prepend_before_filter :require_no_authentication
+  before_filter :validate_email_devise, only: :create
   # Render the #edit only if coming from a reset password email link
   append_before_filter :assert_reset_token_passed, :only => :edit
 
@@ -11,18 +12,6 @@ class Devise::PasswordsController < DeviseController
 
   # POST /resource/password
   def create
-    if resource_params[:email].blank?
-      set_flash_message(:notice, 'email_required')
-      self.resource = resource_class.new
-      render :new
-      return
-    elsif !ValidatesEmailFormatOf::validate_email_format(resource_params[:email]).nil?
-      set_flash_message(:notice, 'email_invalid')
-      self.resource = resource_class.new
-      render :new
-      return
-    end
-    
     self.resource = resource_class.send_reset_password_instructions(resource_params)
 
     set_flash_message(:notice, 'ambiguous_email')

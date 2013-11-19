@@ -1,6 +1,42 @@
 require 'spec_helper'
 
 describe "Users" do
+  describe "Didn't receive confirmation link" do
+    context "when a user is not signed in" do
+      it "should give a proper message if no email is entered" do
+        visit new_user_confirmation_path
+        fill_in 'Email', with: ''
+        click_button 'Send'
+        page.should have_content 'Please enter an email address'
+      end
+      
+      it "should give a proper message if an invalid email is entered" do
+        visit new_user_confirmation_path
+        fill_in 'Email', with: 'xyz'
+        click_button 'Send'
+        page.should have_content 'Please enter a valid email address'
+      end
+    end
+  end
+  
+  describe "Didn't receive unlock link" do
+    context "when a user is not signed in" do
+      it "should give a proper message if no email is entered" do
+        visit new_user_unlock_path
+        fill_in 'Email', with: ''
+        click_button 'Send'
+        page.should have_content 'Please enter an email address'
+      end
+      
+      it "should give a proper message if an invalid email is entered" do
+        visit new_user_unlock_path
+        fill_in 'Email', with: 'xyz'
+        click_button 'Send'
+        page.should have_content 'Please enter a valid email address'
+      end
+    end
+  end
+  
   describe "Forgot password link" do
     context "when a user is not signed in" do
       it "should give a proper message if no email is entered" do
@@ -18,6 +54,7 @@ describe "Users" do
       end
     end
   end
+  
   describe "sign in links" do
     context "when a user is not signed in" do
       it "should have a sign-in link" do

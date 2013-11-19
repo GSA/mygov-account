@@ -11,6 +11,18 @@ class Devise::PasswordsController < DeviseController
 
   # POST /resource/password
   def create
+    if resource_params[:email].blank?
+      set_flash_message(:notice, 'email_required')
+      self.resource = resource_class.new
+      render :new
+      return
+    elsif !ValidatesEmailFormatOf::validate_email_format(resource_params[:email]).nil?
+      set_flash_message(:notice, 'email_invalid')
+      self.resource = resource_class.new
+      render :new
+      return
+    end
+    
     self.resource = resource_class.send_reset_password_instructions(resource_params)
 
     set_flash_message(:notice, 'ambiguous_email')

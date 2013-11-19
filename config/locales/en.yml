@@ -43,6 +43,8 @@ en:
       no_token: "In order to access this page, you must arrive from a password reset email. If you came from a password reset email, please make sure you used the full URL provided."
       user:
         ambiguous_email: Instructions will be sent to the email if it exists in our system
+        email_required: Please enter an email address
+        email_invalid: Please enter a valid email address
     confirmations:
       send_instructions: "You'll receive an email explaining how to confirm your account in a few minutes."
       send_paranoid_instructions: "If we have your email address, you'll receive an email in a few minutes explaining how to confirm your account."

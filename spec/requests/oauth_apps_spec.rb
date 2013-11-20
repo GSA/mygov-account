@@ -76,6 +76,41 @@ describe "OauthApps" do
         ).should redirect_to(sign_in_path)
       end
     end
+    
+    context "when the app is sandboxed" do
+      it "should allow the user to sign up whitelisted (without going through BetaSignup)" do
+        visit(url_for(controller: 'oauth', action: 'authorize',
+                response_type: 'code', client_id: @sandbox_client_auth.client_id, redirect_uri: 'http://localhost/')
+        )
+        uri = URI.parse(current_url)
+        uri.path.should eq sign_in_path
+        click_link("Sign up")
+        fill_in 'Email', with: 'new@user.com'
+        fill_in 'Password', with: 'Password1'
+        fill_in 'Password confirmation', with: 'Password1'
+        check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+        click_button('Sign up')
+        page.should have_content("I'm sorry, your account hasn't been approved yet.")
+      end
+    end
+    
+    context "when the app is public" do
+      it "should allow the user to sign up whitelisted (without going through BetaSignup)" do
+        visit(url_for(controller: 'oauth', action: 'authorize',
+                response_type: 'code', client_id: @app2_client_auth.client_id, redirect_uri: 'http://localhost/')
+        )
+        uri = URI.parse(current_url)
+        uri.path.should eq sign_in_path
+        click_link("Sign up")
+        fill_in 'Email', with: 'new@user.com'
+        fill_in 'Password', with: 'Password1'
+        fill_in 'Password confirmation', with: 'Password1'
+        check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+        click_button('Sign up')
+        page.should_not have_content("I'm sorry, your account hasn't been approved yet.")
+        page.should have_content("Thank you for signing up")
+      end
+    end
 
     context "when the app is not known" do
       it "should redirect to a friendly error page if the app is unknown" do

@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 
   WHITELISTED_DOMAINS = %w{ .gov .mil usps.com }
   attr_accessible :first_name, :last_name, :as => [:default]
-  attr_accessor :just_created
+  attr_accessor :just_created, :auto_approve
   
   PROFILE_ATTRIBUTES = [:title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :phone, :mobile, :gender, :marital_status, :is_parent, :is_retired, :is_student, :is_veteran]
 
@@ -143,7 +143,7 @@ class User < ActiveRecord::Base
 
   def email_is_whitelisted_or_user_had_existing_account
     if self.id.nil?
-      unless User.email_is_whitelisted?(self.email) or BetaSignup.find_by_email_and_is_approved(self.email, true)
+      unless User.email_is_whitelisted?(self.email) or BetaSignup.find_by_email_and_is_approved(self.email, true) or self.auto_approve == true
         errors.add(:base, "I'm sorry, your account hasn't been approved yet.")
       end
     end

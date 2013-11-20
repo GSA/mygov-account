@@ -29,4 +29,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_update_path_for(resource)
     edit_user_registration_path
   end
+  
+  # Build a devise resource passing in the session. Useful to move
+  # temporary session data to the newly created user.
+  def build_resource(hash=nil)
+    super(hash)
+    self.resource.auto_approve = true if self.resource && session[:auto_approve_account] == true
+  end
 end

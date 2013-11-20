@@ -6,7 +6,7 @@ SimpleNavigation::Configuration.run do |navigation|
     settings.item :change_password, 'Change Password', edit_user_registration_path
     settings.item :notifications_and_alerts, 'Notifications & Alerts', '/'
     settings.item :manage_applications, 'Manage Applications', '/'
-    settings.item :other_networks, 'Other Networks', '/'
+    settings.item :other_networks, 'Other Networks', authentications_path
     settings.dom_class = 'nav nav-pills nav-stacked'
     settings.selected_class = 'active'
   end

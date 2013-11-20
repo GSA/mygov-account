@@ -74,20 +74,11 @@ describe "HomePage" do
       context "the user does not have a profile name" do
         before {@user.profile.update_attributes(:name=>nil)}
 
-        it "should link to the settings page with 'Settings'" do
+        it "should link to the default settings page (profile page) with 'Settings'" do
           visit root_path
           page.should have_content "Settings"
           click_link "Settings"
-          page.should have_content "My Settings"
-        end
-      end
-
-      context "the user has a profile name" do
-        it "displays a differnet header" do
-          visit root_path
-          page.should have_content "Settings"
-          click_link "Settings"
-          page.should have_content "Settings for Joe Citizen"
+          page.find('h2').should have_content "My Profile"
         end
       end
 

@@ -311,17 +311,18 @@ describe "Users" do
     before {create_confirmed_user_with_profile; login(@user)}
 
     it "should change the user's name when first or last name changes" do
-      visit edit_profile_path
+      visit profile_path
+      expect(page.find('#profile_first_name').value).to eq('Joe')
       fill_in 'First name', :with => 'Jane'
       click_button 'Update profile'
-      page.should have_content "Logout"
-      page.should have_content "Edit profile"
-      page.should_not have_content "Joe"
-      page.should have_content "Jane"
+      expect(page.find('#profile_first_name').value).to eq('Jane')
     end
+
+    it "should display a success message"
+
   end
 
-  describe "change your password" do
+  describe "Sending a forgotten password" do
     before {create_confirmed_user}
 
     it "changes the user's password and sends notification and confirmation emails" do

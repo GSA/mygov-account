@@ -10,6 +10,7 @@ en:
   session_expiration_warning: "We noticed you haven't been very active in MyUSA. %{link}"
   mygov_greeting: ""
   beta_signup_error: "An error occurred during signup.  Please try again."
+  apps_leaving: "In a few seconds, you will be redirected to"
   
   errors:
     messages:

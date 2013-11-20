@@ -34,6 +34,15 @@ describe "Apps" do
     context "when a user is logged in" do
       before {login(@user)}
       
+      it "should warn user before redirecting user off site" do
+        visit apps_path
+        click_link "Public App 1"
+        click_link "Public App 1"
+        original_url = current_url
+        page.should have_content I18n.t('apps_leaving')
+        page.should have_css  %Q/meta[content="#{Rails.application.config.apps_leaving_delay};#{URI.escape @app1.url}"]/, :visible => false
+      end
+      
       it "should show a list of public apps, and those sandboxed apps that are owned by the logged in user" do
         visit apps_path
         page.should have_content "Public App 1"

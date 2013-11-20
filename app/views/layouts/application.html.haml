@@ -1,7 +1,7 @@
 !!! 5
 %html(lang="en")
   %head(prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#")
-    
+    = yield :head
     - if current_user && request.get? # If it's a post, then no redirect
       = refresh_meta_tag_conent    
 

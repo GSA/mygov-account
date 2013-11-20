@@ -15,7 +15,6 @@ describe "Profile" do
           expect(page.find('#profile_last_name').value).to eq('Citizen')
           expect(page.find('#profile_is_retired').checked?).to eq(nil)
           expect(page.find('#profile_is_student').checked?).to eq('checked')
-          #TODO: Update page
         end
 
         context "editing your profile" do
@@ -44,28 +43,22 @@ describe "Profile" do
             select "Iowa", :from => 'State'
             fill_in "Zip", :with => '12345'
             fill_in "Phone", :with => '(123) 456-7890' # using a different format to test auto-formatting
-            choose 'gender_male'
+            choose 'profile_gender_male'
             select 'Married', :from => "Marital status"
             check "Parent"
             uncheck "Student"
             click_button "Update profile"
-            # page.should have_content "Middle name: Q"
+
             expect(page.find('#profile_middle_name').value).to eq('Q')
-            # page.should have_content "Address: 123 Evergreen Terrace"
-            # expect(page.find('#profile_address').value).to eq('123 Evergreen Terrace')
             expect(page.find('#profile_address').value).to eq('123 Evergreen Terrace')
-            # page.should have_content "City: Springfield"
             expect(page.find('#profile_city').value).to eq('Springfield')
-            # page.should have_content "State: IA"
             expect(page.find('#profile_state').value).to eq('IA')
-            # page.should have_content "Zip: 12345"
             expect(page.find('#profile_zip').value).to eq('12345')
-            # page.should have_content "Phone: 123-456-7890"
-            expect(page.find('#profile_phone').value).to eq('123-456-7890')
-            page.should have_content "Gender: Male"
-            page.should have_content "Marital status: Married"
-            page.should have_content "Parent: Yes"
-            page.should have_content "Student: No"
+            expect(page.find('#profile_phone_number').value).to eq('123-456-7890')
+            expect(page.find('#profile_gender_male').checked?).to eq('checked')
+            expect(page.find('#profile_marital_status').value).to eq('married')
+            expect(page.find('#profile_is_parent').checked?).to eq('checked')
+            expect(page.find('#profile_is_student').checked?).to eq(nil)
           end
         end
       end

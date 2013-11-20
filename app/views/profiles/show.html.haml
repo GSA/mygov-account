@@ -95,19 +95,20 @@
           Gender
         %ol.inline
           %li
-            = radio_button_tag :gender, :male, false, class: 'radio'
-            = label_tag(:gender_male, 'Male', class: 'radio')
-
-            = radio_button_tag :gender, :female, false, class: "radio"
-            = label_tag(:gender_female, 'Female', class: 'radio')
+            = radio_button('profile','gender','male', { class: 'radio' })
+            = form.label :gender_male, "Male", { class: 'radio' }
+            = radio_button('profile','gender','female', { class: 'radio' })
+            = form.label :gender_female, "Female", { class: 'radio' }
 
       %fieldset
         %legend
           Marital status
         %ol.inline
-          %li
-            = form.label :marital_status
-            = form.select :marital_status, marital_status_options, :include_blank => true
+          %li.row
+            .col-md-2
+              = form.label :marital_status
+            .col-md-6
+              = form.select :marital_status, marital_status_options, :include_blank => true
       %fieldset
         %legend
           About you

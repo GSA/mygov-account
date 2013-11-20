@@ -15,7 +15,7 @@ module ApplicationHelper
       ""
     end
   end
-  
+
   def gender_options
     [["Male", "male"], ["Female", "female"]]
   end
@@ -25,7 +25,7 @@ module ApplicationHelper
   end
 
   def marital_status_options
-    [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic_partnership"], ["Widowed", "widowed"]]
+    [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic"], ["Widowed", "widowed"]]
   end
 
   def pretty_time(time)

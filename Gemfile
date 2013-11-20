@@ -5,10 +5,8 @@ gem 'jquery-rails'
 gem 'json', '~> 1.8.0'
 gem 'haml'
 gem 'devise'
-gem 'capistrano'
 gem 'omniauth'
 gem 'oauth2-provider', :require => 'oauth2/provider', :git => 'https://github.com/GSA-OCSIT/oauth2-provider.git', :branch => 'bearer-header'
-gem 'rvm-capistrano'
 gem 'bigdecimal'
 gem 'will_paginate', '~> 3.0'
 gem 'cancan'
@@ -27,6 +25,11 @@ gem 'omniauth-openid', :git => 'https://github.com/GSA-OCSIT/omniauth-openid.git
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'secure_headers'
 gem 'metamagic'
+gem 'capistrano'
+gem 'rvm-capistrano'
+gem 'capistrano-resque', '~> 0.1.0', :git => 'https://github.com/GSA-OCSIT/capistrano-resque.git'
+gem 'resque', :git => 'git://github.com/resque/resque.git', :branch => '1-x-stable', :require => 'resque/server'
+gem 'resque_mailer'
 
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA-OCSIT/rack-openid.git', :branch => 'pape'
@@ -41,6 +44,7 @@ group :assets do
   gem 'libv8', '~> 3.11.8.7', :platform => :ruby
   gem 'execjs'
   gem 'uglifier', '>= 1.0.3'
+  gem 'turbo-sprockets-rails3' # conditionally precompile assets at deploy
 end
 
 group :test, :development do

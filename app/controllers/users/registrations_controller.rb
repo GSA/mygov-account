@@ -7,6 +7,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         session[:omniauth] = nil unless @user.new_record? 
       else
         build_resource( sign_up_params )
+        resource.valid?
         clean_up_passwords(resource)
         resource.errors.add(:base, "There was an error with the code below. Please re-enter!")
         render :new

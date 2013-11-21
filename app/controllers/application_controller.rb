@@ -3,20 +3,45 @@ class ApplicationController < ActionController::Base
   skip_before_filter :set_csp_header
   protect_from_forgery
   prepend_before_filter :set_no_keep_alive
-  before_filter :set_segment
-  before_filter :set_session_will_expire
-  after_filter :set_response_headers
-  
+  after_filter :set_response_headers, :cors_set_access_control_headers
+  before_filter :set_segment, :set_session_will_expire, :cors_preflight_check
+
+
   def after_sign_out_path_for(resource_or_scope)
     sign_in_path
   end
-  
+
   def after_sign_in_path_for(resource_or_scope)
     session[:after_auth_return_to] || super(resource_or_scope)
   end
-  
+
+  def cors_set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*' #TODO: Specify permitted domains
+    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, DELETE'
+    headers['Access-Control-Max-Age'] = "1728000"
+    headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
+  end
+
+  # If this is a preflight OPTIONS request, then short-circuit the
+  # request, return only the necessary headers and return an empty
+  # text/plain.
+
+  def cors_preflight_check
+    if request.method == :options
+      headers['Access-Control-Allow-Origin'] = '*'
+      headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, DELETE'
+      headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-Prototype-Version'
+    end
+  end
+
+  def xss_options_request
+    render :text => ""
+  end
+
+
+
   protected
-      
+
   def set_no_keep_alive
     request.env["devise.skip_trackable"] = true unless params[:no_keep_alive].blank?
   end
@@ -42,22 +67,22 @@ class ApplicationController < ActionController::Base
   def assign_user
     @user = current_user
   end
-  
+
   def set_segment
     if !session[:segment]
       session[:segment] = rand(2) == 0 ? "A" : "B"
     end
     @segment = session[:segment]
   end
-  
+
   def set_response_headers
     headers['X-XRDS-Location'] = url_for(:action => 'xrds', :controller => 'home', :protocol => 'https', :only_path => false, :format => :xml)
   end
-  
+
   def forgot_password_link(text)
     view_context.link_to(text, new_user_password_path)
   end
-  
+
   def validate_email_devise
     email = resource_params[:email]
     if email.blank?

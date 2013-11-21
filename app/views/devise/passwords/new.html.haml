@@ -15,7 +15,7 @@
       %fieldset.plain
         %ol.inline
           %li
-            = f.label "Enter your email address"
+            = f.label :email, "Enter your email address"
           %li
             = f.email_field :email
         %div.actions= f.submit "Email password reset instructions", :class => 'btn btn-primary'

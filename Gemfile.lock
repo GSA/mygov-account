@@ -476,11 +476,8 @@ DEPENDENCIES
   simplecov
   therubyracer (~> 0.11.1)
   thin
-<<<<<<< HEAD
   turbo-sprockets-rails3
-=======
   turnip
->>>>>>> Added turnip which was removed during the rebase. Go figure
   uglifier (>= 1.0.3)
   validates_email_format_of!
   webmock

@@ -159,16 +159,6 @@ ActiveRecord::Schema.define(:version => 20131108190841) do
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
-  create_table "related_urls", :force => true do |t|
-    t.string   "url"
-    t.string   "other_url"
-    t.integer  "occurence_count", :default => 0
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-  end
-
-  add_index "related_urls", ["url", "occurence_count"], :name => "index_related_urls_on_url_and_occurence_count"
-
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -213,6 +203,7 @@ ActiveRecord::Schema.define(:version => 20131108190841) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "uid"
+    t.date     "date_of_birth"
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

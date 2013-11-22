@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe "Profile" do
-  before {create_confirmed_user_with_profile}
+  before do
+    @user = create_confirmed_user_with_profile(:is_student => true)
+  end
 
   describe "GET /profile" do    
     context "when visiting the web site via a browser" do

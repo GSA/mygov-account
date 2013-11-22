@@ -2,17 +2,13 @@ require 'spec_helper'
 
 describe "OauthApps" do
   before do
-    create_confirmed_user_with_profile
-
-    create_approved_beta_signup('second@user.org')
-    @user2 = User.create!(:email => 'second@user.org', :password => 'Password1')
-    @user2.confirm!
-    @user2.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
+    @user = create_confirmed_user_with_profile
+    @user2 = create_confirmed_user_with_profile(email: 'second@user.org')
     
     app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
     app1.is_public = true
     app1.save!
-    app1.oauth_scopes << OauthScope.all
+    app1.oauth_scopes << OauthScope.top_level_scopes
     @app1_client_auth = app1.oauth2_client
     
     app2 = App.create(name: 'App2'){|app| app.redirect_uri = "http://localhost/"}

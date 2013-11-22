@@ -19,9 +19,14 @@
     = f.file_field :logo
   %li
     = label_tag 'app_oauth_scopes' do
-      App Scopes: select which parts of the MyUSA Citizen API your application will use:
-      - @oauth_scopes.each_with_index do |oauth_scope, index|
-        = label_tag oauth_scope.scope_name do
-          = check_box_tag "app[app_oauth_scopes_attributes][#{index}][oauth_scope_id]", oauth_scope.id, @app.app_oauth_scopes.collect(&:oauth_scope_id).include?(oauth_scope.id) ? true : false      
-          = oauth_scope.description
-    
+      App Scopes: select which parts of the MyUSA API your application will use:
+      %ul
+        - index = -1
+        - @scope_groups.each do |oauth_scope|
+          %li
+            = render :partial => 'oauth_scope_checkbox', :locals => {:app => @app, :oauth_scope => oauth_scope, :index => index += 1}
+            - if @grouped_scopes[oauth_scope.scope_name.to_sym]
+              %ul
+                - @grouped_scopes[oauth_scope.scope_name.to_sym].each do |grouped_oauth_scope|
+                  %li
+                    = render :partial => 'oauth_scope_checkbox', :locals => {:app => @app, :oauth_scope => grouped_oauth_scope, :index => index += 1}

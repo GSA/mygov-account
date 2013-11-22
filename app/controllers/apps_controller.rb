@@ -90,7 +90,12 @@ class AppsController < ApplicationController
   end
   
   def assign_oauth_scopes
-    @oauth_scopes = OauthScope.where(:scope_type => 'user')
+    @scope_groups = OauthScope.top_level_scopes.where(:scope_type => 'user')
+    @grouped_scopes = {}
+    @scope_groups.each do |scope_group|
+      scopes = OauthScope.where("scope_name LIKE :group_name", :group_name => "#{scope_group.scope_name}.%")
+      @grouped_scopes[scope_group.scope_name.to_sym] = scopes unless scopes.empty?
+    end
   end
   
   def verify_public_or_is_owner

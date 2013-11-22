@@ -28,7 +28,7 @@ gem 'metamagic'
 gem 'capistrano'
 gem 'rvm-capistrano'
 gem 'capistrano-resque', '~> 0.1.0', :git => 'https://github.com/GSA-OCSIT/capistrano-resque.git'
-gem 'resque', :git => 'git://github.com/resque/resque.git', :branch => '1-x-stable', :require => 'resque/server'
+gem 'resque', :git => 'https://github.com/resque/resque.git', :branch => '1-x-stable', :require => 'resque/server'
 gem 'resque_mailer'
 
 group :production do

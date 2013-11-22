@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Authentications" do
   before do
-    create_confirmed_user_with_profile
+    @user = create_confirmed_user_with_profile
     login(@user)
   end
   
@@ -24,11 +24,10 @@ describe "Authentications" do
     context "when another user has a google authentication with the same account" do
       before do
         @user.authentications.create(:provider => "google", :uid => '12345')
-        @user2 = @user
         logout
-        create_confirmed_user_with_profile('jane@citizen.org')
-        @user.authentications.each {|auth| auth.destroy}
-        login(@user)
+        @user2 = create_confirmed_user_with_profile(email: 'jane@citizen.org')
+        @user2.authentications.each {|auth| auth.destroy}
+        login(@user2)
       end
 
       it 'displays an error message when adding google authentication from another account' do

@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe "HomePage" do
-  before {create_confirmed_user_with_profile}
+  before do
+    @user = create_confirmed_user_with_profile
+  end
   
   describe "GET /" do
     it "sets secure headers (X-Frame-Options, X-XSS-Protection, and X-XRDS-Location)" do
@@ -80,8 +82,10 @@ describe "HomePage" do
       end
       
       context "when the user does not have a first, last or any other name" do
-        before {@user.profile.update_attributes(:name => nil)}
-        
+        before do
+          @user.profile.update_attributes(:first_name => nil, :last_name => nil)
+        end
+                
         it "should link to the profile page with 'Your profile'" do
           visit root_path
           page.should have_content "Your profile"

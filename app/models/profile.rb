@@ -8,14 +8,18 @@ class Profile < ActiveRecord::Base
   validates_format_of :mobile, :with => /\A\d+\z/, :allow_blank => true
   validates_length_of :mobile, :maximum => 10
   
-  before_validation :update_name
   after_validation :set_errors
   
-  ENCRYPTED_FIELDS = [:first_name, :middle_name, :last_name, :name, :address, :address2, :city, :state, :zip, :phone, :mobile]
+  PROFILE_FIELDS = [:title, :first_name, :middle_name, :last_name, :suffix, :address, :address2, :city, :state, :zip, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired]
+  PROFILE_METHODS = [:email, :phone_number, :mobile_number]
   
-  attr_accessible :title, :first_name, :middle_name, :last_name, :suffix, :name, :address, :address2, :city, :state, :zip, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired, :as => [:default, :admin]
+  attr_accessible :title, :first_name, :middle_name, :last_name, :suffix, :address, :address2, :city, :state, :zip, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired, :as => [:default, :admin]
   attr_accessible :user_id, :phone, :mobile, :as => :admin
-    
+  
+  def name
+    (first_name.blank? or last_name.blank?) ? nil : [first_name, last_name].join(" ")
+  end
+  
   def phone_number=(value)
     self.phone = normalize_phone_number(value)
   end
@@ -39,13 +43,23 @@ class Profile < ActiveRecord::Base
   def print_marital_status
     self.marital_status.blank? ? nil : self.marital_status.titleize
   end
-  
+
   def as_json(options = {})
-    super(:only => [:id, :title, :suffix, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired], :methods => ENCRYPTED_FIELDS + [:email])
+    fields, methods = [], []
+    if (options[:scope_list] and options[:scope_list].include?("profile")) or options[:scope_list].nil?
+      fields += PROFILE_FIELDS
+      methods += PROFILE_METHODS.collect{|method| method.to_s}
+    else
+      profile_scope_list = options[:scope_list].collect{|scope| scope.starts_with?('profile') ? scope.split('.').last : nil}.compact
+      PROFILE_FIELDS.each{|field| fields << field if profile_scope_list.include?(field.to_s)}
+      PROFILE_METHODS.each{|method| methods << method.to_s if profile_scope_list.include?(method.to_s)}
+    end
+    super(:only => fields, :methods => methods)
   end
-  
-  def to_schema_dot_org_hash
-    {"email" => self.user.email, "givenName" => self.first_name, "additionalName" => self.middle_name, "familyName" => self.last_name, "homeLocation" => {"streetAddress" => [self.address, self.address2].reject{|s| s.blank? }.join(','), "addressLocality" => self.city, "addressRegion" => self.state, "postalCode" => self.zip}, "telephone" => self.phone, "gender" => self.print_gender }
+    
+  def to_schema_dot_org_hash(scope_list = [])
+    profile_as_json = self.as_json({:scope_list => scope_list})
+    {"email" => profile_as_json["email"], "givenName" => profile_as_json["first_name"], "additionalName" => profile_as_json["middle_name"], "familyName" => profile_as_json["last_name"], "homeLocation" => {"streetAddress" => [profile_as_json["address"], profile_as_json["address2"]].reject{|s| s.blank? }.join(','), "addressLocality" => profile_as_json["city"], "addressRegion" => profile_as_json["state"], "postalCode" => profile_as_json["zip"]}, "telephone" => profile_as_json["phone"], "gender" => profile_as_json["gender"] }
   end
   
   def email
@@ -60,10 +74,6 @@ class Profile < ActiveRecord::Base
   
   def normalize_phone_number(number)
     number.gsub(/[- \(\)]/, '') if number
-  end
-  
-  def update_name
-    self.name = [self.first_name, self.last_name].compact.join(" ") if !self.name_changed? && (self.first_name_changed? || self.last_name_changed?)
   end
   
   def set_errors

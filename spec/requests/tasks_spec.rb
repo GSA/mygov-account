@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Tasks" do
   describe "GET /task/:id" do
     before do
-      create_confirmed_user_with_profile
+      @user = create_confirmed_user_with_profile
       login(@user)
       @app = App.create!(:name => 'Change your name', :redirect_uri => "http://localhost:3000/")
       

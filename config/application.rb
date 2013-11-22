@@ -71,6 +71,10 @@ module Mygov
     
     # Set the number of seconds the timeout warning should occur before login session is timed out
     config.session_timeout_warning_seconds = 20
+    
+    config.to_prepare do
+      Devise::Mailer.layout "notification_mailer"
+    end
   end
 end
 OAuth2::Provider.enforce_ssl = false

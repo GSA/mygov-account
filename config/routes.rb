@@ -64,8 +64,9 @@ Mygov::Application.routes.draw do
   match "/404", :to => "errors#not_found"
   rack_error_handler = ActionDispatch::PublicExceptions.new('public/')
   match "/422" => rack_error_handler
-  match "/500" => rack_error_handler  
-  
+  match "/500" => rack_error_handler
+  match "/api/*path" => "application#xss_options_request", :via => :options
+
   root :to => 'home#index'
 
   mount Resque::Server, :at => "/resque"

@@ -15,25 +15,6 @@ class ApplicationController < ActionController::Base
     session[:after_auth_return_to] || super(resource_or_scope)
   end
 
-  def cors_set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = '*' #TODO: Specify permitted domains
-    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, DELETE'
-    headers['Access-Control-Max-Age'] = "1728000"
-    headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
-  end
-
-  # If this is a preflight OPTIONS request, then short-circuit the
-  # request, return only the necessary headers and return an empty
-  # text/plain.
-
-  def cors_preflight_check
-    if request.method == :options
-      headers['Access-Control-Allow-Origin'] = '*'
-      headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, DELETE'
-      headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-Prototype-Version'
-    end
-  end
-
   def xss_options_request
     render :text => ""
   end
@@ -42,9 +23,9 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def set_no_keep_alive
-    request.env["devise.skip_trackable"] = true unless params[:no_keep_alive].blank?
-  end
+    def set_no_keep_alive
+      request.env["devise.skip_trackable"] = true unless params[:no_keep_alive].blank?
+    end
 
   def set_session_will_expire
     # Devise.setup { |config| config.timeout_in = 20 }                # For testing
@@ -98,4 +79,23 @@ class ApplicationController < ActionController::Base
     end
     true
   end
+
+  def cors_set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*' #TODO: Specify permitted domains
+    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, DELETE'
+    headers['Access-Control-Max-Age'] = "1728000"
+    headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With, Authorization"
+  end
+
+  # If this is a preflight OPTIONS request, then short-circuit the
+  # request, return only the necessary headers and return an empty
+  # text/plain.
+  def cors_preflight_check
+    if request.method == :options
+      headers['Access-Control-Allow-Origin'] = '*'
+      headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, DELETE'
+      headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-Prototype-Version, Authorization'
+    end
+  end
+
 end

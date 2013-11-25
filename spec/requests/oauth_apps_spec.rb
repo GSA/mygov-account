@@ -3,8 +3,7 @@ require 'spec_helper'
 describe "OauthApps" do
   before do
     @user = create_confirmed_user_with_profile
-    @user2 = create_confirmed_user_with_profile(email: 'second@user.org')
-    
+    @user2 = create_confirmed_user_with_profile(email: 'second@user.org')    
     app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
     app1.is_public = true
     app1.save!

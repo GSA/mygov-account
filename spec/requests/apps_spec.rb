@@ -3,8 +3,7 @@ require 'spec_helper'
 describe "Apps" do  
   before do
     @user = create_confirmed_user_with_profile
-    @user2 = create_confirmed_user_with_profile(email: 'jane@citizen.org', first_name: 'Jane')
-        
+    @user2 = create_confirmed_user_with_profile(email: 'jane@citizen.org', first_name: 'Jane')        
     @app1 = @user.apps.create(name: 'Public App 1', :url => 'http://www.agency.gov/app1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")
     @app1.is_public = true
     @app1.save!

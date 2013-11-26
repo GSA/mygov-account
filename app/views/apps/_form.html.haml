@@ -21,12 +21,11 @@
     = label_tag 'app_oauth_scopes' do
       App Scopes: select which parts of the MyUSA API your application will use:
       %ul
-        - index = -1
         - @scope_groups.each do |oauth_scope|
           %li
-            = render :partial => 'oauth_scope_checkbox', :locals => {:app => @app, :oauth_scope => oauth_scope, :index => index += 1}
+            = render :partial => 'oauth_scope_checkbox', :locals => {:app => @app, :oauth_scope => oauth_scope, :index => oauth_scope.id}
             - if @grouped_scopes[oauth_scope.scope_name.to_sym]
               %ul
                 - @grouped_scopes[oauth_scope.scope_name.to_sym].each do |grouped_oauth_scope|
                   %li
-                    = render :partial => 'oauth_scope_checkbox', :locals => {:app => @app, :oauth_scope => grouped_oauth_scope, :index => index += 1}
+                    = render :partial => 'oauth_scope_checkbox', :locals => {:app => @app, :@sub_scope => grouped_oauth_scope,:oauth_scope => grouped_oauth_scope, :index => oauth_scope.id}

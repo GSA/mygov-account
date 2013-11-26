@@ -1,3 +1,40 @@
+- content_for :scripts do
+  = javascript_tag do
+    / Checks parent scope if needed
+    function set_parent_check(parent_value, child_id){
+    / if child is checked, then check the paren
+    if (document.getElementById(child_id).checked == true){
+    document.querySelector('[parent_value='+ parent_value + ']').checked = true;
+    }else{
+    for(var i = 0, max = $('input[parent_scope]').length; i < max; i++){
+    if ($('input[parent_scope]')[i].checked){
+    / if a child is found to be checked, then check parent and exit.
+    document.querySelector('[parent_value='+ parent_value + ']').checked = true;
+    return;
+    }else{
+    document.querySelector('[parent_value='+ parent_value + ']').checked = false;
+    }
+    }
+    }
+    }
+  
+    / Checks or unchecks child boxes, triggered by parent scope change
+    function set_checked(parent_id, id){
+    document.getElementById('app_app_oauth_scopes_attributes_'+ id + '_oauth_scope_id').checked =  $("#app_app_oauth_scopes_attributes_"+ parent_id + "_oauth_scope_id").is(':checked')
+    }
+
+    $(document).ready(function() {
+    / When user checks child, parent is checked.
+    $('input[parent_scope]').change(function(e){
+    set_parent_check(e.target.getAttribute('parent_scope'), e.target.id);
+    })
+    
+    $("#app_app_oauth_scopes_attributes_" + #{@parent_scope.id} + "_oauth_scope_id").change(function(){
+    - @sub_scopes.each do |sc|
+      set_checked("#{@parent_scope.id}", "#{sc.id}");
+    });
+    });
+  
 .row
   .twelve.columns
     %h3

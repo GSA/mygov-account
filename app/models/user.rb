@@ -130,6 +130,10 @@ class User < ActiveRecord::Base
   def send_reset_password_confirmation
     UserMailer.reset_password_confirmation(self.email).deliver
   end
+
+  def is_fed?
+    Gman::fed?(self.email)
+  end
   
   private
   

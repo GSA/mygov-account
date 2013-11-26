@@ -29,6 +29,19 @@ def create_confirmed_user_with_profile(email_or_hash = {})
   @user
 end
 
+def create_confirmed_government_user_with_profile(email_or_hash = {})
+  email_or_hash = {email: email_or_hash} unless email_or_hash.kind_of? Hash
+  profile = email_or_hash.reverse_merge(email: 'john.govployee@gsa.gov', password: 'Password1',
+                                        first_name: 'John', last_name: 'Govployee', name: 'John Govployee', is_student: false)
+  create_approved_beta_signup(profile[:email])
+  user_create_hash = profile.select {|key,val| [:email, :password].member?(key)}
+  @gov_user = User.create!(user_create_hash)
+  profile_create_hash = profile.select {|key,val| [:first_name, :last_name, :name, :is_student].member?(key)}
+  @gov_user.profile = Profile.new(profile_create_hash)
+  @gov_user.confirm!
+  @gov_user
+end
+
 def get_random_password
   (0...9).map { (65 + rand(26)).chr }.join + 'a' + '1'
 end

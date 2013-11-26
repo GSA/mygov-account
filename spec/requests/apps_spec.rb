@@ -111,7 +111,8 @@ describe "Apps" do
           visit new_app_path
           check('Read your profile information')
           click_button('Register new MyUSA App')
-          find('#app_app_oauth_scopes_attributes_0_oauth_scope_id').should be_checked
+          profile_scope_id = OauthScope.where(scope_name: 'profile').first.id
+          find("#app_app_oauth_scopes_attributes_#{profile_scope_id}_oauth_scope_id").should be_checked
         end
       end
       

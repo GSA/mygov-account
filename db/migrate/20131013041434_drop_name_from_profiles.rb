@@ -4,6 +4,6 @@ class DropNameFromProfiles < ActiveRecord::Migration
   end
 
   def down
-    add_column :profiles, :name
+    add_column :profiles, :name, :string
   end
 end

@@ -23,9 +23,9 @@
       %ul
         - @scope_groups.each do |oauth_scope|
           %li
-            = render :partial => 'oauth_scope_checkbox', :locals => {:app => @app, :oauth_scope => oauth_scope, :index => oauth_scope.id}
+            = render :partial => 'oauth_scope_checkbox', :locals => {:app => @app, :oauth_scope => oauth_scope, :index => oauth_scope.id, :is_parent => true}
             - if @grouped_scopes[oauth_scope.scope_name.to_sym]
               %ul
                 - @grouped_scopes[oauth_scope.scope_name.to_sym].each do |grouped_oauth_scope|
                   %li
-                    = render :partial => 'oauth_scope_checkbox', :locals => {:app => @app, :@sub_scope => grouped_oauth_scope,:oauth_scope => grouped_oauth_scope, :index => oauth_scope.id}
+                    = render :partial => 'oauth_scope_checkbox', :locals => {:app => @app, :@sub_scope => grouped_oauth_scope,:oauth_scope => grouped_oauth_scope, :index => oauth_scope.id, :is_parent => false}

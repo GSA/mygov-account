@@ -1,5 +1,5 @@
 = label_tag oauth_scope.scope_name do
-  - unless !!@sub_scope
+  - if is_parent
     = check_box_tag "app[app_oauth_scopes_attributes][#{oauth_scope.id}][oauth_scope_id]", oauth_scope.id, @app.app_oauth_scopes.collect(&:oauth_scope_id).include?(oauth_scope.id) ? true : false, { "parent_value" => oauth_scope.scope_name}     
   - else
     = check_box_tag "app[app_oauth_scopes_attributes][#{oauth_scope.id}][oauth_scope_id]", oauth_scope.id, @app.app_oauth_scopes.collect(&:oauth_scope_id).include?(oauth_scope.id) ? true : false, { "parent_scope" => oauth_scope.scope_name.split(/\./)[0] }

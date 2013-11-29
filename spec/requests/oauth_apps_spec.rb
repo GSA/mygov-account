@@ -9,6 +9,7 @@ describe "OauthApps" do
     app1.is_public = true
     app1.save!
     app1.oauth_scopes << OauthScope.top_level_scopes
+    app1.oauth_scopes << OauthScope.where('scope_name = "profile.email"').first
     @app1_client_auth = app1.oauth2_client
     
     app2 = App.create(name: 'App2'){|app| app.redirect_uri = "http://localhost/"}
@@ -152,10 +153,14 @@ describe "OauthApps" do
     describe "Authorize application with scopes" do
       it "should ask for authorization and redirect after clicking 'Allow'" do
         visit(url_for(controller: 'oauth', action: 'authorize',
-              response_type: 'code', scope: 'profile notifications', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))
+              response_type: 'code', scope: 'profile notifications profile.email', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))
+    
         page.should have_content('The App1 application wants to:')
         page.should have_content('Read your profile information')
         page.should have_content('Send you notifications')
+        page.should have_content('Read your email')
+        page.should_not have_content('Read your address')
+    
         click_button('Allow')
         uri = URI.parse(current_url)
         params = CGI::parse(uri.query)

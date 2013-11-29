@@ -28,11 +28,11 @@
     $('input[parent_scope]').change(function(e){
     set_parent_check(e.target.getAttribute('parent_scope'), e.target.id);
     })
-    
-    $("#app_app_oauth_scopes_attributes_" + #{@parent_scope.id} + "_oauth_scope_id").change(function(){
-    - @sub_scopes.each do |sc|
-      set_checked("#{@parent_scope.id}", "#{sc.id}");
-    });
+    - @parent_scopes.each do |ps|
+      $("#app_app_oauth_scopes_attributes_" + #{ps.id} + "_oauth_scope_id").change(function(){
+      - ps.sub_scopes.each do |sc|
+        set_checked("#{ps.id}", "#{sc.id}");
+      });
     });
   
 .row

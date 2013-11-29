@@ -14,13 +14,11 @@ class AppsController < ApplicationController
   
   def new
     @app = App.new
-    @parent_scope = OauthScope.where(scope_name: 'profile').first
-    @sub_scopes    = OauthScope.where('scope_name like "profile\.%"')
+    @parent_scopes = OauthScope.top_level_scopes
   end
 
   def create
-    @parent_scope = OauthScope.where(scope_name: 'profile').first
-    @sub_scopes    = OauthScope.where('scope_name like "profile.%"')
+   @parent_scopes = OauthScope.top_level_scopes
 
     @app = App.new(params[:app])
     if @app.app_oauth_scopes.empty?

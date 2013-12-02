@@ -4,7 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if session[:omniauth] == nil
       if verify_recaptcha
         super
-        session[:omniauth] = nil unless @user.new_record? 
+        session[:omniauth] = nil unless @user.new_record?
       else
         build_resource( sign_up_params )
         clean_up_passwords(resource)
@@ -15,17 +15,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
     else
       super
-      session[:omniauth] = nil unless @user.new_record? 
+      session[:omniauth] = nil unless @user.new_record?
     end
   end
-  
+
   def thank_you
   end
-  
+
   def after_inactive_sign_up_path_for(resource)
     thank_you_path
   end
-  
+
   def after_update_path_for(resource)
     edit_user_registration_path
   end

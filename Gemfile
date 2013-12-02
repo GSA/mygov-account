@@ -32,6 +32,7 @@ gem 'resque', :git => 'https://github.com/resque/resque.git', :branch => '1-x-st
 gem 'resque_mailer'
 gem 'devise-async'
 gem 'simple-navigation'
+gem 'twilio-ruby'
 
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA-OCSIT/rack-openid.git', :branch => 'pape'

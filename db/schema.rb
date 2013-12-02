@@ -73,16 +73,63 @@ ActiveRecord::Schema.define(:version => 20131210211843) do
     t.boolean  "is_approved", :default => false
   end
 
+  create_table "delivery_types", :force => true do |t|
+    t.integer  "notification_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "filled_forms", :force => true do |t|
+    t.integer  "form_id"
+    t.integer  "user_id"
+    t.integer  "app_id"
+    t.text     "values"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "filled_forms", ["form_id"], :name => "index_filled_forms_on_form_id"
+  add_index "filled_forms", ["user_id"], :name => "index_filled_forms_on_user_id"
+
+  create_table "form_fields", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.text     "description"
+    t.string   "values"
+    t.integer  "form_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "forms", :force => true do |t|
+    t.string   "name"
+    t.string   "number"
+    t.string   "agency"
+    t.string   "landing_page_url"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "notification_settings", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "delivery_type"
+    t.integer  "notification_type_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
   create_table "notifications", :force => true do |t|
     t.string   "subject"
     t.text     "body"
     t.datetime "received_at"
     t.integer  "app_id"
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.datetime "deleted_at"
     t.datetime "viewed_at"
+    t.string   "notification_type_id"
+    t.string   "delivery_type"
   end
 
   add_index "notifications", ["app_id"], :name => "index_messages_on_o_auth2_model_client_id"
@@ -158,6 +205,16 @@ ActiveRecord::Schema.define(:version => 20131210211843) do
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
+  create_table "related_urls", :force => true do |t|
+    t.string   "url"
+    t.string   "other_url"
+    t.integer  "occurence_count", :default => 0
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "related_urls", ["url", "occurence_count"], :name => "index_related_urls_on_url_and_occurence_count"
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -202,7 +259,6 @@ ActiveRecord::Schema.define(:version => 20131210211843) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "uid"
-    t.date     "date_of_birth"
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

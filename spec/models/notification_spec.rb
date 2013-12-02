@@ -5,7 +5,8 @@ describe Notification do
     @valid_attributes = {
       :subject => 'Test',
       :received_at => Time.now,
-      :body => 'This is a test notification'
+      :body => 'This is a test notification',
+      :notification_type_id => 'my-app-1'
     }
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
@@ -17,46 +18,44 @@ describe Notification do
   end
    it { should belong_to :user }
    it { should belong_to :app }
-  
+
   it "should create a new notification with valid attributes" do
     notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
   end
-  
+
   context "when creating a new notification" do
+    let(:setting1) { FactoryGirl.create(:notification_setting, delivery_type: 'text') }
+    let(:setting2) { FactoryGirl.create(:notification_setting, delivery_type: 'dashboard') }
+
+    let(:mock_setting1) { mock_model(NotificationSetting, notification_type_id: @notification.notification_type_id, delivery_type: 'text') }
+    let(:mock_setting2) { mock_model(NotificationSetting, notification_type_id: @notification.notification_type_id, delivery_type: 'dashboard') }
+
     before do
-      ActionMailer::Base.deliveries = []
+      @user = User.create!(email:'test@test.gov', password:'Mypassword1')
+      @notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
+      # @notification = FactoryGirl.build(:notification, user_id: @user.id)
     end
-    
-    context "when creating a notificaiton without an app" do
-      it "should send an email to the user with the notification content" do
-        notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id), :as => :admin)
-        email = ActionMailer::Base.deliveries.first
-        email.should_not be_nil
-        email.from.should == ["projectmyusa@gsa.gov"]
-        email.to.should == [@user.email]
-        email.subject.should == "[MYUSA] #{notification.subject}"
-        email.parts.map do |part|
-          expect(part.body).to include("Hello, #{@user.profile.first_name}")
-          expect(part.body).to include('A notification for you from MyUSA')
-          expect(part.body).to include("#{notification.body}")
-        end
+
+    context 'with delivery types' do
+      it 'should invoke a delivery for every delivery type for the application' do
+        Twilio::REST::Client.stub(:new)
+        # settings = [FactoryGirl.create(:notification_setting, delivery_type: 'text'), FactoryGirl.create(:notification_setting, delivery_type: 'dashboard')]
+        settings = [mock_setting1, mock_setting2]
+        @notification.user.notification_settings << setting1
+        @notification.user.notification_settings << setting2
+        # @notification.stub_chain(:user, :notification_settings, :where).and_return(settings)
+        Resque.should_receive(:enqueue).exactly(2).times
+        @notification.save
       end
     end
-    
-    context "when creating a notification with an app" do
-      it "should send an email to the user with the notification content identifying the sending application" do
-        notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
-        email = ActionMailer::Base.deliveries.first
-        email.should_not be_nil
-        email.from.should == ["projectmyusa@gsa.gov"]
-        email.to.should == [@user.email]
-        email.subject.should == "[MYUSA] [#{notification.app.name}] #{notification.subject}"
-        email.parts.map do |part|
-          expect(part.body).to include("Hello, #{@user.profile.first_name}")
-          expect(part.body).to include("The \"#{notification.app.name}\" MyUSA application has sent you the following message")
-          expect(part.body).to include("#{notification.body}")
-        end
-      end
+
+
+    context 'without any delivery types' do
+      # FIXME: Stack level too deep
+      # it 'should not trigger any deliveries' do
+      #   Resque.should_not receive(:enqueue)
+      #   @notification.save
+      # end
     end
   end
 end

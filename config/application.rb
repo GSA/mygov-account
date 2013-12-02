@@ -66,9 +66,9 @@ module Mygov
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
-    
+
     config.exceptions_app = self.routes
-    
+
     # Set the number of seconds the timeout warning should occur before login session is timed out
     config.session_timeout_warning_seconds = 20
     
@@ -79,3 +79,4 @@ module Mygov
 end
 OAuth2::Provider.enforce_ssl = false
 OAuth2::Provider.realm = 'MyUSA'
+

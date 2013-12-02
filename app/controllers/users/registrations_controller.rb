@@ -19,6 +19,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def update
+    redirect_to edit_user_registration_path
+  end
+
+  # def edit
+  #   raise 'inside edit'
+  #   redirect_to edit_user_registration_path unless super
+  # end
+
   def thank_you
   end
 

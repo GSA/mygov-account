@@ -36,6 +36,7 @@ class Devise::PasswordsController < DeviseController
       sign_in(resource_name, resource)
       respond_with resource, :location => after_resetting_password_path_for(resource)
       resource.send_reset_password_confirmation
+      respond_with resource
     else
       respond_with resource
     end

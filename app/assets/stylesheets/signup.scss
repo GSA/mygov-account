@@ -161,8 +161,14 @@ ul.nav {
       padding-left: 10%;
       height: 366px;
       width: 350px;
+
+      a {
+        color: $white;
+      }
+
       input {
         margin-bottom: 15px;
+        padding-left: 15px;
       }
 
       p {
@@ -249,7 +255,11 @@ p.small-pitch {
 .get-involved-region {
   width: 100%;
   background-color: $white;
-  height: 500px;
+
+  .container {
+    max-width: 1400px;
+  }
+
   a {
     display: inline-block;
     background-color: $maroon;
@@ -260,7 +270,7 @@ p.small-pitch {
     font-weight: bold;
   }
   h2 {
-    margin-top: 75px;
+    margin-top: 25px;
     font-weight: 800;
     color: $shieldBottom;
   }
@@ -297,9 +307,6 @@ p.small-pitch {
 
 .home-mission-statement {
   width: 100%;
-  bottom: 0;
-
-
   height: 225px;
   background-color: #002d5b;
   background: rgba(0, 45, 91, 0.5);
@@ -357,13 +364,18 @@ p.tagline-highlight {
 
 /* Tablets */
 @media screen and (min-width: 767px) and (max-width: 992px) {
+  .get-involved-region .container {
+    max-width: 992px;
+    margin-left: 25px;
+  }
+
   #elevator-pitch {
-      height: 300px;
+      height: 365px;
       padding-left: 20px;
     }
   #signup-form {
       padding-left: 5%;
-      height: 300px;
+      height: 365px;
       .btn, input {
         width: 320px;
       }
@@ -403,6 +415,21 @@ p.tagline-highlight {
 
 /* Phones */
 @media screen and (max-width: 768px) {
+  .banner-region {
+    .container .row {
+      height: 365px;
+    }
+  }
+
+  #signup-form {
+    text-align: center;
+    width: 100%;
+  }
+
+  #elevator-pitch {
+    font-size: 2.0em;
+  }
+
   .brand { /* none of this nav on phone part has been checked yet */
     margin-left: none;
     width: 100%;
@@ -429,7 +456,7 @@ p.tagline-highlight {
     }
   #signup-form {
       padding-left: 0;
-      padding-top: 40px;
+      padding-top: 15px;
       text-align: center;
       height: 220px;
       .btn, input {

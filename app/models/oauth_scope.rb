@@ -6,10 +6,6 @@ class OauthScope < ActiveRecord::Base
   
   scope :top_level_scopes, -> { where("scope_name NOT LIKE :dot", :dot => "%.%") }
   
-  def sub_scopes
-    OauthScope.where("scope_name LIKE :dot", :dot => "#{self.name}\.%")
-  end
-  
   def self.seed_data
     [
       {name: 'Verify credentials', description: 'Verify application credentials', scope_name: 'verify_credentials', :scope_type => 'app'},

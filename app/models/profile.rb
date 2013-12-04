@@ -62,9 +62,44 @@ class Profile < ActiveRecord::Base
     {"email" => profile_as_json["email"], "givenName" => profile_as_json["first_name"], "additionalName" => profile_as_json["middle_name"], "familyName" => profile_as_json["last_name"], "homeLocation" => {"streetAddress" => [profile_as_json["address"], profile_as_json["address2"]].reject{|s| s.blank? }.join(','), "addressLocality" => profile_as_json["city"], "addressRegion" => profile_as_json["state"], "postalCode" => profile_as_json["zip"]}, "telephone" => profile_as_json["phone"], "gender" => profile_as_json["gender"] }
   end
   
-  def email
-    self.user ? self.user.email : nil
+  def email=(value)
+    @email = value
   end
+  
+  def email
+    defined?(@email) ? @email : (self.user ? self.user.email : nil)
+  end
+    
+  def filtered_profile(scope_list=[])
+    field_scope_mapping = {
+      :title          => 'profile.title', 
+      :email          => 'profile.email',
+      :first_name     => 'profile.first_name',
+      :middle_name    => 'profile.middle_name',
+      :last_name      => 'profile.last_name',
+      :suffix         => 'profile.suffix', 
+      :address        => 'profile.address', 
+      :address2       => 'profile.address2', 
+      :city           => 'profile.city', 
+      :state          => 'profile.state', 
+      :zip            => 'profile.zip', 
+      :phone_number   => 'profile.phone_number',
+      :mobile_number  => 'profile.mobile_number',
+      :gender         => 'profile.gender', 
+      :marital_status => 'profile.marital_status', 
+      :is_parent      => 'profile.is_parent', 
+      :is_retired     => 'profile.is_retired', 
+      :is_veteran     => 'profile.is_veteran', 
+      :is_student     => 'profile.is_student'
+    }
+
+    empty_copy = self.clone
+    field_scope_mapping.each do |field, scope|
+      empty_copy.send("#{field}=", nil) unless scope_list.member?(scope)
+    end
+    empty_copy
+  end
+  
   
   private
   

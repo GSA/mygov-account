@@ -18,13 +18,19 @@ class Api::V1::ProfilesController < Api::ApiController
     :is_parent => nil, 
     :is_retired => nil, 
     :is_veteran => nil, 
-    :is_student => nil}
+    :is_student => nil,
+    :has_fed_email => nil}
   
   def show
     if params[:schema].present?
       render :json => { :email => @user.email, :uid => @user.uid, :id => @user.uid }
     else
-      render :json => EMPTY_PROFILE.merge(:email => @user.email, :uid => @user.uid, :id => @user.uid)
+      render :json => EMPTY_PROFILE.merge(
+                      :email => @user.email,
+                      :uid => @user.uid, 
+                      :id => @user.uid,
+                      :has_fed_email => @user.is_fed?
+                    )
     end
   end
 end

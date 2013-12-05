@@ -98,6 +98,7 @@ describe "Apis" do
     end
   end
 
+
   describe "GET /api/profile" do
     before do
       @token = build_access_token(@app)
@@ -112,7 +113,7 @@ describe "Apis" do
           parsed_json.should_not be_nil
           parsed_json["email"].should == 'joe@citizen.org'
           parsed_json["id"].should_not be_nil
-          parsed_json.reject{|k,v| k == "email" or k == "id" or k == "uid"}.each do |key, value|
+          parsed_json.reject{|k,v| ["email","uid","id","has_fed_email"].include? k }.each do |key, value|
             parsed_json[key].should be_nil
           end
         end
@@ -133,6 +134,26 @@ describe "Apis" do
             parsed_json = JSON.parse(response.body)
             parsed_json.should_not be_nil
             parsed_json["email"].should == 'joe@citizen.org'
+          end
+        end
+
+        context "when the user has a US federal government email" do
+          before do
+            @gov_user = create_confirmed_government_user_with_profile
+            authorization = OAuth2::Model::Authorization.new
+            authorization.scope = @app.oauth_scopes.collect{ |s| s.scope_name }.join(" ")
+            authorization.client = @app.oauth2_client
+            authorization.owner = @gov_user
+            authorization.save!
+            @token = authorization.generate_access_token
+          end
+
+          it "should return a value of true for has_fed_email" do
+            get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
+            response.code.should == "200"
+            parsed_json = JSON.parse(response.body)
+            parsed_json.should_not be_nil
+            parsed_json["has_fed_email"].should be_true
           end
         end
       end

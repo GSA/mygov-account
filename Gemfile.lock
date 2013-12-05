@@ -143,6 +143,8 @@ GEM
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
       warden (~> 1.2.3)
+    devise-async (0.8.0)
+      devise (>= 2.2, < 3.2)
     diff-lcs (1.2.4)
     em-websocket (0.5.0)
       eventmachine (>= 0.12.9)
@@ -418,6 +420,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   database_cleaner
   devise
+  devise-async
   execjs
   google-analytics-rails
   guard

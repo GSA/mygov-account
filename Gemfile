@@ -30,6 +30,7 @@ gem 'rvm-capistrano'
 gem 'capistrano-resque', '~> 0.1.0', :git => 'https://github.com/GSA-OCSIT/capistrano-resque.git'
 gem 'resque', :git => 'https://github.com/resque/resque.git', :branch => '1-x-stable', :require => 'resque/server'
 gem 'resque_mailer'
+gem 'devise-async'
 
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA-OCSIT/rack-openid.git', :branch => 'pape'

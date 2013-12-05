@@ -331,6 +331,7 @@ describe "Users" do
       
       expect(ActionMailer::Base.deliveries.last.subject).to eq('Reset password instructions')
       
+      
       @user.reload
 
       expect(@user.reset_password_token.blank?).to be false

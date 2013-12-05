@@ -5,7 +5,9 @@ describe Notification do
     @valid_attributes = {
       :subject => 'Test',
       :received_at => Time.now,
-      :body => 'This is a test notification'
+      :body => 'This is a test notification',
+      :identifier => 'my-app-identifier',
+      :delivery_type => 'text'
     }
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')
@@ -17,16 +19,16 @@ describe Notification do
   end
    it { should belong_to :user }
    it { should belong_to :app }
-  
+
   it "should create a new notification with valid attributes" do
     notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
   end
-  
+
   context "when creating a new notification" do
     before do
       ActionMailer::Base.deliveries = []
     end
-    
+
     context "when creating a notificaiton without an app" do
       it "should send an email to the user with the notification content" do
         notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id), :as => :admin)
@@ -42,7 +44,7 @@ describe Notification do
         end
       end
     end
-    
+
     context "when creating a notification with an app" do
       it "should send an email to the user with the notification content identifying the sending application" do
         notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)

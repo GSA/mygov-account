@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131108190841) do
+ActiveRecord::Schema.define(:version => 20131205195050) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -79,10 +79,12 @@ ActiveRecord::Schema.define(:version => 20131108190841) do
     t.datetime "received_at"
     t.integer  "app_id"
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.datetime "deleted_at"
     t.datetime "viewed_at"
+    t.string   "identifier"
+    t.string   "delivery_type"
   end
 
   add_index "notifications", ["app_id"], :name => "index_messages_on_o_auth2_model_client_id"

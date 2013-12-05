@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Activity Log" do
   before do
     create_confirmed_user_with_profile
-    
+
     @app1 = @user.apps.create(name: 'Public App 1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")
     @app1.is_public = true
     @app1.save!
@@ -40,7 +40,7 @@ describe "Activity Log" do
         end
 
         it "shows the user that a notification has been created in the activity log with a time stamp" do
-          post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+          post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.', :identifier => 'my-app-identifier', :delivery_type => 'email'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "200"
           login(@user)
           visit activity_log_path

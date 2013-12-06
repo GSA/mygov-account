@@ -6,8 +6,7 @@ describe Notification do
       :subject => 'Test',
       :received_at => Time.now,
       :body => 'This is a test notification',
-      :identifier => 'my-app-identifier',
-      :delivery_type => 'text'
+      :identifier => 'my-app-identifier'
     }
     create_approved_beta_signup('joe@citizen.org')
     @user = User.create!(:email => 'joe@citizen.org', :password => 'Password1')

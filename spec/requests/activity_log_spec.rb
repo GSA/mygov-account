@@ -40,7 +40,7 @@ describe "Activity Log" do
         end
 
         it "shows the user that a notification has been created in the activity log with a time stamp" do
-          post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.', :identifier =>'myapp-identifier', :delivery_type => 'text'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
+          post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.', :identifier =>'myapp-identifier'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
           response.code.should == "200"
           login(@user)
           visit activity_log_path

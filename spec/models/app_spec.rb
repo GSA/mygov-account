@@ -21,6 +21,15 @@ describe App do
     app.logo.url.should == "/assets/app-icon.png"
   end
   
+  it "should remove parent scopes before saving" do
+    app = App.create!(@valid_attributes)
+    app.oauth_scopes << OauthScope.find_by_name("Notifications")
+    app.oauth_scopes << OauthScope.find_by_name("Profile")
+    app.app_oauth_scopes.count.should == 2
+    app.save!
+    app.app_oauth_scopes.count.should == 1
+  end
+  
   it "should create a new app with redirect_uri attribute" do
     App.create!(name: "one more app", redirect_uri: 'http://www.one-more-app.com').oauth2_client.redirect_uri.should == 'http://www.one-more-app.com' 
   end

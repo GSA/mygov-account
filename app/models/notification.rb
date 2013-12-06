@@ -1,6 +1,7 @@
 class Notification < ActiveRecord::Base
   belongs_to :user
   belongs_to :app
+  has_many :delivery_types
   validates_presence_of :subject, :received_at, :user_id, :identifier
   # TODO: validates_uniqueness_of => identifier within scope of user
   after_create :deliver_notification

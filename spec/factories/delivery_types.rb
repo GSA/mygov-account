@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :delivery_type do
     notification_id 1
-    name "MyString"
+    name 'text'
   end
 end

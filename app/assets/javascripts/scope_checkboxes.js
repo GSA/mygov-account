@@ -24,16 +24,28 @@ set_checked = function(parent_id, sub_id) {
 };
 
 $(document).ready(function() {
+  // In case of edit page, on page ready prepare, see if parent needs to be checked.
+  // This has to be done since we are not saving parent scopes
+  $("input[parent_value]").each(function(i) {
+    parent = $(this)
+    $("input[parent_scope=" + $(this).attr("parent_value") + "]").each(function(i) {
+      if ($(this).is(":checked")){
+        document.getElementById(parent.attr('id')).checked = true;
+      }
+    });
+  });
+  
+  
+  // On page ready prepare each child's on change action.
   $("input[parent_scope]").change(function(e) {
     return set_parent_check(e.target.getAttribute("parent_scope"), e.target.id);
   });
 
   // For each parent, when changed, change children accordingly    
   $("input[parent_value]").each(function(i) {
-    var parent_id;
     parent_id = $(this).attr("id");
-    return $(this).change(function() {
-      return $("input[parent_scope=" + $(this).attr("parent_value") + "]").each(function(i) {
+    $(this).change(function() {
+      $("input[parent_scope=" + $(this).attr("parent_value") + "]").each(function(i) {
         document.getElementById($(this).attr("id")).checked = $(app_app_oauth_scopes_attributes_2_oauth_scope_id).is(":checked");
       });
     });

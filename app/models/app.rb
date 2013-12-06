@@ -6,6 +6,7 @@ class App < ActiveRecord::Base
   has_many :oauth_scopes, :through => :app_oauth_scopes
   has_many :app_activity_logs
   accepts_nested_attributes_for :app_oauth_scopes
+  before_save :remove_parent_scope
 
   validates_presence_of :name, :slug, :redirect_uri
   validates_inclusion_of :is_public, :in => [true, false]
@@ -82,6 +83,11 @@ class App < ActiveRecord::Base
   end
   
   private
+  
+  def remove_parent_scope
+    scopes = self.app_oauth_scopes
+    scopes.each {|s| scopes.delete(s) if s.oauth_scope.is_parent? }    
+  end
   
   def generate_slug
     self.slug = self.name.parameterize if self.name

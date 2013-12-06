@@ -14,13 +14,11 @@ class AppsController < ApplicationController
   
   def new
     @app = App.new
-    @parent_scopes = OauthScope.top_level_scopes
   end
 
   def create
-   @parent_scopes = OauthScope.top_level_scopes
-
     @app = App.new(params[:app])
+    
     if @app.app_oauth_scopes.empty?
       @app.valid?      
       @app.errors.add(:base, 'Please select at least one scope.')

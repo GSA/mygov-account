@@ -9,6 +9,10 @@ describe OauthScope do
     }
   end
   
+  it "should have is_parent? method" do
+    OauthScope.find_by_name("Profile").is_parent?.should == true
+  end
+  
   it { should validate_presence_of(:scope_name).with_message(/can't be blank/) }
   it { should validate_presence_of(:name).with_message(/can't be blank/) }
   it { should validate_presence_of(:scope_type) }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131205195050) do
+ActiveRecord::Schema.define(:version => 20131206143447) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -73,14 +73,21 @@ ActiveRecord::Schema.define(:version => 20131205195050) do
     t.boolean  "is_approved", :default => false
   end
 
+  create_table "delivery_types", :force => true do |t|
+    t.integer  "notification_id"
+    t.string   "name"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "notifications", :force => true do |t|
     t.string   "subject"
     t.text     "body"
     t.datetime "received_at"
     t.integer  "app_id"
     t.integer  "user_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.datetime "deleted_at"
     t.datetime "viewed_at"
     t.string   "identifier"
@@ -139,7 +146,6 @@ ActiveRecord::Schema.define(:version => 20131205195050) do
     t.string   "middle_name"
     t.string   "last_name"
     t.string   "suffix",         :limit => 10
-    t.string   "name"
     t.string   "address"
     t.string   "address2"
     t.string   "city"
@@ -156,9 +162,20 @@ ActiveRecord::Schema.define(:version => 20131205195050) do
     t.integer  "user_id"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+    t.string   "name"
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
+
+  create_table "related_urls", :force => true do |t|
+    t.string   "url"
+    t.string   "other_url"
+    t.integer  "occurence_count", :default => 0
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "related_urls", ["url", "occurence_count"], :name => "index_related_urls_on_url_and_occurence_count"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -204,7 +221,6 @@ ActiveRecord::Schema.define(:version => 20131205195050) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "uid"
-    t.date     "date_of_birth"
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

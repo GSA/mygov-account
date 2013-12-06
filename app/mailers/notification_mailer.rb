@@ -1,6 +1,6 @@
 class NotificationMailer < ActionMailer::Base
 	include Resque::Mailer
-  default from: DEFAULT_FROM_EMAIL
+  default from: "\"MyUSA\" <no-reply@my.usa.gov.>"
 
   def notification_email(notification_id)
   	@notification = Notification.find(notification_id)

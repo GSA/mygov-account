@@ -34,7 +34,6 @@ describe Notification do
       it 'should invoke a delivery for every delivery type for the application' do
         @notification.delivery_types << FactoryGirl.build(:delivery_type, name: 'text')
         @notification.delivery_types << FactoryGirl.build(:delivery_type, name: 'dashboard')
-        # Resque.should_receive(:enqueue).with(NotificationText, @notification.id)
         Resque.should_receive(:enqueue).exactly(2).times
         @notification.save
       end

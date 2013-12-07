@@ -394,6 +394,10 @@ GEM
     turnip (1.1.0)
       gherkin (>= 2.5)
       rspec (~> 2.0)
+    twilio-ruby (3.11.4)
+      builder (>= 2.1.2)
+      jwt (>= 0.1.2)
+      multi_json (>= 1.3.0)
     tzinfo (0.3.37)
     uglifier (2.1.2)
       execjs (>= 0.3.0)
@@ -478,6 +482,7 @@ DEPENDENCIES
   thin
   turbo-sprockets-rails3
   turnip
+  twilio-ruby
   uglifier (>= 1.0.3)
   validates_email_format_of!
   webmock

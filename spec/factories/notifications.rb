@@ -4,7 +4,6 @@ FactoryGirl.define do
     received_at Time.now
     identifier 'omg-app-notification'
     user_id User.find_or_create_by_email('test@test.gov').id
-    # user_id User.create!({email:'12345@1234.gov',password:'Blahpassword123'}).id
 
     factory :notification_with_delivery_types do
       after :create do |notification|

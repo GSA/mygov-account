@@ -31,6 +31,7 @@ gem 'capistrano-resque', '~> 0.1.0', :git => 'https://github.com/GSA-OCSIT/capis
 gem 'resque', :git => 'git://github.com/resque/resque.git', :branch => '1-x-stable', :require => 'resque/server'
 gem 'resque_mailer'
 gem 'simple-navigation'
+gem 'twilio-ruby'
 
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA-OCSIT/rack-openid.git', :branch => 'pape'

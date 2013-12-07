@@ -26,52 +26,26 @@ describe Notification do
   context "when creating a new notification" do
 
     before do
-      @notification = FactoryGirl.create :notification_with_delivery_types #CURRENT: resulting in Could not find a valid mapping
+      @user = User.create!(email:'test@test.gov', password:'Mypassword1')
+      @notification = FactoryGirl.build(:notification, user_id: @user.id)
     end
 
     context 'with delivery types' do
       it 'should invoke a delivery for every delivery type for the application' do
-        binding.pry
-        Notification::Dashboard.should_receive(:deliver).with(1234) #=> Change to enqueue
+        @notification.delivery_types << FactoryGirl.build(:delivery_type, name: 'text')
+        @notification.delivery_types << FactoryGirl.build(:delivery_type, name: 'dashboard')
+        # Resque.should_receive(:enqueue).with(NotificationText, @notification.id)
+        Resque.should_receive(:enqueue).exactly(2).times
+        @notification.save
       end
     end
 
 
     context 'without any delivery types' do
-      it 'should not trigger any deliveries'
+      it 'should not trigger any deliveries' do
+        Resque.should_not receive(:enqueue)
+        @notification.save
+      end
     end
-
-####--> move this to Notification
-    # context "when creating a notification without an app" do
-    #   it "should send an email to the user with the notification content" do
-    #     notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id), :as => :admin)
-    #     email = ActionMailer::Base.deliveries.first
-    #     email.should_not be_nil
-    #     email.from.should == ["projectmyusa@gsa.gov"]
-    #     email.to.should == [@user.email]
-    #     email.subject.should == "[MYUSA] #{notification.subject}"
-    #     email.parts.map do |part|
-    #       expect(part.body).to include("Hello, #{@user.profile.first_name}")
-    #       expect(part.body).to include('A notification for you from MyUSA')
-    #       expect(part.body).to include("#{notification.body}")
-    #     end
-    #   end
-    # end
-
-    # context "when creating a notification with an app" do
-    #   it "should send an email to the user with the notification content identifying the sending application" do
-    #     notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
-    #     email = ActionMailer::Base.deliveries.first
-    #     email.should_not be_nil
-    #     email.from.should == ["projectmyusa@gsa.gov"]
-    #     email.to.should == [@user.email]
-    #     email.subject.should == "[MYUSA] [#{notification.app.name}] #{notification.subject}"
-    #     email.parts.map do |part|
-    #       expect(part.body).to include("Hello, #{@user.profile.first_name}")
-    #       expect(part.body).to include("The \"#{notification.app.name}\" MyUSA application has sent you the following message")
-    #       expect(part.body).to include("#{notification.body}")
-    #     end
-    #   end
-    # end
   end
 end

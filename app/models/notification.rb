@@ -20,13 +20,10 @@ class Notification < ActiveRecord::Base
   private
 
   def deliver_notification
-    puts "**** delivering notification"
     # Loop through types and call the deliver method on each type related that notification
-    puts "self: #{self.inspect}"
-    puts "DELIVERY TYPES: #{self.delivery_types}"
 
     self.delivery_types.each do |type|
-      Resque.enqueue("Notification#{type.capitalize}".constantize, self.id)
+      Resque.enqueue("Notification#{type.name.capitalize}".constantize, self.id)
     end
   end
 

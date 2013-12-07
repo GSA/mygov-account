@@ -1,4 +1,5 @@
 require 'api_constraints'
+require 'admin_restriction'
 
 Mygov::Application.routes.draw do
   devise_for :users, :path => '', :controllers => {
@@ -68,6 +69,4 @@ Mygov::Application.routes.draw do
   match "/api/*path" => "application#xss_options_request", :via => :options
 
   root :to => 'home#index'
-
-  mount Resque::Server, :at => "/resque"
 end

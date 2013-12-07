@@ -1,11 +1,11 @@
-class Notification::Delivery::Text
+# class Notification::Delivery::Text
 
-end
+# end
 
-class Notification::Delivery::Email
+# class Notification::Delivery::Email
 
-end
+# end
 
-class Notification::Delivery::Dashboard #maybe make this a base class?
+# class Notification::Delivery::Dashboard #maybe make this a base class?
 
-end
+# end

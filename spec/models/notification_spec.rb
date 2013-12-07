@@ -24,40 +24,54 @@ describe Notification do
   end
 
   context "when creating a new notification" do
+
     before do
-      ActionMailer::Base.deliveries = []
+      @notification = FactoryGirl.create :notification_with_delivery_types #CURRENT: resulting in Could not find a valid mapping
     end
 
-    context "when creating a notificaiton without an app" do
-      it "should send an email to the user with the notification content" do
-        notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id), :as => :admin)
-        email = ActionMailer::Base.deliveries.first
-        email.should_not be_nil
-        email.from.should == ["projectmyusa@gsa.gov"]
-        email.to.should == [@user.email]
-        email.subject.should == "[MYUSA] #{notification.subject}"
-        email.parts.map do |part|
-          expect(part.body).to include("Hello, #{@user.profile.first_name}")
-          expect(part.body).to include('A notification for you from MyUSA')
-          expect(part.body).to include("#{notification.body}")
-        end
+    context 'with delivery types' do
+      it 'should invoke a delivery for every delivery type for the application' do
+        binding.pry
+        Notification::Dashboard.should_receive(:deliver).with(1234) #=> Change to enqueue
       end
     end
 
-    context "when creating a notification with an app" do
-      it "should send an email to the user with the notification content identifying the sending application" do
-        notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
-        email = ActionMailer::Base.deliveries.first
-        email.should_not be_nil
-        email.from.should == ["projectmyusa@gsa.gov"]
-        email.to.should == [@user.email]
-        email.subject.should == "[MYUSA] [#{notification.app.name}] #{notification.subject}"
-        email.parts.map do |part|
-          expect(part.body).to include("Hello, #{@user.profile.first_name}")
-          expect(part.body).to include("The \"#{notification.app.name}\" MyUSA application has sent you the following message")
-          expect(part.body).to include("#{notification.body}")
-        end
-      end
+
+    context 'without any delivery types' do
+      it 'should not trigger any deliveries'
     end
+
+####--> move this to Notification
+    # context "when creating a notification without an app" do
+    #   it "should send an email to the user with the notification content" do
+    #     notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id), :as => :admin)
+    #     email = ActionMailer::Base.deliveries.first
+    #     email.should_not be_nil
+    #     email.from.should == ["projectmyusa@gsa.gov"]
+    #     email.to.should == [@user.email]
+    #     email.subject.should == "[MYUSA] #{notification.subject}"
+    #     email.parts.map do |part|
+    #       expect(part.body).to include("Hello, #{@user.profile.first_name}")
+    #       expect(part.body).to include('A notification for you from MyUSA')
+    #       expect(part.body).to include("#{notification.body}")
+    #     end
+    #   end
+    # end
+
+    # context "when creating a notification with an app" do
+    #   it "should send an email to the user with the notification content identifying the sending application" do
+    #     notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
+    #     email = ActionMailer::Base.deliveries.first
+    #     email.should_not be_nil
+    #     email.from.should == ["projectmyusa@gsa.gov"]
+    #     email.to.should == [@user.email]
+    #     email.subject.should == "[MYUSA] [#{notification.app.name}] #{notification.subject}"
+    #     email.parts.map do |part|
+    #       expect(part.body).to include("Hello, #{@user.profile.first_name}")
+    #       expect(part.body).to include("The \"#{notification.app.name}\" MyUSA application has sent you the following message")
+    #       expect(part.body).to include("#{notification.body}")
+    #     end
+    #   end
+    # end
   end
 end

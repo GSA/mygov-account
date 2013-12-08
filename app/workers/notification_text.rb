@@ -8,9 +8,10 @@ class NotificationText
   auth_token = ENV['twilio_auth_token']
   @client = Twilio::REST::Client.new account_sid, auth_token
 
-  @queue = :notifications
+  @queue = :sms
   def self.perform(notification_id)
     notification = Notification.find_by_id(notification_id)
+
 
     @client.account.messages.create(
       :from => ENV['twilio_from_number'],

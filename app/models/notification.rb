@@ -20,32 +20,12 @@ class Notification < ActiveRecord::Base
   private
 
   def deliver_notification
-    # Loop through types and call the deliver method on each type related that notification
-
+    #TODO: Find out what the delivery mechanisms are for the user
+    # in notification_settings and send them
     self.delivery_types.each do |type|
+      #TODO: Exclude mailer
       Resque.enqueue("Notification#{type.name.capitalize}".constantize, self.id)
     end
   end
 
 end
-
-# class Notification::Dashboard
-#   def deliver(notification_id)
-#     puts "**** delivering for the dashboard"
-#     NotificationMailer.notification_email(id).deliver
-#   end
-# end
-
-# class Notification::Email
-#   def deliver(notification_id)
-#     puts "**** delivering for the email"
-#     #current mailer stuff
-#     # NotificationMailer.notification_email(self.id).deliver
-#   end
-# end
-
-# class Notification::Text
-#   def deliver(notification_id)
-#     puts "**** delivering for the text"
-#   end
-# end

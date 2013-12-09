@@ -7,6 +7,7 @@ after_failure:
 before_script:
   - cp config/database.yml.example config/database.yml
   - cp config/initializers/01_mygov.rb.example config/initializers/01_mygov.rb
+  - cp config/resque.yml.example config/resque.yml
   - sed -i.bak 's/PUT YOUR SECRET TOKEN HERE/868b2bada3124d10aa96b3793d3e1419e95991c4f4995494e460025d487792effcb17e21bbd3338b4dcf1a250fa693ba52a6a5e3518db9f98f509a446ab48e45/g' config/initializers/01_mygov.rb
   - mysql -e 'create database mygov_test;'
 install:

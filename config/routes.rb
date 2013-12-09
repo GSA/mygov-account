@@ -1,5 +1,4 @@
 require 'api_constraints'
-require 'admin_restriction'
 
 Mygov::Application.routes.draw do
   devise_for :users, :path => '', :controllers => {

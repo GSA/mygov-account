@@ -105,25 +105,25 @@ describe "Apis" do
     end
     
     context "when the request has a valid token" do
-      # context "when app has limited scope" do
-      #   before do
-      #     @limited_scope_app = App.create(:name => 'App1', :redirect_uri => "http://localhost/")
-      #     @limited_scope_app.oauth_scopes = OauthScope.top_level_scopes.where(:scope_type => 'user')
-      #     # Adding just one profile sub scope to test that only this one is presnt in json.
-      #     @limited_scope_app.oauth_scopes << OauthScope.find_by_scope_name("profile.first_name")
-      #     @token = build_access_token(@limited_scope_app)
-      #   end
-      #   it "should return JSON with only app requested user profile attritues in addition to an id and a unique identifier" do
-      #     get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
-      #     response.code.should == "200"
-      #     parsed_json = JSON.parse(response.body)
-      #     parsed_json.should_not be_nil
-      #     parsed_json["first_name"].should eq 'Joe'
-      #     parsed_json["id"].should_not be_nil
-      #     parsed_json["uid"].should_not be_nil
-      #     parsed_json["email"].should be_nil  # profile.first_name is the only profile subscope app is authorized to access.
-      #   end
-      # end
+      context "when app has limited scope" do
+        before do
+          @limited_scope_app = App.create(:name => 'app_limited', :redirect_uri => "http://localhost/")
+          @limited_scope_app.oauth_scopes = OauthScope.top_level_scopes.where(:scope_type => 'user')
+          # Adding just one profile sub scope to test that only this one is presnt in json.
+          @limited_scope_app.oauth_scopes << OauthScope.find_by_scope_name("profile.first_name")
+          @token = build_access_token(@limited_scope_app)
+        end
+        it "should return JSON with only app requested user profile attritues in addition to an id and a unique identifier" do
+          get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
+          response.code.should == "200"
+          parsed_json = JSON.parse(response.body)
+          parsed_json.should_not be_nil
+          parsed_json["first_name"].should eq 'Joe'
+          parsed_json["id"].should_not be_nil
+          parsed_json["uid"].should_not be_nil
+          parsed_json["email"].should be_nil  # profile.first_name is the only profile subscope app is authorized to access.
+        end
+      end
       
       context "when the user queried exists" do
         it "should log the profile request" do

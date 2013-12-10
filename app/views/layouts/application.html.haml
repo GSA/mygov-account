@@ -3,7 +3,8 @@
   %head(prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#")
     = yield :head
     - if current_user && request.get? # If it's a post, then no redirect
-      = refresh_meta_tag_conent    
+      %noscript
+        = refresh_meta_tag_conent
 
     = head_metadata(content_for?(:title) ? yield(:title) : "MyUSA", content_for?(:meta_description) ? yield(:meta_description) : "A platform for connecting people and government")
     
@@ -48,7 +49,11 @@
           .row
             .twelve.columns
         .container.group
-          = session_timeout_message
+          %noscript
+            = session_about_to_timeout_message_no_script
+          = session_about_to_timeout_message
+          - if params[:timeout].present?
+            = session_timeout_message
           = yield
         - unless current_user
           .no-toolbar
@@ -74,6 +79,15 @@
         \==================================================
       / Placed at the end of the document so the pages load faster
       = javascript_include_tag "application"
+      :javascript
+
+          if ($('#meta-refresh').length > 0) {
+            var mr = document.getElementById("meta-refresh");
+            console.log(mr);
+            mr.parentNode.removeChild(mr);
+          }
       = content_for :scripts
       = render :partial => "shared/ab", :locals => { :segment => @segment }
       = analytics_init if Rails.env.production?
+      - if current_user
+        = auto_session_timeout_js timeout:  User.timeout_in, frequency: Rails.application.config.session_check_frequency, start: 1, warning: Rails.application.config.session_timeout_warning_seconds

@@ -71,6 +71,8 @@ module Mygov
     
     # Set the number of seconds the timeout warning should occur before login session is timed out
     config.session_timeout_warning_seconds = 20
+    config.session_timeout_in_seconds      = 1800
+    config.session_check_frequency         = 60
     
     config.to_prepare do
       Devise::Mailer.layout "notification_mailer"

@@ -1,11 +1,13 @@
 class ApplicationController < ActionController::Base
   ensure_security_headers
+  before_timedout_action
   skip_before_filter :set_csp_header
   protect_from_forgery
   prepend_before_filter :set_no_keep_alive
   after_filter :set_response_headers, :cors_set_access_control_headers
   before_filter :set_segment, :set_session_will_expire, :cors_preflight_check
 
+  auto_session_timeout User.timeout_in.seconds
 
   def after_sign_out_path_for(resource_or_scope)
     sign_in_path

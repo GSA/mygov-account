@@ -1,7 +1,9 @@
 source 'http://rubygems.org'
 gem 'rails', '3.2.14'
 gem 'mysql2'
-gem 'jquery-rails'
+gem 'auto-session-timeout'
+#gem 'jquery-rails'
+gem "jquery-rails", "~> 2.3.0"
 gem 'json', '~> 1.8.0'
 gem 'haml'
 gem 'devise'
@@ -31,6 +33,7 @@ gem 'capistrano-resque', '~> 0.1.0', :git => 'https://github.com/GSA-OCSIT/capis
 gem 'resque', :git => 'https://github.com/resque/resque.git', :branch => '1-x-stable', :require => 'resque/server'
 gem 'resque_mailer'
 gem 'devise-async'
+gem 'auto-session-timeout-warning'
 
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA-OCSIT/rack-openid.git', :branch => 'pape'
@@ -58,7 +61,7 @@ group :test, :development do
   gem 'pry'
   gem 'pry-nav'
   gem 'rspec-rails'
-  gem "zeus-parallel_tests"
+  #gem "zeus-parallel_tests"
 end
 
 group :development do

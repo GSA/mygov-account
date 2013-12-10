@@ -4,7 +4,7 @@ class CreateNotificationSettings < ActiveRecord::Migration
       t.integer :user_id
       t.integer :app_id
       t.text :delivery_type
-      t.integer :notification_type_id
+      t.string :notification_type_id
 
       t.timestamps
     end

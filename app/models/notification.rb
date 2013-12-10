@@ -20,11 +20,9 @@ class Notification < ActiveRecord::Base
   private
 
   def deliver_notification
-    #TODO: Find out what the delivery mechanisms are for the user
-    # in notification_settings and send them
-    self.delivery_types.each do |type|
+    self.user.notification_settings.where(notification_type_id: self.notification_type_id).each do |setting|
       #TODO: Exclude mailer
-      Resque.enqueue("Notification#{type.name.capitalize}".constantize, self.id)
+      Resque.enqueue("Notification#{setting.type.name.capitalize}".constantize, self.id)
     end
   end
 

@@ -1,3 +1,5 @@
 class NotificationSetting < ActiveRecord::Base
-  attr_accessible :app_id, :delivery_type, :notification_type_id, :user_id
+  attr_accessible :delivery_type, :notification_type_id, :user_id
+  belongs_to :user
+  validates_uniqueness_of
 end

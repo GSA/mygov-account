@@ -4,8 +4,8 @@ require 'twilio-ruby'
 
 class NotificationText
 
-  account_sid = ENV['twilio_account_sid']
-  auth_token = ENV['twilio_auth_token']
+  account_sid = ENV['TWILIO_ACCOUNT_SID']
+  auth_token = ENV['TWILIO_AUTH_TOKEN']
   @client = Twilio::REST::Client.new account_sid, auth_token
 
   @queue = :sms
@@ -14,7 +14,7 @@ class NotificationText
 
 
     @client.account.messages.create(
-      :from => ENV['twilio_from_number'],
+      :from => ENV['TWILIO_FROM_NUMBER'],
       :to => '+17732699601',
       :body => "#{notification.subject} -- #{strip_tags(notification.body) if notification.body}"
     )

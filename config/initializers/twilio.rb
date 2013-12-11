@@ -3,8 +3,8 @@ unless Rails.env == 'test'
   raise "#{twilio_config_file} is missing!" unless File.exists? twilio_config_file
   twilio_config = YAML.load_file(twilio_config_file).symbolize_keys
 
-  ENV['twilio_account_sid'] = twilio_config[:account_sid]
-  ENV['twilio_auth_token'] = twilio_config[:auth_token]
-  ENV['twilio_from_number'] = twilio_config[:from_number]
+  ENV['TWILIO_ACCOUNT_SID'] = twilio_config[:ACCOUNT_SID]
+  ENV['TWILIO_AUTH_TOKEN'] = twilio_config[:AUTH_TOKEN]
+  ENV['TWILIO_FROM_NUMBER'] = twilio_config[:FROM_NUMBER]
 end
 

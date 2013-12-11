@@ -169,7 +169,6 @@ ActiveRecord::Schema.define(:version => 20131210211843) do
     t.string   "middle_name"
     t.string   "last_name"
     t.string   "suffix",         :limit => 10
-    t.string   "name"
     t.string   "address"
     t.string   "address2"
     t.string   "city"

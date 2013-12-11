@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :notification_setting do
     user_id 1
     delivery_type "text"
-    notification_type_id "my-app"
+    notification_type_id "my-app-testing"
   end
 end

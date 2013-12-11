@@ -24,17 +24,26 @@ describe Notification do
   end
 
   context "when creating a new notification" do
+    let(:setting1) { FactoryGirl.create(:notification_setting, delivery_type: 'text') }
+    let(:setting2) { FactoryGirl.create(:notification_setting, delivery_type: 'dashboard') }
+
+    let(:mock_setting1) { mock_model(NotificationSetting, notification_type_id: @notification.notification_type_id, delivery_type: 'text') }
+    let(:mock_setting2) { mock_model(NotificationSetting, notification_type_id: @notification.notification_type_id, delivery_type: 'dashboard') }
 
     before do
       @user = User.create!(email:'test@test.gov', password:'Mypassword1')
-      @notification = FactoryGirl.build(:notification, user_id: @user.id)
+      @notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
+      # @notification = FactoryGirl.build(:notification, user_id: @user.id)
     end
 
     context 'with delivery types' do
       it 'should invoke a delivery for every delivery type for the application' do
         Twilio::REST::Client.stub(:new)
-        settings = [FactoryGirl.create(:notification_setting, delivery_type: 'text'), FactoryGirl.create(:notification_setting, delivery_type: 'dashboard')]
-        @notification.stub_chain(:user, :notification_settings, :where).and_return(settings)
+        # settings = [FactoryGirl.create(:notification_setting, delivery_type: 'text'), FactoryGirl.create(:notification_setting, delivery_type: 'dashboard')]
+        settings = [mock_setting1, mock_setting2]
+        @notification.user.notification_settings << setting1
+        @notification.user.notification_settings << setting2
+        # @notification.stub_chain(:user, :notification_settings, :where).and_return(settings)
         Resque.should_receive(:enqueue).exactly(2).times
         @notification.save
       end

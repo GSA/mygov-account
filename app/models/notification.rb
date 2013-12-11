@@ -2,11 +2,11 @@ class Notification < ActiveRecord::Base
   belongs_to :user
   belongs_to :app
   has_many :delivery_types
-  validates_presence_of :subject, :received_at, :user_id, :identifier
+  validates_presence_of :subject, :received_at, :user_id, :notification_type_id
   # TODO: validates_uniqueness_of => identifier within scope of user
   after_create :deliver_notification #TODO: Don't do this automagically
 
-  attr_accessible :body, :received_at, :subject, :identifier, :as => [:default, :admin]
+  attr_accessible :body, :received_at, :subject, :notification_type_id, :as => [:default, :admin]
   attr_accessible :user_id, :app_id, :as => :admin
 
   def self.newest_first

@@ -30,13 +30,13 @@ describe "Notifications" do
       before do
         Notification.delete_all
         1.upto(14) do |index|
-          @notification = Notification.create!({:subject => "Notification ##{index}", :received_at => (Time.now - 1.hour + index.minutes), :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app1.id, :identifier => 'myapp-identifier'}, :as => :admin)
+          @notification = Notification.create!({:subject => "Notification ##{index}", :received_at => (Time.now - 1.hour + index.minutes), :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app1.id, :notification_type_id => 'myapp-identifier'}, :as => :admin)
         end
-        @other_user_notification = Notification.create!({:subject => 'Other User Notification', :received_at => (Time.now - 1.hour + 15.minutes), :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app1.id, :identifier => 'myapp-identifier'}, :as => :admin)
-        @other_app_notification = Notification.create!({:subject => 'Other App Notification', :received_at => (Time.now - 1.hour + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :identifier => 'myapp-identifier'}, :as => :admin)
-        @day_old_notification = Notification.create!({:subject => 'Day Old Notification', :received_at => (Time.now - 2.days + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :identifier => 'myapp-identifier'}, :as => :admin)
-        @month_old_notification = Notification.create!({:subject => 'Week Old Notification', :received_at => (DateTime.new(2013,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :identifier => 'myapp-identifier'}, :as => :admin)
-        @year_old_notification = Notification.create!({:subject => 'Year Old Notification', :received_at => (DateTime.new(2012,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :identifier => 'myapp-identifier'}, :as => :admin)
+        @other_user_notification = Notification.create!({:subject => 'Other User Notification', :received_at => (Time.now - 1.hour + 15.minutes), :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app1.id, :notification_type_id => 'myapp-identifier'}, :as => :admin)
+        @other_app_notification = Notification.create!({:subject => 'Other App Notification', :received_at => (Time.now - 1.hour + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :notification_type_id => 'myapp-identifier'}, :as => :admin)
+        @day_old_notification = Notification.create!({:subject => 'Day Old Notification', :received_at => (Time.now - 2.days + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :notification_type_id => 'myapp-identifier'}, :as => :admin)
+        @month_old_notification = Notification.create!({:subject => 'Week Old Notification', :received_at => (DateTime.new(2013,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :notification_type_id => 'myapp-identifier'}, :as => :admin)
+        @year_old_notification = Notification.create!({:subject => 'Year Old Notification', :received_at => (DateTime.new(2012,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :notification_type_id => 'myapp-identifier'}, :as => :admin)
       end
 
       it "returns the date using words + 'ago' when the notification is less than a week old" do
@@ -65,7 +65,7 @@ describe "Notifications" do
       end
 
       context "when some notifications do not have an associated app" do
-        before {@user.notifications.create!(:subject => 'Appless notification', :received_at => Time.now, :identifier => 'myapp-identifier' )}
+        before {@user.notifications.create!(:subject => 'Appless notification', :received_at => Time.now, :notification_type_id => 'myapp-1' )}
 
         it "should load the page just fine" do
           visit notifications_path

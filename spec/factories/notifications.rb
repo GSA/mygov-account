@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :notification do
     subject 'Test Notification'
     received_at Time.now
-    identifier 'omg-app-notification'
+    notification_type_id 'omg-app-notification'
     user_id User.find_or_create_by_email('test@test.gov').id
 
     factory :notification_with_delivery_types do

@@ -161,10 +161,10 @@ describe "Apis" do
       @app2.oauth_scopes << OauthScope.all
       login(@user)
       1.upto(14) do |index|
-        @notification = Notification.create!({:subject => "Notification ##{index}", :received_at => Time.now - 1.hour, :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app.id, :identifier => 'myapp-identifier'}, :as => :admin)
+        @notification = Notification.create!({:subject => "Notification ##{index}", :received_at => Time.now - 1.hour, :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app.id, :notification_type_id => 'myapp-identifier'}, :as => :admin)
       end
-      @other_user_notification = Notification.create!({:subject => 'Other User Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app.id, :identifier => 'myuser-identifier'}, :as => :admin)
-      @other_app_notification = Notification.create!({:subject => 'Other App Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :identifier => 'myapp2-identifier'}, :as => :admin)
+      @other_user_notification = Notification.create!({:subject => 'Other User Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app.id, :notification_type_id => 'myuser-identifier'}, :as => :admin)
+      @other_app_notification = Notification.create!({:subject => 'Other App Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :notification_type_id => 'myapp2-identifier'}, :as => :admin)
       @user.notifications.each{ |n| n.destroy(:force) }
       @user.notifications.reload
     end
@@ -173,7 +173,7 @@ describe "Apis" do
       context "when the notification attributes are valid" do
         it "should create a new notification when the notification info is valid" do
           @user.notifications.size.should == 0
-          post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.', :identifier => 'myapp-identifier'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
+          post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.', :notification_type_id => 'myapp-identifier'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
           response.code.should == "200"
           @user.notifications.reload
           @user.notifications.size.should == 1

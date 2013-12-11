@@ -91,19 +91,19 @@ class User < ActiveRecord::Base
 
   def create_default_notification
     notification = self.notifications.create(
-      :subject       => 'Welcome to MyUSA',
-      :body          => File.read(Rails.root.to_s + "/lib/assets/text/welcome_email_body.html").html_safe,
-      :received_at   => Time.now,
-      :identifier    => 'default-app-identifier'
+      :subject              => 'Welcome to MyUSA',
+      :body                 => File.read(Rails.root.to_s + "/lib/assets/text/welcome_email_body.html").html_safe,
+      :received_at          => Time.now,
+      :notification_type_id => 'default-app-identifier'
     ) if self.confirmation_token.nil?
   end
 
   def create_email_changed_notification
     notification = self.notifications.create(
-      :subject     => 'You changed your email address',
-      :body        => File.read(Rails.root.to_s + "/lib/assets/text/email_changed_body.html").html_safe,
-      :received_at => Time.now,
-      :identifier    => 'default-app-identifier'
+      :subject               => 'You changed your email address',
+      :body                  => File.read(Rails.root.to_s + "/lib/assets/text/email_changed_body.html").html_safe,
+      :received_at           => Time.now,
+      :notification_type_id  => 'default-app-identifier'
     ) if self.confirmation_token.nil?
   end
 

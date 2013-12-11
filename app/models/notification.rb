@@ -4,7 +4,7 @@ class Notification < ActiveRecord::Base
   has_many :delivery_types
   validates_presence_of :subject, :received_at, :user_id, :notification_type_id
   # TODO: validates_uniqueness_of => identifier within scope of user
-  after_create :deliver_notification #TODO: Don't do this automagically
+  after_create :deliver_notification
 
   attr_accessible :body, :received_at, :subject, :notification_type_id, :as => [:default, :admin]
   attr_accessible :user_id, :app_id, :as => :admin
@@ -22,7 +22,7 @@ class Notification < ActiveRecord::Base
   def deliver_notification
     self.user.notification_settings.where(notification_type_id: self.notification_type_id).each do |setting|
       #TODO: Exclude mailer
-      Resque.enqueue("Notification#{setting.type.name.capitalize}".constantize, self.id)
+      Resque.enqueue("Notification#{setting.delivery_type.capitalize}".constantize, self.id)
     end
   end
 

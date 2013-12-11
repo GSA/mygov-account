@@ -1,4 +1,4 @@
-include ActionView::Helpers
+# include ActionView::Helpers
 require 'rubygems' # not necessary with ruby 1.9 but included for completeness
 require 'twilio-ruby'
 
@@ -16,7 +16,7 @@ class NotificationText
     @client.account.messages.create(
       :from => ENV['TWILIO_FROM_NUMBER'],
       :to => user.profile.mobile_for_twilio,
-      :body => "#{notification.subject} -- #{strip_tags(notification.body) if notification.body}"
+      :body => "#{notification.subject} -- #{notification.body if notification.body}"
     )
   end
 end

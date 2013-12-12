@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131210211843) do
+ActiveRecord::Schema.define(:version => 20131212224057) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -113,9 +113,9 @@ ActiveRecord::Schema.define(:version => 20131210211843) do
   create_table "notification_settings", :force => true do |t|
     t.integer  "user_id"
     t.text     "delivery_type"
-    t.integer  "notification_type_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.integer  "notification_type"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "notifications", :force => true do |t|
@@ -124,11 +124,11 @@ ActiveRecord::Schema.define(:version => 20131210211843) do
     t.datetime "received_at"
     t.integer  "app_id"
     t.integer  "user_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.datetime "deleted_at"
     t.datetime "viewed_at"
-    t.string   "notification_type_id"
+    t.string   "notification_type"
     t.string   "delivery_type"
   end
 

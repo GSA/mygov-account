@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
       :subject              => 'Welcome to MyUSA',
       :body                 => File.read(Rails.root.to_s + "/lib/assets/text/welcome_email_body.html").html_safe,
       :received_at          => Time.now,
-      :notification_type_id => 'default-app-identifier'
+      :notification_type => 'default-app-identifier'
     ) if self.confirmation_token.nil?
   end
 
@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
       :subject               => 'You changed your email address',
       :body                  => File.read(Rails.root.to_s + "/lib/assets/text/email_changed_body.html").html_safe,
       :received_at           => Time.now,
-      :notification_type_id  => 'default-app-identifier'
+      :notification_type  => 'default-app-identifier'
     ) if self.confirmation_token.nil?
   end
 

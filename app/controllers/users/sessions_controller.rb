@@ -5,6 +5,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def timeout
-    render_session_timeout
+    flash[:notice] = "Your session has timed out."
+    redirect_to "/sign_in?timeout=true"
   end  
 end

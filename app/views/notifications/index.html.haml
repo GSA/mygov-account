@@ -1,36 +1,39 @@
-.row
-  .twelve.columns
-    %h2
-      Notifications
-    - if @notifications.empty?
+%h2
+  Notifications
+
+.panel.panel-default
+
+  - if @notifications.empty?
+    .panel-body
       %p
         You currently have no notifications.
-    - else
-      %table
+  - else
+
+    %table.table
+      %tr
+        %th{:scope => "col"}
+          From
+        %th{:scope => "col"}
+          Subject
+        %th{:scope => "col"}
+          Date
+        %th{:scope => "col"}
+          Actions
+      - @notifications.each do |notification|
         %tr
-          %th{:scope => "col"}
-            From
-          %th{:scope => "col"}
-            Subject
-          %th{:scope => "col"}
-            Date
-          %th{:scope => "col"}
-            Actions
-        - @notifications.each do |notification|
-          %tr
-            - if notification.app
-              %td
-                = notification.app.name
-            - else
-              %td
-                MyUSA
+          - if notification.app
             %td
-              %i.general.foundicon-mail
-              = link_to notification.subject, notification_path(notification)
+              = notification.app.name
+          - else
             %td
-              = pretty_time(notification.received_at)
-            %td              
-              = link_to notification_path(notification, :page => params[:page]), :method => :delete, :class => 'small alert button' do
-                %i{:class => 'foundicon-remove'}
-                Remove
-      = will_paginate @notifications
+              MyUSA
+          %td
+            %i
+            = link_to notification.subject, notification_path(notification)
+          %td
+            = pretty_time(notification.received_at)
+          %td
+            = link_to notification_path(notification, :page => params[:page]), :method => :delete, :class => 'small alert button' do
+              %i
+              Remove
+    = will_paginate @notifications

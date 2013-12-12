@@ -1,22 +1,24 @@
 .row
-  .twelve.columns
-    %h2 
+  .col-md-12
+    %h2
       Forgot your password?
-  .eight.columns
-    .panel
-      = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, novalidate: true }) do |f|
-        = devise_error_messages!
-        - if flash.notice
-          .alert-box.blue
-            = flash.notice
-        %fieldset.plain
-          %ol
-            %li
-              = f.label :email
-            %li
-              = f.email_field :email
-          %div.actions= f.submit "Email password reset instructions", :class => 'large button positive'
-  
-  .four.columns
-    .panel.side-panel
-      = render "devise/shared/links"
+.row
+  .col-md-12
+    = devise_error_messages!
+    - if flash.notice
+      .alert.alert-info
+        = flash.notice
+
+.row
+  .col-md-6
+    = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+      %fieldset.plain
+        %ol.inline
+          %li
+            = f.label :email, "Enter your email address"
+          %li
+            = f.email_field :email
+        %div.actions= f.submit "Email password reset instructions", :class => 'btn btn-primary'
+
+  .col-md-6
+    = render "shared/signup_options"

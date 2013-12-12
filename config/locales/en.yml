@@ -4,14 +4,14 @@
 en:
   hello: "Hello world"
   zip_error: "Please enter your 5 digit zip code."
-  sign_in_prompt: "Already using MyUSA?"
-  sign_in_link: "Sign in"
+  sign_in_prompt: "Already have an account?"
+  sign_in_link: "Log In"
   remain_logged_in: "Remain signed in."
   session_expiration_warning: "We noticed you haven't been very active in MyUSA. %{link}"
   mygov_greeting: ""
   beta_signup_error: "An error occurred during signup.  Please try again."
   apps_leaving: "In a few seconds, you will be redirected to"
-  
+
   errors:
     messages:
       expired: "has expired. Please request a new one."
@@ -34,7 +34,7 @@ en:
       timeout: 'Your session expired. Please sign in again.'
       inactive: "Your account hasn't been activated yet."
     sessions:
-      signed_in: 'Signed in successfully.'
+      signed_in: 'You have signed in successfully.'
       signed_out: 'Signed out successfully.'
     passwords:
       send_instructions: "You'll receive an email in a few minutes explaining how to reset your password."

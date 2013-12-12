@@ -1,21 +1,22 @@
 .row
-  .twelve.columns
+  .col-md-12
     %h2
       Notifications
 .row
-  .eight.columns
-    .panel
-      %h3
-        = @notification.subject
-      %ul.meta-list
-        %li
-          Received: #{pretty_time(@notification.received_at)}
-        %li
-          - if @notification.app
-            From: #{@notification.app.name}
-          - else
-            From: MyUSA
-      = content_tag(:p, (@notification.app ? @notification.body : @notification.body.html_safe))
-      = link_to notification_path(@notification), :method => :delete, :class => 'small button' do
-        %i{:class => 'foundicon-remove'}
-        Remove
+  .col-md-8
+    %h3
+      = @notification.subject
+    %ul.meta-list
+      %li
+        Received: #{pretty_time(@notification.received_at)}
+      %li
+        - if @notification.app
+          From: #{@notification.app.name}
+        - else
+          From: MyUSA
+    = content_tag(:p, (@notification.app ? @notification.body : @notification.body.html_safe))
+    = link_to notification_path(@notification), :method => :delete, :class => 'btn btn-default' do
+      .glyphicon.glyphicon-search
+      Remove
+    &nbsp;
+    = link_to "Back to Notifications", notifications_path

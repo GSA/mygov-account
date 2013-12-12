@@ -3,9 +3,8 @@ class ApplicationController < ActionController::Base
   skip_before_filter :set_csp_header
   protect_from_forgery
   prepend_before_filter :set_no_keep_alive
-  after_filter :set_response_headers, :cors_set_access_control_headers
-  before_filter :set_segment, :set_session_will_expire, :cors_preflight_check
-
+  after_filter :set_response_headers
+  before_filter :set_segment, :set_session_will_expire
 
   def after_sign_out_path_for(resource_or_scope)
     sign_in_path
@@ -15,8 +14,10 @@ class ApplicationController < ActionController::Base
     session[:after_auth_return_to] || super(resource_or_scope)
   end
 
-  def xss_options_request
-    render :text => ""
+  protected
+
+  def set_no_keep_alive
+    request.env["devise.skip_trackable"] = true unless params[:no_keep_alive].blank?
   end
 
 

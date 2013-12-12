@@ -13,6 +13,7 @@ Mygov::Application.routes.draw do
     get 'thank_you', :to => 'users/registrations#thank_you', :as => :thank_you
     get 'sign_in', :to => 'users/sessions#new', :as => :sign_in
     get 'sign_out', :to => 'users/sessions#destroy', :as => :sign_out
+    get 'change_password', :to => 'users/registrations#edit', :as => :change_password
   end
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'
@@ -31,6 +32,7 @@ Mygov::Application.routes.draw do
       resources :authentications
     end
   end
+
   resource :profile, :only => [:show, :edit, :update]
   resources :notifications, :only => [:index, :show, :create, :destroy]
   resources :tasks, :only => [:show, :update, :destroy]
@@ -45,6 +47,7 @@ Mygov::Application.routes.draw do
   get 'dashboard' => "home#dashboard"
   get 'discovery' => "home#discovery"
   get 'developer' => "home#developer"
+  get 'help' => "home#help"
   get 'privacy-policy' => "home#privacy_policy", :as => :privacy_policy
   get 'terms-of-service' => "home#terms_of_service", :as => :terms_of_service
   get 'about' => "home#about", :as => :about
@@ -65,7 +68,6 @@ Mygov::Application.routes.draw do
   rack_error_handler = ActionDispatch::PublicExceptions.new('public/')
   match "/422" => rack_error_handler
   match "/500" => rack_error_handler
-  match "/api/*path" => "application#xss_options_request", :via => :options
 
   root :to => 'home#index'
 end

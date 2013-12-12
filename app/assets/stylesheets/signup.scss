@@ -1,0 +1,475 @@
+/**
+Main SCSS for USA.gov
+ */
+
+// IMPORTS
+@import "vars"; // import _vars.scss
+/*@import "mixins"; // import _mixins.scss
+
+/* SITE STYLES
+ * ------------------------------------------------ */
+
+/* GLOBAL
+ * ------------------------------------------------ */
+
+#main {padding-top: 40px; }
+
+
+h1, h2, h3, h4 {
+  font-family: $headingFamily;
+  line-height: normal;
+  color: $shieldBottom;
+  font-weight: normal;
+  text-shadow: none;
+}
+p, a {
+  text-shadow: none;
+  font-family: $base-font;
+}
+
+/* HEADER
+ * ------------------------------------------------ */
+#navigation-region {
+  padding: 0;
+  margin: 0;
+  background-color: $white;
+  border-bottom: 6px solid $red;
+}
+
+.navbar {
+  border-radius: none;
+  background-image: none;
+  box-shadow: none;
+  margin-bottom: 0px;
+}
+
+body.content .navbar-brand {
+  padding: 10px 0;
+
+  img {
+    width: 2.0em;
+  }
+  h1 {
+    font-size: 2.0em;
+    margin-top: 0;
+  }
+}
+
+.navbar-default {
+  background-color: $white;
+  border: none;
+}
+
+.navbar-brand {
+  display: inline;
+  padding-left: 0px;
+  padding-top: 23px;
+  img {
+    width: 70px;
+    float: left;
+    margin-right: 10px;
+  }
+  h1 {
+    color: $shieldTop;
+    font-size: $fontBig;
+    float: right;
+    margin-top: 13px;
+  }
+  h1 span {
+    color: $shieldBottom;
+    font-weight: 700;
+  }
+}
+
+.navbar-right {
+  text-align: right;
+  padding-top: 20px;
+  span {
+  }
+  a {
+  margin: 7px 0;
+  padding-right: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 10px;
+  }
+
+//   p a btn { /* NOTE: hover is not working yet. Lame. */
+//   // CURRENT: FIXME hover
+//   &:hover, &:focus, &:active {
+//     background-color: $shieldBottom;
+//     }
+//   }
+}
+
+.navbar-default .navbar-nav > li > a {
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-left: 30px;
+  color: $trueBlue;
+  text-decoration: underline;
+  &:hover, &:focus {
+    text-decoration: none;
+  }
+}
+
+ul.nav {
+  margin-top: 10px;
+
+  li {
+    .active {
+      color: $buttonBlue;
+      background-color: #eee;
+    }
+
+    .btn-sm {
+      padding: 8px 15px;
+      margin: 7px;
+    }
+  }
+}
+
+
+/* AMBER WAVES
+ * ------------------------------------------------ */
+
+.banner-region {
+  max-width: 100%;
+  background-image: url('/assets/amberWaves.jpg');
+  background-repeat: no-repeat;
+  height: 590px;
+}
+#elevator-pitch {
+      font-family: $headingFamily;
+      font-weight: lighter;
+      display: inline-block;
+      text-align: left;
+      height: 366px;
+      padding-top: 13%;
+      padding-left: 20%;
+      margin-bottom: auto;
+      font-size: $fontBig;
+      color: $white;
+      strong {
+        font-weight: bolder;
+      }
+    }
+#signup-form {
+      display: table-cell;
+      padding-top: 17%;
+      padding-left: 10%;
+      height: 366px;
+      width: 350px;
+
+      a {
+        color: $white;
+      }
+
+      input {
+        margin-bottom: 15px;
+        padding-left: 15px;
+      }
+
+      p {
+        color: $white;
+        margin-top: 10px;
+        font-size: 1.2em;
+      }
+      .btn, input {
+        width: 350px;
+      }
+      .btn {
+        font-size: 1.15em;
+        font-weight: bold;
+        background-color: #a95248;
+        border-bottom: 4px solid $red;
+        color: $white;
+      }
+      input {
+        display: inline-block;
+        font-weight: normal;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: 2px solid #000;
+        height: 40px;
+      }
+    }
+p.small-pitch {
+  display: none;
+}
+.home-mission-statement {
+  width: 100%;
+  font-family: $headingFamily;
+  font-weight: lighter;
+  bottom: 0;
+  height: 225px;
+  background-color: $shieldBottom;
+  background: rgba(0, 45, 91, 0.8);
+  color: $white;
+  text-align: center;
+  font-size: $fontBig;
+  padding-top: 50px;
+  strong {
+    font-weight: normal;
+  }
+}
+
+
+/* FEATURES
+ * ------------------------------------------------ */
+
+.features-region {
+  width: 100%;
+  display: block;
+  background-color: #f2f2f2;
+  padding-bottom: 75px;
+  padding-top: 40px;
+  .col-md-12 h2 {
+    font-weight: 800;
+    color: $shieldBottom;
+  }
+  .col-md-4 {
+    text-align: center;
+    padding-right: 55px;
+    padding-left: 55px;
+    h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 500;
+    }
+    p {
+    line-height: 1.5em;
+    }
+  }
+  img {
+    padding-top: 20px;
+    height: 180px;
+  }
+}
+
+/* GET INVOLVED
+ * ------------------------------------------------ */
+
+.get-involved-region {
+  width: 100%;
+  background-color: $white;
+
+  .container {
+    max-width: 1400px;
+  }
+
+  a {
+    display: inline-block;
+    background-color: $maroon;
+    color: $white;
+    padding: 5px 8px;
+    margin: 0 20px 10px 0;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  h2 {
+    margin-top: 25px;
+    font-weight: 800;
+    color: $shieldBottom;
+  }
+  h3 {
+    font-weight: 500;
+  }
+  p {
+    font-size: 1.1em;
+    line-height: 1.5em;
+  }
+  .right { /* this will need to be adjusted, but since we don't know what img we're putting here yet, waiting. */
+    /*background-image: url('/assets/home-bg-media-screens.jpg');
+    background-repeat: no-repeat;
+    background-position: right top;*/
+    height: 406px;
+    position: absolute;
+    right: 0;
+   /* background-size: 100%;*/
+  }
+}
+
+
+/* FOOTER
+ * ------------------------------------------------ */
+
+.footer-info {
+  font-size: 1.25em;
+}
+
+.tagline {
+  font-size: 1.75em;
+  color: $base-blue;
+}
+
+.home-mission-statement {
+  width: 100%;
+  height: 225px;
+  background-color: #002d5b;
+  background: rgba(0, 45, 91, 0.5);
+  color: #fff;
+  text-align: center;
+  font-size: 2.65em;
+  padding-top: 50px;
+}
+
+.footer-nav-region {
+  font-size: 0.9em;
+  width: 100%;
+  padding: 50px 100px 100px 100px;
+  color: $white;
+  background-color: #122337;
+  border-top: 6px solid $red;
+  h4 {
+    font-size: 1em;
+    margin-bottom: 0.35em;
+  }
+  a, h4 {
+    color: $white;
+  }
+  p {
+    line-height: 1.5em;
+  }
+}
+
+.tagline {
+  font-family: $headingFamily;
+  font-size: 1.75em;
+  font-weight: 200;
+  color: $base-blue;
+}
+
+p.tagline-highlight {
+  display: inline-block;
+  font-size: .9em;
+  padding: 5px;
+  background-color: $bgblue;
+}
+
+
+
+/* RESPONSIVE
+ * ------------------------------------------------ */
+
+@media screen and (min-width: 768px) {
+  .get-involved-region {
+    .right {
+      width: 50%;
+    }
+  }
+}
+
+/* Tablets */
+@media screen and (min-width: 767px) and (max-width: 992px) {
+  .get-involved-region .container {
+    max-width: 992px;
+    margin-left: 25px;
+  }
+
+  #elevator-pitch {
+      height: 365px;
+      padding-left: 20px;
+    }
+  #signup-form {
+      padding-left: 5%;
+      height: 365px;
+      .btn, input {
+        width: 320px;
+      }
+    }
+.features-region {
+  padding-bottom: 15px;
+  padding-top: 10px;
+  .col-md-12 h2 {
+    margin-bottom: 15px;
+  }
+  .col-md-4 {
+    height: 150px;
+    h3 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    }
+    p {
+    line-height: 1.5em;
+    font-size: 1.3em;
+    }
+  }
+  img {
+    float: left;
+    padding-top: 20px;
+    padding-right: 20px;
+    height: 110px;
+  }
+  .tabScreenFix {
+    float:right;
+    width: 460px;
+  }
+}
+  p.footer-info {
+    clear: both;
+  }
+}
+
+/* Phones */
+@media screen and (max-width: 768px) {
+  .banner-region {
+    .container .row {
+      height: 365px;
+    }
+  }
+
+  #signup-form {
+    text-align: center;
+    width: 100%;
+  }
+
+  #elevator-pitch {
+    font-size: 2.0em;
+  }
+
+  .brand { /* none of this nav on phone part has been checked yet */
+    margin-left: none;
+    width: 100%;
+    display: block;
+    clear: both;
+  }
+  .navbar-brand .tagline {
+    font-size: 1.25em;
+  }
+.navbar-right {
+    text-align: left;
+    margin-left: 10px;
+  }
+  .navbar-brand {
+    padding-left: 10px;
+  }
+
+  #elevator-pitch {
+      padding-top: 20px;
+      padding-left: 0;
+      text-align: center;
+      width: 100%;
+      height: 130px;
+    }
+  #signup-form {
+      padding-left: 0;
+      padding-top: 15px;
+      text-align: center;
+      height: 220px;
+      .btn, input {
+        width: 370px;
+      }
+    }
+  .home-mission-statement {
+    font-size: 2em;
+  }
+  .get-involved-region, .footer-nav-region {
+    padding: 0 25px;
+  }
+  p.footer-info {
+    clear: both;
+  }
+}

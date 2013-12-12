@@ -1,0 +1,218 @@
+!!! 5
+%html.splash-page(lang="en")
+  %head(prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#")
+    %meta(charset="utf-8")
+    %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes")
+    %meta(name="format-detection" content="telephone=yes")
+    %meta(name="HandheldFriendly" content="True")
+    %meta(http-equiv="cleartype" content="on")
+    %meta(property="fb:app_id"               content="MyUSA")
+    %meta(property="og:type"                 content="website")
+    %meta(property="og:url"                  content="http://my.usa.gov/")
+    %meta(property="og:image"                content="http://my.usa.gov/assets/apple-touch-icon-114x114-precomposed.png")
+    %meta(property="og:title"                content="MyUSA")
+    %meta(property="og:description"          content="A platform for connecting people and government")
+    %meta{:"http-equiv" => "X-XRDS-Location", :content => url_for(:action => 'xrds', :controller => 'home', :protocol => 'https', :only_path => false, :format => :xml)}
+    %title= content_for?(:title) ? yield(:title) : "MyUSA"
+    = csrf_meta_tags
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+
+    = stylesheet_link_tag "bootstrap", :media => "all"
+    = stylesheet_link_tag "dashboard", :media => "all"
+    = stylesheet_link_tag "signup", :media => "all"
+    %body
+    /
+      Javascripts
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    = javascript_include_tag "application"
+    = content_for :scripts
+    = analytics_init if Rails.env.production?
+    = render :partial => "shared/ab", :locals => { :segment => @segment }
+
+
+    #navigation-region
+      .container
+        .row
+          %nav.navbar.navbar-default{role: "navigation"}
+            / Brand and toggle get grouped for better mobile display
+            .navbar-header
+              .navbar-brand
+                %img{:src => "/assets/shield.gif"}
+                %h1
+                  <span>My</span>USA
+                -#.tagline
+                  Re-imagining online government
+
+            / Collect the nav links, forms, and other content for toggling
+            %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", type: "button"}
+              %span.sr-only Toggle navigation
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+
+            .collapse.navbar-collapse.navbar-ex1-collapse
+              .navbar-right
+                %p
+                  Already have an account?
+                  = link_to 'Log In', sign_in_path, {class: 'btn btn-primary'}
+
+                %ul.nav.navbar-nav
+                  %li
+                    %a{href: "#"} What's MyUSA?
+                  %li
+                    %a{href: "#"} Get an Account
+                  %li
+                    %a{href: "#"} Build with MyUSA
+
+            / /.navbar-collapse
+
+
+    .banner-region
+      .container
+        .row
+          .col-md-6.col-sm-6
+            #elevator-pitch
+              Save
+              <strong>time</strong>.
+              %br
+              Stay
+              <strong>informed</strong>.
+              %br
+              Get
+              <strong>connected</strong>.
+
+          .col-md-6.col-sm-6
+
+
+            #signup-form
+              %p
+                =t('mygov_greeting')
+              #fieldset
+                = form_for @beta_signup do |form|
+                  - if flash.alert
+                    .alert.alert-danger
+                      = flash.alert
+
+                  = form.email_field :email, :value=>'Enter your email address'
+                  = form.submit 'Sign up', :class => 'btn'
+
+                  %p
+                    = link_to "Or sign up with Google, Paypal, and more.", "/sign_up"
+
+      .row
+        .home-mission-statement.col-md-12
+          <p><strong>MyUSA</strong> has a mission and it is awesome.</p>
+          <p>Reinventing citizenship, one app at a time.</p>
+
+    .features-region
+      .container
+        .row
+          .col-md-12
+            %h2 Why Do You Need This?
+        .row
+          .col-md-4
+            %img{:src=>'/assets/icon_govt_your_way.png'}
+            .tabScreenFix
+              %h3 Government your way
+              %p Stay informed and connected to your government through simple and easy-to-use <a href="#">MyUSA Apps</a>
+
+          .col-md-4
+            %img{:src=>'/assets/icon_login_myusa.png'}
+            .tabScreenFix
+              %h3 Log in with MyUSA
+              %p
+                The
+                %a{:href=>'#'} MyUSA
+                Account is your single point of access to government information and services
+
+          .col-md-4
+            %img{:src=>'/assets/icon_no_paper_forms.png'}
+            .tabScreenFix
+              %h3 No more paper forms
+              %p Tired of PDFs? So are we. MyUSA Forms will help make government forms easier to find and fill out online.
+
+    .get-involved-region
+      %br
+      .container
+        .row
+          .col-md-12
+            %h2 Get Involved
+
+          .col-md-6.col-sm-5
+            %h3 Agencies &amp; Government
+            %p Learn what MyUSA can do for you: single sign on, notifications and alerts, and an application framework to help you get up and running fast.
+            %p
+              %a{:href=>'#'}
+                MyUSA Account
+
+              %a{:href=>'#'}
+                MyUSA Discovery
+
+              %a{:href=>'#'}
+                MyUSA Forms
+
+            %h3 Developers &amp; Civic Hackers
+            %p Build an app, fork a repo, and help us deliver the next generation of government services.
+
+            %p
+              %a{:href=>'#'}
+                App Gallery
+
+              %a{:href=>'#'}
+                MyUSA on Github
+
+              %a{:href=>'#'}
+                Developers
+          .col-md-6.text-right.col-sm-7.hidden-xs
+            %img{:src=>'/assets/home-bg-media-screens.jpg'}
+
+    .footer-nav-region
+      .container
+        .row
+          .col-xs-4.col-md-3
+            %h4 Policies
+            %p
+              %a{:href=>'#'}
+                Privacy Policy
+              %br
+              %a{:href=>'#'}
+                Terms of Participation
+              %br
+              %a{:href=>'#'}
+                Paperwork Reduction Act
+
+          .col-xs-4.col-md-2
+            %h4 Project
+            %p
+              %a{:href=>'#'}
+                About MyUSA
+              %br
+              %a{:href=>'#'}
+                Blog
+              %br
+              %a{:href=>'#'}
+                Developers
+              %br
+              %a{:href=>'#'}
+                FAQ
+
+          .col-xs-4.col-md-2
+            %h4 Elsewhere
+            %p
+              %a{:href=>'#'}
+                Twitter
+              %br
+              %a{:href=>'#'}
+                Facebook
+              %br
+              %a{:href=>'#'}
+                Github
+
+          .col-xs-12.col-md-5
+            %p.footer-info
+              MyUSA is a joint initiative between the White House and the General Services Administration to redefine how we interact with government.
+
+            %p.tagline-highlight
+              Digital Government: Building a 21st Century Platform

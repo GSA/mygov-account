@@ -6,8 +6,12 @@ class OauthController < ApplicationController
     controller.log_app_authorization(controller)
   end
 
-  def authorize
+  def authorize 
     @oauth2 = OAuth2::Provider.parse(current_user, request.env)
+    unless scopes_allowed?
+      redirect_to "#{@oauth2.client.owner.redirect_uri}?error=access_denied&error_description=Requesting+unauthorized+scopes"
+      return
+    end
     if @oauth2.redirect?
       redirect_to @oauth2.redirect_uri, :status => @oauth2.response_status
     else
@@ -44,6 +48,10 @@ class OauthController < ApplicationController
   end
 
   protected
+
+  def scopes_allowed?
+    @oauth2.scopes.all?{|e| @oauth2.client.owner.oauth_scopes.map(&:scope_name).member?(e)}
+  end
 
   def set_client_app
     begin

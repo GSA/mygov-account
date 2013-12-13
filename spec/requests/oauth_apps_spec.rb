@@ -5,7 +5,7 @@ describe "OauthApps" do
     @user = create_confirmed_user_with_profile
     @user2 = create_confirmed_user_with_profile(email: 'second@user.org')
     
-    app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
+    @app1 = app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
     app1.is_public = true
     app1.save!
     app1.oauth_scopes << OauthScope.top_level_scopes
@@ -151,6 +151,14 @@ describe "OauthApps" do
     end
 
     describe "Authorize application with scopes" do
+
+      it "should not allow requests that contain unauthorized scopes" do                    
+        visit(url_for(controller: 'oauth', action: 'authorize',
+              response_type: 'code', scope: 'profile notifications profile.email profile.address', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))
+              current_url.should have_content("#{@app1.oauth2_client.redirect_uri}?error=access_denied&error_description=Requesting+unauthorized+scopes")
+      end
+
+
       it "should ask for authorization and redirect after clicking 'Allow'" do
         visit(url_for(controller: 'oauth', action: 'authorize',
               response_type: 'code', scope: 'profile notifications profile.email', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))

@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.14'
 gem 'mysql2'
 gem 'auto-session-timeout'
-#gem 'jquery-rails'
 gem "jquery-rails", "~> 2.3.0"
 gem 'json', '~> 1.8.0'
 gem 'haml'
@@ -61,7 +60,6 @@ group :test, :development do
   gem 'pry'
   gem 'pry-nav'
   gem 'rspec-rails'
-  #gem "zeus-parallel_tests"
 end
 
 group :development do

@@ -4,13 +4,21 @@ describe "OauthApps" do
   before do
     @user = create_confirmed_user_with_profile
     @user2 = create_confirmed_user_with_profile(email: 'second@user.org')
+
+
+    @app_redirect_with_params = App.create(name: 'app_redirect_with_params'){|app| app.redirect_uri = "http://localhost?something=true"}
+    @app_redirect_with_params.is_public = true
+    @app_redirect_with_params.save!
+    @app_redirect_with_params.oauth_scopes << OauthScope.top_level_scopes
+    @app_redirect_with_params.oauth_scopes << OauthScope.where('scope_name = "profile.email"').first
+    @app_redirect_with_params_client_auth = @app_redirect_with_params.oauth2_client
     
-    @app1 = app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
-    app1.is_public = true
-    app1.save!
-    app1.oauth_scopes << OauthScope.top_level_scopes
-    app1.oauth_scopes << OauthScope.where('scope_name = "profile.email"').first
-    @app1_client_auth = app1.oauth2_client
+    @app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
+    @app1.is_public = true
+    @app1.save!
+    @app1.oauth_scopes << OauthScope.top_level_scopes
+    @app1.oauth_scopes << OauthScope.where('scope_name = "profile.email"').first
+    @app1_client_auth = @app1.oauth2_client
     
     app2 = App.create(name: 'App2'){|app| app.redirect_uri = "http://localhost/"}
     app2.is_public = true
@@ -154,10 +162,19 @@ describe "OauthApps" do
 
       it "should not allow requests that contain unauthorized scopes" do                    
         visit(url_for(controller: 'oauth', action: 'authorize',
-              response_type: 'code', scope: 'profile notifications profile.email profile.address', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))
-              current_url.should have_content("#{@app1.oauth2_client.redirect_uri}?error=access_denied&error_description=Requesting+unauthorized+scopes")
+              response_type: 'code', scope: 'profile notifications profile.email profile.address', client_id: @app1.client_id, redirect_uri: 'http://localhost/'))   
+        CGI::unescape(current_url).should have_content("#{@app1.oauth2_client.redirect_uri}?error=access_denied&error_description=#{I18n.t('unauthorized_scope')}")
       end
-
+      
+      it "should maintain original redirect_uri parameters (if present) when redirecting with unauthorized scopes error" do                    
+        visit(url_for(controller: 'oauth', action: 'authorize',
+              response_type: 'code', scope: 'profile notifications profile.email profile.address', client_id: @app_redirect_with_params.client_id, redirect_uri: 'http://localhost/'))   
+        app_redirect_url = URI.parse(@app_redirect_with_params.oauth2_client.redirect_uri)
+        app_redirect_url.query.should_not be_nil
+        current_url.should have_content(app_redirect_url.query)
+        current_url.should have_content("error=access_denied")
+      end
+      
 
       it "should ask for authorization and redirect after clicking 'Allow'" do
         visit(url_for(controller: 'oauth', action: 'authorize',

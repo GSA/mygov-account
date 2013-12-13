@@ -9,7 +9,7 @@ class OauthController < ApplicationController
   def authorize 
     @oauth2 = OAuth2::Provider.parse(current_user, request.env)
     unless scopes_allowed?
-      redirect_to "#{@oauth2.client.owner.redirect_uri}?error=access_denied&error_description=Requesting+unauthorized+scopes"
+      redirect_to get_redirect_uri(@oauth2.client.owner.redirect_uri)
       return
     end
     if @oauth2.redirect?
@@ -49,6 +49,14 @@ class OauthController < ApplicationController
 
   protected
 
+  def get_redirect_uri(redirect_uri)
+    url_obj           = URI.parse(redirect_uri)
+    uri               = Addressable::URI.new # For converting hash to querystring
+    uri.query_values  = CGI::parse(url_obj.query || "").merge({error: "access_denied", error_description: t('unauthorized_scope')})
+    url_obj.query     = uri.query
+    url_obj.to_s
+  end
+  
   def scopes_allowed?
     @oauth2.scopes.all?{|e| @oauth2.client.owner.oauth_scopes.map(&:scope_name).member?(e)}
   end

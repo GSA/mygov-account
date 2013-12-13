@@ -31,31 +31,27 @@ describe Notification do
     let(:mock_setting2) { mock_model(NotificationSetting, notification_type: @notification.notification_type, delivery_type: 'dashboard') }
 
     before do
-      @user = User.create!(email:'test@test.gov', password:'Mypassword1')
-      @notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
-      # @notification = FactoryGirl.build(:notification, user_id: @user.id)
+      Twilio::REST::Client.stub(:new)
+      @notification = FactoryGirl.build(:notification, @valid_attributes)
+      @notification.assign_attributes({:app_id => @app.id}, as: :admin)
+      @notification.assign_attributes({:user_id => 123456}, as: :admin)
     end
 
-    # context 'with delivery types' do
-    #   it 'should invoke a delivery for every delivery type for the application' do
-    #     Twilio::REST::Client.stub(:new)
-    #     # settings = [FactoryGirl.create(:notification_setting, delivery_type: 'text'), FactoryGirl.create(:notification_setting, delivery_type: 'dashboard')]
-    #     settings = [mock_setting1, mock_setting2]
-    #     @notification.user.notification_settings << setting1
-    #     @notification.user.notification_settings << setting2
-    #     # @notification.stub_chain(:user, :notification_settings, :where).and_return(settings)
-    #     Resque.should_receive(:enqueue).exactly(2).times
-    #     @notification.save
-    #   end
-    # end
-
+    context 'with delivery types' do
+      it 'should invoke a delivery for every delivery type for the application' do
+        settings = [mock_setting1, mock_setting2]
+        @notification.stub_chain(:user, :notification_settings, :where).and_return(settings)
+        Resque.should_receive(:enqueue).exactly(2).times
+        @notification.save
+      end
+    end
 
     context 'without any delivery types' do
-      # FIXME: Stack level too deep
-      # it 'should not trigger any deliveries' do
-      #   Resque.should_not receive(:enqueue)
-      #   @notification.save
-      # end
+      it 'should not invoke a delivery' do
+        @notification.stub_chain(:user, :notification_settings, :where).and_return([])
+        Resque.should_not receive(:enqueue)
+        @notification.save
+      end
     end
   end
 end

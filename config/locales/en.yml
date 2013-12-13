@@ -12,14 +12,14 @@ en:
   mygov_greeting: ""
   beta_signup_error: "An error occurred during signup.  Please try again."
   apps_leaving: "In a few seconds, you will be redirected to"
-  unauthorized_scope: "Requesting unauthorized scopes"  
+  unauthorized_scope: "Requesting unauthorized scopes"
   custom_session_timeout: 'Your session expired. Please sign in again.'
-  
+
   errors:
     messages:
       expired: "has expired. Please request a new one."
       not_found: "not found."
-      already_confirmed: "has already been confirmed. Please try signing in."
+      already_confirmed: "has already been confirmed. Please try <a href='/sign_in'>signing in.</a>"
       not_locked: "wasn't locked."
       not_saved:
         one: "Error:"
@@ -85,7 +85,7 @@ en:
         subject: 'Unlock Instructions'
   errors:
     messages:
-      already_confirmed: "may already have been confirmed or it does not exist. Please try signing in or signing up."
+      already_confirmed: "may already have been confirmed or it does not exist. Please try <a href='/sign_in'>signing in</a> or <a href='/sign_up'>signing up</a>."
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "has expired, please request a new one"
       not_found: "Please check your inbox for an email from MyUSA."

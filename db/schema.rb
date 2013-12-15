@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20131212224057) do
 
   create_table "delivery_types", :force => true do |t|
     t.integer  "notification_id"
+    t.string   "name"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
@@ -113,7 +114,7 @@ ActiveRecord::Schema.define(:version => 20131212224057) do
   create_table "notification_settings", :force => true do |t|
     t.integer  "user_id"
     t.text     "delivery_type"
-    t.integer  "notification_type"
+    t.string   "notification_type"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
@@ -129,7 +130,6 @@ ActiveRecord::Schema.define(:version => 20131212224057) do
     t.datetime "deleted_at"
     t.datetime "viewed_at"
     t.string   "notification_type"
-    t.string   "delivery_type"
   end
 
   add_index "notifications", ["app_id"], :name => "index_messages_on_o_auth2_model_client_id"

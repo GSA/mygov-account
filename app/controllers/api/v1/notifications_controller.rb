@@ -2,10 +2,13 @@ class Api::V1::NotificationsController < Api::ApiController
   before_filter :oauthorize_scope
 
   def create
-    notification = @user.notifications.build(params[:notification])
-    notification.received_at = Time.now
-    notification.user_id = @user.id
-    notification.app_id = @app.id
+    notification = Notification.new(params[:notification])
+    notification.assign_attributes({
+        :user_id => @user.id,
+        :app_id => @app.id,
+        :received_at => Time.now,
+        :notification_type => params[:notification][:notification_type]
+      }, :as => :admin)
     if notification.save
       render :json => notification, :status => 200
     else

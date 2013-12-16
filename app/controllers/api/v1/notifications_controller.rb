@@ -2,8 +2,10 @@ class Api::V1::NotificationsController < Api::ApiController
   before_filter :oauthorize_scope
 
   def create
-    notification = Notification.new(params[:notification])
+    notification = Notification.new
     notification.assign_attributes({
+        :subject => params[:notification][:subject],
+        :body => params[:notification][:body],
         :user_id => @user.id,
         :app_id => @app.id,
         :received_at => Time.now,

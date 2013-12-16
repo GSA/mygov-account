@@ -45,7 +45,6 @@ Mygov::Application.routes.draw do
   resources :task_items, :only => [:update, :destroy]
 
   get 'dashboard' => "home#dashboard"
-  get 'discovery' => "home#discovery"
   get 'developer' => "home#developer"
   get 'privacy-policy' => "home#privacy_policy", :as => :privacy_policy
   get 'terms-of-service' => "home#terms_of_service", :as => :terms_of_service

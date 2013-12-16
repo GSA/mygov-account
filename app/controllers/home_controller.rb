@@ -19,9 +19,6 @@ class HomeController < ApplicationController
   def developer
   end
 
-  def discovery
-  end
-  
   def privacy_policy
   end
   

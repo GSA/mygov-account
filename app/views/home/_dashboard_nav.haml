@@ -1,11 +1,10 @@
 .group
   %ul.dashboard-navigation{"data-magellan-expedition" => ""} 
-    - if @uncompleted_tasks.any?
-      %li.first{"data-magellan-arrival" => "tasks"}
-        %a.smoothScroll.tasks{:href => "#tasks"}
-          .arrow
-          %i{:class => "foundicon-checkmark"}
-          Tasks          
+    %li.first{"data-magellan-arrival" => "tasks"}
+      %a.smoothScroll.tasks{:href => "#tasks"}
+        .arrow
+        %i{:class => "foundicon-checkmark"}
+        Tasks          
     %li{"data-magellan-arrival" => "apps"}
       %a.smoothScroll.apps{:href => "#apps"}
         .arrow

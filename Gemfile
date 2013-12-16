@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem 'rails', '3.2.14'
+gem 'rails', '3.2.16'
 gem 'mysql2'
 gem 'auto-session-timeout'
 gem "jquery-rails", "~> 2.3.0"

@@ -17,6 +17,9 @@ end
 
 module Mygov
   class Application < Rails::Application
+    # Use pre-Rails 3.2.14 behavior and avoid warning message
+    config.i18n.enforce_available_locales = false
+    
     config.apps_leaving_delay = 7
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

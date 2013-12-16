@@ -1,0 +1,15 @@
+octopus:
+  replicated: true
+  environments:
+    - development
+    - production
+
+  development:
+    slave1:
+      database: mygov_development_2
+      <<: *mysql
+
+  production:
+    slave1:
+      host: DATABASE_HOST_2
+      <<: *mysql

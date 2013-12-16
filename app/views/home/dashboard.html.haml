@@ -2,7 +2,7 @@
   .one.columns.navigation
     = render :partial => 'dashboard_nav' 
   .eleven.columns.dashboard
-    = render :partial => 'dashboard_tasks' if @uncompleted_tasks.any?
+    = render :partial => 'dashboard_tasks'
     = render :partial => 'dashboard_apps' 
     = render :partial => 'dashboard_info'
     = render :partial => 'dashboard_forms'    

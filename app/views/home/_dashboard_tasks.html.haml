@@ -4,8 +4,12 @@
     Tasks
     %a{:name => "tasks"} 
   %span.bookmark
-  - @uncompleted_tasks.each do |task|
+  - if @uncompleted_tasks.any?
+    - @uncompleted_tasks.each do |task|
+      %div
+        %h4
+          = link_to task.name, task_path(task)
+  - else
     %div
       %h4
-        = link_to task.name, task_path(task)
-        
+        No tasks

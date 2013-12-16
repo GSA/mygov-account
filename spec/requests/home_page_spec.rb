@@ -98,10 +98,10 @@ describe "HomePage" do
       context "when the user does not have tasks" do
         before { @user.tasks.destroy_all }
         
-        it "should not show sidebar tabs or dashboard sections for tasks or info" do
+        it "should show 'No tasks'" do
           visit root_path
-          page.should have_no_content "Tasks"
-          page.should have_content "Info"
+          page.should have_content "Tasks"
+          page.should have_content "No tasks"
         end
       end
       

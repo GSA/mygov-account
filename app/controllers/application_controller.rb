@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   prepend_before_filter :set_no_keep_alive
   after_filter :set_response_headers, :cors_set_access_control_headers
-  before_filter :set_segment, :set_session_will_expire, :cors_preflight_check
+  before_filter :set_session_will_expire, :cors_preflight_check
 
   auto_session_timeout User.timeout_in.seconds
 
@@ -20,8 +20,6 @@ class ApplicationController < ActionController::Base
   def xss_options_request
     render :text => ""
   end
-
-
 
   protected
 
@@ -49,13 +47,6 @@ class ApplicationController < ActionController::Base
 
   def assign_user
     @user = current_user
-  end
-
-  def set_segment
-    if !session[:segment]
-      session[:segment] = rand(2) == 0 ? "A" : "B"
-    end
-    @segment = session[:segment]
   end
 
   def set_response_headers
@@ -99,5 +90,4 @@ class ApplicationController < ActionController::Base
       headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-Prototype-Version, Authorization'
     end
   end
-
 end

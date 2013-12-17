@@ -71,7 +71,6 @@
             mr.parentNode.removeChild(mr);
           }
       = content_for :scripts
-      = render :partial => "shared/ab", :locals => { :segment => @segment }
       = analytics_init if Rails.env.production?
       - if current_user
         = auto_session_timeout_js timeout:  User.timeout_in, frequency: Rails.application.config.session_check_frequency, start: 1, warning: Rails.application.config.session_timeout_warning_seconds

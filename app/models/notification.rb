@@ -21,8 +21,7 @@ class Notification < ActiveRecord::Base
 
   def deliver_notification
     self.user.notification_settings.where(notification_type: self.notification_type).each do |setting|
-      #TODO: Exclude mailer
-      Resque.enqueue("Notification#{setting.delivery_type.capitalize}".constantize, self.id)
+      "Notification#{setting.delivery_type.capitalize}".constantize.send(:perform, self.id)
     end
   end
 

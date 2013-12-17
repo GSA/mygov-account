@@ -34,3 +34,4 @@ log/*
 /test
 /tmp
 /vendor/bundle
+/lib/load-scripts/

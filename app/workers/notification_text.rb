@@ -9,13 +9,13 @@ class NotificationText
   @client = Twilio::REST::Client.new account_sid, auth_token
 
   @queue = :sms
-  def self.perform(notification_id, user)
+  def self.perform(notification_id)
     notification = Notification.find_by_id(notification_id)
 
 
     @client.account.messages.create(
       :from => ENV['TWILIO_FROM_NUMBER'],
-      :to => user.profile.mobile_for_twilio,
+      :to => notification.user.profile.mobile_for_twilio,
       :body => "#{notification.subject} -- #{notification.body if notification.body}"
     )
   end

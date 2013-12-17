@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Notification do
   before do
     @valid_attributes = {
+      :id => 1234,
       :subject => 'Test',
       :received_at => Time.now,
       :body => 'This is a test notification',
@@ -29,6 +30,7 @@ describe Notification do
 
     let(:mock_setting1) { mock_model(NotificationSetting, notification_type: @notification.notification_type, delivery_type: 'text') }
     let(:mock_setting2) { mock_model(NotificationSetting, notification_type: @notification.notification_type, delivery_type: 'dashboard') }
+    let(:mock_setting3) { mock_model(NotificationSetting, notification_type: @notification.notification_type, delivery_type: 'email') }
 
     before do
       Twilio::REST::Client.stub(:new)
@@ -39,9 +41,11 @@ describe Notification do
 
     context 'with delivery types' do
       it 'should invoke a delivery for every delivery type for the application' do
-        settings = [mock_setting1, mock_setting2]
+        settings = [mock_setting1, mock_setting2, mock_setting3]
         @notification.stub_chain(:user, :notification_settings, :where).and_return(settings)
-        Resque.should_receive(:enqueue).exactly(2).times
+        Resque.should_receive(:enqueue).with(NotificationText, @notification.id).once
+        Resque.should_receive(:enqueue).with(NotificationDashboard, @notification.id).once
+        Resque.should_receive(:enqueue).with(NotificationEmail, @notification.id).once
         @notification.save
       end
     end

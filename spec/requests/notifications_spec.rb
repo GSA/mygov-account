@@ -52,34 +52,12 @@ describe "Notifications" do
         page.should have_content '05/13/2012'
       end
 
-      it "indicate the number of unread notifications on the dashboard" do
-        visit dashboard_path
-        expect(page).to have_content "18"
-      end
-      
-      it "reduces the number of unread notifications after a notification has been viewed" do
-        visit notification_path(@year_old_notification)
-        expect(page).to have_content "17"
-      end
-      
-      it "reduces the number of unread notifications after a notification has been deleted" do
-        visit notification_path(@year_old_notification, :method => :destroy)
-        expect(page).to have_content "17"
-      end
-      
-      it "does not reduce the number of unread notifications after a notification has been viewed twice" do
-        visit notification_path(@year_old_notification)
-        expect(page).to have_content "17"
-      end
-
       context "when notifications have been deleted" do
-
         it "does not display the deleted message in the notifications list" do
           @user.notifications.first.destroy
           visit dashboard_path(@year_old_notification)
           expect(page).to have_no_content "Year Old Notification"
         end
-        
       end
       
       context "when some notifications do not have an associated app" do

@@ -1,7 +1,21 @@
 .row
-  .one.columns.navigation
-    = render :partial => 'dashboard_nav' 
-  .eleven.columns.dashboard
-    = render :partial => 'dashboard_tasks'
-    = render :partial => 'dashboard_apps' 
+  .six.columns
+    = link_to profile_path do
+      %i{:class => "foundicon-people"}
+      Profile
+  .six.columns
+    = link_to notifications_path do
+      %i{:class => "foundicon-mail"}
+      Notifications
+.row
+  .six.columns
+    = link_to "#" do
+      %i{:class => "foundicon-checkmark"}
+      Tasks
+  .six.columns
+    = link_to apps_path do
+      %i{:class => "foundicon-website"}
+      Apps
+.row
+  .twelve.columns    
     = render :partial => 'administrative_settings'

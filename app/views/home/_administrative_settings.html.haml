@@ -1,9 +1,5 @@
 .panel.tertiary
   %ul.inline-list 
-    %li 
-      %a.smoothScroll{:href => "#top"} 
-        %i{:class => "foundicon-up-arrow"}
-        Go to top
     %li
       = link_to terms_of_service_path do
         %i{:class => "foundicon-page"}
@@ -20,22 +16,3 @@
       = link_to pra_path do
         %i{:class => "foundicon-page"}
         Paperwork Reduction Act Statement
-    %li
-      = link_to activity_log_path do
-        %i{:class => "foundicon-website"}
-        Account Activity
-    %li
-      = link_to '#', {:"data-reveal-id" => 'confirm-delete-modal'} do
-        %i{:class => "foundicon-remove"}
-        Delete your account
-        
-#confirm-delete-modal.reveal-modal
-  %h2
-    Are you sure?
-  %p
-    By deleting your account, all information associated with your account will be deleted forever. (You can't undo this later.)
-  %p
-    = link_to "Delete", user_path, :method => :delete, :class => 'button positive confirm'
-    = link_to "Cancel", "#", :class => 'button negative', :onclick => "$('#confirm-delete-modal').trigger('reveal:close');"
-  %a.close-reveal-modal
-    x

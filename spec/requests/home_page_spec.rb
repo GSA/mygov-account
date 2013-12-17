@@ -71,54 +71,16 @@ describe "HomePage" do
       it "should show the user the dashboard" do
         visit root_path
         page.should have_content "MyUSA"
-        click_link 'Joe Citizen'
-        page.should have_content 'Your Profile'
+        click_link 'Profile'
+        page.should have_content 'Your profile'
         page.should have_content 'First name'
       end
       
       it "should provide a link to the app gallery" do
         visit root_path
-        page.should have_link "App Gallery", :href => apps_path
+        page.should have_link "Apps", :href => apps_path
       end
-      
-      context "when the user does not have a first, last or any other name" do
-        before do
-          @user.profile.update_attributes(:first_name => nil, :last_name => nil)
-        end
-                
-        it "should link to the profile page with 'Your profile'" do
-          visit root_path
-          page.should have_content "Your profile"
-          click_link "Your profile"
-          page.should have_content "Your profile"
-          page.should have_content "First name"
-        end
-      end
-      
-      context "when the user does not have tasks" do
-        before { @user.tasks.destroy_all }
-        
-        it "should show 'No tasks'" do
-          visit root_path
-          page.should have_content "Tasks"
-          page.should have_content "No tasks"
-        end
-      end
-      
-      context "when the user has tasks with task items" do
-        before do
-          @app = App.create!(:name => 'Change your name', :redirect_uri => "http://localhost:3000/")
-          @user.tasks.create!({:name => 'Change your name', :app_id => @app.id}, :as => :admin)
-        end
-        
-        it "should show the tasks on the dashboard" do
-          visit root_path
-          page.should have_content "MyUSA"
-          page.should have_content "Tasks"
-          page.should have_content "Change your name"
-        end
-      end
-      
+                  
       context "when the user visits the page the first time" do
         before do
           reset_session!
@@ -150,6 +112,7 @@ describe "HomePage" do
         
         it "should log out the user and destroy the account" do
           visit root_path
+          click_link "Account"
           click_link "Delete"
           page.should have_content "Your MyUSA account has been deleted"
           page.should have_content "Sign up"
@@ -174,25 +137,7 @@ describe "HomePage" do
       page.should have_content "Terms of service"
     end
   end
-  
-  describe "GET /discovery" do
-    context "when not logged in" do
-      it "should forward to a login page" do
-        visit discovery_path
-        page.should have_content "Please sign in or sign up before continuing"
-      end
-    end
     
-    context "when logged in" do
-      before {login(@user)}
-      
-      it "should show the discovery page" do
-        visit discovery_path
-        page.should have_content "Discovery Bar"
-      end
-    end
-  end
-  
   describe "GET /xrds.xml" do
     it "should return the XRDS file" do
       get "/xrds.xml"

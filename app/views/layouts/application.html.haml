@@ -5,18 +5,13 @@
     - if current_user && request.get? # If it's a post, then no redirect
       %noscript
         = refresh_meta_tag_conent
-
     = head_metadata(content_for?(:title) ? yield(:title) : "MyUSA", content_for?(:meta_description) ? yield(:meta_description) : "A platform for connecting people and government")
-    
     = csrf_meta_tags
-
     = stylesheet_link_tag "fonts", :media => "all" 
     = stylesheet_link_tag "application", :media => "all"
     = stylesheet_link_tag "general_foundicons", :media => "all"
     /[if !IE 7]
       = stylesheet_link_tag "ie7", :media => "all"
-      
-    
     /[if lt IE 9]
       = stylesheet_link_tag "general_foundicons_ie7", :media => "all"
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
@@ -43,6 +38,11 @@
                 %h3.tagline
                   =t('sign_in_prompt')
                   =link_to t('sign_in_link'), sign_in_path
+              - if current_user
+                %h3.tagline
+                  = link_to "Account", account_index_path
+                  |
+                  = link_to "Sign out", sign_out_path
       #main
         %a{:name => "top"}
         .nav-container.group
@@ -57,23 +57,7 @@
           = yield
         - unless current_user
           .no-toolbar
-          
-      - if current_user
-        .discovery-bar  
-          %ul.nav-bar
-            %li.mygov
-              = link_to 'MyUSA', root_path
-            %li.left.notifications
-              = link_to notifications_path do
-                - if current_user.notifications.not_viewed.count > 0
-                  %span.jujitsu
-                    = current_user.notifications.not_viewed.count
-                %span.notification-label
-                  Notifications
-            %li.right.sign-out= link_to "Sign out", sign_out_path
-            %li.right.profile= link_to(current_user.profile.name || "Your profile", profile_path)
-            %li.right.settings= link_to "Settings", settings_path
-          
+                    
       /
         Javascripts
         \==================================================

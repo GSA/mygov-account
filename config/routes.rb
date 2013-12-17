@@ -28,7 +28,7 @@ Mygov::Application.routes.draw do
       put 'update_password'
     end
   end
-  resources :settings, :only => [:index] do
+  resources :account, :only => [:index] do
     collection do
       resources :authentications
     end

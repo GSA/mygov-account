@@ -201,7 +201,7 @@ describe "Users" do
             email.body.encoded.should have_link('MyUSA App Gallery', href: apps_url(host_params))
             email.body.raw_source.should have_link('contact us')
             email.body.raw_source.should have_link('link', href: user_confirmation_url(host_params.merge(confirmation_token: user.confirmation_token)))
-            email.body.raw_source.should have_link('edit your notification settings', href: settings_url(host_params))
+            email.body.raw_source.should have_link('edit your notification settings', href: account_index_url(host_params))
             email.body.raw_source.should have_link('update your profile', href: edit_profile_url(host_params.merge(profile: user.profile)))
             email.body.raw_source.should have_content("confirmation?confirmation_token=#{user.confirmation_token}")
           end
@@ -316,7 +316,7 @@ describe "Users" do
       click_button 'Update profile'
       page.should have_content "Sign out"
       page.should have_content "Edit profile"
-      page.should have_content "Jane Citizen"
+      page.should have_content "First name: Jane"
     end
   end
   
@@ -330,7 +330,6 @@ describe "Users" do
       click_button "Email password reset instructions"
       
       expect(ActionMailer::Base.deliveries.last.subject).to eq('Reset password instructions')
-      
       
       @user.reload
 

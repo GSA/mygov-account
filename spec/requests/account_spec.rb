@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-describe "SettingsPage" do
+describe "AccountPage" do
   before do
     @user = create_confirmed_user
   end
 
-  describe "GET /settings" do
+  describe "GET /account" do
     context "when the user is logged in" do
       before {login(@user)}
 
       it "should show the user a link to change their email address" do
-        visit settings_path
+        visit account_index_path
         page.should have_content("Change email address")
       end
     end
@@ -21,7 +21,7 @@ describe "SettingsPage" do
       before {login(@user)}
 
       it "should allow password change" do
-        visit settings_path(@user)
+        visit account_index_path(@user)
         click_link 'Change your password'
         fill_in('user_password', :with => 'asdf')      # Fill in with invalid input to test validation
         click_button('Change my password')
@@ -36,7 +36,6 @@ describe "SettingsPage" do
         fill_in 'Password', :with => new_password
         click_button 'Sign in'
         current_path.should match('dashboard')
-
       end
 
 

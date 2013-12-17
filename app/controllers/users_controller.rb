@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       # Sign in the user by passing validation in case his password changed
       sign_in @user, :bypass => true
       flash[:notice] = "Your password was sucessfully updated."
-      redirect_to settings_path
+      redirect_to account_index_path
     else
       @user
       render 'edit_password'

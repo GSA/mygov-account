@@ -7,7 +7,17 @@ class BetaSignup < ActiveRecord::Base
 
   attr_accessible :email, :ip_address, :referrer, :as => [:default, :admin]
   attr_accessible :is_approved, :as => :admin
-
+  
+  def approve!
+    self.is_approved = true
+    self.save!
+  end
+  
+  def unapprove!
+    self.is_approved = false
+    self.save!
+  end
+  
   private
 
   def send_beta_invite

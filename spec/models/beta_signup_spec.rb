@@ -39,5 +39,15 @@ describe BetaSignup do
       email = ActionMailer::Base.deliveries.first
       email.parts.map {|part| expect(part.body).to include('Welcome to the MyUSA beta')}
     end
-  end  
+  end
+  
+  describe "approve!/unapprove!" do
+    it "should set the user as approved when called" do
+      beta_signup = BetaSignup.create!(@valid_attributes)
+      beta_signup.approve!
+      beta_signup.is_approved.should == true
+      beta_signup.unapprove!
+      beta_signup.is_approved.should == false
+    end
+  end
 end

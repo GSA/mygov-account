@@ -105,7 +105,7 @@ describe "Users" do
       it "should not let the user create an account" do
         visit sign_up_path
         fill_in_email_and_password
-        check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+        check 'I agree to the MyUSA Terms of service and Privacy policy'
         click_button 'Sign up'
         page.should have_content "I'm sorry, your account hasn't been approved yet."
       end
@@ -137,7 +137,7 @@ describe "Users" do
         it "should not let the user create an account" do
           visit sign_up_path
           fill_in_email_and_password
-          check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+          check 'I agree to the MyUSA Terms of service and Privacy policy'
           click_button 'Sign up'
           page.should have_content "I'm sorry, your account hasn't been approved yet."
         end
@@ -175,7 +175,7 @@ describe "Users" do
           it "should let the user create an account" do
             visit sign_up_path
             fill_in_email_and_password
-            check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+            check 'I agree to the MyUSA Terms of service and Privacy policy'
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
             ActionMailer::Base.deliveries.last.to.should   == ['joe@citizen.org']
@@ -188,7 +188,7 @@ describe "Users" do
             visit sign_up_path
             fill_in_email_and_password
             fill_in 'user_first_name', :with => 'Joe'
-            check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+            check 'I agree to the MyUSA Terms of service and Privacy policy'
 
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
@@ -210,7 +210,7 @@ describe "Users" do
             it "should not create the user account" do
               visit sign_up_path
               fill_in_email_and_password(password:'badpass')
-              check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+              check 'I agree to the MyUSA Terms of service and Privacy policy'
               click_button 'Sign up'
               page.should have_content 'Password is too short (minimum is 8 characters)'
             end
@@ -220,7 +220,7 @@ describe "Users" do
             it "should not create the user account" do
               visit sign_up_path
               fill_in_email_and_password(password:'password')
-              check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+              check 'I agree to the MyUSA Terms of service and Privacy policy'
               click_button 'Sign up'
               page.should have_content 'must include at least one lower case letter, one upper case letter and one digit.'
             end
@@ -230,7 +230,7 @@ describe "Users" do
             it "should create an account" do
               visit sign_up_path
               fill_in_email_and_password(email:'joe@citizen.org', password:'Password!2')
-              check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+              check 'I agree to the MyUSA Terms of service and Privacy policy'
               click_button 'Sign up'
               page.should have_content 'Thank you for signing up'
             end
@@ -247,7 +247,7 @@ describe "Users" do
           it "should not allow a new user to be created or login with that email address" do
             visit sign_up_path
             fill_in_email_and_password
-            check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+            check 'I agree to the MyUSA Terms of service and Privacy policy'
             click_button 'Sign up'
             page.should have_content 'Email has already been taken'
           end
@@ -271,7 +271,7 @@ describe "Users" do
           fill_in_email_and_password
           fill_in 'First name', :with => 'Joe'
           fill_in 'Last name', :with => 'Citizen'
-          check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+          check 'I agree to the MyUSA Terms of service and Privacy policy'
           click_button 'Sign up'
           page.should have_content 'Thank you for signing up'
           ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
@@ -315,7 +315,7 @@ describe "Users" do
       fill_in 'First name', :with => 'Jane'
       click_button 'Update profile'
       page.should have_content "Sign out"
-      page.should have_content "Edit profile"
+      page.should have_content "Edit your profile"
       page.should have_content "First name: Jane"
     end
   end

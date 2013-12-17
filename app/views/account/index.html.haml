@@ -1,7 +1,7 @@
 .row
   .eight.columns
     %h2
-      Your account
+      = t(:your_account)
     %p
       - if flash.notice
         .alert-box.blue
@@ -10,25 +10,25 @@
         %li
           = link_to activity_log_path do
             %i{:class => "foundicon-website"}
-            Account Activity
+            = t(:account_activity)
         %li
-          = link_to 'Authentication providers', authentications_path
+          = link_to t(:authentication_providers), authentications_path
         %li
-          = link_to 'Change email address',     edit_user_registration_path
+          = link_to t(:change_your_email_address), edit_user_registration_path
         %li
-          = link_to "Change your password", edit_password_user_path
+          = link_to t(:change_your_password), edit_password_user_path
         %li
           = link_to '#', {:"data-reveal-id" => 'confirm-delete-modal'} do
             %i{:class => "foundicon-remove"}
-            Delete your account
+            = t(:delete_your_account)
       
 #confirm-delete-modal.reveal-modal
   %h2
-    Are you sure?
+    = t(:are_you_sure)
   %p
-    By deleting your account, all information associated with your account will be deleted forever. (You can't undo this later.)
+    = t(:by_deleting)
   %p
-    = link_to "Delete", user_path, :method => :delete, :class => 'button positive confirm'
-    = link_to "Cancel", "#", :class => 'button negative', :onclick => "$('#confirm-delete-modal').trigger('reveal:close');"
+    = link_to t(:delete), user_path, :method => :delete, :class => 'button positive confirm'
+    = link_to t(:cancel), "#", :class => 'button negative', :onclick => "$('#confirm-delete-modal').trigger('reveal:close');"
   %a.close-reveal-modal
     x

@@ -24,8 +24,8 @@
             .row
               .ten.columns.centered
                 %p.sign-in-bar.right
-                  =t('sign_in_prompt')
-                  =link_to t('sign_in_link'), sign_in_path
+                  =t(:sign_in_prompt)
+                  =link_to t(:sign_in_link), sign_in_path
                   
             .six.columns.centered
               %h1
@@ -37,15 +37,15 @@
               .ten.columns.centered
                 %ul.centered
                   %li
-                    = link_to 'About MyUSA', "http://presidential-innovation-fellows.github.com/mygov/about/", :class => 'info'
+                    = link_to t(:about_myusa), "http://presidential-innovation-fellows.github.com/mygov/about/", :class => 'info'
                   %li
-                    = link_to 'Developers', developer_path, :class => 'info'
+                    = link_to t(:developers), developer_path, :class => 'info'
                   %li
-                    = link_to 'Digital Government: Building a 21st Century Platform', "http://www.whitehouse.gov/sites/default/files/omb/egov/digital-government/digital-government.html", :class => 'info'
+                    = link_to t(:digital_government), "http://www.whitehouse.gov/sites/default/files/omb/egov/digital-government/digital-government.html", :class => 'info'
                   %li
-                    = link_to 'Privacy policy', privacy_policy_path, :class => 'info'
+                    = link_to t(:privacy_policy), privacy_policy_path, :class => 'info'
                   %li
-                    = link_to 'Terms of service', terms_of_service_path, :class => 'info'
+                    = link_to t(:terms_of_service), terms_of_service_path, :class => 'info'
       /
         Javascripts
         \==================================================

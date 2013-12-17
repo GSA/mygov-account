@@ -5,14 +5,14 @@
 .row
   .eight.columns
     %h2
-      Edit your profile
+      = t(:edit_your_profile)
     = form_for @profile do |form|
       - if flash[:error]
         .alert-box
           = flash[:error]
       %fieldset
         %legend
-          Name
+          = t(:name)
         %ol
           %li
             = form.label :title
@@ -31,7 +31,7 @@
             = form.select :suffix, suffix_options, :include_blank => true
       %fieldset
         %legend
-          Address
+          = t(:address)
         %ol
           %li
             = form.label :address
@@ -50,7 +50,7 @@
             = form.text_field :zip 
       %fieldset
         %legend 
-          Phone
+          = t(:phone)
         %ol
           %li
             = form.label :phone_number
@@ -60,39 +60,39 @@
             = form.phone_field :mobile_number    
       %fieldset
         %legend
-          Gender
+          = t(:gender)
         %ol 
           %li
             = form.label :gender
             = form.select :gender, gender_options, :include_blank => true
       %fieldset
         %legend
-          Marital status
+          = t(:marital_status)
         %ol  
           %li
             = form.label :marital_status
             = form.select :marital_status, marital_status_options, :include_blank => true
       %fieldset
         %legend
-          About you
+          = t(:about_you)
         %ol.inline
           %li.full
             = form.check_box :is_parent
-            = form.label :is_parent, "Parent"
+            = form.label :is_parent, t(:parent)
             
           %li.full
             = form.check_box :is_veteran
-            = form.label :is_veteran, "Veteran"
+            = form.label :is_veteran, t(:veteran)
             
           %li.full
             = form.check_box :is_student
-            = form.label :is_student, "Student"
+            = form.label :is_student, t(:student)
             
           %li.full
             = form.check_box :is_retired
-            = form.label :is_retired, "Retired"      
-      = form.submit "Update profile", :class => 'large button positive'
-      = link_to 'Cancel', profile_path
+            = form.label :is_retired, t(:retired)
+      = form.submit t(:update_profile), :class => 'large button positive'
+      = link_to t(:cancel), profile_path
   .four.columns
     .panel.sidebar.tertiary
       = render :partial => 'home/administrative_sidebar'

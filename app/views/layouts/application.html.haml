@@ -5,7 +5,7 @@
     - if current_user && request.get? # If it's a post, then no redirect
       %noscript
         = refresh_meta_tag_conent
-    = head_metadata(content_for?(:title) ? yield(:title) : "MyUSA", content_for?(:meta_description) ? yield(:meta_description) : "A platform for connecting people and government")
+    = head_metadata(content_for?(:title) ? yield(:title) : "MyUSA", content_for?(:meta_description) ? yield(:meta_description) : t(:meta_description))
     = csrf_meta_tags
     = stylesheet_link_tag "fonts", :media => "all" 
     = stylesheet_link_tag "application", :media => "all"
@@ -36,13 +36,13 @@
             .six.columns.align-right
               - if !current_user && request.path != sign_in_path
                 %h3.tagline
-                  =t('sign_in_prompt')
-                  =link_to t('sign_in_link'), sign_in_path
+                  =t(:sign_in_prompt)
+                  =link_to t(:sign_in_link), sign_in_path
               - if current_user
                 %h3.tagline
-                  = link_to "Account", account_index_path
+                  = link_to t(:account), account_index_path
                   |
-                  = link_to "Sign out", sign_out_path
+                  = link_to t(:sign_out), sign_out_path
       #main
         %a{:name => "top"}
         .nav-container.group

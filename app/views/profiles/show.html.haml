@@ -1,69 +1,67 @@
 .row
   .eight.columns
     %h2
-      Your profile
+      = t(:your_profile)
   .four.columns.align-right.actions           
     = link_to edit_profile_path, :class => 'small button' do
       %i{:class => "foundicon-edit"}
-      Edit profile  
+      = t(:edit_your_profile)
 .row
   .six.columns
     .panel.listing
       %h3
-        Name
+        = t(:name)
       %ul.profile      
         %li
-          Title: #{@profile.title}
+          #{t(:title)}: #{@profile.title}
         %li
-          First name: #{@profile.first_name}
+          #{t(:first_name)}: #{@profile.first_name}
         %li
-          Middle name: #{@profile.middle_name}
+          #{t(:middle_name)}: #{@profile.middle_name}
         %li
-          Last name: #{@profile.last_name}
+          #{t(:last_name)}: #{@profile.last_name}
         %li
-          Suffix: #{@profile.suffix}
+          #{t(:suffix)}: #{@profile.suffix}
     
     .panel.listing
       %h3
-        Address
+        = t(:address)
       %ul.profile 
         %li
-          Address: #{@profile.address}
+          #{t(:address)}: #{@profile.address}
         %li
-          Address (Line 2): #{@profile.address2}
+          #{t(:address2)}: #{@profile.address2}
         %li
-          City: #{@profile.city}
+          #{t(:city)}: #{@profile.city}
         %li
-          State: #{@profile.state}
+          #{t(:state)}: #{@profile.state}
         %li
-          Zip: #{@profile.zip}
+          #{t(:zip)}: #{@profile.zip}
   .six.columns        
     .panel.listing
       %h3 
-        Phone
+        = t(:phone)
       %ul.profile   
         %li
-          Phone: #{@profile.phone_number}
+          #{t(:phone)}: #{@profile.phone_number}
         %li
-          Mobile: #{@profile.mobile_number}    
+          #{t(:mobile)}: #{@profile.mobile_number}    
     .panel.listing
       %h3
-        Information about you
+        = t(:about_you)
       %ul.profile
         %li
-          Email: #{@user.email}
+          #{t(:email)}: #{@user.email}
         %li
-          Gender: #{@profile.print_gender}
+          #{t(:gender)}: #{@profile.print_gender}
         %li
-          Marital status: #{@profile.print_marital_status}
+          #{t(:marital_status)}: #{@profile.print_marital_status}
         %li
-          Parent: #{yes_or_no(@profile.is_parent)}
+          #{t(:parent)}: #{yes_or_no(@profile.is_parent)}
         %li
-          Veteran: #{yes_or_no(@profile.is_veteran)}
+          #{t(:veteran)}: #{yes_or_no(@profile.is_veteran)}
         %li
-          Student: #{yes_or_no(@profile.is_student)}
+          #{t(:student)}: #{yes_or_no(@profile.is_student)}
         %li
-          Retired: #{yes_or_no(@profile.is_retired)}
+          #{t(:retired)}: #{yes_or_no(@profile.is_retired)}
 .row
-
-

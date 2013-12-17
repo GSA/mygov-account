@@ -5,7 +5,7 @@
 .row
   .ten.columns.centered.banner
     %h2
-      Take control of how you interact with government.
+      = t(:take_control)
 .row      
   .eight.columns
     .panel
@@ -47,10 +47,10 @@
               %li
                 = f.label :terms_of_service do
                   = f.check_box :terms_of_service
-                  I agree to the MyUSA #{link_to 'Terms of Service', terms_of_service_path} and #{link_to 'Privacy Policy', privacy_policy_path}
+                  = t(:i_agree_html, :terms_of_service_link => link_to(t(:terms_of_service), terms_of_service_path), :privacy_policy_link => link_to(t(:privacy_policy), privacy_policy_path))
               %li
                 = recaptcha_tags display: {theme: 'clean'}
-              %li= f.submit 'Sign up', :class => 'button positive'
+              %li= f.submit t(:sign_up), :class => 'button positive'
                    
   .four.columns
     .panel.side-panel

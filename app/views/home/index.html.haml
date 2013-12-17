@@ -5,7 +5,7 @@
 .row
   .ten.columns.centered.banner
     %h2
-      Take control of how you interact with government.
+      = t(:take_control)
 
 .signup-form.margin-top
   .row
@@ -13,8 +13,6 @@
       %h3
         Try it out
       #signup-form
-        %p
-          =t('mygov_greeting')
         #fieldset
           = form_for @beta_signup, html: {novalidate: true} do |form|
             - if flash.alert
@@ -22,7 +20,7 @@
                 = flash.alert
             = form.label :email
             = form.email_field :email
-            = form.submit 'Sign up', :class => 'large button positive '
+            = form.submit t(:sign_up), :class => 'large button positive '
   
       %p.disclaimer
-        %a.plain{:href => "http://presidential-innovation-fellows.github.com/mygov/about/"} Read more about MyUSA
+        %a.plain{:href => "http://presidential-innovation-fellows.github.com/mygov/about/"} t(:read_more)

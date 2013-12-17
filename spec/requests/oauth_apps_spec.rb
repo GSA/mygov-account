@@ -93,7 +93,7 @@ describe "OauthApps" do
         fill_in 'Email', with: 'new@user.com'
         fill_in 'Password', with: 'Password1'
         fill_in 'Password confirmation', with: 'Password1'
-        check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+        check 'I agree to the MyUSA Terms of service and Privacy policy'
         click_button('Sign up')
         page.should have_content("I'm sorry, your account hasn't been approved yet.")
       end
@@ -110,7 +110,7 @@ describe "OauthApps" do
         fill_in 'Email', with: 'new@user.com'
         fill_in 'Password', with: 'Password1'
         fill_in 'Password confirmation', with: 'Password1'
-        check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+        check 'I agree to the MyUSA Terms of service and Privacy policy'
         click_button('Sign up')
         page.should_not have_content("I'm sorry, your account hasn't been approved yet.")
         page.should have_content("Thank you for signing up")

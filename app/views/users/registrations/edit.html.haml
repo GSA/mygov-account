@@ -1,7 +1,7 @@
 .row
   .eight.columns
     %h2
-      Change Your Email Address
+      = t(:change_your_email_address)
     - if flash.notice
       .alert-box.blue
         = flash.notice 
@@ -13,9 +13,9 @@
         = f.email_field :email, value: resource.unconfirmed_email ? resource.unconfirmed_email : resource.email, :size => 30
       %div
         = f.label :current_password
-        %i (we need your current password to confirm your changes)
+        %i= "(#{t(:need_current_password)})"
         %br
         = f.password_field :current_password, autocomplete: 'off'
-      %div= f.submit "Update"
+      %div= f.submit t(:update)
     %p
-      = link_to "Back", account_index_path
+      = link_to t(:back), account_index_path

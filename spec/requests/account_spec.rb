@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "AccountPage" do
+describe "Account" do
   before do
     @user = create_confirmed_user
   end
@@ -11,7 +11,7 @@ describe "AccountPage" do
 
       it "should show the user a link to change their email address" do
         visit account_index_path
-        page.should have_content("Change email address")
+        page.should have_content("Change your email address")
       end
     end
   end
@@ -37,7 +37,6 @@ describe "AccountPage" do
         click_button 'Sign in'
         current_path.should match('dashboard')
       end
-
 
       it "should show the user a form with their current email address filled in" do
         visit edit_user_registration_path(@user)

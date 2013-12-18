@@ -19,7 +19,7 @@ describe Notification do
    it { should belong_to :app }
   
   it "should create a new notification with valid attributes" do
-    notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
+    Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
   end
   
   context "when creating a new notification" do
@@ -38,14 +38,14 @@ describe Notification do
         email.parts.map do |part|
           expect(part.body).to include("Hello, #{@user.profile.first_name}")
           expect(part.body).to include('A notification for you from MyUSA')
-          expect(part.body).to include("#{notification.body}")
+          expect(part.body).to include("#{@valid_attributes[:body]}")
         end
       end
     end
     
     context "when creating a notification with an app" do
       it "should send an email to the user with the notification content identifying the sending application" do
-        notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
+        notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id, :body => "<p>#{@valid_attributes[:body]}</p>"), :as => :admin)
         email = ActionMailer::Base.deliveries.first
         email.should_not be_nil
         email.from.should == ["projectmyusa@gsa.gov"]
@@ -54,8 +54,9 @@ describe Notification do
         email.parts.map do |part|
           expect(part.body).to include("Hello, #{@user.profile.first_name}")
           expect(part.body).to include("The \"#{notification.app.name}\" MyUSA application has sent you the following message")
-          expect(part.body).to include("#{notification.body}")
+          expect(part.body).to include("#{@valid_attributes[:body]}")
         end
+        expect(email.html_part.body).to_not include('&lt;')
       end
     end
   end

@@ -8,7 +8,7 @@ class Api::V1::ProfilesController < Api::ApiController
       render :json => filtered_profile.to_schema_dot_org_hash(scope_list)
     else
       # Limit profile attributes to just those chosen by app owner during app registration.
-      render :json => filtered_profile.as_json(:scope_list => scope_list).merge(:uid => @user.uid, :id => @user.uid)
+      render :json => filtered_profile.as_json(:scope_list => scope_list).merge("uid" => @user.uid, "id" => @user.uid)
     end
   end
 end

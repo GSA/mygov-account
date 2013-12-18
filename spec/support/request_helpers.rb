@@ -24,7 +24,7 @@ def create_confirmed_user_with_profile(email_or_hash = {})
   create_approved_beta_signup(profile[:email])
   user_create_hash = profile.select {|key,val| [:email, :password].member?(key)}
   user = User.create!(user_create_hash)
-  profile_create_hash = profile.select {|key,val| [:first_name, :last_name, :name, :is_student].member?(key)}
+  profile_create_hash = profile.select {|key,val| Profile.new.methods.map(&:to_sym).select{ |m| m != :email }.member?(key)}
   user.profile = Profile.new(profile_create_hash)
   user.confirm!
   user

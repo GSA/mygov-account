@@ -14,7 +14,10 @@ en:
   apps_leaving: "In a few seconds, you will be redirected to"
   unauthorized_scope: "Requesting unauthorized scopes"
   custom_session_timeout: 'Your session expired. Please sign in again.'
-
+  activerecord:
+      attributes:
+        app:
+          slug: "Handle"
   errors:
     messages:
       expired: "has expired. Please request a new one."

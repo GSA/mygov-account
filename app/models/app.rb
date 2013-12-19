@@ -10,7 +10,7 @@ class App < ActiveRecord::Base
 
   validates_presence_of :name, :slug, :redirect_uri
   validates_inclusion_of :is_public, :in => [true, false]
-  validates_uniqueness_of :slug, :scope => :deleted_at
+  validates_uniqueness_of :slug, :scope => :deleted_at, :message => Proc.new { |a,b| "\"#{b[:value]}\" has already been taken" }
 
   before_validation :generate_slug
   after_create :create_oauth2_client

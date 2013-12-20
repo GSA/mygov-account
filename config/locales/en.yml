@@ -14,6 +14,7 @@ en:
   apps_leaving: "In a few seconds, you will be redirected to"
   unauthorized_scope: "Requesting unauthorized scopes"
   custom_session_timeout: 'Your session expired. Please sign in again.'
+  invalid_uri: "must be a valid URL"
   activerecord:
       attributes:
         app:

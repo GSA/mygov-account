@@ -9,6 +9,8 @@ class App < ActiveRecord::Base
   before_save :remove_parent_scope
 
   validates_presence_of :name, :slug, :redirect_uri
+  validates :url, :uri => true, :allow_blank => true
+  validates :redirect_uri, :uri => true, :allow_blank => true
   validates_inclusion_of :is_public, :in => [true, false]
   validates_uniqueness_of :slug, :scope => :deleted_at, :message => Proc.new { |a,b| "\"#{b[:value]}\" has already been taken" }
 

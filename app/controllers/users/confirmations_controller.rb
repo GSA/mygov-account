@@ -1,12 +1,9 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
+  before_filter :validate_email_devise, only: :create
   
-  # POST /resource/confirmation
   def create
-    self.resource = resource_class.send_confirmation_instructions(resource_params)
-
     set_flash_message(:notice, 'ambiguous_email')
-    self.resource.errors.clear
-    render :new
+    super
   end
   
   protected

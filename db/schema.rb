@@ -122,8 +122,8 @@ ActiveRecord::Schema.define(:version => 20131217210551) do
   add_index "notifications", ["user_id"], :name => "index_messages_on_user_id"
 
   create_table "oauth2_authorizations", :force => true do |t|
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "oauth2_resource_owner_type"
     t.integer  "oauth2_resource_owner_id"
     t.integer  "client_id"

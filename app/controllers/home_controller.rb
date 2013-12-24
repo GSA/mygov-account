@@ -13,7 +13,9 @@ class HomeController < ApplicationController
   
   def dashboard
     @today = Date.current
-    @uncompleted_tasks = @user.tasks.uncompleted.order('created_at DESC')
+    @profile = @user.profile
+    @notifications = @user.notifications.where(:deleted_at => nil)[0..2]
+    @uncompleted_tasks = @user.tasks.uncompleted.order('created_at DESC').limit(3)
   end
   
   def developer

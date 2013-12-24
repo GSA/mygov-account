@@ -1,0 +1,37 @@
+.panel.group{"data-magellan-destination" => "notifications"}
+  %a{:name => "notifications"}
+  %h3
+    %i{:class => "foundicon-mail"}
+    Notifications
+  %p
+    Important updates related to government.
+  .row
+    .eleven.columns
+      - if @notifications.empty?
+        %p
+          You currently have no notifications.
+      - else
+        %table
+          %tr
+            %th{:scope => "col"}
+              From
+            %th{:scope => "col"}
+              Subject
+            %th{:scope => "col"}
+              Date
+          - @notifications.each do |notification|
+            %tr
+              - if notification.app
+                %td
+                  = notification.app.name
+              - else
+                %td
+                  MyUSA
+              %td
+                %i.general.foundicon-mail
+                = link_to notification.subject, notification_path(notification)
+              %td
+                = pretty_time(notification.received_at)
+  .row
+    .eleven.columns
+      = link_to 'View all notifications', notifications_path

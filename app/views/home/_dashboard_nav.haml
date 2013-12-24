@@ -1,11 +1,21 @@
 .group
   %ul.dashboard-navigation{"data-magellan-expedition" => ""} 
-    %li.first{"data-magellan-arrival" => "tasks"}
+    %li.first{"data-magellan-arrival" => "profile"}
+      %a.smoothScroll.tasks{:href => "#profile"}
+        .arrow
+        %i{:class => "foundicon-people"}
+        Profile
+    %li{"data-magellan-arrival" => "notifications"}
+      %a.smoothScroll.tasks{:href => "#notifications"}
+        .arrow
+        %i{:class => "foundicon-mail"}
+        Notifications
+    %li{"data-magellan-arrival" => "tasks"}
       %a.smoothScroll.tasks{:href => "#tasks"}
         .arrow
         %i{:class => "foundicon-checkmark"}
-        Tasks          
-    %li{"data-magellan-arrival" => "apps"}
+        Tasks
+    %li.last{"data-magellan-arrival" => "apps"}
       %a.smoothScroll.apps{:href => "#apps"}
         .arrow
         %i{:class => "foundicon-website"}  

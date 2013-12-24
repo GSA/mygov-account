@@ -71,14 +71,14 @@ describe "HomePage" do
       it "should show the user the dashboard" do
         visit root_path
         page.should have_content "MyUSA"
-        click_link 'Profile'
+        click_link 'View your profile'
         page.should have_content 'Your profile'
         page.should have_content 'First name'
       end
       
       it "should provide a link to the app gallery" do
         visit root_path
-        page.should have_link "Apps", :href => apps_path
+        page.should have_link "App Gallery", :href => apps_path
       end
           
       context "when deleting their account" do

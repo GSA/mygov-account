@@ -130,8 +130,8 @@ describe "HomePage" do
             page.should have_content task.name
           end
           page.should have_content "Task App"
-          click_link 'Task #5'
-          page.should have_content 'Task #5'
+          click_link @tasks.first.name
+          page.should have_content @tasks.first.name
         end
       end      
     end

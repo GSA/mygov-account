@@ -66,35 +66,74 @@ describe "HomePage" do
     end
     
     context "when already logged in" do
-      before {login(@user)}
+      before do
+        login(@user)
+        @user.notifications.destroy_all
+      end
       
-      it "should show the user the dashboard" do
+      it "should show the user the dashboard, and link to their resources, and tell them they have no notifications or tasks" do
         visit root_path
         page.should have_content "MyUSA"
-        click_link 'View your profile'
-        page.should have_content 'Your profile'
-        page.should have_content 'First name'
+        page.should have_content "Profile"
+        page.should have_content "Notifications"
+        page.should have_content "Tasks"
+        page.should have_content "Apps"
+        page.should have_content "Terms of service"
+        page.should have_content "Privacy policy"
+        page.should have_link 'View your profile', :href => profile_path
+        page.should have_link 'View all notifications', :href => notifications_path
+        page.should have_link 'View all tasks', :href => tasks_path
+        page.should have_link 'App Gallery', :href => apps_path
+        page.should have_link 'Learn how to create your own MyUSA app', :href => developer_path
+        page.should have_content "You currently have no notifications."
+        page.should have_content "You currently have no tasks."
       end
       
-      it "should provide a link to the app gallery" do
-        visit root_path
-        page.should have_link "App Gallery", :href => apps_path
-      end
-          
-      context "when deleting their account" do
-        before {@mail_size = ActionMailer::Base.deliveries.size}
+      context "when the user has notifications" do
+        before do
+          @app = create_public_app_for_user(@user, "Notification App")
+          1.upto(10) do |index|
+            notification = Notification.new(:subject => "Notification ##{index}", :body => "This is notification ##{index}.", :received_at => Time.now)
+            notification.user = @user
+            notification.app = @app
+            notification.save!
+          end
+        end
         
-        it "should log out the user and destroy the account" do
+        it "should show the first three newest notifications" do
           visit root_path
-          click_link "Account"
-          click_link "Delete"
-          page.should have_content "Your MyUSA account has been deleted"
-          page.should have_content "Sign up"
-          User.find_by_email('joe@citizen.org').should be_nil
-          ActionMailer::Base.deliveries.size.should == @mail_size + 1
-          ActionMailer::Base.deliveries.last.subject.should == "Your MyUSA account has been deleted"
+          Notification.order('created_at DESC').limit(3).each_with_index do |notification, index|
+            page.should have_content "Notification ##{10 - index}"
+          end
+          page.should have_content 'Notification App'
+          page.should have_content 'less than a minute ago'
+          click_link 'Notification #10'
+          page.should have_content 'This is notification #10'
         end
       end
+      
+      context "when the user has tasks" do
+        before do
+          @app = create_public_app_for_user(@user, "Task App")
+          1.upto(5) do |index|
+            task = Task.new(:name => "Task ##{index}")
+            task.app = @app
+            task.user = @user
+            task.save!
+          end
+          @tasks = @user.tasks.order("created_at DESC").limit(3)
+        end
+        
+        it "should show the first three newest uncompleted tasks" do
+          visit root_path
+          @tasks.each do |task|
+            page.should have_content task.name
+          end
+          page.should have_content "Task App"
+          click_link 'Task #5'
+          page.should have_content 'Task #5'
+        end
+      end      
     end
   end
 

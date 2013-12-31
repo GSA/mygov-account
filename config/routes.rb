@@ -36,7 +36,7 @@ Mygov::Application.routes.draw do
   end
   resource :profile, :only => [:show, :edit, :update]
   resources :notifications, :only => [:index, :show, :create, :destroy]
-  resources :tasks, :only => [:show, :update, :destroy]
+  resources :tasks, :only => [:index, :show, :update, :destroy]
   resources :apps do
     member do
       get :uninstall

@@ -63,3 +63,11 @@ def lock_account
     click_button 'Sign in'
   end
 end
+
+def create_public_app_for_user(user, name = 'Public App', url = 'http://www.agency.gov/app', short_description = 'Public Application', description = 'A public application.', redirect_uri = 'http://localhost/')
+  app = user.apps.create(:name => name, :url => url, :short_description => short_description, :description => description, :redirect_uri => redirect_uri)
+  app.is_public = true
+  app.save!
+  app
+end
+  

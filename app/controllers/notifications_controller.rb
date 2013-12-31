@@ -4,12 +4,13 @@ class NotificationsController < ApplicationController
   before_filter :find_notifications
   
   def index
-    @notifications = @user_notifications.paginate(:page => params[:page], :per_page => 10).newest_first
+    @page = [[(params[:page] || "1").to_i, (@user_notifications.count.to_f / 10).ceil].min,1].max
+    @notifications = @user_notifications.paginate(:page => @page, :per_page => 10).newest_first
   end
   
   def show
     @notification = @user_notifications.find(params[:id])
-    @notification.update_attribute :viewed_at, Time.now
+    @notification.view!
   end
 
   def destroy

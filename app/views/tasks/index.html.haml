@@ -1,0 +1,31 @@
+.row
+  .twelve.columns
+    %h2
+      Tasks
+    - if @tasks.empty?
+      %p
+        You currently have no tasks.
+    - else
+      %table
+        %tr
+          %th{:scope => "col"}
+            Task name
+          %th{:scope => "col"}
+            App
+          %th{:scope => "col"}
+            Actions
+        - @tasks.each do |task|
+          %tr
+            %td
+              = link_to task.name, task_path(task)
+            %td
+              = link_to task.app.name, app_path(task.app)
+            %td
+              = link_to task_path(task, :completed => true, :page => params[:page]), :method => :put, :class => 'complete' do
+                %i{:class => 'foundicon-checkmark'}
+                Mark complete
+              |
+              = link_to task_path(task, :page => params[:page]), :method => :delete do
+                %i{:class => 'foundicon-remove'}
+                Delete
+    = will_paginate @tasks

@@ -20,6 +20,6 @@ class Api::V1::NotificationsController < Api::ApiController
   end
   
   def oauthorize_scope
-    validate_oauth(OauthScope.find_by_scope_name('notifications'))
+    validate_oauth(OauthScope.find_all_by_scope_name('notifications'))
   end
 end

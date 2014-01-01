@@ -105,6 +105,21 @@ describe "Apis" do
     end
     
     context "when the request has a valid token" do
+      
+      context "when the app does not have permission to read the user's profile" do
+        before do
+          @app.oauth_scopes.destroy_all
+          @token = build_access_token(@app)
+        end
+        
+        it "should return an error and message" do
+          get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
+          response.code.should == "403"
+          parsed_json = JSON.parse(response.body)
+          parsed_json["message"].should == "You do not have permission to read that user's profile."
+        end
+      end
+      
       context "when app has limited scope" do
         before do
           @limited_scope_app = App.create(:name => 'app_limited', :redirect_uri => "http://localhost/")
@@ -113,6 +128,7 @@ describe "Apis" do
           @limited_scope_app.oauth_scopes << OauthScope.find_by_scope_name("profile.first_name")
           @token = build_access_token(@limited_scope_app)
         end
+        
         it "should return JSON with only app requested user profile attritues in addition to an id and a unique identifier" do
           get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
           response.code.should == "200"

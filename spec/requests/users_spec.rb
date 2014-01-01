@@ -179,7 +179,7 @@ describe "Users" do
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
             ActionMailer::Base.deliveries.last.to.should   == ['joe@citizen.org']
-            ActionMailer::Base.deliveries.last.from.should == ["projectmyusa@gsa.gov"]
+            ActionMailer::Base.deliveries.last.from.should == [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
             ActionMailer::Base.deliveries.last.should have_content("Welcome to MyUSA!")
             ActionMailer::Base.deliveries.last.should have_content("confirmation?confirmation_token=")
           end
@@ -193,7 +193,7 @@ describe "Users" do
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
             ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-            ActionMailer::Base.deliveries.last.from.should == ["projectmyusa@gsa.gov"]
+            ActionMailer::Base.deliveries.last.from.should == [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
             ActionMailer::Base.deliveries.last.should have_content("Welcome to MyUSA, Joe!")
             email = ActionMailer::Base.deliveries.last
             host_params = ActionMailer::Base.default_url_options
@@ -275,7 +275,7 @@ describe "Users" do
           click_button 'Sign up'
           page.should have_content 'Thank you for signing up'
           ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-          ActionMailer::Base.deliveries.last.from.should == ["projectmyusa@gsa.gov"]
+          ActionMailer::Base.deliveries.last.from.should == [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
           User.find_by_email('joe@citizen.org').profile.name.should == 'Joe Citizen'
         end    
       end

@@ -32,7 +32,7 @@ describe Notification do
         notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id), :as => :admin)
         email = ActionMailer::Base.deliveries.first
         email.should_not be_nil
-        email.from.should == ["projectmyusa@gsa.gov"]
+        email.from.should == [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
         email.to.should == [@user.email]
         email.subject.should == "[MYUSA] #{notification.subject}"
         email.parts.map do |part|
@@ -48,7 +48,7 @@ describe Notification do
         notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id, :body => "<p>#{@valid_attributes[:body]}</p>"), :as => :admin)
         email = ActionMailer::Base.deliveries.first
         email.should_not be_nil
-        email.from.should == ["projectmyusa@gsa.gov"]
+        email.from.should == [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
         email.to.should == [@user.email]
         email.subject.should == "[MYUSA] [#{notification.app.name}] #{notification.subject}"
         email.parts.map do |part|

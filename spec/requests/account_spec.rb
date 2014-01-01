@@ -75,7 +75,7 @@ describe "Account" do
         @user.unconfirmed_email.should eq 'jack@citizen.org'
         email = ActionMailer::Base.deliveries.last
         email.to.should eq ['jack@citizen.org']
-        email.from.should eq ["projectmyusa@gsa.gov"]
+        email.from.should eq [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
         expect(email.body).not_to include('joe@citizen.org')
       end
 

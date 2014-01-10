@@ -13,7 +13,7 @@ Main SCSS for USA.gov
  * ------------------------------------------------ */
 
 #main {padding-top: 40px; }
-
+.middle {text-align: center}
 
 h1, h2, h3, h4 {
   font-family: $headingFamily;
@@ -25,6 +25,25 @@ h1, h2, h3, h4 {
 p, a {
   text-shadow: none;
   font-family: $base-font;
+}
+
+.btn-primary {
+  background-color: #369;
+}
+
+/* Bootstrap overrides
+ * ------------------------------------------------ */
+.navbar-default .navbar-toggle {
+  background-color: #336699;
+  border-color: #003366;
+  padding: 7px 10px;
+  margin-top: 16px;
+  margin-right: 20px;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #2f5d8a;
 }
 
 /* HEADER
@@ -62,28 +81,34 @@ body.content .navbar-brand {
 
 .navbar-brand {
   display: inline;
-  padding-left: 0px;
-  padding-top: 23px;
+  padding-left: 86px;
+  padding-top: 43px;
   img {
-    width: 70px;
+    width: 54px;
     float: left;
     margin-right: 10px;
   }
   h1 {
     color: $shieldTop;
     font-size: $fontBig;
-    float: right;
-    margin-top: 13px;
+    margin-top: 6px;
   }
-  h1 span {
+
+  .my {
     color: $shieldBottom;
-    font-weight: 700;
+    font-weight: 600;
   }
+  .usa {
+    font-weight: lighter;
+  }
+
+
 }
 
 .navbar-right {
   text-align: right;
   padding-top: 20px;
+  margin-right: 70px;
   span {
   }
   a {
@@ -91,16 +116,13 @@ body.content .navbar-brand {
   padding-right: 10px;
   color: #fff;
   text-decoration: none;
-  font-weight: 600;
-  margin-left: 10px;
+  margin-left: 7px;
+  min-width: 100px;
   }
 
-//   p a btn { /* NOTE: hover is not working yet. Lame. */
-//   // CURRENT: FIXME hover
-//   &:hover, &:focus, &:active {
-//     background-color: $shieldBottom;
-//     }
-//   }
+  #existing-account p {
+    margin: 13px 0px 0 0;
+  }
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -115,9 +137,12 @@ body.content .navbar-brand {
 }
 
 ul.nav {
-  margin-top: 10px;
+  margin-top: 3px;
 
   li {
+
+    border-right: 1px;
+
     .active {
       color: $buttonBlue;
       background-color: #eee;
@@ -138,37 +163,44 @@ ul.nav {
   max-width: 100%;
   background-image: url('/assets/amberWaves.jpg');
   background-repeat: no-repeat;
-  height: 590px;
+  background-size: 100% auto;
+  height: 100%;
 }
 #elevator-pitch {
-      font-family: $headingFamily;
-      font-weight: lighter;
-      display: inline-block;
-      text-align: left;
-      height: 366px;
-      padding-top: 13%;
-      padding-left: 20%;
-      margin-bottom: auto;
-      font-size: $fontBig;
-      color: $white;
-      strong {
-        font-weight: bolder;
-      }
-    }
+  font-family: $headingFamily;
+  font-weight: 400;
+  display: inline-block;
+  text-align: left;
+  height: 366px;
+  padding-top: 19%;
+  padding-left: 33%;
+  margin-bottom: auto;
+  font-size: $fontBig;
+  color: $white;
+}
+
+#elevator-pitch .lighter {
+  font-weight: 100;
+}
+
 #signup-form {
       display: table-cell;
-      padding-top: 17%;
-      padding-left: 10%;
+      padding-top: 28%;
+      padding-left: 9%;
       height: 366px;
-      width: 350px;
+
 
       a {
         color: $white;
+        font-family: "Raleway", sans-serif;
+        font-weight: 100;
       }
 
-      input {
-        margin-bottom: 15px;
-        padding-left: 15px;
+      input#beta_signup_email {
+        margin-bottom: 18px;
+        font-size: 1.4em;
+        font-weight: 100;
+        color: #808080;
       }
 
       p {
@@ -177,7 +209,10 @@ ul.nav {
         font-size: 1.2em;
       }
       .btn, input {
-        width: 350px;
+        margin-bottom: 15px;
+        padding-left: 15px;
+        max-width: 350px;
+        width: 95%;
       }
       .btn {
         font-size: 1.15em;
@@ -186,33 +221,48 @@ ul.nav {
         border-bottom: 4px solid $red;
         color: $white;
       }
+
+      #beta_signup_email {
+        border: 2px solid #000;
+      }
       input {
         display: inline-block;
         font-weight: normal;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
-        border: 2px solid #000;
-        height: 40px;
+        height: 47px;
       }
     }
 p.small-pitch {
   display: none;
 }
+
+
+.banner-region {
+  .container {
+    margin: 0;
+    max-width: 1450px;
+  }
+}
+
 .home-mission-statement {
   width: 100%;
-  font-family: $headingFamily;
-  font-weight: lighter;
   bottom: 0;
-  height: 225px;
   background-color: $shieldBottom;
   background: rgba(0, 45, 91, 0.8);
   color: $white;
   text-align: center;
   font-size: $fontBig;
-  padding-top: 50px;
-  strong {
-    font-weight: normal;
+  padding: 71px 0;
+
+  p {
+    font-family: "Raleway", sans-serif;
+    font-weight: 100;
+
+    strong {
+      font-weight: 500;
+    }
   }
 }
 
@@ -226,9 +276,11 @@ p.small-pitch {
   background-color: #f2f2f2;
   padding-bottom: 75px;
   padding-top: 40px;
+  padding-left: 100px;
+
   .col-md-12 h2 {
     font-weight: 800;
-    color: $shieldBottom;
+    color: $navyBlue;
   }
   .col-md-4 {
     text-align: center;
@@ -242,10 +294,13 @@ p.small-pitch {
     p {
     line-height: 1.5em;
     }
+
+    &.first {
+      margin-left: -55px;
+    }
   }
   img {
     padding-top: 20px;
-    height: 180px;
   }
 }
 
@@ -253,8 +308,9 @@ p.small-pitch {
  * ------------------------------------------------ */
 
 .get-involved-region {
-  width: 100%;
+  // width: 100%;
   background-color: $white;
+  padding-left: 100px;
 
   .container {
     max-width: 1400px;
@@ -267,12 +323,11 @@ p.small-pitch {
     padding: 5px 8px;
     margin: 0 20px 10px 0;
     text-decoration: none;
-    font-weight: bold;
   }
   h2 {
     margin-top: 25px;
     font-weight: 800;
-    color: $shieldBottom;
+    color: $navyBlue;
   }
   h3 {
     font-weight: 500;
@@ -297,23 +352,14 @@ p.small-pitch {
  * ------------------------------------------------ */
 
 .footer-info {
-  font-size: 1.25em;
+  font-family: sans-serif;
+  font-size: 1.5em;
+  font-weight: 100;
 }
 
 .tagline {
   font-size: 1.75em;
   color: $base-blue;
-}
-
-.home-mission-statement {
-  width: 100%;
-  height: 225px;
-  background-color: #002d5b;
-  background: rgba(0, 45, 91, 0.5);
-  color: #fff;
-  text-align: center;
-  font-size: 2.65em;
-  padding-top: 50px;
 }
 
 .footer-nav-region {
@@ -354,39 +400,115 @@ p.tagline-highlight {
 /* RESPONSIVE
  * ------------------------------------------------ */
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) and (max-width: 1023px) {
   .get-involved-region {
     .right {
       width: 50%;
     }
   }
+
+  .features-region {
+    .col-md-4 {
+      margin-left: -41px;
+    }
+  }
+  .navbar-brand {
+    margin: 0;
+    padding: 0 0 14px 0;
+
+    img {
+      float: left;
+      margin-left: 0;
+      margin-right: 5px;
+      margin-top: 15px;
+      display: inline-block;
+      width: 17%;
+    }
+
+    h1 {
+      float: left;
+      font-size: 2.1em;
+      display: inline-block;
+      width: 65%;
+      margin: 19px 0 0 0;
+    }
+  }
+
+  .home-mission-statement {
+    padding: 30px 0 25px 0;
+    font-size: 1.75em;
+    line-height: 1.2em;
+  }
 }
 
 /* Tablets */
 @media screen and (min-width: 767px) and (max-width: 992px) {
-  .get-involved-region .container {
-    max-width: 992px;
-    margin-left: 25px;
+
+  .get-involved-region {
+    .container {
+      max-width: 992px;
+      padding-left: 25px;
+    }
+
+    .navbar-brand {
+      border: 1px solid red;
+      img {
+        float: left;
+        margin-left: 9px;
+        margin-right: 5px;
+        display: inline-block;
+        width: 13%;
+      }
+
+      h1 {
+        float: left;
+        font-size: 1.6em;
+        display: inline-block;
+        width: 65%;
+        margin: 0;
+      }
+    }
+  }
+
+  .navbar-right {
+    text-align: left;
+    margin: 0;
+    padding: auto 0;
+  }
+
+  nav .tablet {
+    display: block;
+    a {
+      color: #000;
+    }
+
+    a.btn-primary {
+      color: #fff;
+    }
   }
 
   #elevator-pitch {
       height: 365px;
-      padding-left: 20px;
+      font-size: 2.3em;
+      line-height: 1.7em;
     }
   #signup-form {
       padding-left: 5%;
       height: 365px;
-      .btn, input {
-        width: 320px;
-      }
     }
 .features-region {
   padding-bottom: 15px;
   padding-top: 10px;
+  padding-left: 41px;
+
   .col-md-12 h2 {
     margin-bottom: 15px;
   }
   .col-md-4 {
+    margin-left: 0px;
+    &.first {
+      margin-left: 0px;
+    }
     height: 150px;
     h3 {
     margin-top: 15px;
@@ -411,16 +533,27 @@ p.tagline-highlight {
   p.footer-info {
     clear: both;
   }
-}
 
-/* Phones */
-@media screen and (max-width: 768px) {
-  .banner-region {
-    .container .row {
-      height: 365px;
-    }
+  nav li a {
+    border: 1px solid red;
+    color: #fff;
   }
 
+  .sign-in-label {
+    border: 1px solid red;
+    display: none;
+  }
+
+  #existing-account {
+    float: left;
+  }
+  .get-involved-region, .footer-nav-region {
+    padding-left: 40px;
+  }
+}
+
+/* Tablet */
+@media screen and (max-width: 767px) {
   #signup-form {
     text-align: center;
     width: 100%;
@@ -441,10 +574,11 @@ p.tagline-highlight {
   }
 .navbar-right {
     text-align: left;
-    margin-left: 10px;
+    margin: 0;
+    padding: auto 0;
   }
   .navbar-brand {
-    padding-left: 10px;
+    padding: 10px 10px 14px 11px;
   }
 
   #elevator-pitch {
@@ -455,21 +589,106 @@ p.tagline-highlight {
       height: 130px;
     }
   #signup-form {
+      display: block;
       padding-left: 0;
       padding-top: 15px;
       text-align: center;
       height: 220px;
-      .btn, input {
-        width: 370px;
-      }
     }
-  .home-mission-statement {
-    font-size: 2em;
+  .get-involved-region {
+    margin: 40px 40px 40px 0;
+    padding-left: 41px;
   }
-  .get-involved-region, .footer-nav-region {
-    padding: 0 25px;
+  .footer-nav-region {
+    padding: 50px 50px 50px 40px;
   }
+
   p.footer-info {
     clear: both;
+  }
+
+  .features-region {
+    padding-left: 41px;
+
+    .col-md-4 {
+      padding: 0 100px;
+    }
+  }
+}
+
+/* Phones */
+@media screen and (max-width: 320px) {
+  #elevator-pitch {
+    font-size: 1.75em;
+    line-height: 2.45em;
+  }
+
+  #signup-form a {
+    color: #336699;
+  }
+
+  .row {
+    margin-right: 0;
+  }
+
+  .navbar-default .navbar-toggle {
+    margin-right: -10px;
+  }
+
+  .navbar-brand {
+    img {
+      float: left;
+      margin-left: 9px;
+      margin-right: 5px;
+      display: inline-block;
+      width: 13%;
+    }
+
+    h1 {
+      float: left;
+      font-size: 1.6em;
+      display: inline-block;
+      width: 65%;
+      margin: 0;
+    }
+  }
+  .get-involved-region, .footer-nav-region {
+    margin: 0;
+    padding: 0;
+  }
+
+  .features-region {
+    padding: 0;
+
+    .col-md-4 {
+      text-align: center;
+      padding-right: 15px;
+      padding-left: 15px;
+
+      h3 {
+        margin-bottom: 5px;
+      }
+      &.first {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+/* Phones */
+@media screen and (max-width: 240px) {
+
+  #elevator-pitch {
+    font-size: 1.5em;
+    line-height: 1.75em;
+  }
+
+  .navbar-brand {
+    display: block;
+    margin-top: 10px 0;
+
+    img {
+      width: 21%;
+    }
   }
 }

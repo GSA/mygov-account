@@ -56,7 +56,7 @@
               .navbar-right
                 %p
                   Already have an account?
-                  = link_to 'Log In', sign_in_path, {class: 'btn btn-primary'}
+                  = link_to 'Sign in', sign_in_path, {class: 'btn btn-primary'}
 
                 %ul.nav.navbar-nav
                   %li
@@ -96,15 +96,15 @@
                       = flash.alert
 
                   = form.email_field :email, :value=>'Enter your email address'
-                  = form.submit 'Sign up', :class => 'btn'
+                  = form.submit 'Sign Up', :class => 'btn'
 
                   %p
                     = link_to "Or sign up with Google, Paypal, and more.", "/sign_up"
 
-      .row
-        .home-mission-statement.col-md-12
-          <p><strong>MyUSA</strong> has a mission and it is awesome.</p>
-          <p>Reinventing citizenship, one app at a time.</p>
+        .row
+          .home-mission-statement.col-md-12
+            <p><strong>MyUSA</strong> has a mission and it is awesome.</p>
+            <p>Reinventing citizenship, one app at a time.</p>
 
     .features-region
       .container

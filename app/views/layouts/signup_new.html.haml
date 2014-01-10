@@ -53,9 +53,16 @@
 
             .collapse.navbar-collapse.navbar-ex1-collapse
               .navbar-right
-                %p
-                  Already using MyUSA?
-                  = link_to t(:sign_in), sign_in_path, {class: 'btn btn-primary'}
+                #existing-account.hidden-xs.hidden-sm
+                  %p
+                    Already using MyUSA?
+                    = link_to t(:sign_in), sign_in_path, {class: 'btn btn-primary'}
+
+                %ul.nav.navbar-nav.tablet.visible-sm
+                  %a{href: "#"} Sign in
+                  %a{href: "#", class: "btn btn-primary"} What's MyUSA?
+                  %a{href: "#", class: "btn btn-primary"} Get an Account
+                  %a{href: "#", class: "btn btn-primary"} Build with MyUSA
 
                 %ul.nav.navbar-nav
                   %li
@@ -91,15 +98,15 @@
                   = flash_messages
 
                   = form.email_field :email, :value=>'Enter your email address'
-                  = form.submit 'Sign up', :class => 'btn'
+                  = form.submit 'Sign Up', :class => 'btn'
 
                   %p
                     = link_to "Or sign up with Google, Paypal, and more.", "/sign_up"
 
-      .row
-        .home-mission-statement.col-md-12
-          <p><strong>MyUSA</strong> has a mission and it is awesome.</p>
-          <p>Reinventing citizenship, one app at a time.</p>
+        .row
+          .home-mission-statement.col-md-12
+            <p><strong>MyUSA</strong> has a mission and it is awesome.</p>
+            <p>Reinventing citizenship, one app at a time.</p>
 
     .features-region
       .container

@@ -138,23 +138,24 @@ ul.nav {
   max-width: 100%;
   background-image: url('/assets/amberWaves.jpg');
   background-repeat: no-repeat;
-  height: 590px;
+  background-size: 100% auto;
+  height: 100%;
 }
 #elevator-pitch {
-      font-family: $headingFamily;
-      font-weight: lighter;
-      display: inline-block;
-      text-align: left;
-      height: 366px;
-      padding-top: 13%;
-      padding-left: 20%;
-      margin-bottom: auto;
-      font-size: $fontBig;
-      color: $white;
-      strong {
-        font-weight: bolder;
-      }
-    }
+  font-family: $headingFamily;
+  font-weight: lighter;
+  display: inline-block;
+  text-align: left;
+  height: 366px;
+  padding-top: 13%;
+  padding-left: 20%;
+  margin-bottom: auto;
+  font-size: $fontBig;
+  color: $white;
+  strong {
+    font-weight: bolder;
+  }
+}
 #signup-form {
       display: table-cell;
       padding-top: 17%;
@@ -199,6 +200,18 @@ ul.nav {
 p.small-pitch {
   display: none;
 }
+
+
+.banner-region {
+  .container {
+    margin: 0;
+    max-width: 1450px;
+    .row {
+      height: 365px;
+    }
+  }
+}
+
 .home-mission-statement {
   width: 100%;
   font-family: $headingFamily;
@@ -267,7 +280,6 @@ p.small-pitch {
     padding: 5px 8px;
     margin: 0 20px 10px 0;
     text-decoration: none;
-    font-weight: bold;
   }
   h2 {
     margin-top: 25px;

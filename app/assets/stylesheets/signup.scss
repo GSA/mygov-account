@@ -207,13 +207,16 @@ ul.nav {
         border-bottom: 4px solid $red;
         color: $white;
       }
+
+      #beta_signup_email {
+        border: 2px solid #000;
+      }
       input {
         display: inline-block;
         font-weight: normal;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
-        border: 2px solid #000;
         height: 47px;
       }
     }
@@ -231,8 +234,6 @@ p.small-pitch {
 
 .home-mission-statement {
   width: 100%;
-  font-family: $headingFamily;
-  font-weight: lighter;
   bottom: 0;
   height: 225px;
   background-color: $shieldBottom;
@@ -241,8 +242,13 @@ p.small-pitch {
   text-align: center;
   font-size: $fontBig;
   padding-top: 50px;
-  strong {
-    font-weight: normal;
+  p {
+    font-family: "Raleway", sans-serif;
+    font-weight: 100;
+
+    strong {
+      font-weight: 500;
+    }
   }
 }
 
@@ -301,7 +307,7 @@ p.small-pitch {
   h2 {
     margin-top: 25px;
     font-weight: 800;
-    color: $shieldBottom;
+    color: $navyBlue;
   }
   h3 {
     font-weight: 500;
@@ -326,7 +332,9 @@ p.small-pitch {
  * ------------------------------------------------ */
 
 .footer-info {
-  font-size: 1.25em;
+  font-family: sans-serif;
+  font-size: 1.5em;
+  font-weight: 100;
 }
 
 .tagline {

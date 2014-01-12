@@ -13,7 +13,7 @@ Main SCSS for USA.gov
  * ------------------------------------------------ */
 
 #main {padding-top: 40px; }
-
+.middle {text-align: center}
 
 h1, h2, h3, h4 {
   font-family: $headingFamily;
@@ -124,6 +124,8 @@ ul.nav {
 
   li {
 
+    border-right: 1px;
+
     .active {
       color: $buttonBlue;
       background-color: #eee;
@@ -158,6 +160,7 @@ ul.nav {
   margin-bottom: auto;
   font-size: $fontBig;
   color: $white;
+  line-height: 59px;
 }
 
 #elevator-pitch span.lighter {
@@ -166,18 +169,27 @@ ul.nav {
 
 #signup-form {
       display: table-cell;
-      padding-top: 17%;
-      padding-left: 10%;
+      padding-top: 28%;
+      padding-left: 9%;
       height: 366px;
       width: 350px;
 
       a {
         color: $white;
+        font-family: "Raleway", sans-serif;
+        font-weight: 100;
       }
 
       input {
         margin-bottom: 15px;
         padding-left: 15px;
+      }
+
+      input#beta_signup_email {
+        margin-bottom: 18px;
+        font-size: 1.4em;
+        font-weight: 100;
+        color: #808080;
       }
 
       p {
@@ -202,7 +214,7 @@ ul.nav {
         -moz-border-radius: 5px;
         border-radius: 5px;
         border: 2px solid #000;
-        height: 40px;
+        height: 47px;
       }
     }
 p.small-pitch {
@@ -214,9 +226,6 @@ p.small-pitch {
   .container {
     margin: 0;
     max-width: 1450px;
-    .row {
-      height: 365px;
-    }
   }
 }
 

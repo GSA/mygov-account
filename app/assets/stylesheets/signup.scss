@@ -87,7 +87,6 @@ body.content .navbar-brand {
   h1 {
     color: $shieldTop;
     font-size: $fontBig;
-    float: right;
     margin-top: 6px;
   }
 
@@ -534,8 +533,8 @@ p.tagline-highlight {
 /* Phones */
 @media screen and (max-width: 320px) {
   #elevator-pitch {
-    font-size: 1.5em;
-    line-height: 1.75em;
+    font-size: 1.75em;
+    line-height: 2.45em;
   }
 
   #signup-form a {
@@ -552,15 +551,13 @@ p.tagline-highlight {
 
   .navbar-brand {
     padding: 10px 10px 14px 26px;
-    // width: 50%;
 
     img {
       float: left;
       margin-left: 9px;
       margin-right: 5px;
       display: inline-block;
-      width: 21%;
-      // width: 13%;
+      width: 13%;
     }
 
     h1 {
@@ -575,8 +572,18 @@ p.tagline-highlight {
 
 /* Phones */
 @media screen and (max-width: 240px) {
+
+  #elevator-pitch {
+    font-size: 1.5em;
+    line-height: 1.75em;
+  }
+
   .navbar-brand {
     display: block;
     margin-top: 10px 0;
+
+    img {
+      width: 21%;
+    }
   }
 }

@@ -38,20 +38,21 @@
         .row
           %nav.navbar.navbar-default{role: "navigation"}
             / Brand and toggle get grouped for better mobile display
-            .navbar-header
-              .navbar-brand
+            .navbar-header.row
+              .navbar-brand.col-xs-6
                 %img{:src => "/assets/shield.gif"}
                 %h1
                   <span class="my">My</span><span class="usa">USA</span>
                 -#.tagline
                   Re-imagining online government
 
-            / Collect the nav links, forms, and other content for toggling
-            %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", type: "button"}
-              %span.sr-only Toggle navigation
-              %span.icon-bar
-              %span.icon-bar
-              %span.icon-bar
+              / Collect the nav links, forms, and other content for toggling
+              .col-xs-6
+                %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", type: "button"}
+                  %span.sr-only Toggle navigation
+                  %span.icon-bar
+                  %span.icon-bar
+                  %span.icon-bar
 
             .collapse.navbar-collapse.navbar-ex1-collapse
               .navbar-right

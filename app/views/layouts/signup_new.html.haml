@@ -39,15 +39,16 @@
           %nav.navbar.navbar-default{role: "navigation"}
             / Brand and toggle get grouped for better mobile display
             .navbar-header.row
-              .navbar-brand.col-xs-6
+              .navbar-brand.col-xs-8
                 %img{:src => "/assets/shield.gif"}
                 %h1
                   <span class="my">My</span><span class="usa">USA</span>
-                -#.tagline
-                  Re-imagining online government
+
+              -#.col-xs-4.visible-xs
+                -#Sign in
 
               / Collect the nav links, forms, and other content for toggling
-              .col-xs-6
+              .col-xs-4
                 %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", type: "button"}
                   %span.sr-only Toggle navigation
                   %span.icon-bar
@@ -56,13 +57,15 @@
 
             .collapse.navbar-collapse.navbar-ex1-collapse
               .navbar-right
-                #existing-account
+                #existing-account.hidden-xs
                   %p
                     %span{:class=>'sign-in-label'}
                       Already have an account?
                     = link_to 'Sign in', sign_in_path, {class: 'btn btn-primary'}
 
                 %ul.nav.navbar-nav
+                  %li
+                    %a{href: "#"} Sign in
                   %li
                     %a{href: "#"} What's MyUSA?
                   %li

@@ -37,7 +37,7 @@
         .row
           %nav.navbar.navbar-default{role: "navigation"}
             / Brand and toggle get grouped for better mobile display
-            .navbar-header.row
+            .navbar-header
               .navbar-brand.col-xs-8.col-sm-12
                 %img{:src => "/assets/shield.gif"}
                 %h1
@@ -68,7 +68,13 @@
                   %a{href: "#", class: "btn btn-primary"} Get an Account
                   %a{href: "#", class: "btn btn-primary"} Build with MyUSA
 
-                %ul.nav.navbar-nav
+                %ul.nav.navbar-nav.tablet.visible-sm
+                  %a{href: "#"} Sign in
+                  %a{href: "#", class: "btn btn-primary"} What's MyUSA?
+                  %a{href: "#", class: "btn btn-primary"} Get an Account
+                  %a{href: "#", class: "btn btn-primary"} Build with MyUSA
+
+                %ul.nav.navbar-nav.hidden-sm
                   %li
                     %a{href: "#"} Sign in
                   %li
@@ -93,7 +99,6 @@
               <span class='lighter'>Get</span> connected.
 
           .col-md-6.col-sm-6
-
 
             #signup-form
               #fieldset
@@ -172,7 +177,7 @@
               %a{:href=>'#'}
                 Developers
           .col-md-6.text-right.col-sm-7.hidden-xs
-            %img{:src=>'/assets/home-bg-media-screens.jpg'}
+            -# TODO: Add Featured Apps section
 
     .footer-nav-region
       .container

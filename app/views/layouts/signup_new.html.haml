@@ -57,7 +57,8 @@
               .navbar-right
                 #existing-account
                   %p
-                    Already have an account?
+                    %span{:class=>'sign-in-label'}
+                      Already have an account?
                     = link_to 'Sign in', sign_in_path, {class: 'btn btn-primary'}
 
                 %ul.nav.navbar-nav

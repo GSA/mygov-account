@@ -58,7 +58,6 @@ body.content .navbar-brand {
 .navbar-default {
   background-color: $white;
   border: none;
-  height: 137px;
 }
 
 .navbar-brand {
@@ -346,7 +345,7 @@ p.small-pitch {
   width: 100%;
   height: 225px;
   background-color: #002d5b;
-  background: rgba(0, 45, 91, 0.5);
+  background: rgba(0, 45, 91, 0.9);
   color: #fff;
   text-align: center;
   font-size: 2.65em;
@@ -401,9 +400,15 @@ p.tagline-highlight {
 
 /* Tablets */
 @media screen and (min-width: 767px) and (max-width: 992px) {
-  .get-involved-region .container {
-    max-width: 992px;
-    margin-left: 25px;
+  .get-involved-region {
+    .container {
+      max-width: 992px;
+      margin-left: 25px;
+    }
+
+    img {
+      width: 100%;
+    }
   }
 
   #elevator-pitch {
@@ -447,6 +452,20 @@ p.tagline-highlight {
 }
   p.footer-info {
     clear: both;
+  }
+
+  nav li a {
+    border: 1px solid red;
+    color: #fff;
+  }
+
+  .sign-in-label {
+    border: 1px solid red;
+    display: none;
+  }
+
+  #existing-account {
+    float: left;
   }
 }
 

@@ -56,7 +56,8 @@
               .navbar-right
                 #existing-account.hidden-xs.hidden-sm
                   %p
-                    Already using MyUSA?
+                    %span{:class=>'sign-in-label'}
+                      Already using MyUSA?
                     = link_to t(:sign_in), sign_in_path, {class: 'btn btn-primary'}
 
                 %ul.nav.navbar-nav.tablet.visible-sm

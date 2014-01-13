@@ -179,11 +179,6 @@ ul.nav {
         font-weight: 100;
       }
 
-      input {
-        margin-bottom: 15px;
-        padding-left: 15px;
-      }
-
       input#beta_signup_email {
         margin-bottom: 18px;
         font-size: 1.4em;
@@ -197,7 +192,10 @@ ul.nav {
         font-size: 1.2em;
       }
       .btn, input {
-        width: 350px;
+        margin-bottom: 15px;
+        padding-left: 15px;
+        max-width: 350px;
+        width: 95%;
       }
       .btn {
         font-size: 1.15em;
@@ -418,9 +416,6 @@ p.tagline-highlight {
   #signup-form {
       padding-left: 5%;
       height: 365px;
-      .btn, input {
-        width: 320px;
-      }
     }
 .features-region {
   padding-bottom: 15px;
@@ -471,12 +466,6 @@ p.tagline-highlight {
 
 /* Phones */
 @media screen and (max-width: 768px) {
-  .banner-region {
-    .container .row {
-      height: 365px;
-    }
-  }
-
   #signup-form {
     text-align: center;
     width: 100%;
@@ -515,9 +504,6 @@ p.tagline-highlight {
       padding-top: 15px;
       text-align: center;
       height: 220px;
-      .btn, input {
-        width: 370px;
-      }
     }
   .home-mission-statement {
     font-size: 2em;

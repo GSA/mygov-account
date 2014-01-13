@@ -6,6 +6,7 @@ $(function() {
     // If supplied, triggered when a media query matches.
     match : function() {
       $("input#beta_signup_email").val('Email address');
+
     },
 
     // OPTIONAL

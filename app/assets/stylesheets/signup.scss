@@ -464,7 +464,7 @@ p.tagline-highlight {
   }
 }
 
-/* Phones */
+/* Tablet */
 @media screen and (max-width: 768px) {
   #signup-form {
     text-align: center;
@@ -513,5 +513,29 @@ p.tagline-highlight {
   }
   p.footer-info {
     clear: both;
+  }
+}
+
+/* Phones */
+@media screen and (max-width: 320px) {
+  .navbar-brand {
+    padding: 10px 10px 14px 26px;
+    width: 50%;
+
+    img {
+      float: left;
+      margin-left: 9px;
+      margin-right: 5px;
+      display: inline-block;
+      width: 21%;
+    }
+
+    h1 {
+      float: left;
+      font-size: 1.6em;
+      display: inline-block;
+      width: 65%;
+      margin: 0;
+    }
   }
 }

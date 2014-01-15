@@ -250,13 +250,13 @@ p.small-pitch {
 .home-mission-statement {
   width: 100%;
   bottom: 0;
-  height: 225px;
   background-color: $shieldBottom;
   background: rgba(0, 45, 91, 0.8);
   color: $white;
   text-align: center;
   font-size: $fontBig;
-  padding-top: 50px;
+  padding: 71px 0;
+
   p {
     font-family: "Raleway", sans-serif;
     font-weight: 100;
@@ -357,17 +357,6 @@ p.small-pitch {
   color: $base-blue;
 }
 
-.home-mission-statement {
-  width: 100%;
-  height: 225px;
-  background-color: #002d5b;
-  background: rgba(0, 45, 91, 0.9);
-  color: #fff;
-  text-align: center;
-  font-size: 2.65em;
-  padding-top: 50px;
-}
-
 .footer-nav-region {
   font-size: 0.9em;
   width: 100%;
@@ -434,6 +423,12 @@ p.tagline-highlight {
       margin: 19px 0 0 0;
     }
   }
+
+  .home-mission-statement {
+    padding: 30px 0 25px 0;
+    font-size: 1.75em;
+    line-height: 1.2em;
+  }
 }
 
 /* Tablets */
@@ -470,8 +465,8 @@ p.tagline-highlight {
     padding: auto 0;
   }
 
-  .tablet {
-
+  nav .tablet {
+    display: block;
     a {
       color: #000;
     }
@@ -483,7 +478,7 @@ p.tagline-highlight {
 
   #elevator-pitch {
       height: 365px;
-      padding-left: 20px;
+      // padding-left: 20px;
     }
   #signup-form {
       padding-left: 5%;
@@ -579,9 +574,6 @@ p.tagline-highlight {
       text-align: center;
       height: 220px;
     }
-  .home-mission-statement {
-    font-size: 2em;
-  }
   .get-involved-region, .footer-nav-region {
     padding: 0 25px;
   }

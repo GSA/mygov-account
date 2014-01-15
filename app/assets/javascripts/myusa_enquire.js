@@ -28,5 +28,12 @@ $(function() {
     // Place cleanup code here
     destroy : function() {}
 
-  })
+  });
+
+  enquire.register("screen and (min-width:320px)", {
+    match : function() {
+      $("input#beta_signup_email").val('Enter your email address');
+    }
+  });
+
 });

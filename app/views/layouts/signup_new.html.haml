@@ -57,13 +57,19 @@
 
             .collapse.navbar-collapse.navbar-ex1-collapse
               .navbar-right
-                #existing-account.hidden-xs
+                #existing-account.hidden-xs.hidden-sm
                   %p
                     %span{:class=>'sign-in-label'}
                       Already have an account?
                     = link_to 'Sign in', sign_in_path, {class: 'btn btn-primary'}
 
-                %ul.nav.navbar-nav
+                %ul.nav.navbar-nav.tablet.visible-sm
+                  %a{href: "#"} Sign in
+                  %a{href: "#", class: "btn btn-primary"} What's MyUSA?
+                  %a{href: "#", class: "btn btn-primary"} Get an Account
+                  %a{href: "#", class: "btn btn-primary"} Build with MyUSA
+
+                %ul.nav.navbar-nav.hidden-sm
                   %li
                     %a{href: "#"} Sign in
                   %li
@@ -170,7 +176,7 @@
               %a{:href=>'#'}
                 Developers
           .col-md-6.text-right.col-sm-7.hidden-xs
-            %img{:src=>'/assets/home-bg-media-screens.jpg'}
+            -# TODO: Add Featured Apps section
 
     .footer-nav-region
       .container

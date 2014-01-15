@@ -27,6 +27,10 @@ p, a {
   font-family: $base-font;
 }
 
+.btn-primary {
+  background-color: #369;
+}
+
 /* Bootstrap overrides
  * ------------------------------------------------ */
 .navbar-default .navbar-toggle {
@@ -403,10 +407,32 @@ p.tagline-highlight {
 /* RESPONSIVE
  * ------------------------------------------------ */
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) and (max-width: 1023px) {
   .get-involved-region {
     .right {
       width: 50%;
+    }
+  }
+
+  .navbar-brand {
+    margin: 0;
+    padding: 0;
+
+    img {
+      float: left;
+      margin-left: 0;
+      margin-right: 5px;
+      margin-top: 15px;
+      display: inline-block;
+      width: 17%;
+    }
+
+    h1 {
+      float: left;
+      font-size: 2.1em;
+      display: inline-block;
+      width: 65%;
+      margin: 19px 0 0 0;
     }
   }
 }
@@ -419,8 +445,40 @@ p.tagline-highlight {
       margin-left: 25px;
     }
 
-    img {
-      width: 100%;
+    .navbar-brand {
+      border: 1px solid red;
+      img {
+        float: left;
+        margin-left: 9px;
+        margin-right: 5px;
+        display: inline-block;
+        width: 13%;
+      }
+
+      h1 {
+        float: left;
+        font-size: 1.6em;
+        display: inline-block;
+        width: 65%;
+        margin: 0;
+      }
+    }
+  }
+
+  .navbar-right {
+    text-align: left;
+    margin: 0;
+    padding: auto 0;
+  }
+
+  .tablet {
+
+    a {
+      color: #000;
+    }
+
+    a.btn-primary {
+      color: #fff;
     }
   }
 
@@ -501,7 +559,8 @@ p.tagline-highlight {
   }
 .navbar-right {
     text-align: left;
-    margin-left: 10px;
+    margin: 0;
+    padding: auto 0;
   }
   .navbar-brand {
     padding: 10px 10px 14px 11px;

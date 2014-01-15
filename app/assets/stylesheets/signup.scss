@@ -276,6 +276,7 @@ p.small-pitch {
   background-color: #f2f2f2;
   padding-bottom: 75px;
   padding-top: 40px;
+  padding-left: 100px;
 
   .col-md-12 h2 {
     font-weight: 800;
@@ -293,6 +294,10 @@ p.small-pitch {
     p {
     line-height: 1.5em;
     }
+
+    &.first {
+      margin-left: -55px;
+    }
   }
   img {
     padding-top: 20px;
@@ -305,7 +310,7 @@ p.small-pitch {
 .get-involved-region {
   width: 100%;
   background-color: $white;
-  margin: 100px;
+  margin-left: 100px;
 
   .container {
     max-width: 1400px;
@@ -581,6 +586,10 @@ p.tagline-highlight {
   .get-involved-region {
     margin: 40px;
   }
+  .footer-nav-region {
+    padding: 50px 50px 50px 40px;
+  }
+
   p.footer-info {
     clear: both;
   }
@@ -624,6 +633,24 @@ p.tagline-highlight {
   }
   .get-involved-region, .footer-nav-region {
     margin: 0;
+    padding: 0;
+  }
+
+  .features-region {
+    padding: 0;
+
+    .col-md-4 {
+      text-align: center;
+      padding-right: 15px;
+      padding-left: 15px;
+
+      h3 {
+        margin-bottom: 5px;
+      }
+      &.first {
+        margin-left: 0;
+      }
+    }
   }
 }
 

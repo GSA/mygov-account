@@ -308,7 +308,7 @@ p.small-pitch {
  * ------------------------------------------------ */
 
 .get-involved-region {
-  width: 100%;
+  // width: 100%;
   background-color: $white;
   padding-left: 100px;
 
@@ -407,6 +407,11 @@ p.tagline-highlight {
     }
   }
 
+  .features-region {
+    .col-md-4 {
+      margin-left: -41px;
+    }
+  }
   .navbar-brand {
     margin: 0;
     padding: 0 0 14px 0;
@@ -438,6 +443,7 @@ p.tagline-highlight {
 
 /* Tablets */
 @media screen and (min-width: 767px) and (max-width: 992px) {
+
   .get-involved-region {
     .container {
       max-width: 992px;
@@ -493,10 +499,16 @@ p.tagline-highlight {
 .features-region {
   padding-bottom: 15px;
   padding-top: 10px;
+  padding-left: 41px;
+
   .col-md-12 h2 {
     margin-bottom: 15px;
   }
   .col-md-4 {
+    margin-left: 0px;
+    &.first {
+      margin-left: 0px;
+    }
     height: 150px;
     h3 {
     margin-top: 15px;
@@ -584,7 +596,8 @@ p.tagline-highlight {
       height: 220px;
     }
   .get-involved-region {
-    margin: 40px;
+    margin: 40px 40px 40px 0;
+    padding-left: 41px;
   }
   .footer-nav-region {
     padding: 50px 50px 50px 40px;
@@ -592,6 +605,14 @@ p.tagline-highlight {
 
   p.footer-info {
     clear: both;
+  }
+
+  .features-region {
+    padding-left: 41px;
+
+    .col-md-4 {
+      padding: 0 100px;
+    }
   }
 }
 

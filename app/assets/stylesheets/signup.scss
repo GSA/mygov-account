@@ -310,7 +310,7 @@ p.small-pitch {
 .get-involved-region {
   width: 100%;
   background-color: $white;
-  margin-left: 100px;
+  padding-left: 100px;
 
   .container {
     max-width: 1400px;
@@ -441,7 +441,7 @@ p.tagline-highlight {
   .get-involved-region {
     .container {
       max-width: 992px;
-      margin-left: 25px;
+      padding-left: 25px;
     }
 
     .navbar-brand {
@@ -535,8 +535,8 @@ p.tagline-highlight {
   #existing-account {
     float: left;
   }
-  .get-involved-region {
-    margin-left: 25px;
+  .get-involved-region, .footer-nav-region {
+    padding-left: 40px;
   }
 }
 

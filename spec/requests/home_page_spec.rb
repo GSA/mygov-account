@@ -15,6 +15,13 @@ describe "HomePage" do
       expect(page.response_headers["X-XRDS-Location"]).to eq "https://www.example.com/xrds.xml"
     end
     
+    it "should have links to the new about page" do
+      visit root_url
+      
+      page.should have_link 'Read more about MyUSA', href: 'http://myusa.tumblr.com/about'
+      page.should have_link 'About MyUSA', href: 'http://myusa.tumblr.com/about'
+    end
+    
     context "when not logged in" do
       context "when signing up for the beta" do
         before do

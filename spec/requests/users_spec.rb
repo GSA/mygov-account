@@ -371,12 +371,13 @@ describe "Users" do
       expect(find('div.alert-box').text.squish).to eq alert_message
     end
 
-    it "yields the same message irregardless of the email's existence in the db when submitting to the confirmation instructions form" do
+    it "yields the same message regardless of the email's existence in the db when submitting to the confirmation instructions form" do
       visit new_user_confirmation_path
       fill_in 'user_email', with: 'joe@citizen.org'
       click_button "Send"
       alert_message = find('div.alert-box').text.squish
 
+      visit new_user_confirmation_path
       fill_in 'user_email', with: 'joe_schmoe@citizen.org'
       click_button "Send"
       

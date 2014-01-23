@@ -3,7 +3,8 @@ class Users::UnlocksController < Devise::UnlocksController
   before_filter :validate_email_devise, only: :create
 
   def create
-    set_flash_message(:notice, 'ambiguous_email')
-    super
+    self.resource = resource_class.send_unlock_instructions(resource_params)
+    set_flash_message(:alert, 'ambiguous_email')
+    redirect_to after_sending_unlock_instructions_path_for(resource)
   end
 end

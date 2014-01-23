@@ -390,6 +390,7 @@ describe "Users" do
       click_button "Send"
       alert_message = find('div.alert-box').text.squish
 
+      visit new_user_unlock_path
       fill_in 'user_email', with: 'joe_schmoe@citizen.org'
       click_button "Send"
       

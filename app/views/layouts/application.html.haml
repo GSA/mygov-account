@@ -7,7 +7,7 @@
         = refresh_meta_tag_conent
     = head_metadata(content_for?(:title) ? yield(:title) : "MyUSA", content_for?(:meta_description) ? yield(:meta_description) : t(:meta_description))
     = csrf_meta_tags
-    = stylesheet_link_tag "fonts", :media => "all" 
+    = stylesheet_link_tag "fonts", :media => "all"
     = stylesheet_link_tag "application", :media => "all"
     = stylesheet_link_tag "general_foundicons", :media => "all"
     /[if !IE 7]
@@ -40,7 +40,9 @@
                   =link_to t(:sign_in_link), sign_in_path
               - if current_user
                 %h3.tagline
-                  = link_to t(:account), account_index_path
+                  = link_to 'MyUSA Dashboard', root_url
+                  |
+                  = link_to 'Account Settings', account_index_path
                   |
                   = link_to t(:sign_out), sign_out_path
       #main
@@ -57,7 +59,7 @@
           = yield
         - unless current_user
           .no-toolbar
-                    
+
       /
         Javascripts
         \==================================================

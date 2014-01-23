@@ -542,19 +542,6 @@ span.jujitsu {
   .nav-bar li.profile a {background: image-url("sprite.png") 0% -229px no-repeat; border-left: none; }
   .nav-bar li.sign-out a {background: image-url("sprite.png") 0% -350px no-repeat;}
 
-  #wrap .one.columns.navigation ul.dashboard-navigation li.active a div.arrow {
-  position: absolute;
-  display: block;
-  top: 35%;
-  left: auto;
-  right: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-right: 10px solid #EDE9E7;
-  border-left: 10px solid transparent;
-  }
-
-
 }
 
 @media (min-width: 768px) and (min--moz-device-pixel-ratio: 2),
@@ -611,20 +598,6 @@ span.jujitsu {
 #wrap ul.dashboard-navigation li:hover {background: rgba(17,33,55,.95); }
 
 
-#wrap ul.dashboard-navigation li.active {
-  background: rgba(11,25,43,.95);
-  -webkit-box-shadow: 0 5px 4px rgba(0,0,0,.2) inset;
-  -moz-box-shadow: 0 5px 4px rgba(0,0,0,.2) inset;
-  -o-box-shadow: 0 5px 4px rgba(0,0,0,.2) inset;
-  -ms-box-shadow: 0 5px 4px rgba(0,0,0,.2) inset;
-  box-shadow: 0 5px 4px rgba(0,0,0,.2) inset;
-}
-
-#wrap ul.dashboard-navigation li.active a i:before{
-  text-shadow: 0 0 6px rgba(255,255,255,.7);
-  color: #E8E3CD;
-}
-
 ul.dashboard-navigation li a {
   display: block;
   text-align: center;
@@ -666,36 +639,6 @@ ul.dashboard-navigation li a.forms {background-image: image-url("sprite.png")  0
     -o-border-bottom-right-radius: .35em;
     border-bottom-left-radius: .35em;
     border-bottom-right-radius: .35em;
-  }
-
-  #wrap ul.dashboard-navigation li.active {
-  border-bottom: 1px solid rgba(255,255,255,.12);
-  }
-
-  #wrap ul.dashboard-navigation li.active:first-child {
-  -webkit-border-radius: none;
-  -moz-border-radius: none;
-  -o-border-radius: none;
-  -ms-border-radius: none;
-  border-radius: none;
-  -webkit-border-top-left-radius: .3em;
-  -webkit-border-top-right-radius: .3em;
-  -moz-border-radius-topleft: .3em;
-  -moz-border-radius-topright: .3em;
-  -ms-border-top-left-radius: .3em;
-  -ms-border-top-right-radius: .3em;
-  -o-border-top-left-radius: .3em;
-  -o-border-top-right-radius: .3em;
-  border-top-left-radius: .3em;
-  border-top-right-radius: .3em;
-  }
-
-  #wrap ul.dashboard-navigation li.active:last-child {
-    -webkit-border-radius: none;
-    -moz-border-radius: none;
-    -ms-border-radius: none;
-    -o-border-radius: none;
-    border-radius: none;
   }
 
   #wrap ul.dashboard-navigation li:first-child {

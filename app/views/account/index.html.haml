@@ -9,7 +9,6 @@
       %ul
         %li
           = link_to activity_log_path do
-            %i{:class => "foundicon-website"}
             = t(:account_activity)
         %li
           = link_to t(:authentication_providers), authentications_path
@@ -19,9 +18,8 @@
           = link_to t(:change_your_password), edit_password_user_path
         %li
           = link_to '#', {:"data-reveal-id" => 'confirm-delete-modal'} do
-            %i{:class => "foundicon-remove"}
             = t(:delete_your_account)
-      
+
 #confirm-delete-modal.reveal-modal
   %h2
     = t(:are_you_sure)

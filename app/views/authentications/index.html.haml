@@ -9,16 +9,20 @@
       - if flash.notice
         .alert-box.blue
           = flash.notice
-      = link_to 'Add an authentication provider to your account', new_authentication_path
-    %table
-      %tr
-        %th
-          Provider
-        %th
-          Actions
-      - @authentications.each do |authentication|
+    .panel
+      %p
+        = link_to 'Add an authentication provider to your account', new_authentication_path
+      %table
         %tr
           %th
-            = authentication.provider.titleize
+            Provider
           %th
-            = link_to 'Delete', authentication_path(authentication), :method => :delete
+            Actions
+        - @authentications.each do |authentication|
+          %tr
+            %th
+              = authentication.provider.titleize
+            %th
+              = link_to 'Delete', authentication_path(authentication), :method => :delete
+
+    = link_to 'Back to Account Settings', account_index_path

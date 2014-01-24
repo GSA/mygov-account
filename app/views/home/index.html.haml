@@ -15,9 +15,7 @@
       #signup-form
         #fieldset
           = form_for @beta_signup, html: {novalidate: true} do |form|
-            - if flash.alert
-              .alert-box
-                = flash.alert
+            = flash_messages
             = form.label :email
             = form.email_field :email
             = form.submit t(:sign_up), :class => 'large button positive '

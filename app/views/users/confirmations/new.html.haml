@@ -9,9 +9,7 @@
       %fieldset.plain
         = form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, novalidate: true }) do |f|
           = devise_error_messages!
-          - if flash.notice
-            .alert-box.blue
-              = flash.notice
+          = flash_messages
           %ol
             %li
               = f.label :email

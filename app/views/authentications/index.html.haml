@@ -3,12 +3,7 @@
     %h2
       Authentication providers
     %p
-      - if flash.alert
-        .alert-box
-          = flash.alert
-      - if flash.notice
-        .alert-box.blue
-          = flash.notice
+      = flash_messages
     .panel
       %p
         = link_to 'Add an authentication provider to your account', new_authentication_path

@@ -24,9 +24,7 @@
             %i{:class => "foundicon-star"}
         %p
           = form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {novalidate: true}) do |f|
-            - if flash.alert
-              .alert-box
-                = flash.alert
+            = flash_messages
             = devise_error_messages!
             %ol
               %li

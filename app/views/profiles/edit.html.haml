@@ -7,9 +7,7 @@
     %h2
       = t(:edit_your_profile)
     = form_for @profile do |form|
-      - if flash[:error]
-        .alert-box
-          = flash[:error]
+      = flash_messages
       %fieldset
         %legend
           = t(:name)

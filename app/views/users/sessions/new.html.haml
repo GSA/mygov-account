@@ -1,7 +1,3 @@
-- if flash.alert
-  - content_for :scripts do
-    = javascript_tag do
-      $('html,body').animate({scrollTop: $('.alert-box').offset().top},'slow');
 .row
   .twelve.columns
     %h2
@@ -10,9 +6,8 @@
   .eight.columns
     .panel
       = form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {novalidate: true}) do |f|
-        - if flash.alert
-          .alert-box
-            = flash.alert
+        = flash_messages
+        = devise_error_messages!
         %fieldset.plain
           %ol.inline
             %li

@@ -2,9 +2,7 @@
   %h2
     = t(:change_your_email_address)
   .eight.columns
-    - if flash.notice
-      .alert-box.blue
-        = flash.notice
+    = flash_messages
     .panel
       = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, novalidate: true }) do |f|
         = devise_error_messages!

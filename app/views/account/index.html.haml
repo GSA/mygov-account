@@ -3,9 +3,7 @@
     %h2
       = t(:your_account)
     %p
-      - if flash.notice
-        .alert-box.blue
-          = flash.notice
+      = flash_messages
       %ul
         %li
           = link_to activity_log_path do

@@ -177,27 +177,32 @@ module ApplicationHelper
     return nil if !flash[:error] && !flash.alert && !flash.notice
     
     html = ''
+    alert_name = 'alert-message'
+    error_displayed = false
     if flash[:error]
-      html << content_tag(:div, :class => 'alert-box') do
+      html << content_tag(:div, :class => 'alert-box smoothScroll', :id => !error_displayed ? alert_name : nil) do
         flash[:error]
       end
+      error_displayed = true
     end
     
     if flash.alert
-      html << content_tag(:div, :class => 'alert-box') do
+      html << content_tag(:div, :class => 'alert-box smoothScroll', :id => !error_displayed ? alert_name : nil) do
         flash.alert
       end
+      error_displayed = true
     end
     
     if flash.notice
-      html << content_tag(:div, :class => 'alert-box blue') do
+      html << content_tag(:div, :class => 'alert-box blue smoothScroll', :id => !error_displayed ? alert_name : nil) do
         flash.notice
       end
+      error_displayed = true
     end
     
     content_for :scripts do
       javascript_tag do
-        "$('html,body').animate({scrollTop: $('.alert-box').not('#inactivity_warning .alert-box').offset().top},'slow');".html_safe
+        "$( document ).ready( function() { $('html,body').scrollTo('##{alert_name}', 'slow'); $('##{alert_name}').focus(); } );".html_safe
       end
     end
     

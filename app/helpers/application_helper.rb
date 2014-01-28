@@ -180,21 +180,21 @@ module ApplicationHelper
     alert_name = 'alert-message'
     error_displayed = false
     if flash[:error]
-      html << content_tag(:div, :class => 'alert-box smoothScroll', :id => !error_displayed ? alert_name : nil) do
+      html << content_tag(:div, :class => 'alert-box', :id => !error_displayed ? alert_name : nil) do
         flash[:error]
       end
       error_displayed = true
     end
     
     if flash.alert
-      html << content_tag(:div, :class => 'alert-box smoothScroll', :id => !error_displayed ? alert_name : nil) do
+      html << content_tag(:div, :class => 'alert-box', :id => !error_displayed ? alert_name : nil) do
         flash.alert
       end
       error_displayed = true
     end
     
     if flash.notice
-      html << content_tag(:div, :class => 'alert-box blue smoothScroll', :id => !error_displayed ? alert_name : nil) do
+      html << content_tag(:div, :class => 'alert-box blue', :id => !error_displayed ? alert_name : nil) do
         flash.notice
       end
       error_displayed = true

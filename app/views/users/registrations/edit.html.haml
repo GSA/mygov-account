@@ -9,12 +9,12 @@
         %div
           = f.label :email
           %br
-          = f.email_field :email, value: resource.unconfirmed_email ? resource.unconfirmed_email : resource.email, :size => 30
+          = f.email_field :email, value: resource.unconfirmed_email ? resource.unconfirmed_email : resource.email, :size => 30, :tabindex => autotab
         %div
           = f.label :current_password
           %i= "(#{t(:need_current_password)})"
           %br
-          = f.password_field :current_password, autocomplete: 'off'
+          = f.password_field :current_password, autocomplete: 'off', :tabindex => autotab
         %div
-          = f.submit t(:update), class: 'large button positive'
-          = link_to t(:cancel), account_index_path
+          = f.submit t(:update), class: 'large button positive', :tabindex => autotab, :accesskey => access_keys[:submit]
+          = link_to t(:cancel), account_index_path, :tabindex => autotab

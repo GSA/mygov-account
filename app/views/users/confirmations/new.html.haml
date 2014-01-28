@@ -13,8 +13,8 @@
           %ol
             %li
               = f.label :email
-              = f.email_field :email
-          .actions= f.submit "Send", :class => 'large button positive'
+              = f.email_field :email, :tabindex => autotab
+          .actions= f.submit "Send", :class => 'large button positive', :tabindex => autotab, :accesskey => access_keys[:submit]
   .four.columns
     .panel.side-panel
       = render "devise/shared/links"  

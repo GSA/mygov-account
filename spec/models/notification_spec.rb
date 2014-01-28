@@ -55,6 +55,8 @@ describe Notification do
         @notification.stub_chain(:user, :notification_settings, :where).and_return([])
         Resque.should_not receive(:enqueue)
         @notification.save
+      end
+    end
 
     context "when creating a notification without an app" do
       it "should send an email to the user with the notification content" do

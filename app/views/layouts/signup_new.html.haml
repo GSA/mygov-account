@@ -29,7 +29,6 @@
     = javascript_include_tag "application"
     = content_for :scripts
     = analytics_init if Rails.env.production?
-    = render :partial => "shared/ab", :locals => { :segment => @segment }
 
 
     #navigation-region

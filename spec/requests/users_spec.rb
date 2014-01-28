@@ -59,15 +59,15 @@ describe "Users" do
     context "when a user is not signed in" do
       it "should have a sign-in link" do
         visit sign_up_path
-        page.should have_content "Already have an account?"
-        page.should have_content "Log In"
-        click_link "Log In"
+        page.should have_content "Already using MyUSA?"
+        page.should have_content "Sign in"
+        click_link "Sign in"
         current_path.should == sign_in_path
 
         visit root_path
-        page.should have_content "Already have an account?"
-        page.should have_content "Log In"
-        click_link "Log In"
+        page.should have_content "Already using MyUSA?"
+        page.should have_content "Sign in"
+        click_link "Sign in"
         current_path.should == sign_in_path
       end
 
@@ -301,7 +301,7 @@ describe "Users" do
 
     it "should redirect the user to the sign in page" do
       visit dashboard_path
-      click_link 'Logout'
+      click_link 'Sign out'
       page.should have_content "Sign in"
       page.should have_content "Didn't receive confirmation instructions?"
     end
@@ -317,8 +317,8 @@ describe "Users" do
       click_button 'Update profile'
 
       page.should have_content "Sign out"
-      page.should have_content "Edit your profile"
-      page.should have_content "First name: Jane"
+      page.should have_content "My Profile"
+      expect(page.find('#profile_first_name').value).to eq('Jane')
     end
 
     it "should display a success message"

@@ -1,0 +1,30 @@
+.row
+  .eight.columns
+    %h2
+      = t(:your_account)
+    %p
+      = flash_messages
+      %ul
+        %li
+          = link_to activity_log_path do
+            = t(:account_activity)
+        %li
+          = link_to t(:authentication_providers), authentications_path
+        %li
+          = link_to t(:change_your_email_address), edit_user_registration_path
+        %li
+          = link_to t(:change_your_password), edit_password_user_path
+        %li
+          = link_to '#', {:"data-reveal-id" => 'confirm-delete-modal'} do
+            = t(:delete_your_account)
+
+#confirm-delete-modal.reveal-modal
+  %h2
+    = t(:are_you_sure)
+  %p
+    = t(:by_deleting)
+  %p
+    = link_to t(:delete), user_path, :method => :delete, :class => 'button positive confirm'
+    = link_to t(:cancel), "#", :class => 'button negative', :onclick => "$('#confirm-delete-modal').trigger('reveal:close');"
+  %a.close-reveal-modal
+    x

@@ -1,20 +1,22 @@
-%h5
-  Dashboard
-
-%ul.nav.nav-pills.nav-stacked
-  %li
-    %a.smoothScroll{:href => "#notifications"}
-      Notifications
-
-      - if @user.notifications.not_viewed.count > 0
-        %span.badge
-          = @user.notifications.not_viewed.count
-
-  - if @uncompleted_tasks.any?
-    %li
-      %a.smoothScroll{:href => "#tasks"}
+.group
+  %ul.dashboard-navigation{"data-magellan-expedition" => ""}
+    %li.first{"data-magellan-arrival" => "profile"}
+      %a.smoothScroll.tasks{:href => "#profile"}
+        .arrow
+        %i{:class => "foundicon-people"}
+        Profile
+    %li{"data-magellan-arrival" => "notifications"}
+      %a.smoothScroll.tasks{:href => "#notifications"}
+        .arrow
+        %i{:class => "foundicon-mail"}
+        Notifications
+    %li{"data-magellan-arrival" => "tasks"}
+      %a.smoothScroll.tasks{:href => "#tasks"}
+        .arrow
+        %i{:class => "foundicon-checkmark"}
         Tasks
-
-  %li
-    %a.smoothScroll{:href => "#apps"}
-      Apps
+    %li.last{"data-magellan-arrival" => "apps"}
+      %a.smoothScroll.apps{:href => "#apps"}
+        .arrow
+        %i{:class => "foundicon-website"}
+        Apps

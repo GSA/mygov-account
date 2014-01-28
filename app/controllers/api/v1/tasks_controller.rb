@@ -28,6 +28,6 @@ class Api::V1::TasksController < Api::ApiController
   end
   
   def oauthorize_scope
-    validate_oauth(OauthScope.find_by_scope_name('tasks'))
+    validate_oauth(OauthScope.find_all_by_scope_name('tasks'))
   end
 end

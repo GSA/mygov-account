@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131212224057) do
+ActiveRecord::Schema.define(:version => 20131217210551) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -138,12 +138,12 @@ ActiveRecord::Schema.define(:version => 20131212224057) do
   add_index "notifications", ["user_id"], :name => "index_messages_on_user_id"
 
   create_table "oauth2_authorizations", :force => true do |t|
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "oauth2_resource_owner_type"
     t.integer  "oauth2_resource_owner_id"
     t.integer  "client_id"
-    t.string   "scope"
+    t.string   "scope",                      :limit => 2000
     t.string   "code",                       :limit => 40
     t.string   "access_token_hash",          :limit => 40
     t.string   "refresh_token_hash",         :limit => 40

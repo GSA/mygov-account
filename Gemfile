@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
-gem 'rails', '3.2.14'
+gem 'rails', '3.2.16'
 gem 'mysql2'
-gem 'jquery-rails'
+gem 'auto-session-timeout'
+gem "jquery-rails", "~> 2.3.0"
 gem 'json', '~> 1.8.0'
 gem 'haml'
 gem 'devise'
@@ -16,6 +17,8 @@ gem 'coffee-rails', '~> 3.2.1'
 gem "airbrake"
 gem 'maruku'
 gem 'validates_email_format_of', :git => 'https://github.com/alexdunae/validates_email_format_of.git'
+# ar-octopus has to proceed permanent_records, or permanent_records #destroy(:force) call will not work
+gem 'ar-octopus'
 gem "permanent_records", "~> 2.3.0"
 gem "httparty"
 gem "paperclip", "~> 3.0"
@@ -33,6 +36,7 @@ gem 'resque_mailer'
 gem 'devise-async'
 gem 'simple-navigation'
 gem 'twilio-ruby'
+gem 'auto-session-timeout-warning'
 
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA-OCSIT/rack-openid.git', :branch => 'pape'

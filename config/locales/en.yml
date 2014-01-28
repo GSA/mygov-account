@@ -2,21 +2,95 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  meta_description: "A platform for connecting people and government."
+  take_control: "Take control of how you interact with government."
+  read_more: "Read more about MyUSA"
+  account: "Account"
+  sign_up: "Sign up"
+  sign_in: "Sign in"
+  sign_out: "Sign out"
   zip_error: "Please enter your 5 digit zip code."
-  sign_in_prompt: "Already have an account?"
-  sign_in_link: "Log In"
+  sign_in_prompt: "Already using MyUSA?"
+  sign_in_link: "Sign in"
+  update: "Update"
+  back: "Back"
+  thank_you: "Thank you"
+  cancel: "Cancel"
+  delete: "Delete"
+
   remain_logged_in: "Remain signed in."
+  session_expiration_warning_no_script: "We noticed you have not been very active in MyUSA. %{link}"
   session_expiration_warning: "We noticed you haven't been very active in MyUSA. %{link}"
-  mygov_greeting: ""
   beta_signup_error: "An error occurred during signup.  Please try again."
   apps_leaving: "In a few seconds, you will be redirected to"
+
+  unauthorized_scope: "Requesting unauthorized scopes"
+  custom_session_timeout: 'Your session expired. Please sign in again.'
+  invalid_uri: "must be a valid URL"
+  activerecord:
+      attributes:
+        app:
+          slug: "Handle"
+
+  about_myusa: "About MyUSA"
+  developers: "Developers"
+  digital_government: "Digital Government: Building a 21st Century Platform"
+  privacy_policy: "Privacy policy"
+  terms_of_service: "Terms of service"
+
+  forgot_your_password: "Forgot your password?"
+  change_your_password: "Change your password"
+  change_my_password: "Change my password"
+  need_current_password: "we need your current password to confirm your changes"
+  change_your_email_address: "Change your email address"
+  new_password: "New password"
+  confirm_new_password: "Confirm new password"
+
+  account_deleted: "Your MyUSA account has been deleted."
+  account_deleted_email: "We've sent you an email to confirm the account removal. Please consider signing up again soon."
+
+  i_agree_html: "I agree to the MyUSA %{terms_of_service_link} and %{privacy_policy_link}."
+
+  thank_you_for_signing_up: "Thank you for signing up"
+  we_sent_you_an_email: "We've sent you an email to verify you're a person and not a robot. Please follow the instructions in the email, and we&rsquo;ll see you back here shortly."
+
+  your_profile: "Your profile"
+  edit_your_profile: "Edit your profile"
+  name: "Name"
+  title: "Title"
+  first_name: "First name"
+  middle_name: "Middle name"
+  last_name: "Last name"
+  suffix: "Suffix"
+  address: "Address"
+  address2: "Address (Line 2)"
+  city: "City"
+  state: "State"
+  zip: "Zip"
+  phone: "Phone"
+  mobile: "Mobile"
+  gender: "Gender"
+  marital_status: "Marital status"
+  about_you: "About you"
+  parent: "Parent"
+  student: "Student"
+  retired: "Retired"
+  veteran: "Veteran"
+  update_profile: "Update profile"
+  email: "Email"
+
+  your_account: "Your account"
+  account_activity: "Account activity"
+  authentication_providers: "Authentication providers"
+  delete_your_account: "Delete your account"
+  are_you_sure: "Are you sure?"
+  by_deleting: "By deleting your account, all information associated with your account will be deleted forever. (You can't undo this later.)"
 
   errors:
     messages:
       expired: "has expired. Please request a new one."
       not_found: "not found."
-      already_confirmed: "has already been confirmed. Please try signing in."
+      already_confirmed: "has already been confirmed. Please try <a href='/sign_in'>signing in.</a>"
       not_locked: "wasn't locked."
       not_saved:
         one: "Error:"
@@ -82,7 +156,7 @@ en:
         subject: 'Unlock Instructions'
   errors:
     messages:
-      already_confirmed: "may already have been confirmed or it does not exist. Please try signing in or signing up."
+      already_confirmed: "may already have been confirmed or it does not exist. Please try <a href='/sign_in'>signing in</a> or <a href='/sign_up'>signing up</a>."
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "has expired, please request a new one"
       not_found: "Please check your inbox for an email from MyUSA."

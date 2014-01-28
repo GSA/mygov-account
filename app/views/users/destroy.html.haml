@@ -1,9 +1,9 @@
 .row
   .eight.columns
     %h2
-      Thank you.
+      = t(:thank_you)
     %p
-      Your MyUSA account has been deleted.
+      = t(:account_deleted)
     %p
-      We've sent you an email to confirm the account removal. Please consider signing up again soon.
-    = link_to "Sign up", sign_up_path, :class => 'large positive button'
+      = t(:account_deleted_email)
+    = link_to t(:sign_up), sign_up_path, :class => 'large positive button'

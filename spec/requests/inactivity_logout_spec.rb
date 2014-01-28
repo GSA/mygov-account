@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "auto_logout" do
   context "User is logged in" do
     before do
-      @inactivity_warning_text = "We noticed you haven't been very active in MyUSA"
+      @inactivity_warning_text = "We noticed you have not been very active in MyUSA"
       Devise.setup { |config| config.timeout_in = 4 }
       Rails.application.config.session_timeout_warning_seconds = 2
 

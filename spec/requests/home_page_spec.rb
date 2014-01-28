@@ -15,6 +15,13 @@ describe "HomePage" do
       expect(page.response_headers["X-XRDS-Location"]).to eq "https://www.example.com/xrds.xml"
     end
 
+    it "should have links to the new about page" do
+      visit root_url
+
+      page.should have_link 'Read more about MyUSA', href: 'http://myusa.tumblr.com/about'
+      page.should have_link 'About MyUSA', href: 'http://myusa.tumblr.com/about'
+    end
+
     context "when not logged in" do
       context "when signing up for the beta" do
         before do
@@ -111,16 +118,53 @@ describe "HomePage" do
       end
 
       context "when the user visits the page the first time" do
+
+      before do
+        login(@user)
+        @user.notifications.destroy_all
+      end
+
+      it "should show the user the dashboard, and link to their resources, and tell them they have no notifications or tasks" do
+        visit root_path
+        page.should have_content "MyUSA"
+        page.should have_content "Profile"
+        page.should have_content "Notifications"
+        page.should have_content "Tasks"
+        page.should have_content "Apps"
+        page.should have_content "Terms of service"
+        page.should have_content "Privacy policy"
+        page.should have_link 'View your profile', :href => profile_path
+        page.should have_link 'View all notifications', :href => notifications_path
+        page.should have_link 'View all tasks', :href => tasks_path
+        page.should have_link 'App Gallery', :href => apps_path
+        page.should have_link 'Learn how to create your own MyUSA app', :href => developer_path
+        page.should have_content "You currently have no notifications."
+        page.should have_content "You currently have no tasks."
+      end
+
+      context "when the user has notifications" do
         before do
-          reset_session!
-          ApplicationController.any_instance.stub(:rand).with(2).and_return 0
+          @app = create_public_app_for_user(@user, "Notification App")
+          1.upto(10) do |index|
+            notification = Notification.new(:subject => "Notification ##{index}", :body => "This is notification ##{index}.", :received_at => Time.now)
+            notification.user = @user
+            notification.app = @app
+            notification.save!
+          end
         end
 
-        it "should set the GA custom var for the segment" do
+        it "should show the first three newest notifications" do
           visit root_path
-          page.should have_content "_gaq.push(['_setCustomVar',1,'Segment','A', 2]);"
+          Notification.order('created_at DESC').limit(3).each_with_index do |notification, index|
+            page.should have_content "Notification ##{10 - index}"
+          end
+          page.should have_content 'Notification App'
+          page.should have_content 'less than a minute ago'
+          click_link 'Notification #10'
+          page.should have_content 'This is notification #10'
         end
       end
+
 
       context "when revisiting the page a second and third time" do
         before do
@@ -133,6 +177,28 @@ describe "HomePage" do
             visit root_path
             page.should have_content "_gaq.push(['_setCustomVar',1,'Segment','A', 2]);"
           end
+        end
+
+      context "when the user has tasks" do
+        before do
+          @app = create_public_app_for_user(@user, "Task App")
+          1.upto(5) do |index|
+            task = Task.new(:name => "Task ##{index}")
+            task.app = @app
+            task.user = @user
+            task.save!
+          end
+          @tasks = @user.tasks.order("created_at DESC").limit(3)
+        end
+
+        it "should show the first three newest uncompleted tasks" do
+          visit root_path
+          @tasks.each do |task|
+            page.should have_content task.name
+          end
+          page.should have_content "Task App"
+          click_link @tasks.first.name
+          page.should have_content @tasks.first.name
         end
       end
     end

@@ -24,7 +24,7 @@ def create_confirmed_user_with_profile(email_or_hash = {})
   create_approved_beta_signup(profile[:email])
   user_create_hash = profile.select {|key,val| [:email, :password].member?(key)}
   user = User.create!(user_create_hash)
-  profile_create_hash = profile.select {|key,val| [:first_name, :last_name, :name, :is_student].member?(key)}
+  profile_create_hash = profile.select {|key,val| Profile.new.methods.map(&:to_sym).select{ |m| m != :email }.member?(key)}
   user.profile = Profile.new(profile_create_hash)
   user.confirm!
   user
@@ -63,3 +63,11 @@ def lock_account
     click_button 'Sign in'
   end
 end
+
+def create_public_app_for_user(user, name = 'Public App', url = 'http://www.agency.gov/app', short_description = 'Public Application', description = 'A public application.', redirect_uri = 'http://localhost/')
+  app = user.apps.create(:name => name, :url => url, :short_description => short_description, :description => description, :redirect_uri => redirect_uri)
+  app.is_public = true
+  app.save!
+  app
+end
+  

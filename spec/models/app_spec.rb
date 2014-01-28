@@ -10,6 +10,15 @@ describe App do
   
   it { should validate_presence_of(:name).with_message(/can't be blank/)}
   it { should validate_presence_of(:slug).with_message(/can't be blank/)}
+  it { should validate_presence_of(:redirect_uri).with_message(/can't be blank/)}
+  
+  it "should validate URI format" do
+    app = App.create(@valid_attributes.merge(redirect_uri: 'xyz'))
+    app.errors[:redirect_uri].should include 'must be a valid URL'
+    
+    app = App.create(@valid_attributes.merge(url: 'xyz'))
+    app.errors[:url].should include 'must be a valid URL'
+  end
   
   it "should create a new app with valid attributes, and generate a unique slug" do
     app = App.create!(@valid_attributes)

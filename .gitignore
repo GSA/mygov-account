@@ -26,6 +26,7 @@ config/deploy
 config/environments/production.rb
 config/initializers/01_mygov.rb
 config/initializers/recaptcha.rb
+config/shards.yml
 coverage
 db/*.sqlite3
 log/*
@@ -34,4 +35,4 @@ log/*
 /test
 /tmp
 /vendor/bundle
-/lib/load-scripts/
+lib/load-scripts/

@@ -10,11 +10,15 @@ class Notification < ActiveRecord::Base
   attr_accessible :user_id, :app_id, :as => :admin
 
   def self.newest_first
-    order('received_at DESC, id DESC')
+    where(deleted_at: nil).order('received_at DESC, id DESC')
   end
 
   def self.not_viewed
     where(viewed_at: nil, deleted_at: nil)
+  end
+
+  def view!
+    self.update_attribute :viewed_at, Time.now
   end
 
   private

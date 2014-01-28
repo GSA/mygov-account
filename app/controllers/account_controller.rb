@@ -1,4 +1,4 @@
-class SettingsController < ApplicationController
+class AccountController < ApplicationController
   before_filter :authenticate_user!
   before_filter :assign_user
 

@@ -5,6 +5,7 @@ class OauthScope < ActiveRecord::Base
   attr_accessible :description, :name, :scope_name, :scope_type, :as => [:default, :admin]
   
   scope :top_level_scopes, -> { where("scope_name NOT LIKE :dot", :dot => "%.%") }
+  scope :profile_scopes, -> {where("scope_name LIKE :profile_pattern", :profile_pattern => "profile%")}
   
   def is_parent?
     OauthScope.all.any?{|s| s.scope_name.match(/#{self.name}\./i)}

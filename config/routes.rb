@@ -2,11 +2,12 @@ require 'api_constraints'
 
 Mygov::Application.routes.draw do
   devise_for :users, :path => '', :controllers => {
-    :omniauth_callbacks => "users/omniauth_callbacks",
+    :omniauth_callbacks => 'users/omniauth_callbacks',
     :registrations => 'users/registrations',
     :confirmations => 'users/confirmations',
     :sessions => 'users/sessions',
-    :unlocks => 'users/unlocks'
+    :unlocks => 'users/unlocks',
+    :passwords => 'users/passwords'
   }
   devise_scope :user do
     get 'sign_up', :to => 'users/registrations#new', :as => :sign_up
@@ -14,6 +15,8 @@ Mygov::Application.routes.draw do
     get 'sign_in', :to => 'users/sessions#new', :as => :sign_in
     get 'sign_out', :to => 'users/sessions#destroy', :as => :sign_out
     get 'change_password', :to => 'users/registrations#edit', :as => :change_password
+    get 'active'  => 'users/sessions#active',  via: :get
+    get 'timeout' => 'users/sessions#timeout', via: :get
   end
   get 'oauth/authorize' => 'oauth#authorize'
   post 'oauth/authorize' => 'oauth#authorize'
@@ -27,7 +30,7 @@ Mygov::Application.routes.draw do
       put 'update_password'
     end
   end
-  resources :settings, :only => [:index] do
+  resources :account, :only => [:index] do
     collection do
       resources :authentications
     end
@@ -35,7 +38,7 @@ Mygov::Application.routes.draw do
 
   resource :profile, :only => [:show, :edit, :update]
   resources :notifications, :only => [:index, :show, :create, :destroy]
-  resources :tasks, :only => [:show, :update, :destroy]
+  resources :tasks, :only => [:index, :show, :update, :destroy]
   resources :apps do
     member do
       get :uninstall
@@ -45,7 +48,6 @@ Mygov::Application.routes.draw do
   resources :task_items, :only => [:update, :destroy]
 
   get 'dashboard' => "home#dashboard"
-  get 'discovery' => "home#discovery"
   get 'developer' => "home#developer"
   get 'help' => "home#help"
   get 'privacy-policy' => "home#privacy_policy", :as => :privacy_policy

@@ -8,7 +8,7 @@
 
   .col-md-8
     %h2
-      Change Your Password
+      t(:change_your_password)
 
     %p
       Create a new password for
@@ -18,24 +18,35 @@
     - unless resource.errors.empty?
       .alert.alert-danger
         = devise_error_messages!
+        = flash_messages
     - if flash.notice
       .alert.alert-info
         = flash.notice
 
-    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, novalidate: true, :class => 'form' }) do |f|
+        .panel
+          = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, novalidate: true }) do |f|
 
-      %div
-        = f.label :current_password
-        %br
-        = f.password_field :current_password
-        %br
-        = f.label :current_password, "New Password"
-        %br
-        = f.password_field :password, autocomplete: 'off'
-        %br
-        = f.label :password_confirmation, "Confirm New Password"
-        %br
-        = f.password_field :password_confirmation
+        %div
+          = f.label :email
+          %br
+          = f.email_field :email, value: resource.unconfirmed_email ? resource.unconfirmed_email : resource.email, :size => 30
 
-      %div
-        = f.submit "Update my password", :class=>'btn btn-primary form-button'
+          = f.label :current_password
+          %i= "(#{t(:need_current_password)})"
+          -#TODO: Pull out form fields into partials
+
+          %br
+          = f.password_field :current_password
+          %br
+          = f.label :current_password, "New Password"
+          %i= "(#{t(:need_current_password)})"
+          %br
+          = f.password_field :password, autocomplete: 'off'
+          %br
+          = f.label :password_confirmation, "Confirm New Password"
+          %br
+          = f.password_field :password_confirmation
+
+        %div
+          = f.submit t(:update_my_password), class: 'btn btn-primary form-button'
+          = link_to t(:cancel), account_index_path

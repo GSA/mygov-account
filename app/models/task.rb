@@ -4,13 +4,12 @@ class Task < ActiveRecord::Base
   has_many :task_items, :dependent => :destroy
 
   validates_presence_of :app_id, :user_id, :name
-  
-  scope :uncompleted, where('ISNULL(completed_at)')
 
   attr_accessible :name, :completed_at, :task_items_attributes, :as => [:default, :admin]
   attr_accessible :user, :user_id, :app, :app_id, :as => :admin
   accepts_nested_attributes_for :task_items
-
+  
+  scope :uncompleted, where('ISNULL(completed_at)')
   
   def complete!
     self.task_items.each{|task_item| task_item.complete!}

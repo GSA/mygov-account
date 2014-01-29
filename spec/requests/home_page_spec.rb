@@ -5,7 +5,7 @@ describe "HomePage" do
     @user = create_confirmed_user_with_profile
   end
 
-  # describe "GET /" do
+  describe "GET /" do
     it "sets secure headers (X-Frame-Options, X-XSS-Protection, and X-XRDS-Location)" do
       # NOTE: the app also sets X-Content-Type-Options: nosniff, but that is only set for IE browsers
       visit root_url
@@ -13,13 +13,6 @@ describe "HomePage" do
       expect(page.response_headers["X-Frame-Options"]).to eq "SAMEORIGIN"
       expect(page.response_headers["X-XSS-Protection"]).to eq "1; mode=block"
       expect(page.response_headers["X-XRDS-Location"]).to eq "https://www.example.com/xrds.xml"
-    end
-
-    it "should have links to the new about page" do
-      visit root_url
-
-      page.should have_link 'Read more about MyUSA', href: 'http://myusa.tumblr.com/about'
-      page.should have_link 'About MyUSA', href: 'http://myusa.tumblr.com/about'
     end
 
     context "when not logged in" do
@@ -69,6 +62,7 @@ describe "HomePage" do
         end
       end
     end
+  end
 
   context "when already logged in" do
     before {login(@user)}
@@ -79,68 +73,66 @@ describe "HomePage" do
       expect(page.current_url).to eq 'http://citizen.org/dashboard'
       page.should have_content 'Joe Citizen'
     end
-  end
 
-  context "when the user does not have a first, last or any other name" do
-    before do
-      @user.profile.update_attributes(:first_name => nil, :last_name => nil)
+    context "when the user does not have a first, last or any other name" do
+      before do
+        @user.profile.update_attributes(:first_name => nil, :last_name => nil)
+      end
+
+      it "should link to the profile page with 'Your profile'" do
+        visit root_path
+        page.should have_content "Account Settings"
+        click_link "Account Settings"
+        page.find('h2').should have_content "My Profile"
+      end
     end
 
-    it "should link to the profile page with 'Your profile'" do
-      visit root_path
-      page.should have_content "Settings"
-      click_link "Settings"
-      page.find('h2').should have_content "My Profile"
-    end
-  end
 
+    context "when the user does not have tasks" do
+      before { @user.tasks.destroy_all }
 
-  context "when the user does not have tasks" do
-    before { @user.tasks.destroy_all }
-
-    it "should not show sidebar tabs or dashboard sections for tasks" do
-      visit root_path
-      page.should have_no_content "Tasks"
-    end
-  end
-
-  context "when the user has tasks with task items" do
-    before do
-      @app = App.create!(:name => 'Change your name', :redirect_uri => "http://localhost:3000/")
-      @user.tasks.create!({:name => 'Change your name', :app_id => @app.id}, :as => :admin)
+      it "should tell the user they currently have no tasks" do
+        visit root_path
+        page.should have_content "You currently have no tasks."
+      end
     end
 
-    it "should show the tasks on the dashboard" do
-      visit root_path
-      page.should have_content "MyUSA"
-      page.should have_content "Tasks"
-      page.should have_content "Change your name"
+    context "when the user has tasks with task items" do
+      before do
+        @app = App.create!(:name => 'Change your name', :redirect_uri => "http://localhost:3000/")
+        @user.tasks.create!({:name => 'Change your name', :app_id => @app.id}, :as => :admin)
+      end
+
+      it "should show the tasks on the dashboard" do
+        visit root_path
+        page.should have_content "MyUSA"
+        page.should have_content "Tasks"
+        page.should have_content "Change your name"
+      end
     end
-  end
 
-  context "when the user visits the page the first time" do
+    context "when the user visits the page the first time" do
+      before do
+        @user.tasks.destroy_all
+        @user.notifications.destroy_all
+      end
 
-    before do
-      login(@user)
-      @user.notifications.destroy_all
-    end
-
-    it "should show the user the dashboard, and link to their resources, and tell them they have no notifications or tasks" do
-      visit root_path
-      page.should have_content "MyUSA"
-      page.should have_content "Profile"
-      page.should have_content "Notifications"
-      page.should have_content "Tasks"
-      page.should have_content "Apps"
-      page.should have_content "Terms of service"
-      page.should have_content "Privacy policy"
-      page.should have_link 'View your profile', :href => profile_path
-      page.should have_link 'View all notifications', :href => notifications_path
-      page.should have_link 'View all tasks', :href => tasks_path
-      page.should have_link 'App Gallery', :href => apps_path
-      page.should have_link 'Learn how to create your own MyUSA app', :href => developer_path
-      page.should have_content "You currently have no notifications."
-      page.should have_content "You currently have no tasks."
+      it "should show the user the dashboard, and link to their resources, and tell them they have no notifications or tasks" do
+        visit root_path
+        page.should have_content "MyUSA"
+        page.should have_content "Profile"
+        page.should have_content "Notifications"
+        page.should have_content "Tasks"
+        page.should have_content "Apps"
+        page.should have_content "Terms of service"
+        page.should have_content "Privacy policy"
+        page.should have_link 'View your profile', :href => profile_path
+        page.should have_link 'View all notifications', :href => notifications_path
+        page.should have_link 'View all tasks', :href => tasks_path
+        page.should have_link 'Learn how to create your own MyUSA app', :href => developer_path
+        page.should have_content "You currently have no notifications."
+        page.should have_content "You currently have no tasks."
+      end
     end
   end
 
@@ -148,11 +140,13 @@ describe "HomePage" do
     before do
       @app = create_public_app_for_user(@user, "Notification App")
       1.upto(10) do |index|
-        notification = Notification.new(:subject => "Notification ##{index}", :body => "This is notification ##{index}.", :received_at => Time.now)
+        notification = Notification.new(:subject => "Notification ##{index}", :body => "This is notification ##{index}.", :received_at => Time.now, :notification_type =>'my-alert')
         notification.user = @user
         notification.app = @app
         notification.save!
       end
+
+      login(@user)
     end
 
     it "should show the first three newest notifications" do
@@ -167,21 +161,6 @@ describe "HomePage" do
     end
   end
 
-
-  context "when revisiting the page a second and third time" do
-    before do
-      reset_session!
-      ApplicationController.any_instance.stub(:rand).with(2).and_return 0
-    end
-
-    it "should assign the GA custom var for the segment and always return the same value for subsequent requests for that session" do
-      5.times do
-        visit root_path
-        page.should have_content "_gaq.push(['_setCustomVar',1,'Segment','A', 2]);"
-      end
-    end
-  end
-
   context "when the user has tasks" do
     before do
       @app = create_public_app_for_user(@user, "Task App")
@@ -192,6 +171,8 @@ describe "HomePage" do
         task.save!
       end
       @tasks = @user.tasks.order("created_at DESC").limit(3)
+
+      login(@user)
     end
 
     it "should show the first three newest uncompleted tasks" do
@@ -216,24 +197,6 @@ describe "HomePage" do
     it "should show the terms of service" do
       visit terms_of_service_path
       page.should have_content "Terms of service"
-    end
-  end
-
-  describe "GET /discovery" do
-    context "when not logged in" do
-      it "should forward to a login page" do
-        visit discovery_path
-        page.should have_content "Please sign in or sign up before continuing"
-      end
-    end
-
-    context "when logged in" do
-      before {login(@user)}
-
-      it "should show the discovery page" do
-        visit discovery_path
-        page.should have_content "Discovery Bar"
-      end
     end
   end
 

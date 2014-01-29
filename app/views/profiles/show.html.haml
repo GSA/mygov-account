@@ -1,3 +1,9 @@
+.row
+  .col-md-8
+    = raise flash.inspect
+    - if flash.notice
+      .alert.alert-success
+        = flash.notice
 
 .row
   .col-md-2

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131217210551) do
+ActiveRecord::Schema.define(:version => 20140129181216) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -73,6 +73,12 @@ ActiveRecord::Schema.define(:version => 20131217210551) do
     t.boolean  "is_approved", :default => false
   end
 
+  create_table "delivery_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "filled_forms", :force => true do |t|
     t.integer  "form_id"
     t.integer  "user_id"
@@ -104,16 +110,26 @@ ActiveRecord::Schema.define(:version => 20131217210551) do
     t.datetime "updated_at",       :null => false
   end
 
+  create_table "notification_settings", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "notification_type"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "delivery_type_id"
+    t.integer  "app_id"
+  end
+
   create_table "notifications", :force => true do |t|
     t.string   "subject"
     t.text     "body"
     t.datetime "received_at"
     t.integer  "app_id"
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.datetime "deleted_at"
     t.datetime "viewed_at"
+    t.string   "notification_type"
   end
 
   add_index "notifications", ["app_id"], :name => "index_messages_on_o_auth2_model_client_id"

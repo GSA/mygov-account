@@ -39,6 +39,10 @@ Mygov::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
   
+  Devise.setup { |config| config.timeout_in = 1800 }
+  config.session_timeout_warning_seconds    = 90
+  config.session_check_frequency            = 60
+  
   # Turn on/off asset logging in rails server; it defaults to off, so turn it on here.
   # config.quiet_assets = false
 

@@ -17,6 +17,9 @@ end
 
 module Mygov
   class Application < Rails::Application
+    # Use pre-Rails 3.2.14 behavior and avoid warning message
+    config.i18n.enforce_available_locales = false
+    
     config.apps_leaving_delay = 7
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -70,7 +73,9 @@ module Mygov
     config.exceptions_app = self.routes
 
     # Set the number of seconds the timeout warning should occur before login session is timed out
-    config.session_timeout_warning_seconds = 20
+    config.session_timeout_warning_seconds = 90
+    config.session_timeout_in_seconds      = 1800
+    config.session_check_frequency         = 60
     
     config.to_prepare do
       Devise::Mailer.layout "notification_mailer"

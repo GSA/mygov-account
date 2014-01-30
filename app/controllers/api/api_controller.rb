@@ -13,24 +13,21 @@ class Api::ApiController < ApplicationController
     end
   end
   
-  def no_scope_message
-    "You do not have permission to read that user's profile."
-  end
-  
-  def validate_oauth(oauth_scope = nil)
+  def validate_oauth(oauth_scopes)
     unless @token.valid?
       render :json => {:message => "Invalid token"}, :status => @token.response_status
       return false
     end
 
-    return true unless oauth_scope
-    
     auth = @token.authorization
     scope_list = auth && auth.scope
-    unless scope_in_scope_list?(oauth_scope, scope_list)
-      render :json => {:message => no_scope_message}, :status => 403
-      return false
+    
+    oauth_scopes.each do |oauth_scope|
+      return true if scope_in_scope_list?(oauth_scope, scope_list)
     end
+    
+    render :json => {:message => no_scope_message}, :status => 403
+    return false
   end
   
   def scope_in_scope_list?(oauth_scope, scope_list)

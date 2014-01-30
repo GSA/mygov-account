@@ -28,6 +28,6 @@ class Api::V1::CredentialsController < Api::ApiController
   end
   
   def oauthorize_scope
-    validate_oauth(OauthScope.find_by_scope_name('verify_credentials'))
+    validate_oauth(OauthScope.find_all_by_scope_name('verify_credentials'))
   end
 end

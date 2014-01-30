@@ -14,10 +14,9 @@ class HomeController < ApplicationController
 
   def dashboard
     @today = Date.current
-    @uncompleted_tasks = @user.tasks.uncompleted.order('created_at DESC')
-    @notifications = @user.notifications
-    @public_apps = App.where(is_public: true)
-    render 'dashboard'
+    @profile = @user.profile
+    @notifications = @user.notifications.newest_first.limit(3)
+    @uncompleted_tasks = @user.tasks.uncompleted.order('created_at DESC').limit(3)
   end
 
   def developer

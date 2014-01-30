@@ -12,7 +12,7 @@ describe "Authentications" do
 
       it 'allows the user to connect to google' do
         visit root_path
-        click_link 'Settings'
+        click_link 'Account'
         click_link 'Other Networks'
         click_link 'Add an authentication provider to your account'
         click_link 'Google'
@@ -34,7 +34,7 @@ describe "Authentications" do
 
       it 'displays an error message when adding google authentication from another account' do
         visit root_path
-        click_link 'Settings'
+        click_link 'Account'
         click_link 'Other Networks'
         click_link 'Add an authentication provider to your account'
         click_link 'Google'
@@ -52,13 +52,13 @@ describe "Authentications" do
 
       it 'allows the user to delete their authentication which disables login with that provider' do
         visit root_path
-        click_link 'Settings'
+        click_link 'Account'
         click_link 'Other Networks'
         page.should have_content 'Google'
         click_link 'Delete'
         current_path.should eq authentications_path
         page.should_not have_content 'Google'
-        click_link 'Logout'
+        click_link 'Sign out'
         visit sign_in_path
         click_link 'Sign in with Google'
         current_path.should eq sign_in_path

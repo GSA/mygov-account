@@ -2,16 +2,15 @@
   .col-md-12
     %h2
       Forgot your password?
+
 .row
   .col-md-12
     = devise_error_messages!
-    - if flash.notice
-      .alert.alert-info
-        = flash.notice
+    = flash_messages
 
 .row
   .col-md-6
-    = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+    = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, novalidate: true }) do |f|
       %fieldset.plain
         %ol.inline
           %li

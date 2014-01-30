@@ -1,10 +1,13 @@
 class ApplicationController < ActionController::Base
   ensure_security_headers
+  before_timedout_action
   skip_before_filter :set_csp_header
   protect_from_forgery
   prepend_before_filter :set_no_keep_alive
-  after_filter :set_response_headers
-  before_filter :set_segment, :set_session_will_expire
+  after_filter :set_response_headers, :cors_set_access_control_headers
+  before_filter :set_session_will_expire, :cors_preflight_check
+
+  auto_session_timeout User.timeout_in.seconds
 
   def after_sign_out_path_for(resource_or_scope)
     sign_in_path
@@ -19,8 +22,6 @@ class ApplicationController < ActionController::Base
   def set_no_keep_alive
     request.env["devise.skip_trackable"] = true unless params[:no_keep_alive].blank?
   end
-
-
 
   protected
 
@@ -48,13 +49,6 @@ class ApplicationController < ActionController::Base
 
   def assign_user
     @user = current_user
-  end
-
-  def set_segment
-    if !session[:segment]
-      session[:segment] = rand(2) == 0 ? "A" : "B"
-    end
-    @segment = session[:segment]
   end
 
   def set_response_headers
@@ -98,5 +92,4 @@ class ApplicationController < ActionController::Base
       headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-Prototype-Version, Authorization'
     end
   end
-
 end

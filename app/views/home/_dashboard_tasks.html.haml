@@ -1,10 +1,28 @@
-.panel.task.dashboard{"data-magellan-destination" => "tasks"}
+.panel.group{"data-magellan-destination" => "tasks"}
   %a{:name => "tasks"}
   %h3
     %i{:class => "foundicon-checkmark"}
     Tasks
-  %span.bookmark
-  - @uncompleted_tasks.each do |task|
-    %div
-      %h4
-        = link_to task.name, task_path(task)
+  %p
+    Guides for getting stuff done with government.
+  .row
+    .eleven.columns
+      - if @uncompleted_tasks.empty?
+        %p
+          You currently have no tasks.
+      - else
+        %table
+          %tr
+            %th{:scope => "col"}
+              Name
+            %th{:scope => "col"}
+              App
+          - @uncompleted_tasks.each do |task|
+            %tr
+              %td
+                = link_to task.name, task_path(task)
+              %td
+                = task.app.name
+  .row
+    .eleven.columns
+      = link_to 'View all tasks', tasks_path

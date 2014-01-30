@@ -1,13 +1,17 @@
 .row
-  %h1 Account Activity
+  %h2 Account Activity
 .row
   .col-md-12
     - unless @user.grouped_activity_logs.empty?
       - @user.grouped_activity_logs.each do |group|
-        %h2
+        %h3
           = group.first
         %ul.activity_list
           - group.last.each do |item|
             %li.activity_item #{item}
     - else
       %p No activity to report.
+
+    %p
+
+    = link_to 'Back to Account Settings', account_index_path

@@ -59,15 +59,15 @@ describe "Users" do
     context "when a user is not signed in" do
       it "should have a sign-in link" do
         visit sign_up_path
-        page.should have_content "Already have an account?"
-        page.should have_content "Log In"
-        click_link "Log In"
+        page.should have_content "Already using MyUSA?"
+        page.should have_content "Sign in"
+        click_link "Sign in"
         current_path.should == sign_in_path
 
         visit root_path
-        page.should have_content "Already have an account?"
-        page.should have_content "Log In"
-        click_link "Log In"
+        page.should have_content "Already using MyUSA?"
+        page.should have_content "Sign in"
+        click_link "Sign in"
         current_path.should == sign_in_path
       end
 
@@ -105,7 +105,7 @@ describe "Users" do
       it "should not let the user create an account" do
         visit sign_up_path
         fill_in_email_and_password
-        check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+        check 'I agree to the MyUSA Terms of service and Privacy policy'
         click_button 'Sign up'
         page.should have_content "I'm sorry, your account hasn't been approved yet."
       end
@@ -137,7 +137,7 @@ describe "Users" do
         it "should not let the user create an account" do
           visit sign_up_path
           fill_in_email_and_password
-          check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+          check 'I agree to the MyUSA Terms of service and Privacy policy'
           click_button 'Sign up'
           page.should have_content "I'm sorry, your account hasn't been approved yet."
         end
@@ -175,11 +175,11 @@ describe "Users" do
           it "should let the user create an account" do
             visit sign_up_path
             fill_in_email_and_password
-            check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+            check 'I agree to the MyUSA Terms of service and Privacy policy'
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
             ActionMailer::Base.deliveries.last.to.should   == ['joe@citizen.org']
-            ActionMailer::Base.deliveries.last.from.should == ["projectmyusa@gsa.gov"]
+            ActionMailer::Base.deliveries.last.from.should == [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
             ActionMailer::Base.deliveries.last.should have_content("Welcome to MyUSA!")
             ActionMailer::Base.deliveries.last.should have_content("confirmation?confirmation_token=")
           end
@@ -188,12 +188,12 @@ describe "Users" do
             visit sign_up_path
             fill_in_email_and_password
             fill_in 'user_first_name', :with => 'Joe'
-            check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+            check 'I agree to the MyUSA Terms of service and Privacy policy'
 
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
             ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-            ActionMailer::Base.deliveries.last.from.should == ["projectmyusa@gsa.gov"]
+            ActionMailer::Base.deliveries.last.from.should == [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
             ActionMailer::Base.deliveries.last.should have_content("Welcome to MyUSA, Joe!")
             email = ActionMailer::Base.deliveries.last
             host_params = ActionMailer::Base.default_url_options
@@ -201,7 +201,7 @@ describe "Users" do
             email.body.encoded.should have_link('MyUSA App Gallery', href: apps_url(host_params))
             email.body.raw_source.should have_link('contact us')
             email.body.raw_source.should have_link('link', href: user_confirmation_url(host_params.merge(confirmation_token: user.confirmation_token)))
-            email.body.raw_source.should have_link('edit your notification settings', href: settings_url(host_params))
+            email.body.raw_source.should have_link('edit your notification settings', href: account_index_url(host_params))
             email.body.raw_source.should have_link('update your profile', href: edit_profile_url(host_params.merge(profile: user.profile)))
             email.body.raw_source.should have_content("confirmation?confirmation_token=#{user.confirmation_token}")
           end
@@ -210,7 +210,7 @@ describe "Users" do
             it "should not create the user account" do
               visit sign_up_path
               fill_in_email_and_password(password:'badpass')
-              check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+              check 'I agree to the MyUSA Terms of service and Privacy policy'
               click_button 'Sign up'
               page.should have_content 'Password is too short (minimum is 8 characters)'
             end
@@ -220,7 +220,7 @@ describe "Users" do
             it "should not create the user account" do
               visit sign_up_path
               fill_in_email_and_password(password:'password')
-              check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+              check 'I agree to the MyUSA Terms of service and Privacy policy'
               click_button 'Sign up'
               page.should have_content 'must include at least one lower case letter, one upper case letter and one digit.'
             end
@@ -230,7 +230,7 @@ describe "Users" do
             it "should create an account" do
               visit sign_up_path
               fill_in_email_and_password(email:'joe@citizen.org', password:'Password!2')
-              check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+              check 'I agree to the MyUSA Terms of service and Privacy policy'
               click_button 'Sign up'
               page.should have_content 'Thank you for signing up'
             end
@@ -247,7 +247,7 @@ describe "Users" do
           it "should not allow a new user to be created or login with that email address" do
             visit sign_up_path
             fill_in_email_and_password
-            check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+            check 'I agree to the MyUSA Terms of service and Privacy policy'
             click_button 'Sign up'
             page.should have_content 'Email has already been taken'
           end
@@ -271,11 +271,11 @@ describe "Users" do
           fill_in_email_and_password
           fill_in 'First name', :with => 'Joe'
           fill_in 'Last name', :with => 'Citizen'
-          check 'I agree to the MyUSA Terms of Service and Privacy Policy'
+          check 'I agree to the MyUSA Terms of service and Privacy policy'
           click_button 'Sign up'
           page.should have_content 'Thank you for signing up'
           ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-          ActionMailer::Base.deliveries.last.from.should == ["projectmyusa@gsa.gov"]
+          ActionMailer::Base.deliveries.last.from.should == [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
           User.find_by_email('joe@citizen.org').profile.name.should == 'Joe Citizen'
         end
       end
@@ -301,7 +301,7 @@ describe "Users" do
 
     it "should redirect the user to the sign in page" do
       visit dashboard_path
-      click_link 'Logout'
+      click_link 'Sign out'
       page.should have_content "Sign in"
       page.should have_content "Didn't receive confirmation instructions?"
     end
@@ -315,6 +315,9 @@ describe "Users" do
       expect(page.find('#profile_first_name').value).to eq('Joe')
       fill_in 'First name', :with => 'Jane'
       click_button 'Update profile'
+
+      page.should have_content "Sign out"
+      page.should have_content "My Profile"
       expect(page.find('#profile_first_name').value).to eq('Jane')
     end
 
@@ -332,7 +335,6 @@ describe "Users" do
       click_button "Email password reset instructions"
 
       expect(ActionMailer::Base.deliveries.last.subject).to eq('Reset password instructions')
-
       @user.reload
 
       expect(@user.reset_password_token.blank?).to be false
@@ -373,12 +375,13 @@ describe "Users" do
       expect(find('div.alert-info').text.squish).to eq alert_message
     end
 
-    it "yields the same message irregardless of the email's existence in the db when submitting to the confirmation instructions form" do
+    it "yields the same message regardless of the email's existence in the db when submitting to the confirmation instructions form" do
       visit new_user_confirmation_path
       fill_in 'user_email', with: 'joe@citizen.org'
       click_button "Send"
       alert_message = find('div.alert').text.squish
 
+      visit new_user_confirmation_path
       fill_in 'user_email', with: 'joe_schmoe@citizen.org'
       click_button "Send"
 
@@ -391,6 +394,7 @@ describe "Users" do
       click_button "Send"
       alert_message = find('div.alert').text.squish
 
+      visit new_user_unlock_path
       fill_in 'user_email', with: 'joe_schmoe@citizen.org'
       click_button "Send"
 

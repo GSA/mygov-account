@@ -22,6 +22,7 @@ describe "Profile" do
         context "editing your profile" do
           it "should perform validations on zip when updating a profile with information provided by the user" do
             visit profile_path
+            click_link "My Profile"
             page.should have_content 'Paperwork Reduction Act Statement'
             fill_in "Zip", :with => '12X45'
             click_button "Update profile"
@@ -30,6 +31,7 @@ describe "Profile" do
 
           it "should perform validations on phone when updating a profile with information provided by the user" do
             visit profile_path
+            click_link "My Profile"
             page.should have_content 'Paperwork Reduction Act Statement'
             fill_in "Phone", :with => '111-222-3x44'
             click_button "Update profile"
@@ -38,6 +40,7 @@ describe "Profile" do
 
           it "should update the profile with new information provided by the user" do
             visit profile_path
+            click_link "My Profile"
             page.should have_content 'Paperwork Reduction Act Statement'
             fill_in "Middle name", :with => "Q"
             fill_in "Address", :with => "123 Evergreen Terrace"

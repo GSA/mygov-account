@@ -12,7 +12,8 @@ describe "Apis" do
   end
 
   before do
-    @user = create_confirmed_user_with_profile
+    @user = create_confirmed_user_with_profile(is_student: nil, is_retired: false)
+
     @app = App.create(:name => 'App1', :redirect_uri => "http://localhost/")
     @app.oauth_scopes = OauthScope.top_level_scopes.where(:scope_type => 'user')
     @app.oauth_scopes << OauthScope.find_by_scope_name('profile.email')
@@ -104,6 +105,21 @@ describe "Apis" do
     end
 
     context "when the request has a valid token" do
+
+      context "when the app does not have permission to read the user's profile" do
+        before do
+          @app.oauth_scopes.destroy_all
+          @token = build_access_token(@app)
+        end
+
+        it "should return an error and message" do
+          get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
+          response.code.should == "403"
+          parsed_json = JSON.parse(response.body)
+          parsed_json["message"].should == "You do not have permission to read that user's profile."
+        end
+      end
+
       context "when app has limited scope" do
         before do
           @limited_scope_app = App.create(:name => 'app_limited', :redirect_uri => "http://localhost/")
@@ -112,6 +128,7 @@ describe "Apis" do
           @limited_scope_app.oauth_scopes << OauthScope.find_by_scope_name("profile.first_name")
           @token = build_access_token(@limited_scope_app)
         end
+
         it "should return JSON with only app requested user profile attritues in addition to an id and a unique identifier" do
           get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
           response.code.should == "200"
@@ -121,6 +138,32 @@ describe "Apis" do
           parsed_json["id"].should_not be_nil
           parsed_json["uid"].should_not be_nil
           parsed_json["email"].should be_nil  # profile.first_name is the only profile subscope app is authorized to access.
+          # ...
+          parsed_json["is_veteran"].should be_nil  # profile.first_name is the only profile subscope app is authorized to access.
+          parsed_json["is_retired"].should be_nil  # profile.first_name is the only profile subscope app is authorized to access.
+        end
+      end
+
+      context "when app has all scopes" do
+        before do
+          @all_scopes_app = App.create(:name => 'app_all_scopes', :redirect_uri => "http://localhost/")
+          @all_scopes_app.oauth_scopes = OauthScope.top_level_scopes.where(:scope_type => 'user')
+          # Adding just one profile sub scope to test that only this one is presnt in json.
+          @all_scopes_app.oauth_scopes.concat OauthScope.where("scope_name like ?", 'profile.%').all
+          @token = build_access_token(@all_scopes_app)
+        end
+        it "should return JSON with only app requested user profile attritues in addition to an id and a unique identifier" do
+          get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
+          response.code.should == "200"
+          parsed_json = JSON.parse(response.body)
+          parsed_json.should_not be_nil
+          parsed_json["first_name"].should eq 'Joe'
+          parsed_json["id"].should_not be_nil
+          parsed_json["uid"].should_not be_nil
+          parsed_json["email"].should_not be_nil
+          # ...
+          parsed_json["is_veteran"].should be_nil # we did not specify a value for this
+          parsed_json["is_retired"].should eq false
         end
       end
 

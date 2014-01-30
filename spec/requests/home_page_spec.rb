@@ -62,79 +62,127 @@ describe "HomePage" do
         end
       end
     end
+  end
 
-    context "when already logged in" do
-      before {login(@user)}
+  context "when already logged in" do
+    before {login(@user)}
 
-      it "should show the user the dashboard" do
+    it "should show the user the dashboard" do
+      visit root_path
+      page.should have_content "MyUSA"
+      expect(page.current_url).to eq 'http://citizen.org/dashboard'
+      page.should have_content 'Joe Citizen'
+    end
+
+    context "when the user does not have a first, last or any other name" do
+      before do
+        @user.profile.update_attributes(:first_name => nil, :last_name => nil)
+      end
+
+      it "should link to the profile page with 'Your profile'" do
+        visit root_path
+        page.should have_content "Account Settings"
+        click_link "Account Settings"
+        page.find('h2').should have_content "My Profile"
+      end
+    end
+
+
+    context "when the user does not have tasks" do
+      before { @user.tasks.destroy_all }
+
+      it "should tell the user they currently have no tasks" do
+        visit root_path
+        page.should have_content "You currently have no tasks."
+      end
+    end
+
+    context "when the user has tasks with task items" do
+      before do
+        @app = App.create!(:name => 'Change your name', :redirect_uri => "http://localhost:3000/")
+        @user.tasks.create!({:name => 'Change your name', :app_id => @app.id}, :as => :admin)
+      end
+
+      it "should show the tasks on the dashboard" do
         visit root_path
         page.should have_content "MyUSA"
-        expect(page.current_url).to eq 'http://citizen.org/dashboard'
-        page.should have_content 'Joe Citizen'
+        page.should have_content "Tasks"
+        page.should have_content "Change your name"
+      end
+    end
+
+    context "when the user visits the page the first time" do
+      before do
+        @user.tasks.destroy_all
+        @user.notifications.destroy_all
       end
 
-      context "when the user does not have a first, last or any other name" do
-        before do
-          @user.profile.update_attributes(:first_name => nil, :last_name => nil)
-        end
+      it "should show the user the dashboard, and link to their resources, and tell them they have no notifications or tasks" do
+        visit root_path
+        page.should have_content "MyUSA"
+        page.should have_content "Profile"
+        page.should have_content "Notifications"
+        page.should have_content "Tasks"
+        page.should have_content "Apps"
+        page.should have_content "Terms of service"
+        page.should have_content "Privacy policy"
+        page.should have_link 'View your profile', :href => profile_path
+        page.should have_link 'View all notifications', :href => notifications_path
+        page.should have_link 'View all tasks', :href => tasks_path
+        page.should have_link 'Learn how to create your own MyUSA app', :href => developer_path
+        page.should have_content "You currently have no notifications."
+        page.should have_content "You currently have no tasks."
+      end
+    end
+  end
 
-        it "should link to the profile page with 'Your profile'" do
-          visit root_path
-          page.should have_content "Settings"
-          click_link "Settings"
-          page.find('h2').should have_content "My Profile"
-        end
+  context "when the user has notifications" do
+    before do
+      @app = create_public_app_for_user(@user, "Notification App")
+      1.upto(10) do |index|
+        notification = Notification.new(:subject => "Notification ##{index}", :body => "This is notification ##{index}.", :received_at => Time.now, :notification_type =>'my-alert')
+        notification.user = @user
+        notification.app = @app
+        notification.save!
       end
 
+      login(@user)
+    end
 
-      context "when the user does not have tasks" do
-        before { @user.tasks.destroy_all }
-
-        it "should not show sidebar tabs or dashboard sections for tasks" do
-          visit root_path
-          page.should have_no_content "Tasks"
-        end
+    it "should show the first three newest notifications" do
+      visit root_path
+      Notification.order('created_at DESC').limit(3).each_with_index do |notification, index|
+        page.should have_content "Notification ##{10 - index}"
       end
+      page.should have_content 'Notification App'
+      page.should have_content 'less than a minute ago'
+      click_link 'Notification #10'
+      page.should have_content 'This is notification #10'
+    end
+  end
 
-      context "when the user has tasks with task items" do
-        before do
-          @app = App.create!(:name => 'Change your name', :redirect_uri => "http://localhost:3000/")
-          @user.tasks.create!({:name => 'Change your name', :app_id => @app.id}, :as => :admin)
-        end
-
-        it "should show the tasks on the dashboard" do
-          visit root_path
-          page.should have_content "MyUSA"
-          page.should have_content "Tasks"
-          page.should have_content "Change your name"
-        end
+  context "when the user has tasks" do
+    before do
+      @app = create_public_app_for_user(@user, "Task App")
+      1.upto(5) do |index|
+        task = Task.new(:name => "Task ##{index}")
+        task.app = @app
+        task.user = @user
+        task.save!
       end
+      @tasks = @user.tasks.order("created_at DESC").limit(3)
 
-      context "when the user visits the page the first time" do
-        before do
-          reset_session!
-          ApplicationController.any_instance.stub(:rand).with(2).and_return 0
-        end
+      login(@user)
+    end
 
-        it "should set the GA custom var for the segment" do
-          visit root_path
-          page.should have_content "_gaq.push(['_setCustomVar',1,'Segment','A', 2]);"
-        end
+    it "should show the first three newest uncompleted tasks" do
+      visit root_path
+      @tasks.each do |task|
+        page.should have_content task.name
       end
-
-      context "when revisiting the page a second and third time" do
-        before do
-          reset_session!
-          ApplicationController.any_instance.stub(:rand).with(2).and_return 0
-        end
-
-        it "should assign the GA custom var for the segment and always return the same value for subsequent requests for that session" do
-          5.times do
-            visit root_path
-            page.should have_content "_gaq.push(['_setCustomVar',1,'Segment','A', 2]);"
-          end
-        end
-      end
+      page.should have_content "Task App"
+      click_link @tasks.first.name
+      page.should have_content @tasks.first.name
     end
   end
 
@@ -152,24 +200,6 @@ describe "HomePage" do
     end
   end
 
-  describe "GET /discovery" do
-    context "when not logged in" do
-      it "should forward to a login page" do
-        visit discovery_path
-        page.should have_content "Please sign in or sign up before continuing"
-      end
-    end
-
-    context "when logged in" do
-      before {login(@user)}
-
-      it "should show the discovery page" do
-        visit discovery_path
-        page.should have_content "Discovery Bar"
-      end
-    end
-  end
-
   describe "GET /xrds.xml" do
     it "should return the XRDS file" do
       get "/xrds.xml"
@@ -178,3 +208,4 @@ describe "HomePage" do
     end
   end
 end
+

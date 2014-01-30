@@ -53,13 +53,11 @@ describe "Notifications" do
       end
 
       context "when notifications have been deleted" do
-
         it "does not display the deleted message in the notifications list" do
           Notification.delete_all
           visit dashboard_path(@year_old_notification)
           expect(page).to have_no_content "Year Old Notification"
         end
-
       end
 
       context "when some notifications do not have an associated app" do
@@ -73,7 +71,7 @@ describe "Notifications" do
 
       it "should display a paginated list of user's notifications" do
         visit notifications_path
-        @user.notifications.not_deleted.newest_first[0..9].each_with_index do |notification, index|
+        @user.notifications.not_deleted.newest_first.limit(10).each_with_index do |notification, index|
           page.should have_content notification.subject
         end
         click_link('2')
@@ -90,7 +88,6 @@ describe "Notifications" do
 
       it "should show the notification in detail and allow the user to delete it" do
         visit notifications_path
-        puts "show the notification in detail and allow the user to delete it - ERROR IN TEST!!!!! ERROR IN TEST!!!!!\n" + page.text if page.text.include?("Notification #5")
         page.should_not have_content "Notification #5"
         click_link "Notification #9"
         page.should have_content "Notifications"
@@ -99,6 +96,17 @@ describe "Notifications" do
         click_link "Remove"
         page.should have_content "Notification #5"
         page.should_not have_content "Notification #9"
+      end
+
+      it "should automatically set the page to the lowest actual page value if there are no notifications for the page specified" do
+        visit notifications_path
+        click_link "2"
+        1.upto(8) do
+          page.should have_link 'Previous'
+          click_link 'Remove'
+        end
+        page.should_not have_link 'Previous'
+        page.should have_content "Notification #14"
       end
 
       it "should revive a deleted record after first removing it" do

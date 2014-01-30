@@ -1,13 +1,8 @@
 .row
   .col-md-12
-    - unless resource.errors.empty?
-      .alert.alert-danger
-        = form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, novalidate: true }) do |f|
-          = devise_error_messages!
-          = flash_messages
-    - if flash.notice
-      .alert.alert-info
-        = flash.notice
+    = form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, novalidate: true }) do |f|
+      = devise_error_messages!
+      = flash_messages
 
 .row
   .col-md-12

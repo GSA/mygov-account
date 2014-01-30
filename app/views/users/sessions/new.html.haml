@@ -1,19 +1,12 @@
 .col-md-12
   %h2
     = t(:sign_in)
-  - if flash.alert
-    .alert.alert-danger
-      = flash.alert
-
-  - if flash.notice
-    .alert.alert-success
-      = flash.notice
+  = flash_messages
+  = devise_error_messages!
 
 .row
   .col-md-7
     = form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {novalidate: true}) do |f|
-      = flash_messages
-      = devise_error_messages!
 
       %fieldset.plain
         %ol.inline.sign-in-panel

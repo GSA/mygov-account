@@ -1,11 +1,7 @@
 .row
   .col-md-12
-    - unless resource.errors.empty?
-      .alert.alert-danger
-        = devise_error_messages!
-    - if flash.notice
-      .alert.alert-info
-        = flash.notice
+    = devise_error_messages!
+    = flash_messages
 
 .row
   .col-md-12

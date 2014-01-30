@@ -73,7 +73,7 @@ module ApplicationHelper
     end
   end
 
-  
+
   def session_timeout_message
     here = link_to(t('remain_logged_in'), url_for(params.reject{ |k,v| k == "no_keep_alive" }))
     content_tag :div, :id => 'inactivity_warning', :style=>"display:inline;", :class => "row" do
@@ -172,35 +172,35 @@ module ApplicationHelper
     meta ["http-equiv" => "X-XRDS-Location", :content => url_for(:action => 'xrds', :controller => controller_name, :protocol => 'https', :only_path => false, :format => :xml)]
     metamagic :title => title, :description => desc
   end
-  
+
   def flash_messages
     return nil if !flash[:error] && !flash.alert && !flash.notice
-    
+
     html = ''
     if flash[:error]
-      html << content_tag(:div, :class => 'alert-box') do
+      html << content_tag(:div, :class => 'alert alert-danger') do
         flash[:error]
       end
     end
-    
+
     if flash.alert
-      html << content_tag(:div, :class => 'alert-box') do
+      html << content_tag(:div, :class => 'alert alert-danger') do
         flash.alert
       end
     end
-    
+
     if flash.notice
-      html << content_tag(:div, :class => 'alert-box blue') do
+      html << content_tag(:div, :class => 'alert alert-info') do
         flash.notice
       end
     end
-    
+
     content_for :scripts do
       javascript_tag do
         "$('html,body').animate({scrollTop: $('.alert-box').not('#inactivity_warning .alert-box').offset().top},'slow');".html_safe
       end
     end
-    
+
     html.html_safe
   end
 end

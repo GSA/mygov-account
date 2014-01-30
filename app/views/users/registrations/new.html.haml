@@ -5,13 +5,8 @@
 
 .row
   .col-md-12
-    - if flash.alert
-      .alert.alert-danger
-        = flash.alert
-        = flash_messages
-    - unless resource.errors.empty?
-      .alert.alert-danger
-        = devise_error_messages!
+    = devise_error_messages!
+    = flash_messages
     %h2
       = t(:take_control)
 

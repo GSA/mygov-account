@@ -88,9 +88,7 @@
             #signup-form
               #fieldset
                 = form_for @beta_signup do |form|
-                  - if flash.alert
-                    .alert.alert-danger
-                      = flash.alert
+                  = flash_messages
 
                   = form.email_field :email, :value=>'Enter your email address'
                   = form.submit 'Sign up', :class => 'btn'

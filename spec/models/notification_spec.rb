@@ -21,7 +21,7 @@ describe Notification do
    it { should belong_to :app }
 
   it "should create a new notification with valid attributes" do
-    Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
+    notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
   end
 
   context "when creating a new notification" do
@@ -55,39 +55,6 @@ describe Notification do
         @notification.stub_chain(:user, :notification_settings, :where).and_return([])
         Resque.should_not receive(:enqueue)
         @notification.save
-      end
-    end
-
-    context "when creating a notification without an app" do
-      it "should send an email to the user with the notification content" do
-        notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id), :as => :admin)
-        email = ActionMailer::Base.deliveries.first
-        email.should_not be_nil
-        email.from.should == [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
-        email.to.should == [@user.email]
-        email.subject.should == "[MYUSA] #{notification.subject}"
-        email.parts.map do |part|
-          expect(part.body).to include("Hello, #{@user.profile.first_name}")
-          expect(part.body).to include('A notification for you from MyUSA')
-          expect(part.body).to include("#{@valid_attributes[:body]}")
-        end
-      end
-    end
-
-    context "when creating a notification with an app" do
-      it "should send an email to the user with the notification content identifying the sending application" do
-        notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id, :body => "<p>#{@valid_attributes[:body]}</p>"), :as => :admin)
-        email = ActionMailer::Base.deliveries.first
-        email.should_not be_nil
-        email.from.should == [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
-        email.to.should == [@user.email]
-        email.subject.should == "[MYUSA] [#{notification.app.name}] #{notification.subject}"
-        email.parts.map do |part|
-          expect(part.body).to include("Hello, #{@user.profile.first_name}")
-          expect(part.body).to include("The \"#{notification.app.name}\" MyUSA application has sent you the following message")
-          expect(part.body).to include("#{@valid_attributes[:body]}")
-        end
-        expect(email.html_part.body).to_not include('&lt;')
       end
     end
   end

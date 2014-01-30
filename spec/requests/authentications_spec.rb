@@ -58,7 +58,7 @@ describe "Authentications" do
         click_link 'Delete'
         current_path.should eq authentications_path
         page.should_not have_content 'Google'
-        click_link 'Sign Out'
+        click_link 'Sign out'
         visit sign_in_path
         click_link 'Sign in with Google'
         current_path.should eq sign_in_path

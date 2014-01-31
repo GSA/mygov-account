@@ -6,7 +6,7 @@ MyUSA is a platform for citizen identity.
 
 ## Getting Started
 
-To get your Rails development environment setup, here's the steps to follow. 
+To get your Rails development environment setup, here's the steps to follow.
 We assume that you have MySQL installed.  If you don't, Google it and figure
 it out.  We also assume you have git installed, if you don't, install it here:
 https://help.github.com/articles/set-up-git
@@ -40,6 +40,8 @@ https://help.github.com/articles/set-up-git
     5.  Create your configuration files
 
       cp config/database.yml.example config/database.yml
+      cp config/twilio.yml.example config/twilio.yml
+      cp config/resque.yml.example config/resque.yml
       cp config/initializers/01_mygov.rb.example config/initializers/01_mygov.rb
       (check these configuration files to ensure they look correct for your environment)
       rake secret

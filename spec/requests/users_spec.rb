@@ -124,7 +124,7 @@ describe "Users" do
         test_email = "shady@citizen.org"
         visit root_path
         fill_in 'beta_signup_email', :with => test_email + "&is_approved=1"
-        click_button 'Sign up'
+        click_button 'Sign Up'
         BetaSignup.find_by_email(test_email).should be_nil
         BetaSignup.find_by_email(test_email + "&is_approved=1").should be_nil
       end

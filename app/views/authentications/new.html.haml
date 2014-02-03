@@ -25,6 +25,6 @@
 						.panel.side-panel
 							%ul.button-list
 								- Devise.omniauth_providers.each do |provider|
-									- unless [:maxgov].include?(provider) or current_user.authentications.collect { |auth| auth.provider.to_sym }.include?(provider)
+									- unless [:maxgov, :google].include?(provider) or current_user.authentications.collect { |auth| auth.provider.to_sym }.include?(provider)
 										%li
 											= link_to provider.to_s.titleize, user_omniauth_authorize_path(:provider => provider)

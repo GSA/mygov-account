@@ -7,5 +7,6 @@
 .row
   .eight.columns
     .panel
-      %li
-        = link_to 'Sign in with MAX.gov', omniauth_authorize_path(resource_name, :maxgov)
+      - [:maxgov, :google].each do |provider|
+        %li
+          = link_to "Sign #{in_or_up} with #{provider == :maxgov ? 'MAX.gov' : provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider)

@@ -27,15 +27,15 @@ describe "Authentications" do
       end
     end
 
-    context "when the user does not have a google authentication" do
+    context "when the user does not have a paypal authentication" do
       before { @user.authentications.each {|auth| auth.destroy} }
 
-      it 'allows the user to connect to google' do
+      it 'allows the user to connect to paypal' do
         visit root_path
         click_link 'Settings'
         click_link 'Authentication providers'
         click_link 'Add an authentication provider to your account'
-        expect(page).to have_content 'Google'
+        expect(page).to have_content 'PayPal'
       end
     end
 

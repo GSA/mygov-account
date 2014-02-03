@@ -19,8 +19,11 @@ describe "Users" do
       
       it "should link to third party sign ins" do
         visit sign_in_path
-        page.should have_link 'Sign in with Google'
+        page.should have_link 'Sign in with PayPal'
+        page.should have_link 'More sign in options'
         page.should have_link 'Sign in with VeriSign'
+        click_link 'More sign in options'
+        page.should have_link 'Sign in with Google'
       end
       
       it "should not have a sign-in link on the sign-in page" do
@@ -43,7 +46,7 @@ describe "Users" do
   describe "sign up process" do
     it "should provide links to third party sign in services" do
       visit sign_up_path
-      page.should have_link 'Sign up with Google'
+      page.should have_link 'Sign up with PayPal'
       page.should have_link 'Sign up with VeriSign'
     end
     
@@ -180,6 +183,7 @@ describe "Users" do
           
           it "should not let someone sign in with a third party service that identifies the user with the same email" do
             visit sign_in_path
+            click_link 'More sign in options'
             click_link 'Sign in with Google'
             page.should have_content 'We already have an account with that email. Make sure login with the service you used to create the account.'
           end

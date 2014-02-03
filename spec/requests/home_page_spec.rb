@@ -25,7 +25,7 @@ describe "HomePage" do
         it "should not let a user sign up for the beta without providing their email address" do
           visit root_path
           fill_in 'beta_signup_email', :with => ''
-          click_button "Sign up"
+          click_button "Sign Up"
           page.should_not have_content("Thanks for signing up")
           page.should have_content("Email can't be blank")
         end
@@ -33,7 +33,7 @@ describe "HomePage" do
         it "should let a user sign up for the beta by providing their email address" do
           visit root_path
           fill_in 'beta_signup_email', :with => 'joe@citizen.org'
-          click_button "Sign up"
+          click_button "Sign Up"
           BetaSignup.find_by_email('joe@citizen.org').should_not be_nil
           page.should have_content("Thanks for signing up")
         end

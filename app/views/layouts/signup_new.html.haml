@@ -21,6 +21,7 @@
     = stylesheet_link_tag "bootstrap", :media => "all"
     = stylesheet_link_tag "dashboard", :media => "all"
     = stylesheet_link_tag "signup", :media => "all"
+    %link{:href=>'http://fonts.googleapis.com/css?family=Raleway: 100, 200, 300,400,500,700', :rel=>'stylesheet', :type=>'text/css'}
     %body
     /
       Javascripts
@@ -37,27 +38,39 @@
           %nav.navbar.navbar-default{role: "navigation"}
             / Brand and toggle get grouped for better mobile display
             .navbar-header
-              .navbar-brand
+              .navbar-brand.col-xs-8.col-sm-12
                 %img{:src => "/assets/shield.gif"}
                 %h1
-                  <span>My</span>USA
-                -#.tagline
-                  Re-imagining online government
+                  <span class="my">My</span><span class="usa">USA</span>
 
-            / Collect the nav links, forms, and other content for toggling
-            %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", type: "button"}
-              %span.sr-only Toggle navigation
-              %span.icon-bar
-              %span.icon-bar
-              %span.icon-bar
+              -#.col-xs-4.visible-xs
+                -#Sign in
+
+              / Collect the nav links, forms, and other content for toggling
+              .col-xs-4
+                %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", type: "button"}
+                  %span.sr-only Toggle navigation
+                  %span.icon-bar
+                  %span.icon-bar
+                  %span.icon-bar
 
             .collapse.navbar-collapse.navbar-ex1-collapse
               .navbar-right
-                %p
-                  Already using MyUSA?
-                  = link_to t(:sign_in), sign_in_path, {class: 'btn btn-primary'}
+                #existing-account.hidden-xs.hidden-sm
+                  %p
+                    %span{:class=>'sign-in-label'}
+                      Already using MyUSA?
+                    = link_to t(:sign_in), sign_in_path, {class: 'btn btn-primary'}
 
-                %ul.nav.navbar-nav
+                %ul.nav.navbar-nav.tablet.visible-sm
+                  %a{href: "#"} Sign in
+                  %a{href: "#", class: "btn btn-primary"} What's MyUSA?
+                  %a{href: "#", class: "btn btn-primary"} Get an Account
+                  %a{href: "#", class: "btn btn-primary"} Build with MyUSA
+
+                %ul.nav.navbar-nav.hidden-sm
+                  %li.visible-xs.visible-sm
+                    %a{href: "#"} Sign in
                   %li
                     %a{href: "#"} What's MyUSA?
                   %li
@@ -73,17 +86,13 @@
         .row
           .col-md-6.col-sm-6
             #elevator-pitch
-              Save
-              <strong>time</strong>.
+              <span class='lighter'>Save</span> time.
               %br
-              Stay
-              <strong>informed</strong>.
+              <span class='lighter'>Stay</span> informed.
               %br
-              Get
-              <strong>connected</strong>.
+              <span class='lighter'>Get</span> connected.
 
           .col-md-6.col-sm-6
-
 
             #signup-form
               #fieldset
@@ -91,15 +100,16 @@
                   = flash_messages
 
                   = form.email_field :email, :value=>'Enter your email address'
-                  = form.submit 'Sign up', :class => 'btn'
+                  = form.submit 'Sign Up', :class => 'btn'
 
-                  %p
-                    = link_to "Or sign up with Google, Paypal, and more.", "/sign_up"
+                  .middle
+                    %p
+                      = link_to "Or sign up with Google, Paypal, and more.", "/sign_up"
 
-      .row
-        .home-mission-statement.col-md-12
-          <p><strong>MyUSA</strong> has a mission and it is awesome.</p>
-          <p>Reinventing citizenship, one app at a time.</p>
+        .row
+          .home-mission-statement.col-md-12.hidden-xs
+            <p><strong>MyUSA</strong> has a mission and it is awesome.</p>
+            <p>Reinventing citizenship, one app at a time.</p>
 
     .features-region
       .container
@@ -107,14 +117,14 @@
           .col-md-12
             %h2 Why Do You Need This?
         .row
-          .col-md-4
-            %img{:src=>'/assets/icon_govt_your_way.png'}
+          .col-md-4.first
+            %img{:src=>'/assets/img_icon_govyourway.png'}
             .tabScreenFix
               %h3 Government your way
               %p Stay informed and connected to your government through simple and easy-to-use <a href="#">MyUSA Apps</a>
 
           .col-md-4
-            %img{:src=>'/assets/icon_login_myusa.png'}
+            %img{:src=>'/assets/img_icon_loginwithmyusa.png'}
             .tabScreenFix
               %h3 Log in with MyUSA
               %p
@@ -123,7 +133,7 @@
                 Account is your single point of access to government information and services
 
           .col-md-4
-            %img{:src=>'/assets/icon_no_paper_forms.png'}
+            %img{:src=>'/assets/img_icon_nopaperforms.png'}
             .tabScreenFix
               %h3 No more paper forms
               %p Tired of PDFs? So are we. MyUSA Forms will help make government forms easier to find and fill out online.
@@ -161,7 +171,7 @@
               %a{:href=>'#'}
                 Developers
           .col-md-6.text-right.col-sm-7.hidden-xs
-            %img{:src=>'/assets/home-bg-media-screens.jpg'}
+            -# TODO: Add Featured Apps section
 
     .footer-nav-region
       .container
@@ -169,13 +179,13 @@
           .col-xs-4.col-md-3
             %h4 Policies
             %p
-              %a{:href=>'#'}
+              %a{:href=>'https://qa.my.usa.gov/privacy-policy'}
                 Privacy Policy
               %br
-              %a{:href=>'#'}
+              %a{:href=>'/terms-of-service'}
                 Terms of Participation
               %br
-              %a{:href=>'#'}
+              %a{:href=>'/paperwork-reduction-act-statement'}
                 Paperwork Reduction Act
 
           .col-xs-4.col-md-2
@@ -196,13 +206,13 @@
           .col-xs-4.col-md-2
             %h4 Elsewhere
             %p
-              %a{:href=>'#'}
+              %a{:href=>'https://twitter.com/ProjectMyUSA'}
                 Twitter
               %br
-              %a{:href=>'#'}
+              %a{:href=>'https://www.facebook.com/ProjectMyUSA'}
                 Facebook
               %br
-              %a{:href=>'#'}
+              %a{:href=>'https://github.com/GSA-OCSIT'}
                 Github
 
           .col-xs-12.col-md-5
@@ -210,4 +220,5 @@
               MyUSA is a joint initiative between the White House and the General Services Administration to redefine how we interact with government.
 
             %p.tagline-highlight
-              Digital Government: Building a 21st Century Platform
+              %a{:href=>'http://www.whitehouse.gov/sites/default/files/omb/egov/digital-government/digital-government.html', :target=>'_blank'}
+                Digital Government: Building a 21st Century Platform

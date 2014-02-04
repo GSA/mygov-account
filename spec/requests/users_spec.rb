@@ -351,7 +351,6 @@ describe "Users" do
 
       visit edit_user_password_path(reset_password_token: @user.reset_password_token)
       fill_in 'user_password', :with => 'Secure_passw0rd'
-      fill_in 'user_password_confirmation', :with => 'Secure_passw0rd'
       click_button "Change my password"
 
       expect(ActionMailer::Base.deliveries.last.subject).to eq('Your MyUSA password has been changed')

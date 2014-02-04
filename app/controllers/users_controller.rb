@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def update_password
     @user = User.find(current_user.id)
-    new_params =  {password: params[:user][:password], password_confirmation: params[:user][:password_confirmation]}
+    new_params =  {password: params[:user][:password]}
     if @user.update_attributes(new_params)
       # Sign in the user by passing validation in case his password changed
       sign_in @user, :bypass => true

@@ -10,10 +10,6 @@
             = f.label :password, "New password"
             %br/
             = f.password_field :password, autocomplete: 'off', :tabindex => autotab
-          %div
-            = f.label :password_confirmation, "Confirm new password"
-            %br/
-            = f.password_field :password_confirmation, autocomplete: 'off', :tabindex => autotab
           %div= f.submit "Change my password", class: 'large button positive', :tabindex => autotab, :accesskey => access_keys[:submit]
     .four.columns
       .panel.side-panel

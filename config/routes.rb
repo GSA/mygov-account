@@ -1,6 +1,8 @@
 require 'api_constraints'
 
 Mygov::Application.routes.draw do
+  mount_roboto
+
   devise_for :users, :path => '', :controllers => {
     :omniauth_callbacks => 'users/omniauth_callbacks',
     :registrations => 'users/registrations',

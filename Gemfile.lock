@@ -313,6 +313,9 @@ GEM
       rufus-scheduler (~> 2.0)
     resque_mailer (2.2.6)
       actionmailer (>= 3.0)
+    roboto (0.2.0)
+      actionpack (>= 3.0.0)
+      rails (>= 3.1.0)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -461,6 +464,7 @@ DEPENDENCIES
   recaptcha
   resque!
   resque_mailer
+  roboto
   rspec-rails
   ruby_parser
   rvm-capistrano

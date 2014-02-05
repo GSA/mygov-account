@@ -51,7 +51,7 @@ def create_sandbox_app(user)
 end
 
 def fill_in_email_and_password(options = {})
-  optoins = options.reverse_merge({email:'joe@citizen.org', password:'Password1'})
+  options = options.reverse_merge({email:'joe@citizen.org', password:'Password1'})
   fill_in 'Email', :with => options[:email]
   fill_in 'Password', :with => options[:password]
 end

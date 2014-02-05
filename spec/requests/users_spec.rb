@@ -226,6 +226,17 @@ describe "Users" do
             end
           end
           
+          context "when the user submits a zip that isn't sufficiently formatted" do
+            it "should not create the user account" do
+              visit sign_up_path
+              fill_in_email_and_password
+              fill_in 'Zip', :with => '1234'
+              check 'I agree to the MyUSA Terms of service and Privacy policy'
+              click_button 'Sign up'
+              page.should have_content 'should be in the form 12345'
+            end
+          end
+          
           context "when the user submits a password with special characters" do
             it "should create an account" do
               visit sign_up_path

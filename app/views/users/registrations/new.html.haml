@@ -36,6 +36,9 @@
                 = f.label :password
                 = f.password_field :password, autocomplete: 'off', :tabindex => autotab
               %li
+                = f.label :zip
+                = f.text_field :zip, :tabindex => autotab
+              %li
                 = f.label :terms_of_service do
                   = f.check_box :terms_of_service, :tabindex => autotab
                   = t(:i_agree_html, :terms_of_service_link => link_to(t(:terms_of_service), terms_of_service_path), :privacy_policy_link => link_to(t(:privacy_policy), privacy_policy_path))

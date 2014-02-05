@@ -1,3 +1,5 @@
+require 'uri'
+
 class AppsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show, :leaving]
   before_filter :assign_user
@@ -62,6 +64,10 @@ class AppsController < ApplicationController
   end
   
   def leaving
+    # Make sure that "About to leave this site" warning only displays when appropriate.
+    app_uri = URI.parse(@app.url)
+    @put_leaving_usa = (request.host != app_uri.host) ? true : false
+
   end
 
   def destroy

@@ -23,6 +23,9 @@ en:
   session_expiration_warning: "We noticed you haven't been very active in MyUSA. %{link}"
   beta_signup_error: "An error occurred during signup.  Please try again."
   apps_leaving: "In a few seconds, you will be redirected to"
+  leaving_myusa: "You are leaving MyUSA"
+  not_part_of_myusa: "Please note that this page is not a part of MyUSA."
+
   unauthorized_scope: "Requesting unauthorized scopes"
   custom_session_timeout: 'Your session expired. Please sign in again.'
   invalid_uri: "must be a valid URL"

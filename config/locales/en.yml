@@ -54,7 +54,7 @@ en:
   i_agree_html: "I agree to the MyUSA %{terms_of_service_link} and %{privacy_policy_link}."
   
   thank_you_for_signing_up: "Thank you for signing up"
-  we_sent_you_an_email: "We've sent you an email to verify you're a person and not a robot. Please follow the instructions in the email, and we&rsquo;ll see you back here shortly."
+  we_sent_you_an_email: "We've sent you an email to verify you're a person and not a robot. Please follow the instructions in the email, and we'll see you back here shortly."
   
   your_profile: "Your profile"
   edit_your_profile: "Edit your profile"

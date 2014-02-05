@@ -240,6 +240,7 @@ GEM
     net-ssh (2.6.8)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
+    newrelic_rpm (3.7.1.188)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     oauth2 (0.9.2)
@@ -319,6 +320,9 @@ GEM
       rufus-scheduler (~> 2.0)
     resque_mailer (2.2.6)
       actionmailer (>= 3.0)
+    roboto (0.2.0)
+      actionpack (>= 3.0.0)
+      rails (>= 3.1.0)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -463,6 +467,7 @@ DEPENDENCIES
   maruku
   metamagic
   mysql2
+  newrelic_rpm
   oauth2
   oauth2-provider!
   omniauth
@@ -481,6 +486,7 @@ DEPENDENCIES
   recaptcha
   resque!
   resque_mailer
+  roboto
   rspec-rails
   ruby_parser
   rvm-capistrano

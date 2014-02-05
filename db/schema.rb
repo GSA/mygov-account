@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131217210551) do
+ActiveRecord::Schema.define(:version => 20140129181216) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20131217210551) do
     t.string   "notification_type"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "app_id"
   end
 
   create_table "notifications", :force => true do |t|

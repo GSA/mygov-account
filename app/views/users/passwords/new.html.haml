@@ -1,23 +1,20 @@
 .row
-  .col-md-12
-    %h2
+  .twelve.columns
+    %h2 
       Forgot your password?
-
-.row
-  .col-md-12
-    = devise_error_messages!
-    = flash_messages
-
-.row
-  .col-md-6
-    = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, novalidate: true }) do |f|
-      %fieldset.plain
-        %ol.inline
-          %li
-            = f.label :email, "Enter your email address"
-          %li
-            = f.email_field :email
-        %div.actions= f.submit "Email password reset instructions", :class => 'btn btn-primary'
-
-  .col-md-6
-    = render "shared/signup_options"
+  .eight.columns
+    .panel
+      = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, novalidate: true }) do |f|
+        = devise_error_messages!
+        = flash_messages
+        %fieldset.plain
+          %ol
+            %li
+              = f.label :email
+            %li
+              = f.email_field :email, :tabindex => autotab
+          %div.actions= f.submit "Email password reset instructions", :class => 'large button positive', :tabindex => autotab, :accesskey => access_keys[:submit]
+  
+  .four.columns
+    .panel.side-panel
+      = render "devise/shared/links"

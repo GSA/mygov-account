@@ -18,30 +18,29 @@
     = devise_error_messages!
     = flash_messages
 
-        .panel
-          = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, novalidate: true }) do |f|
+    .panel
+      = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, novalidate: true }) do |f|
 
         %div
           = f.label :email
           %br
-          = f.email_field :email, value: resource.unconfirmed_email ? resource.unconfirmed_email : resource.email, :size => 30
+          = f.email_field :email, value: resource.unconfirmed_email ? resource.unconfirmed_email : resource.email, :size => 30, :tabindex => autotab
 
           = f.label :current_password
           %i= "(#{t(:need_current_password)})"
-          -#TODO: Pull out form fields into partials
 
           %br
-          = f.password_field :current_password
+          = f.password_field :current_password, autocomplete: 'off', :tabindex => autotab
           %br
           = f.label :current_password, "New Password"
           %i= "(#{t(:need_current_password)})"
           %br
-          = f.password_field :password, autocomplete: 'off'
+          = f.password_field :password, autocomplete: 'off', :tabindex => autotab
           %br
           = f.label :password_confirmation, "Confirm New Password"
           %br
-          = f.password_field :password_confirmation
+          = f.password_field :password_confirmation, :tabindex => autotab
 
         %div
-          = f.submit t(:update_my_password), class: 'btn btn-primary form-button'
-          = link_to t(:cancel), account_index_path
+          = f.submit t(:update_my_password), class: 'btn btn-primary form-button', :tabindex => autotab, :accesskey => access_keys[:submit]
+          = link_to t(:cancel), account_index_path, :tabindex => autotab

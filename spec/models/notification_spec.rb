@@ -21,7 +21,7 @@ describe Notification do
    it { should belong_to :app }
 
   it "should create a new notification with valid attributes" do
-    notification = Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
+    Notification.create!(@valid_attributes.merge(:user_id => @user.id, :app_id => @app.id), :as => :admin)
   end
 
   context "when creating a new notification" do

@@ -73,7 +73,6 @@ module ApplicationHelper
     end
   end
 
-
   def session_timeout_message
     here = link_to(t('remain_logged_in'), url_for(params.reject{ |k,v| k == "no_keep_alive" }))
     content_tag :div, :id => 'inactivity_warning', :style=>"display:inline;", :class => "row" do
@@ -173,34 +172,51 @@ module ApplicationHelper
     metamagic :title => title, :description => desc
   end
 
+
   def flash_messages
     return nil if !flash[:error] && !flash.alert && !flash.notice
 
     html = ''
+    alert_name = 'alert-message'
+    error_displayed = false
     if flash[:error]
-      html << content_tag(:div, :class => 'alert alert-danger') do
+      html << content_tag(:div, :class => 'alert alert-danger', :id => !error_displayed ? alert_name : nil, :tabindex => -3) do
         flash[:error]
       end
+      error_displayed = true
     end
 
     if flash.alert
-      html << content_tag(:div, :class => 'alert alert-danger') do
+      html << content_tag(:div, :class => 'alert alert-danger', :id => !error_displayed ? alert_name : nil, :tabindex => -2) do
         flash.alert
       end
+      error_displayed = true
     end
 
     if flash.notice
-      html << content_tag(:div, :class => 'alert alert-info') do
+      html << content_tag(:div, :class => 'alert alert-info', :id => !error_displayed ? alert_name : nil, :tabindex => -1) do
         flash.notice
       end
+      error_displayed = true
     end
 
     content_for :scripts do
       javascript_tag do
-        "$('html,body').animate({scrollTop: $('.alert-box').not('#inactivity_warning .alert-box').offset().top},'slow');".html_safe
+        "$( document ).ready( function() { $('html,body').scrollTo('##{alert_name}', 'slow'); $('##{alert_name}').focus(); } );".html_safe
       end
     end
 
     html.html_safe
+  end
+
+  # Keep a counter to help set tabindex when building a form
+  def autotab(start_after=0, increment=1)
+    @tab_count ||= start_after
+    @tab_count += increment
+  end
+
+  # Use the same access keys throughout the application
+  def access_keys
+    {:submit => 's'}
   end
 end

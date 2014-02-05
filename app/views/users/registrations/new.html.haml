@@ -1,8 +1,3 @@
-- if resource && !resource.errors.blank?
-  - content_for :scripts do
-    = javascript_tag do
-      $('html,body').animate({scrollTop: $('.alert').offset().top},'slow');
-
 .row
   .col-md-12
     = devise_error_messages!
@@ -14,37 +9,40 @@
   .col-md-8
     %p
       = form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {novalidate: true}) do |f|
+        = flash_messages
+        = devise_error_messages!
+
         %ol.inline.sign-in-panel
           %li.row
             .col-md-2
               = f.label :first_name
             .col-md-6
-              = f.text_field :first_name
+              = f.text_field :first_name, :tabindex => autotab
           %li.row
             .col-md-2
               = f.label :last_name
             .col-md-6
-              = f.text_field :last_name
+              = f.text_field :last_name, :tabindex => autotab
           %li.row
             .col-md-2
               = f.label :email
             .col-md-6
-              = f.email_field :email
+              = f.email_field :email, :tabindex => autotab
           %li.row
             .col-md-2
               = f.label :password
             .col-md-6
-              = f.password_field :password, autocomplete: 'off'
+              = f.password_field :password, autocomplete: 'off', :tabindex => autotab
           %li.row
             .col-md-2
               = f.label :password_confirmation
             .col-md-6
-              = f.password_field :password_confirmation, autocomplete: 'off'
+              = f.password_field :password_confirmation, autocomplete: 'off', :tabindex => autotab
           %li.row
             .col-md-2
             .col-md-6
               = f.label :terms_of_service do
-                = f.check_box :terms_of_service
+                = f.check_box :terms_of_service, :tabindex => autotab
                 = t(:i_agree_html, :terms_of_service_link => link_to(t(:terms_of_service), terms_of_service_path), :privacy_policy_link => link_to(t(:privacy_policy), privacy_policy_path))
           %li.row
             .col-md-2
@@ -53,7 +51,7 @@
           %li.row
             .col-md-2
             .col-md-6
-              = f.submit 'Sign up', :class => 'btn btn-primary btn-lg'
+              = f.submit t(:sign_up), :class => 'btn btn-primary btn-lg', :tabindex => autotab, :accesskey => access_keys[:submit]
 
   .col-md-4
     = render "devise/shared/provider_links"

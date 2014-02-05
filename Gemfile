@@ -37,6 +37,8 @@ gem 'devise-async'
 gem 'simple-navigation'
 gem 'twilio-ruby'
 gem 'auto-session-timeout-warning'
+gem 'newrelic_rpm'
+gem 'roboto'
 
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA-OCSIT/rack-openid.git', :branch => 'pape'

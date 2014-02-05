@@ -41,6 +41,7 @@ en:
   forgot_your_password: "Forgot your password?"
   change_your_password: "Change your password"
   change_my_password: "Change my password"
+  update_my_password: "Update my password"
   need_current_password: "we need your current password to confirm your changes"
   change_your_email_address: "Change your email address"
   new_password: "New password"
@@ -82,7 +83,7 @@ en:
 
   your_account: "Your account"
   account_activity: "Account activity"
-  authentication_providers: "Authentication providers"
+  authentication_providers: "Other networks"
   delete_your_account: "Delete your account"
   are_you_sure: "Are you sure?"
   by_deleting: "By deleting your account, all information associated with your account will be deleted forever. (You can't undo this later.)"

@@ -7,7 +7,6 @@
 .row
   .col-md-7
     = form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {novalidate: true}) do |f|
-      = flash_messages
       = devise_error_messages!
       %fieldset.plain
         %ol.inline.sign-in-panel
@@ -38,6 +37,6 @@
                   - if devise_mapping.registerable? && controller_name != 'registrations'
                     or
                     %strong
-                      = link_to "Sign up for a new account", :tabindex => autotab, new_registration_path(resource_name)
+                      = link_to "Sign up for a new account", new_registration_path(resource_name), :tabindex => autotab
 
   = render 'shared/signup_options'

@@ -1,6 +1,6 @@
 .row
   .twelve.columns
-    %h2 
+    %h2
       Forgot your password?
   .eight.columns
     .panel
@@ -14,7 +14,7 @@
             %li
               = f.email_field :email, :tabindex => autotab
           %div.actions= f.submit "Email password reset instructions", :class => 'large button positive', :tabindex => autotab, :accesskey => access_keys[:submit]
-  
+
   .four.columns
     .panel.side-panel
       = render "devise/shared/links"

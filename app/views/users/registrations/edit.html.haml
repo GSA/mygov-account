@@ -8,12 +8,7 @@
 
   .col-md-8
     %h2
-      t(:change_your_password)
-
-    %p
-      Create a new password for
-      %strong
-        = @user.email
+      = t(:change_your_email_address)
 
     = devise_error_messages!
     = flash_messages
@@ -25,22 +20,15 @@
           = f.label :email
           %br
           = f.email_field :email, value: resource.unconfirmed_email ? resource.unconfirmed_email : resource.email, :size => 30, :tabindex => autotab
-
+          %br
           = f.label :current_password
           %i= "(#{t(:need_current_password)})"
 
           %br
           = f.password_field :current_password, autocomplete: 'off', :tabindex => autotab
           %br
-          = f.label :current_password, "New Password"
-          %i= "(#{t(:need_current_password)})"
-          %br
-          = f.password_field :password, autocomplete: 'off', :tabindex => autotab
-          %br
-          = f.label :password_confirmation, "Confirm New Password"
-          %br
-          = f.password_field :password_confirmation, :tabindex => autotab
 
         %div
-          = f.submit t(:update_my_password), class: 'btn btn-primary form-button', :tabindex => autotab, :accesskey => access_keys[:submit]
+          = f.submit t(:update), class: 'btn btn-primary form-button', :tabindex => autotab, :accesskey => access_keys[:submit]
+
           = link_to t(:cancel), account_index_path, :tabindex => autotab

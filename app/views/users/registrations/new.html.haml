@@ -25,26 +25,26 @@
             %ol
               %li
                 = f.label :first_name
-                = f.text_field :first_name, :tabindex => autotab
+                = f.text_field :first_name
               %li
                 = f.label :last_name
-                = f.text_field :last_name, :tabindex => autotab
+                = f.text_field :last_name
               %li
                 = f.label :email
-                = f.email_field :email, :tabindex => autotab
+                = f.email_field :email
               %li
                 = f.label :password
-                = f.password_field :password, autocomplete: 'off', :tabindex => autotab
+                = f.password_field :password, autocomplete: 'off'
               %li
                 = f.label :zip
-                = f.text_field :zip, :tabindex => autotab
+                = f.text_field :zip
               %li
                 = f.label :terms_of_service do
-                  = f.check_box :terms_of_service, :tabindex => autotab
+                  = f.check_box :terms_of_service
                   = t(:i_agree_html, :terms_of_service_link => link_to(t(:terms_of_service), terms_of_service_path), :privacy_policy_link => link_to(t(:privacy_policy), privacy_policy_path))
               %li
                 = recaptcha_tags display: {theme: 'clean'} if recaptcha_needed?
-              %li= f.submit t(:sign_up), :class => 'button positive', :tabindex => autotab, :accesskey => access_keys[:submit]
+              %li= f.submit t(:sign_up), :class => 'button positive', :accesskey => access_keys[:submit]
                    
   .four.columns
     .panel.side-panel

@@ -9,8 +9,8 @@
           %div
             = f.label :password, "New password"
             %br/
-            = f.password_field :password, autocomplete: 'off', :tabindex => autotab
-          %div= f.submit "Change my password", class: 'large button positive', :tabindex => autotab, :accesskey => access_keys[:submit]
+            = f.password_field :password, autocomplete: 'off'
+          %div= f.submit "Change my password", class: 'large button positive', :accesskey => access_keys[:submit]
     .four.columns
       .panel.side-panel
         = render "devise/shared/links"

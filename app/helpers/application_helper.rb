@@ -209,12 +209,6 @@ module ApplicationHelper
     html.html_safe
   end
   
-  # Keep a counter to help set tabindex when building a form
-  def autotab(start_after=0, increment=1)
-    @tab_count ||= start_after
-    @tab_count += increment
-  end
-  
   # Use the same access keys throughout the application
   def access_keys
     {:submit => 's'}

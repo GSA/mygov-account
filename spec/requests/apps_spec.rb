@@ -137,7 +137,7 @@ describe "Apps" do
         it "should remember which scopes the user checked" do
           visit new_app_path
           check('Read your profile information')
-          check('Read your email')
+          check('Email')
           click_button('Register new MyUSA App')
           profile_scope_id     = OauthScope.where(scope_name: 'profile').first.id
           profile_sub_scope_id = OauthScope.where(scope_name: 'profile.email').first.id

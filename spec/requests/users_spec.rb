@@ -178,6 +178,7 @@ describe "Users" do
             check 'I agree to the MyUSA Terms of service and Privacy policy'
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
+            page.should_not have_content "we&rsquo;ll"
             ActionMailer::Base.deliveries.last.to.should   eq ['joe@citizen.org']
             ActionMailer::Base.deliveries.last.from.should eq [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
             ActionMailer::Base.deliveries.last.should have_content("Welcome to MyUSA!")

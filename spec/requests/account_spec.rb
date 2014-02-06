@@ -7,21 +7,22 @@ describe "Account" do
 
   describe "GET /account" do
     context "when the user is logged in" do
-      before do 
+      before do
         login(@user)
         @mail_size = ActionMailer::Base.deliveries.size
       end
 
       it "should show the user links to various account options" do
         visit account_index_path
-        page.should have_content "Account activity"
-        page.should have_content "Authentication providers"
+        page.should have_content "Edit your profile"
         page.should have_content "Change your email address"
         page.should have_content "Change your password"
+        page.should have_content "Account activity"
+        page.should have_content "Authentication providers"
         page.should have_content "Delete your account"
       end
-      
-      
+
+
       it "should allow the user to delete their account" do
         visit account_index_path
         click_link "Delete"
@@ -32,7 +33,7 @@ describe "Account" do
         ActionMailer::Base.deliveries.last.subject.should == "Your MyUSA account has been deleted"
       end
     end
-  end  
+  end
 
   describe "GET /user/edit" do
     context "when the user is logged in" do

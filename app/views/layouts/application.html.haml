@@ -54,8 +54,6 @@
           %noscript
             = session_about_to_timeout_message_no_script
           = session_about_to_timeout_message
-          - if params[:timeout].present?
-            = session_timeout_message
           = yield
         - unless current_user
           .no-toolbar

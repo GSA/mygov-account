@@ -46,7 +46,7 @@ $(document).ready(function() {
     parent_id = $(this).attr("id");
     $(this).change(function() {
       $("input[parent_scope=" + $(this).attr("parent_value") + "]").each(function(i) {
-        document.getElementById($(this).attr("id")).checked = $(app_app_oauth_scopes_attributes_2_oauth_scope_id).is(":checked");
+        document.getElementById($(this).attr("id")).checked = $("app_app_oauth_scopes_attributes_" + parent_id  + "_oauth_scope_id").is(":checked");
       });
     });
   });

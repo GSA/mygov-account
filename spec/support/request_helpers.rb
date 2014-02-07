@@ -50,10 +50,10 @@ def create_sandbox_app(user)
   @user.apps.create(name: 'Sandboxed App', is_public: false, user_id: user.id, redirect_uri: 'http://localhost')
 end
 
-def fill_in_email_and_password(options = {email:'joe@citizen.org', password:'Password1'})
+def fill_in_email_and_password(options = {})
+  options = options.reverse_merge({email:'joe@citizen.org', password:'Password1'})
   fill_in 'Email', :with => options[:email]
   fill_in 'Password', :with => options[:password]
-  fill_in 'Password confirmation', :with => options[:password]
 end
 
 def lock_account

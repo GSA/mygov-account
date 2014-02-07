@@ -1,10 +1,12 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  helper_method :recaptcha_needed?
 
   def create
     if session[:omniauth] == nil
-      if verify_recaptcha
+      if verify_recaptcha_if_needed
         super
         session[:omniauth] = nil unless @user.new_record?
+        session[:account_created] = true if @user.valid?
       else
         build_resource( sign_up_params )
         resource.valid?
@@ -23,6 +25,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def thank_you
   end
 
+  protected
+
   def after_inactive_sign_up_path_for(resource)
     thank_you_path
   end
@@ -36,5 +40,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def build_resource(hash=nil)
     super(hash)
     self.resource.auto_approve = true if self.resource && session[:auto_approve_account] == true
+  end
+
+  def recaptcha_needed?
+    !!session[:account_created]
+  end
+
+  def verify_recaptcha_if_needed
+    recaptcha_needed? ? verify_recaptcha : true
   end
 end

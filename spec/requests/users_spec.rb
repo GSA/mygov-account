@@ -62,7 +62,7 @@ describe "Users" do
         page.should have_content "Already using MyUSA?"
         page.should have_content "Sign in"
         click_link "Sign in"
-        current_path.should == sign_in_path
+        current_path.should eq sign_in_path
 
         visit root_path
         page.should have_content "Already using MyUSA?"
@@ -178,8 +178,9 @@ describe "Users" do
             check 'I agree to the MyUSA Terms of service and Privacy policy'
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
-            ActionMailer::Base.deliveries.last.to.should   == ['joe@citizen.org']
-            ActionMailer::Base.deliveries.last.from.should == [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
+            page.should_not have_content "we&rsquo;ll"
+            ActionMailer::Base.deliveries.last.to.should   eq ['joe@citizen.org']
+            ActionMailer::Base.deliveries.last.from.should eq [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
             ActionMailer::Base.deliveries.last.should have_content("Welcome to MyUSA!")
             ActionMailer::Base.deliveries.last.should have_content("confirmation?confirmation_token=")
           end
@@ -192,8 +193,8 @@ describe "Users" do
 
             click_button 'Sign up'
             page.should have_content 'Thank you for signing up'
-            ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-            ActionMailer::Base.deliveries.last.from.should == [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
+            ActionMailer::Base.deliveries.last.to.should eq ['joe@citizen.org']
+            ActionMailer::Base.deliveries.last.from.should eq [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
             ActionMailer::Base.deliveries.last.should have_content("Welcome to MyUSA, Joe!")
             email = ActionMailer::Base.deliveries.last
             host_params = ActionMailer::Base.default_url_options
@@ -223,6 +224,17 @@ describe "Users" do
               check 'I agree to the MyUSA Terms of service and Privacy policy'
               click_button 'Sign up'
               page.should have_content 'must include at least one lower case letter, one upper case letter and one digit.'
+            end
+          end
+
+          context "when the user submits a zip that isn't sufficiently formatted" do
+            it "should not create the user account" do
+              visit sign_up_path
+              fill_in_email_and_password
+              fill_in 'Zip', :with => '1234'
+              check 'I agree to the MyUSA Terms of service and Privacy policy'
+              click_button 'Sign up'
+              page.should have_content 'should be in the form 12345'
             end
           end
 
@@ -274,9 +286,23 @@ describe "Users" do
           check 'I agree to the MyUSA Terms of service and Privacy policy'
           click_button 'Sign up'
           page.should have_content 'Thank you for signing up'
-          ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-          ActionMailer::Base.deliveries.last.from.should == [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
+          ActionMailer::Base.deliveries.last.to.should eq ['joe@citizen.org']
+          ActionMailer::Base.deliveries.last.from.should eq [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
           User.find_by_email('joe@citizen.org').profile.name.should == 'Joe Citizen'
+        end
+
+        it "should display a captcha only after the first account" do
+          visit sign_up_path
+          page.should_not have_css "input[name=recaptcha_response_field]"
+          fill_in_email_and_password
+          fill_in 'First name', :with => 'Joe'
+          fill_in 'Last name', :with => 'Citizen'
+          check 'I agree to the MyUSA Terms of service and Privacy policy'
+          click_button 'Sign up'
+          page.should have_content 'Thank you for signing up'
+
+          visit sign_up_path
+          page.should have_css "input[name=recaptcha_response_field]"
         end
       end
     end
@@ -291,8 +317,8 @@ describe "Users" do
       page.should have_content "Your account is locked."
       @user.reload
       @user.unlock_token.should_not be_nil
-      ActionMailer::Base.deliveries.last.to.should == ['joe@citizen.org']
-      ActionMailer::Base.deliveries.last.subject.should == 'Unlock Instructions'
+      ActionMailer::Base.deliveries.last.to.should eq ['joe@citizen.org']
+      ActionMailer::Base.deliveries.last.subject.should eq 'Unlock Instructions'
     end
   end
 
@@ -341,7 +367,6 @@ describe "Users" do
 
       visit edit_user_password_path(reset_password_token: @user.reset_password_token)
       fill_in 'user_password', :with => 'Secure_passw0rd'
-      fill_in 'user_password_confirmation', :with => 'Secure_passw0rd'
       click_button "Change my password"
 
       expect(ActionMailer::Base.deliveries.last.subject).to eq('Your MyUSA password has been changed')

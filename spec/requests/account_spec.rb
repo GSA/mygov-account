@@ -14,10 +14,11 @@ describe "Account" do
 
       it "should show the user links to various account options" do
         visit account_index_path
-        page.should have_content "Account activity"
-        page.should have_content "Other networks"
+        page.should have_content "Edit your profile"
         page.should have_content "Change your email address"
         page.should have_content "Change your password"
+        page.should have_content "Account activity"
+        page.should have_content "Authentication providers"
         page.should have_content "Delete your account"
       end
 

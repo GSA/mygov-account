@@ -1,22 +1,21 @@
-.row
-  .col-md-12
-    = devise_error_messages!
-    = flash_messages
-
-.row
-  .col-md-12
+%row
+  .twelve.columns
     %h2
       Didn't receive unlock instructions?
     %p
       Enter your email address below and we'll resend them to you.
-  .col-md-8
-    %fieldset
-      = form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post, novalidate: true }) do |f|
-        %ol.inline
-          %li
-            .row
-              .col-md-1
-                = f.label :email
-              .col-md-7
-                = f.email_field :email
-                .actions= f.submit "Send instructions", :class => 'btn btn-primary'
+  .eight.columns
+    .panel
+      %fieldset.plain
+        = form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post, novalidate: true }) do |f|
+          = flash_messages
+          = devise_error_messages!
+          %ol
+            %li
+              = f.label :email
+              = f.email_field :email, :tabindex => autotab
+          %div= f.submit "Send", :class => 'large button positive', :tabindex => autotab, :accesskey => access_keys[:submit]
+
+  .four.columns
+    .panel.side-panel
+      = render "devise/shared/links"

@@ -18,14 +18,14 @@
 
   .col-md-8
     %h2
-      My Profile
+      = t(:my_profile)
     = form_for @profile do |form|
       - if flash[:error]
         .alert-box
           = flash[:error]
       %fieldset
         %legend
-          Name
+          = t(:name)
         %ol.inline
           %li.row
             .col-md-2

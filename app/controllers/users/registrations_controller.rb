@@ -20,15 +20,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def update
-    redirect_to edit_user_registration_path
-  end
-
-  # def edit
-  #   raise 'inside edit'
-  #   redirect_to edit_user_registration_path unless super
-  # end
-
   def thank_you
   end
 
@@ -39,7 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_update_path_for(resource)
     edit_user_registration_path
   end
-  
+
   # Build a devise resource passing in the session. Useful to move
   # temporary session data to the newly created user.
   def build_resource(hash=nil)

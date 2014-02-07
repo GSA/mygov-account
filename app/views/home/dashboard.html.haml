@@ -2,9 +2,7 @@
   .col-md-2
     = render :partial => 'dashboard_nav'
   .col-md-8
-    - if flash.notice
-      .alert.alert-success
-        = flash.notice
+    = flash_messages
     = render :partial => 'dashboard_profile'
     = render :partial => 'dashboard_notifications'
     = render :partial => 'dashboard_tasks'

@@ -97,6 +97,17 @@ describe "Notifications" do
         page.should have_content "Notification #5"
         page.should_not have_content "Notification #9"
       end
+      
+      it "should automatically set the page to the lowest actual page value if there are no notifications for the page specified" do
+        visit notifications_path
+        click_link "2"
+        1.upto(8) do
+          page.should have_link 'Previous'
+          click_link 'Remove'
+        end
+        page.should_not have_link 'Previous'
+        page.should have_content "Notification #14"
+      end
 
       it "should automatically set the page to the lowest actual page value if there are no notifications for the page specified" do
         visit notifications_path

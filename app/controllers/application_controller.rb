@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
     request.env["devise.skip_trackable"] = true unless params[:no_keep_alive].blank?
   end
 
+  def xss_options_request
+    render :text => ""
+  end
+
   protected
 
     def set_no_keep_alive

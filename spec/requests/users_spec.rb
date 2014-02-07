@@ -68,7 +68,7 @@ describe "Users" do
         page.should have_content "Already using MyUSA?"
         page.should have_content "Sign in"
         click_link "Sign in"
-        current_path.should == sign_in_path
+        current_path.should eq sign_in_path
       end
 
       it "should link to third party sign ins" do

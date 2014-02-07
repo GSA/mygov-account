@@ -4,7 +4,6 @@
     = flash_messages
     %h2
       = t(:take_control)
-<<<<<<< HEAD
 
 .row
   .col-md-8
@@ -42,13 +41,18 @@
           %li.row
             .col-md-2
             .col-md-6
+              = f.label :zip
+              = f.text_field :zip
+          %li.row
+            .col-md-2
+            .col-md-6
               = f.label :terms_of_service do
                 = f.check_box :terms_of_service
                 = t(:i_agree_html, :terms_of_service_link => link_to(t(:terms_of_service), terms_of_service_path), :privacy_policy_link => link_to(t(:privacy_policy), privacy_policy_path))
           %li.row
             .col-md-2
             .col-md-6
-              = recaptcha_tags display: {theme: 'clean'}
+              = recaptcha_tags display: {theme: 'clean'} if recaptcha_needed?
           %li.row
             .col-md-2
             .col-md-6
@@ -56,53 +60,3 @@
 
   .col-md-4
     = render "devise/shared/provider_links"
-=======
-.row
-  .eight.columns
-    .panel
-      %fieldset.fancy
-        %legend
-          %span
-            %i{:class => "foundicon-star"}
-            %i{:class => "foundicon-star"}
-            %i{:class => "foundicon-star"}
-            %i{:class => "foundicon-star"}
-          Sign up
-          %span
-            %i{:class => "foundicon-star"}
-            %i{:class => "foundicon-star"}
-            %i{:class => "foundicon-star"}
-            %i{:class => "foundicon-star"}
-        %p
-          = form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {novalidate: true}) do |f|
-            = flash_messages
-            = devise_error_messages!
-            %ol
-              %li
-                = f.label :first_name
-                = f.text_field :first_name
-              %li
-                = f.label :last_name
-                = f.text_field :last_name
-              %li
-                = f.label :email
-                = f.email_field :email
-              %li
-                = f.label :password
-                = f.password_field :password, autocomplete: 'off'
-              %li
-                = f.label :zip
-                = f.text_field :zip
-              %li
-                = f.label :terms_of_service do
-                  = f.check_box :terms_of_service
-                  = t(:i_agree_html, :terms_of_service_link => link_to(t(:terms_of_service), terms_of_service_path), :privacy_policy_link => link_to(t(:privacy_policy), privacy_policy_path))
-              %li
-                = recaptcha_tags display: {theme: 'clean'} if recaptcha_needed?
-              %li= f.submit t(:sign_up), :class => 'button positive', :accesskey => access_keys[:submit]
-
-  .four.columns
-    .panel.side-panel
-      = render "devise/shared/provider_links"
-
->>>>>>> master

@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :lockable, :timeoutable, :confirmable, :async
 
-  attr_accessible :email, :password, :remember_me, :terms_of_service, :unconfirmed_email, :as => [:default, :admin]
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :terms_of_service, :unconfirmed_email, :as => [:default, :admin]
 
   WHITELISTED_DOMAINS = %w{ .gov .mil usps.com }
   attr_accessible :first_name, :last_name, :zip, :as => [:default]
@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
   def first_name=(first_name)
     @first_name = first_name
   end
-  
+
   def zip
     self.profile ? self.profile.zip : @zip
   end

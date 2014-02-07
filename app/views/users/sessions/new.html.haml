@@ -6,7 +6,8 @@
   .eight.columns
     .panel
       = form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {novalidate: true}) do |f|
-        = flash_messages
+        %noscript
+          = flash_messages
         = devise_error_messages!
         %fieldset.plain
           %ol.inline

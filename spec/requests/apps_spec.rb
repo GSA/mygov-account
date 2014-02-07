@@ -13,9 +13,9 @@ describe "Apps" do
     @app3.is_public = true
     @app3.save!
 
-    @app3 = @user.apps.create(name: 'Public App 4', :short_description => 'Public Application 4', :description => 'A public app 4', redirect_uri: "http://localhost/")
-    @app3.is_public = true
-    @app3.save!
+    @app4 = @user.apps.create(name: 'Public App 4', :short_description => 'Public Application 4', :description => 'A public app 4', redirect_uri: "http://localhost/")
+    @app4.is_public = true
+    @app4.save!
 
     @app2 = @user2.apps.create(name: 'Public App 2', :url => 'http://www.agency.gov/app2', :short_description => 'Public Application 2', :description => 'A public app 2', redirect_uri: "http://localhost/")
     @app2.is_public = true

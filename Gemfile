@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 gem 'rails', '3.2.16'
 gem 'mysql2'
+gem 'domainatrix'
 gem 'auto-session-timeout'
 gem "jquery-rails", "~> 2.3.0"
 gem 'json', '~> 1.8.0'

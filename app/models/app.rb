@@ -84,6 +84,21 @@ class App < ActiveRecord::Base
     self.oauth_scopes.where("oauth_scopes.scope_name" => scopes)
   end
   
+  def self.compare_domains(request_domain, app_url) # For apps/leaving
+      app_uri = Domainatrix.parse(app_url)
+    if !!request_domain.match(/\.[a-zA-Z]{2,3}$/) # has public suffix. (not just 'localhost')
+      if request_domain == app_uri.domain_with_public_suffix
+        return false
+      else
+        return true
+      end
+    else
+      return request_domain != app_uri.domain ? true : false
+    end
+  end
+
+
+
   private
   
   def remove_parent_scope

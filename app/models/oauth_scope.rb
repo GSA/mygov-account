@@ -10,6 +10,10 @@ class OauthScope < ActiveRecord::Base
   def is_parent?
     OauthScope.all.any?{|s| s.scope_name.match(/#{self.name}\./i)}
   end
+
+  def readable_name
+    self.scope_name.sub(/^.+\./, "").gsub(/_/, " ").gsub(/(\d+)/," " + '\1' + " ").capitalize
+  end
   
   def self.seed_data
     [

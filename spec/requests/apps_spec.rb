@@ -2,12 +2,21 @@ require 'spec_helper'
 
 describe "Apps" do  
   before do
+
     @user = create_confirmed_user_with_profile
     @user2 = create_confirmed_user_with_profile(email: 'jane@citizen.org', first_name: 'Jane')        
     @app1 = @user.apps.create(name: 'Public App 1', :url => 'http://www.agency.gov/app1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")
     @app1.is_public = true
     @app1.save!
     
+    @app3 = @user.apps.create(name: 'Public App 3', :url => Capybara.default_host, :short_description => 'Public Application 3', :description => 'A public app 3', redirect_uri: "http://localhost/")
+    @app3.is_public = true
+    @app3.save!
+
+    @app3 = @user.apps.create(name: 'Public App 4', :short_description => 'Public Application 4', :description => 'A public app 4', redirect_uri: "http://localhost/")
+    @app3.is_public = true
+    @app3.save!
+
     @app2 = @user2.apps.create(name: 'Public App 2', :url => 'http://www.agency.gov/app2', :short_description => 'Public Application 2', :description => 'A public app 2', redirect_uri: "http://localhost/")
     @app2.is_public = true
     @app2.save!
@@ -29,13 +38,31 @@ describe "Apps" do
     context "when a user is logged in" do
       before {login(@user)}
       
+      it "should not link to leaving page if app has no url" do
+        visit apps_path
+        click_link "Public App 4"
+        page.should_not have_link "Public App 4"
+
+      end
+
       it "should warn user before redirecting user off site" do
         visit apps_path
         click_link "Public App 1"
         click_link "Public App 1"
-        original_url = current_url
-        page.should have_content I18n.t('apps_leaving')
+        
+        page.should have_content I18n.t('leaving_myusa')
+        page.should have_content I18n.t('not_part_of_myusa')
         page.should have_css  %Q/meta[content="#{Rails.application.config.apps_leaving_delay};#{URI.escape @app1.url}"]/, :visible => false
+
+        visit apps_path
+        click_link "Public App 3"
+        click_link "Public App 3"
+        
+        page.should_not have_content I18n.t('leaving_myusa')
+        page.should_not have_content I18n.t('not_part_of_myusa')
+
+        page.should have_content I18n.t('apps_leaving')
+
       end
       
       it "should show a list of public apps, and those sandboxed apps that are owned by the logged in user" do
@@ -70,7 +97,7 @@ describe "Apps" do
     it "should list all apps, not including info specific to the logged in user, not list Default App, and not list 'app' as root node" do  
       get "/apps.json"
       parsed_response = JSON.parse(response.body)
-      parsed_response.size.should == 2
+      parsed_response.size.should == 4
     end
   end
   
@@ -110,7 +137,7 @@ describe "Apps" do
         it "should remember which scopes the user checked" do
           visit new_app_path
           check('Read your profile information')
-          check('Read your email')
+          check('Email')
           click_button('Register new MyUSA App')
           profile_scope_id     = OauthScope.where(scope_name: 'profile').first.id
           profile_sub_scope_id = OauthScope.where(scope_name: 'profile.email').first.id

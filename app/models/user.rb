@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :uid
   validate :validate_password_strength
   validates_email_format_of :email, {:allow_blank => true}
+  validates_format_of :zip, :with => /\A\d{5}?\z/, :allow_blank => true, :message => "should be in the form 12345"
 
   before_validation :generate_uid
   after_create :create_profile
@@ -27,7 +28,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :terms_of_service, :unconfirmed_email, :as => [:default, :admin]
 
   WHITELISTED_DOMAINS = %w{ .gov .mil usps.com }
-  attr_accessible :first_name, :last_name, :as => [:default]
+  attr_accessible :first_name, :last_name, :zip, :as => [:default]
   attr_accessor :just_created, :auto_approve
 
   PROFILE_ATTRIBUTES = [:title, :first_name, :middle_name, :last_name, :suffix, :address, :address2, :city, :state, :zip, :phone, :mobile, :gender, :marital_status, :is_parent, :is_retired, :is_student, :is_veteran]
@@ -70,6 +71,14 @@ class User < ActiveRecord::Base
 
   def first_name=(first_name)
     @first_name = first_name
+  end
+
+  def zip
+    self.profile ? self.profile.zip : @zip
+  end
+
+  def zip=(zip)
+    @zip = zip
   end
 
   def last_name
@@ -137,7 +146,7 @@ class User < ActiveRecord::Base
   private
 
   def create_profile
-    self.profile = Profile.new(:first_name => @first_name, :last_name => @last_name) unless self.profile
+    self.profile = Profile.new(:first_name => @first_name, :last_name => @last_name, :zip => @zip) unless self.profile
   end
 
   def valid_email?

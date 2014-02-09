@@ -1,11 +1,13 @@
 - content_for :head do
-  = tag('meta', :'http-equiv' => "refresh", :content => "#{Rails.application.config.apps_leaving_delay};#{URI.escape @app.url}")  
+	= tag('meta', :'http-equiv' => "refresh", :content => "#{Rails.application.config.apps_leaving_delay};#{URI.escape @app.url}")  
 
 .row
-  .eight.columns
-    %h2
-      You are leaving MyUSA
-    %p
-      #{t('apps_leaving')} #{link_to @app.url, @app.url}.
-    %p
-      Please note that this page is not a part of MyUSA.
+	.eight.columns
+		- if @put_leaving_usa
+			%h2
+				#{t('leaving_myusa')}
+		%p
+			#{t('apps_leaving')} #{link_to @app.url, @app.url}.
+		%p
+			- if @put_leaving_usa
+				#{t('not_part_of_myusa')}.

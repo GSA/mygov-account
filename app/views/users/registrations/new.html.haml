@@ -17,41 +17,46 @@
             .col-md-2
               = f.label :first_name
             .col-md-6
-              = f.text_field :first_name, :tabindex => autotab
+              = f.text_field :first_name
           %li.row
             .col-md-2
               = f.label :last_name
             .col-md-6
-              = f.text_field :last_name, :tabindex => autotab
+              = f.text_field :last_name
           %li.row
             .col-md-2
               = f.label :email
             .col-md-6
-              = f.email_field :email, :tabindex => autotab
+              = f.email_field :email
           %li.row
             .col-md-2
               = f.label :password
             .col-md-6
-              = f.password_field :password, autocomplete: 'off', :tabindex => autotab
+              = f.password_field :password, autocomplete: 'off'
           %li.row
             .col-md-2
               = f.label :password_confirmation
             .col-md-6
-              = f.password_field :password_confirmation, autocomplete: 'off', :tabindex => autotab
+              = f.password_field :password_confirmation, autocomplete: 'off'
+          %li.row
+            .col-md-2
+            .col-md-6
+              = f.label :zip
+              = f.text_field :zip
           %li.row
             .col-md-2
             .col-md-6
               = f.label :terms_of_service do
-                = f.check_box :terms_of_service, :tabindex => autotab
+                = f.check_box :terms_of_service
                 = t(:i_agree_html, :terms_of_service_link => link_to(t(:terms_of_service), terms_of_service_path), :privacy_policy_link => link_to(t(:privacy_policy), privacy_policy_path))
           %li.row
             .col-md-2
             .col-md-6
-              = recaptcha_tags display: {theme: 'clean'}
+              = recaptcha_tags display: {theme: 'clean'} if recaptcha_needed?
           %li.row
             .col-md-2
             .col-md-6
-              = f.submit t(:sign_up), :class => 'btn btn-primary btn-lg', :tabindex => autotab, :accesskey => access_keys[:submit]
+              = f.submit t(:sign_up), :class => 'btn btn-primary btn-lg', :accesskey => access_keys[:submit]
 
   .col-md-4
     = render "devise/shared/provider_links"

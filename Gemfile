@@ -7,7 +7,7 @@ gem 'json', '~> 1.8.0'
 gem 'haml'
 gem 'devise'
 gem 'omniauth'
-gem 'oauth2-provider', :require => 'oauth2/provider', :git => 'https://github.com/GSA-OCSIT/oauth2-provider.git', :branch => 'bearer-header'
+gem 'oauth2-provider', :require => 'oauth2/provider', :git => 'https://github.com/GSA/oauth2-provider.git', :branch => 'bearer-header'
 gem 'bigdecimal'
 gem 'will_paginate', '~> 3.0'
 gem 'cancan'
@@ -24,13 +24,13 @@ gem "httparty"
 gem "paperclip", "~> 3.0"
 gem "rabl"
 gem 'rb-readline', '~> 0.4.2'
-gem 'omniauth-openid', :git => 'https://github.com/GSA-OCSIT/omniauth-openid.git', :branch => 'pape'
+gem 'omniauth-openid', :git => 'https://github.com/GSA/omniauth-openid.git', :branch => 'pape'
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'secure_headers'
 gem 'metamagic'
 gem 'capistrano'
 gem 'rvm-capistrano'
-gem 'capistrano-resque', '~> 0.1.0', :git => 'https://github.com/GSA-OCSIT/capistrano-resque.git'
+gem 'capistrano-resque', '~> 0.1.0', :git => 'https://github.com/GSA/capistrano-resque.git'
 gem 'resque', :git => 'https://github.com/resque/resque.git', :branch => '1-x-stable', :require => 'resque/server'
 gem 'resque_mailer'
 gem 'devise-async'
@@ -41,7 +41,7 @@ gem 'newrelic_rpm'
 gem 'roboto'
 
 group :production do
-  gem 'rack-openid', :git => 'https://github.com/GSA-OCSIT/rack-openid.git', :branch => 'pape'
+  gem 'rack-openid', :git => 'https://github.com/GSA/rack-openid.git', :branch => 'pape'
 end
 
 # Gems used only for assets and not required

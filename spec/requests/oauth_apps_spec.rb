@@ -90,9 +90,7 @@ describe "OauthApps" do
         uri = URI.parse(current_url)
         uri.path.should eq sign_in_path
         click_link("Sign up")
-        fill_in 'Email', with: 'new@user.com'
-        fill_in 'Password', with: 'Password1'
-        fill_in 'Password confirmation', with: 'Password1'
+        fill_in_email_and_password(:email => 'new@user.com')
         check 'I agree to the MyUSA Terms of service and Privacy policy'
         click_button('Sign up')
         page.should have_content("I'm sorry, your account hasn't been approved yet.")
@@ -107,9 +105,7 @@ describe "OauthApps" do
         uri = URI.parse(current_url)
         uri.path.should eq sign_in_path
         click_link("Sign up")
-        fill_in 'Email', with: 'new@user.com'
-        fill_in 'Password', with: 'Password1'
-        fill_in 'Password confirmation', with: 'Password1'
+        fill_in_email_and_password(:email => 'new@user.com')
         check 'I agree to the MyUSA Terms of service and Privacy policy'
         click_button('Sign up')
         page.should_not have_content("I'm sorry, your account hasn't been approved yet.")

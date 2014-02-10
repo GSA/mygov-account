@@ -1,4 +1,6 @@
 class Users::PasswordsController < Devise::PasswordsController
+  skip_before_filter :set_no_keep_alive
+  prepend_before_filter :set_no_keep_alive
   before_filter :validate_email_devise, only: :create
 
   def new

@@ -1,4 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
+  skip_before_filter :set_no_keep_alive
+  prepend_before_filter :set_no_keep_alive
   auto_session_timeout_actions
   
   def active

@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
+  prepend_before_filter :set_no_keep_alive
   ensure_security_headers
   before_timedout_action
   skip_before_filter :set_csp_header
   protect_from_forgery
-  prepend_before_filter :set_no_keep_alive
   after_filter :set_response_headers, :cors_set_access_control_headers
   before_filter :set_session_will_expire, :cors_preflight_check
 

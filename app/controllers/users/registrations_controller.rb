@@ -1,4 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  skip_before_filter :set_no_keep_alive
+  prepend_before_filter :set_no_keep_alive
   helper_method :recaptcha_needed?
 
   def create
@@ -21,7 +23,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       session[:omniauth] = nil unless @user.new_record? 
     end
   end
-  
+
   def thank_you
   end
   

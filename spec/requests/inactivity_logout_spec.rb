@@ -30,7 +30,7 @@ describe "auto_logout" do
         visit(dashboard_path(no_keep_alive: 1))
         page.should_not have_content(@inactivity_warning_text)
         sleep(2)
-        visit(dashboard_path(no_keep_alive: 1))
+        visit(edit_user_registration_path(no_keep_alive: 1))
         page.should have_content(@inactivity_warning_text)
         # Make sure that after warning, page will redirect to inactivity timeout
         page.should have_xpath("//meta[@http-equiv=\"refresh\"]")

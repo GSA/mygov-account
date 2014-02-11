@@ -44,7 +44,7 @@ $(document).ready ->
     parent_id = $(this).attr("id")
     $(this).change ->
       $("input[parent_scope=" + $(this).attr("parent_value") + "]").each (i) ->
-        document.getElementById($(this).attr("id")).checked = $("app_app_oauth_scopes_attributes_" + parent_id + "_oauth_scope_id").is(":checked")
+        document.getElementById($(this).attr("id")).checked = document.getElementById(parent_id).checked 
         return
 
       return

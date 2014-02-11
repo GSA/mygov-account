@@ -65,9 +65,7 @@ class AppsController < ApplicationController
   
   def leaving
     # Make sure that "About to leave this site" warning only displays when appropriate.
-    app_uri = URI.parse(@app.url)
-    @put_leaving_usa = (request.host != app_uri.host) ? true : false
-
+    @put_leaving_usa = App.compare_domains(request.domain, @app.url)
   end
 
   def destroy

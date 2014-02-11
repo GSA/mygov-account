@@ -16,7 +16,7 @@ class HomeController < ApplicationController
     @today = Date.current
     @profile = @user.profile
     @notifications = @user.notifications.newest_first.limit(3)
-    @uncompleted_tasks = @user.tasks.uncompleted.order('created_at DESC').limit(3)
+    @uncompleted_tasks = @user.tasks.uncompleted.newest_first.limit(3)
   end
 
   def developer

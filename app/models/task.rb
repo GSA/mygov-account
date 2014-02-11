@@ -11,6 +11,10 @@ class Task < ActiveRecord::Base
   
   scope :uncompleted, where('ISNULL(completed_at)')
   
+  def self.newest_first
+    order('created_at DESC', 'id DESC')
+  end
+
   def complete!
     self.task_items.each{|task_item| task_item.complete!}
     self.update_attributes(:completed_at => Time.now) 

@@ -149,15 +149,33 @@ describe "HomePage" do
       login(@user)
     end
 
-    it "should show the first three newest notifications" do
+    it "should show the first three newest notifications with unread ones in bold" do
       visit root_path
-      Notification.order('created_at DESC').limit(3).each_with_index do |notification, index|
+      notifications = Notification.where(deleted_at: nil).order('received_at DESC, id DESC').limit(3).all
+      notifications.each_with_index do |notification, index|
         page.should have_content "Notification ##{10 - index}"
+        notification.viewed_at.should eq nil
+        page.should have_selector("strong", :text => "Notification ##{10 - index}")
       end
       page.should have_content 'Notification App'
       page.should have_content 'less than a minute ago'
       click_link 'Notification #10'
       page.should have_content 'This is notification #10'
+
+      # Now the viewed one should not be highlighted any more, but the others should
+      visit root_path
+      notifications = Notification.where(deleted_at: nil).order('received_at DESC, id DESC').limit(3).all
+      notifications.each_with_index do |notification, index|
+        notification_subject_str = notification.subject
+        page.should have_content notification_subject_str
+        if notification_subject_str == "Notification #10"
+          notification.viewed_at.should_not eq nil
+          page.should_not have_selector("strong", :text => notification_subject_str)
+        else
+          notification.viewed_at.should eq nil
+          page.should have_selector("strong", :text => notification_subject_str)
+        end
+      end
     end
   end
 
@@ -170,7 +188,7 @@ describe "HomePage" do
         task.user = @user
         task.save!
       end
-      @tasks = @user.tasks.order("created_at DESC").limit(3)
+      @tasks = @user.tasks.order("created_at DESC", 'id DESC').limit(3)
 
       login(@user)
     end

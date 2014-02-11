@@ -5,7 +5,7 @@ class AppActivityLog < ActiveRecord::Base
 
   validates_presence_of :controller, :action
  
-  default_scope order('created_at DESC').limit(10)
+  default_scope order('created_at DESC', 'id DESC').limit(10)
   scope :last_n_days, lambda { |days| where('updated < ?', days) }
   
   def to_s

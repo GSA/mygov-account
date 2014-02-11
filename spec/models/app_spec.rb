@@ -46,4 +46,19 @@ describe App do
   it "should default to not public" do
     App.create!(@valid_attributes).is_public.should be_false
   end
+
+  it "should should compare a passed in domain to its domain and return false for a match and true for a difference" do
+    app = App.create(@valid_attributes.merge(url: 'http://xyz.usa.gov'))
+    App.compare_domains("https://qa.my.usa.gov/my-test-url", app.url).should == false # Domains match
+
+    app = App.create(@valid_attributes.merge(url: 'https://ab.cd.usa.gov/my-test-url')) # .gov vs .com
+    App.compare_domains("wx.yz.usa.com", app.url).should == true
+
+    app = App.create(@valid_attributes.merge(url: 'https://qa.my.usa.gov/my-test-url')) # No public suffix in domain
+    App.compare_domains("localhost", app.url).should == true
+
+    app = App.create(@valid_attributes.merge(url: 'http://localhost:3000/my-test-url')) # No public suffix in domain
+    App.compare_domains("localhost", app.url).should == false
+
+  end
 end

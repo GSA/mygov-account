@@ -80,7 +80,27 @@ describe "Notifications" do
         end
         5.downto(1) do |index|
           page.should have_content "Notification ##{index}"
+          Notification.find_by_subject("Notification ##{index}").viewed_at.should eq nil
+          page.should have_selector("strong", :text => "Notification ##{index}")
         end
+
+        #now try to view a notification and make sure it becomes un-bold
+        click_link('Notification #3')
+        page.should have_content "Notification #3"
+        visit notifications_path
+        click_link('2')
+        5.downto(1) do |index|
+          notification_subject_str = "Notification ##{index}"
+          page.should have_content notification_subject_str
+          if notification_subject_str == "Notification #3"
+            Notification.find_by_subject(notification_subject_str).viewed_at.should_not eq nil
+            page.should_not have_selector("strong", :text => notification_subject_str)
+          else
+            Notification.find_by_subject(notification_subject_str).viewed_at.should eq nil
+            page.should have_selector("strong", :text => notification_subject_str)
+          end
+        end
+
         click_link('Remove')
         page.should_not have_content "Notification #5"
         page.should_not have_content "Notification #7"

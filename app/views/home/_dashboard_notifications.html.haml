@@ -23,15 +23,15 @@
             %tr
               - if notification.app
                 %td
-                  = notification.app.name
+                  = highlight_notification_if_unread(notification, notification.app.name)
               - else
                 %td
-                  MyUSA
+                  = highlight_notification_if_unread(notification, 'MyUSA')
               %td
                 %i.general.foundicon-mail
-                = link_to notification.subject, notification_path(notification)
+                = link_to highlight_notification_if_unread(notification), notification_path(notification)
               %td
-                = pretty_time(notification.received_at)
+                = highlight_notification_if_unread(notification, pretty_time(notification.received_at))
   .row
     .eleven.columns
       = link_to 'View all notifications', notifications_path

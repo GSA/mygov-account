@@ -18,7 +18,7 @@ class Api::V1::TasksController < Api::ApiController
   
   def show
     task = @token.owner.tasks.find_by_id(params[:id])
-    render :json => task, :status => 200
+    render :json => task.to_json(:include => :task_items), :status => 200
   end
   
   protected

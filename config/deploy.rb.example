@@ -2,7 +2,7 @@ require 'bundler/capistrano'
 
 set :application, "mygov-account"
 set :scm, "git"
-set :repository, "https://github.com/GSA-OCSIT/mygov-account.git"
+set :repository, "https://github.com/GSA/mygov-account.git"
 # Use this if you're stuck behind a draconion VPN
 set(:real_revision) { source.query_revision( revision ) { |cmd| capture(cmd) } }
 

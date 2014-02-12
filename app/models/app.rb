@@ -85,7 +85,8 @@ class App < ActiveRecord::Base
   end
   
   def self.compare_domains(request_domain, app_url) # For apps/leaving
-      app_uri = Domainatrix.parse(app_url)
+    app_uri        = Domainatrix.parse(app_url)
+    request_domain = Domainatrix.parse(request_domain).domain_with_public_suffix
     if !!request_domain.match(/\.[a-zA-Z]{2,3}$/) # has public suffix. (not just 'localhost')
       if request_domain == app_uri.domain_with_public_suffix
         return false
@@ -96,8 +97,6 @@ class App < ActiveRecord::Base
       return request_domain != app_uri.domain ? true : false
     end
   end
-
-
 
   private
   

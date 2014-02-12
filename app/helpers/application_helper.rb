@@ -213,4 +213,14 @@ module ApplicationHelper
   def access_keys
     {:submit => 's'}
   end
+
+  # Display notifications in Bold if unread
+  def highlight_notification_if_unread(notification, text=notification.subject)
+    return nil unless notification
+    if notification.viewed_at.nil?
+      content_tag(:strong) { text }
+    else
+      text
+    end
+  end
 end

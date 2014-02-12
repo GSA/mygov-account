@@ -13,9 +13,6 @@
         %li
           = link_to t(:change_your_password), edit_password_user_path
         %li
-          = link_to activity_log_path do
-            = t(:account_activity)
-        %li
           = link_to t(:authentication_providers), authentications_path
         %li
           = link_to '#', {:"data-reveal-id" => 'confirm-delete-modal'} do

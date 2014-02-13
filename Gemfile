@@ -40,6 +40,7 @@ gem 'devise-async'
 gem 'auto-session-timeout-warning'
 gem 'newrelic_rpm'
 gem 'roboto'
+gem 'awesome_print'
 
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA/rack-openid.git', :branch => 'pape'
@@ -69,7 +70,6 @@ group :test, :development do
 end
 
 group :development do
-  gem 'awesome_print'
   gem 'guard-livereload'
   gem 'haml-rails'
   gem 'hpricot'

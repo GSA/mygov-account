@@ -9,7 +9,7 @@
     = f.text_field :name
   %li
     = f.label :description
-    = f.text_area :description
+    = f.text_area :description, :rows=>5
   %li
     = f.label :short_description
     = f.text_field :short_description
@@ -24,7 +24,8 @@
     = f.file_field :logo
   %li
     = label_tag 'app_oauth_scopes' do
-      App Scopes: select which parts of the MyUSA API your application will use:
+      %p
+        Select which parts of the MyUSA API your application will use:
       %ul
         - @scope_groups.each do |oauth_scope|
           %li

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140129181216) do
+ActiveRecord::Schema.define(:version => 20140213154723) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -73,63 +73,16 @@ ActiveRecord::Schema.define(:version => 20140129181216) do
     t.boolean  "is_approved", :default => false
   end
 
-  create_table "delivery_types", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "filled_forms", :force => true do |t|
-    t.integer  "form_id"
-    t.integer  "user_id"
-    t.integer  "app_id"
-    t.text     "values"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "filled_forms", ["form_id"], :name => "index_filled_forms_on_form_id"
-  add_index "filled_forms", ["user_id"], :name => "index_filled_forms_on_user_id"
-
-  create_table "form_fields", :force => true do |t|
-    t.string   "name"
-    t.string   "type"
-    t.text     "description"
-    t.string   "values"
-    t.integer  "form_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  create_table "forms", :force => true do |t|
-    t.string   "name"
-    t.string   "number"
-    t.string   "agency"
-    t.string   "landing_page_url"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  create_table "notification_settings", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "notification_type"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.integer  "delivery_type_id"
-    t.integer  "app_id"
-  end
-
   create_table "notifications", :force => true do |t|
     t.string   "subject"
     t.text     "body"
     t.datetime "received_at"
     t.integer  "app_id"
     t.integer  "user_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.datetime "deleted_at"
     t.datetime "viewed_at"
-    t.string   "notification_type"
   end
 
   add_index "notifications", ["app_id"], :name => "index_messages_on_o_auth2_model_client_id"
@@ -148,6 +101,7 @@ ActiveRecord::Schema.define(:version => 20140129181216) do
     t.string   "access_token_hash",          :limit => 40
     t.string   "refresh_token_hash",         :limit => 40
     t.datetime "expires_at"
+    t.string   "scopes"
   end
 
   add_index "oauth2_authorizations", ["access_token_hash"], :name => "index_oauth2_authorizations_on_access_token_hash"

@@ -9,6 +9,7 @@ gem 'haml'
 gem 'devise'
 gem 'omniauth'
 gem 'oauth2-provider', :require => 'oauth2/provider', :git => 'https://github.com/GSA/oauth2-provider.git', :branch => 'bearer-header'
+gem 'oauth2'
 gem 'bigdecimal'
 gem 'will_paginate', '~> 3.0'
 gem 'cancan'
@@ -19,7 +20,7 @@ gem "airbrake"
 gem 'maruku'
 gem 'validates_email_format_of', :git => 'https://github.com/alexdunae/validates_email_format_of.git'
 # ar-octopus has to proceed permanent_records, or permanent_records #destroy(:force) call will not work
-gem 'ar-octopus' 
+gem 'ar-octopus'
 gem "permanent_records", "~> 2.3.0"
 gem "httparty"
 gem "paperclip", "~> 3.0"
@@ -31,7 +32,7 @@ gem 'secure_headers'
 gem 'metamagic'
 gem 'capistrano'
 gem 'rvm-capistrano'
-gem 'capistrano-resque', '~> 0.1.0', :git => 'https://github.com/GSA/capistrano-resque.git' 
+gem 'capistrano-resque', '~> 0.1.0', :git => 'https://github.com/GSA/capistrano-resque.git'
 gem 'capistrano-maintenance'
 gem 'resque', :git => 'https://github.com/resque/resque.git', :branch => '1-x-stable', :require => 'resque/server'
 gem 'resque_mailer'
@@ -61,7 +62,6 @@ group :test, :development do
   gem 'database_cleaner'
   gem 'guard'
   gem 'guard-rspec'
-  gem 'oauth2'
   gem "parallel_tests"
   gem 'pry'
   gem 'pry-nav'

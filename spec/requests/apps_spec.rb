@@ -118,7 +118,7 @@ describe "Apps" do
         fill_in 'Url',  :with => 'http://www.myapp.com'
         fill_in 'Description', :with => 'An app!'
         fill_in 'Redirect uri', :with => 'http://www.myapp.com/redirect'
-        check("Read your profile information")
+        check("Read user's profile information")
         click_button('Register new MyUSA App')
         page.should have_link 'My sandbox app', :href => "/apps/my-sandbox-app/leaving"
         page.should have_content "An app!"
@@ -136,7 +136,7 @@ describe "Apps" do
       context "when the user selects scopes but not something else that's required" do
         it "should remember which scopes the user checked" do
           visit new_app_path
-          check('Read your profile information')
+          check("Read user's profile information")
           check('Email')
           click_button('Register new MyUSA App')
           profile_scope_id     = OauthScope.where(scope_name: 'profile').first.id

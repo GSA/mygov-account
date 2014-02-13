@@ -11,6 +11,11 @@ class OauthScope < ActiveRecord::Base
     OauthScope.all.any?{|s| s.scope_name.match(/#{self.name}\./i)}
   end
 
+  def parent_readable_name
+    return "Read user's profile information" if self.name == "Profile"
+    return self.description
+  end
+
   def readable_name
     self.scope_name.sub(/^.+\./, "").gsub(/_/, " ").gsub(/(\d+)/," " + '\1' + " ").capitalize
   end
@@ -18,7 +23,7 @@ class OauthScope < ActiveRecord::Base
   def self.seed_data
     [
       {name: 'Verify credentials', description: 'Verify application credentials', scope_name: 'verify_credentials', :scope_type => 'app'},
-      {name: 'Profile', description: "Read user's profile information", scope_name: 'profile', :scope_type => 'user'},
+      {name: 'Profile', description: 'Read your profile information', scope_name: 'profile', :scope_type => 'user'},
       {name: 'Profile email', description: 'Read your email', scope_name: 'profile.email', :scope_type => 'user'},
       {name: 'Profile title', description: 'Read your title (Mr./Mrs./Miss, etc.)', scope_name: 'profile.title', :scope_type => 'user'},
       {name: 'Profile first name', description: 'Read your first name', scope_name: 'profile.first_name', :scope_type => 'user'},

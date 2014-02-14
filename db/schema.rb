@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(:version => 20131217210551) do
     t.datetime "updated_at",  :null => false
     t.datetime "deleted_at"
     t.datetime "viewed_at"
+    t.string   "notification_type"
   end
 
   add_index "notifications", ["app_id"], :name => "index_messages_on_o_auth2_model_client_id"

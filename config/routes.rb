@@ -53,7 +53,6 @@ Mygov::Application.routes.draw do
   get 'terms-of-service' => "home#terms_of_service", :as => :terms_of_service
   get 'about' => "home#about", :as => :about
   get 'paperwork-reduction-act-statement' => "home#pra", :as => :pra
-  get 'activity-log' => "home#activity_log", :as => :activity_log
   get 'xrds' => "home#xrds", :as => :xrds
 
   namespace :api, :defaults => {:format => :json} do

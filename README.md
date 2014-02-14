@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.org/GSA-OCSIT/mygov-account.png?branch=master)](http://travis-ci.org/GSA-OCSIT/mygov-account)
+[![Build Status](https://api.travis-ci.org/GSA/mygov-account.png?branch=master)](http://travis-ci.org/GSA/mygov-account)
 
 ## MyUSA
 
@@ -27,7 +27,7 @@ https://help.github.com/articles/set-up-git
 
       In some directory where you want to store your development files, do the following:
 
-        git clone https://github.com/GSA-OCSIT/mygov-account.git
+        git clone https://github.com/GSA/mygov-account.git
 
     4.  bundle install
 

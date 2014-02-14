@@ -269,7 +269,7 @@ describe "Apis" do
 
     describe "GET /api/tasks.json" do
       context "when token is valid" do
-        context "when there are notifications for a user, some of which were created by the app making the request" do
+        context "when there are tasks for a user, some of which were created by the app making the request" do
           before do
             @task1 = Task.create!({:name => 'Task #1', :user_id => @user.id, :app_id => @app.id}, :as => :admin)
             @task2 = Task.create!({:name => 'Task #2', :user_id => @user.id, :app_id => @app.id + 1}, :as => :admin)
@@ -344,7 +344,11 @@ describe "Apis" do
     end
 
     describe "GET /api/tasks/:id.json" do
-      before {@task = Task.create!({:name => 'New Task', :user_id => @user.id, :app_id => @app.id}, :as => :admin)}
+      before do
+        @task = Task.create!({:name => 'New Task', :user_id => @user.id, :app_id => @app.id}, :as => :admin)
+        @task.task_items << TaskItem.new(:name => "Task Item #1")
+        @task.save!
+      end
 
       context "when the token is valid" do
         it "should retrieve the task" do
@@ -353,6 +357,7 @@ describe "Apis" do
           parsed_json = JSON.parse(response.body)
           parsed_json.should_not be_nil
           parsed_json["name"].should == "New Task"
+          parsed_json["task_items"].first["name"].should eq "Task Item #1"
         end
       end
 

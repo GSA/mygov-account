@@ -101,6 +101,18 @@ describe "Users" do
       page.should have_link 'Sign up with VeriSign'
     end
 
+    it "should indicate which fields are required" do
+      visit sign_up_path
+
+      page.should have_content "Email *" # Email is a required field
+      page.should have_content "Zip"     # Zip is not.
+      page.should_not have_content "Zip *"
+
+      page.should have_selector("input[type=email][name='user[email]'][aria-required=true]")
+      page.should have_selector("input[type=text][name='user[zip]']")
+      page.should_not have_selector("input[type=text][name='user[zip]'][aria-required=true]")
+    end
+
     context "when a user is not in the beta signup list" do
       it "should not let the user create an account" do
         visit sign_up_path

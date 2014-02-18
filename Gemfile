@@ -9,6 +9,7 @@ gem 'haml'
 gem 'devise'
 gem 'omniauth'
 gem 'oauth2-provider', :require => 'oauth2/provider', :git => 'https://github.com/GSA/oauth2-provider.git', :branch => 'bearer-header'
+gem 'oauth2'
 gem 'bigdecimal'
 gem 'will_paginate', '~> 3.0'
 gem 'cancan'
@@ -41,6 +42,7 @@ gem 'twilio-ruby'
 gem 'auto-session-timeout-warning'
 gem 'newrelic_rpm'
 gem 'roboto'
+gem 'awesome_print'
 
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA/rack-openid.git', :branch => 'pape'
@@ -63,7 +65,6 @@ group :test, :development do
   gem 'database_cleaner'
   gem 'guard'
   gem 'guard-rspec'
-  gem 'oauth2'
   gem "parallel_tests"
   gem 'pry'
   gem 'pry-nav'
@@ -74,7 +75,6 @@ group :test, :development do
 end
 
 group :development do
-  gem 'awesome_print'
   gem 'guard-livereload'
   gem 'haml-rails'
   gem 'hpricot'

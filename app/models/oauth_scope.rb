@@ -11,6 +11,11 @@ class OauthScope < ActiveRecord::Base
     OauthScope.all.any?{|s| s.scope_name.match(/#{self.name}\./i)}
   end
 
+  def parent_readable_name
+    return "Read user's profile information" if self.name == "Profile"
+    return self.description
+  end
+
   def readable_name
     self.scope_name.sub(/^.+\./, "").gsub(/_/, " ").gsub(/(\d+)/," " + '\1' + " ").capitalize
   end

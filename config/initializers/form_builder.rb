@@ -23,8 +23,6 @@ module ActionView
   module Helpers
     module FormHelper
 
-      # form_fields = ['text_field','password_field','text_area','check_box','radio_button','url_field','email_field','number_field','range_field']
-
       def text_field(object_name, method, options = {})
         options.merge!({'aria-required' => true}) if !options[:object].nil? && (options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator)
         InstanceTag.new(object_name, method, self, options.delete(:object)).to_input_field_tag("text", options)

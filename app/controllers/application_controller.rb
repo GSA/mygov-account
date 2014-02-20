@@ -13,8 +13,13 @@ class ApplicationController < ActionController::Base
     sign_in_path
   end
 
-  def after_sign_in_path_for(resource_or_scope)
-    session[:after_auth_return_to] || super(resource_or_scope)
+  def after_sign_in_path_for(resource)
+    session[:after_auth_return_to] ||
+      if resource.is_a?(User)
+        dashboard_url
+      else
+        super(resource)
+      end
   end
 
   def xss_options_request

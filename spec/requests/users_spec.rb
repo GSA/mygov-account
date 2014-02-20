@@ -378,6 +378,7 @@ describe "Users" do
       click_button "Change my password"
 
       expect(ActionMailer::Base.deliveries.last.subject).to eq('Your MyUSA password has been changed')
+      page.should have_content("Your password was changed successfully. You are now signed in.")
     end
   end
   

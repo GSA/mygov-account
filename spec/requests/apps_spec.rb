@@ -114,12 +114,19 @@ describe "Apps" do
       
       it "should let a user create a new app, show them the the client id and secret id, and edit the app" do
         visit new_app_path
+
+        page.should have_content('Short Description')
+        page.should have_content('URL')
+        page.should have_content('Redirect URI')
+        page.should have_content("Create tasks in user's account")
+        page.should have_content('Send notifications to user')
+
         fill_in 'Name', :with => 'My sandbox app'
-        fill_in 'Url',  :with => 'http://www.myapp.com'
+        fill_in 'URL',  :with => 'http://www.myapp.com'
         fill_in 'Description', :with => 'An app!'
-        fill_in 'Redirect uri', :with => 'http://www.myapp.com/redirect'
+        fill_in 'Redirect URI', :with => 'http://www.myapp.com/redirect'
         check("Read user's profile information")
-        click_button('Register new MyUSA App')
+        click_button('Register New MyUSA App')
         page.should have_link 'My sandbox app', :href => "/apps/my-sandbox-app/leaving"
         page.should have_content "An app!"
         page.should have_content("Your application has been created.")
@@ -138,7 +145,7 @@ describe "Apps" do
           visit new_app_path
           check("Read user's profile information")
           check('Email')
-          click_button('Register new MyUSA App')
+          click_button('Register New MyUSA App')
           profile_scope_id     = OauthScope.where(scope_name: 'profile').first.id
           profile_sub_scope_id = OauthScope.where(scope_name: 'profile.email').first.id
           find("#app_app_oauth_scopes_attributes_#{profile_scope_id}_oauth_scope_id").should be_checked
@@ -150,10 +157,10 @@ describe "Apps" do
         it "should not create the app and return the user to the form with an error message" do
           visit new_app_path
           fill_in 'Name', :with => 'My sandbox app'
-          fill_in 'Url',  :with => 'http://www.myapp.com'
+          fill_in 'URL',  :with => 'http://www.myapp.com'
           fill_in 'Description', :with => 'An app!'
-          fill_in 'Redirect uri', :with => 'http://www.myapp.com/redirect'
-          click_button('Register new MyUSA App')
+          fill_in 'Redirect URI', :with => 'http://www.myapp.com/redirect'
+          click_button('Register New MyUSA App')
           page.should have_content "Please select at least one scope."
         end
       end

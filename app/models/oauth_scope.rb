@@ -13,6 +13,9 @@ class OauthScope < ActiveRecord::Base
 
   def parent_readable_name
     return "Read user's profile information" if self.name == "Profile"
+    return "Create tasks in user's account" if self.name == "Tasks"
+    return "Send notifications to user"     if self.name == "Notifications"
+
     return self.description
   end
 

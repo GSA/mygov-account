@@ -3,6 +3,7 @@
     display:none;
   }
 
+
 %ul
   %li
     = f.label :name
@@ -11,13 +12,13 @@
     = f.label :description
     = f.text_area :description, :rows=>5
   %li
-    = f.label :short_description
+    = f.label(:short_description, 'Short Description')
     = f.text_field :short_description
-  %li
-    = f.label :url
+  %li.upcase
+    = f.label(:url, 'URL')
     = f.text_field :url
   %li
-    = f.label :redirect_uri
+    = f.label(:redirect_uri, "Redirect URI")
     = f.text_field :redirect_uri
   %li
     = f.label :logo

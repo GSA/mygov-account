@@ -106,6 +106,9 @@ describe "Apps" do
       it "should not show the page" do
         visit new_app_path
         page.should have_content "Please sign in or sign up before continuing."
+        fill_in_email_and_password
+        click_button 'Sign in'
+        current_path.should match('apps')
       end
     end
     

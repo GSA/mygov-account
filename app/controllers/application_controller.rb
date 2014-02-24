@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    session[:after_auth_return_to] ||
+    session[:after_auth_return_to] || stored_location_for(resource) ||
       if resource.is_a?(User)
         dashboard_url
       else

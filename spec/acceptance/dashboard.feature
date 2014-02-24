@@ -6,7 +6,7 @@ Feature: Dashboard
     When I go to the 'sign_in' page
     When I log in with user 'joe@citizen.org' and password 'Password1'
     Then I should be on the dashboard page
-    And I should see the message 'Hi Joe Citizen. You have signed in successfully'
+    And I should see the message 'You have signed in successfully'
 
   Scenario: Unuccessful login
     When I go to the 'sign_in' page

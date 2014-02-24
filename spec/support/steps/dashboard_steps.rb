@@ -31,6 +31,6 @@ module DashboardSteps
   end
 
   step "I should see the message :message" do |message|
-    page.find('.alert').should have_content(message)
+    page.find('#alert-message').should have_content(message)
   end
 end

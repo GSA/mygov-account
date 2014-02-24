@@ -63,6 +63,7 @@ describe "Users" do
         page.should have_content "Sign in"
         click_link "Sign in"
         current_path.should eq sign_in_path
+        page.should_not have_content "Remember me"
 
         visit root_path
         page.should have_content "Already using MyUSA?"
@@ -382,6 +383,7 @@ describe "Users" do
       click_button "Change my password"
 
       expect(ActionMailer::Base.deliveries.last.subject).to eq('Your MyUSA password has been changed')
+      page.should have_content("Your password was changed successfully. You are now signed in.")
     end
   end
 

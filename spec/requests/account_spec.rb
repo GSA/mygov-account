@@ -70,6 +70,9 @@ describe "Account" do
         @user.reload
         @user.unconfirmed_email.should eq 'jack@citizen.org'
         email = ActionMailer::Base.deliveries.last
+        email.subject.should eq "Reconfirmation instructions"
+        email.body.raw_source.should have_content('Please reconfirm your email')
+         
         email.to.should eq ['jack@citizen.org']
         email.from.should eq [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
         expect(email.body).not_to include('joe@citizen.org')

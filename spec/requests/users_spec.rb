@@ -212,6 +212,7 @@ describe "Users" do
             email = ActionMailer::Base.deliveries.last
             host_params = ActionMailer::Base.default_url_options
             user = User.find_by_email('joe@citizen.org')
+            email.subject.should eq "Confirmation instructions"
             email.body.encoded.should have_link('MyUSA App Gallery', href: apps_url(host_params))
             email.body.raw_source.should have_link('contact us')
             email.body.raw_source.should have_link('link', href: user_confirmation_url(host_params.merge(confirmation_token: user.confirmation_token)))

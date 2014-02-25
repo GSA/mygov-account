@@ -2,7 +2,7 @@
   .ten.columns.centered.banner
     %h2
       = t(:take_control)
-.row      
+.row
   .eight.columns
     .panel
       %fieldset.fancy
@@ -37,7 +37,10 @@
                 = f.password_field :password, autocomplete: 'off'
               %li
                 = f.label :zip
-                = f.text_field :zip
+                %span{:id=>'tip-zip', :class=>'tooltip'}
+                  Entering your zip code will enable us to send you alerts and content relevant to your location.
+                  %i (Not required)
+                = f.text_field :zip, {'aria-described-by'=>'tip-zip'}
               %li
                 = f.label :terms_of_service do
                   = f.check_box :terms_of_service
@@ -45,8 +48,8 @@
               %li
                 = recaptcha_tags display: {theme: 'clean'} if recaptcha_needed?
               %li= f.submit t(:sign_up), :class => 'button positive', :accesskey => access_keys[:submit]
-                   
+
   .four.columns
     .panel.side-panel
       = render "devise/shared/provider_links"
-    
+

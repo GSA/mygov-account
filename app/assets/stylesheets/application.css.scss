@@ -1399,6 +1399,42 @@ li.official:last-child {border-bottom: none;}
 display : none;
 }
 
+/*** Tooltip overrides ***/
+span[aria-hidden="true"] {display:none;}
+span[aria-hidden="false"] {display:block;}
+
+.tooltip {
+  float: left;
+  font-size: 0.9em;
+  margin-top: -10px;
+  margin-left: 40px;
+  line-height: 20px;
+  padding: 5px 10px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  background: rgb(18, 99, 134);
+  border: 0px solid rgb(255, 255, 255);
+  border-radius: 5px;
+  text-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 1px;
+  box-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 2px 0px;
+}
+
+.tooltip:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #126386 transparent transparent transparent;
+  top: 30px;
+  left: 50px;
+}
+
+.tooltip:hover {
+  color: #fff;
+}
+
 /*** Danger Will Robinson! ***/
 
 #error_explanation {

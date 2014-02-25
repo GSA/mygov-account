@@ -17,7 +17,7 @@ en:
   thank_you: "Thank you"
   cancel: "Cancel"
   delete: "Delete"
-  
+
   remain_logged_in: "Remain signed in."
   session_expiration_warning_no_script: "We noticed you have not been very active in MyUSA. %{link}"
   session_expiration_warning: "We noticed you haven't been very active in MyUSA. %{link}"
@@ -39,25 +39,27 @@ en:
   digital_government: "Digital Government: Building a 21st Century Platform"
   privacy_policy: "Privacy policy"
   terms_of_service: "Terms of service"
-  
+
   forgot_your_password: "Forgot your password?"
   change_your_password: "Change your password"
   change_my_password: "Change my password"
+  update_my_password: "Update my password"
   need_current_password: "we need your current password to confirm your changes"
   change_your_email_address: "Change your email address"
   new_password: "New password"
   confirm_new_password: "Confirm new password"
-  
+
   account_deleted: "Your MyUSA account has been deleted."
   account_deleted_email: "We've sent you an email to confirm the account removal. Please consider signing up again soon."
-  
+
   i_agree_html: "I agree to the MyUSA %{terms_of_service_link} and %{privacy_policy_link}."
-  
+
   thank_you_for_signing_up: "Thank you for signing up"
   we_sent_you_an_email: "We've sent you an email to verify you're a person and not a robot. Please follow the instructions in the email, and we'll see you back here shortly."
-  
+
   your_profile: "Your profile"
   edit_your_profile: "Edit your profile"
+  my_profile: "My Profile"
   name: "Name"
   title: "Title"
   first_name: "First name"
@@ -80,14 +82,14 @@ en:
   veteran: "Veteran"
   update_profile: "Update profile"
   email: "Email"
-  
+
   your_account: "Your account"
   account_activity: "Account activity"
-  authentication_providers: "Authentication providers"
+  authentication_providers: "Other networks"
   delete_your_account: "Delete your account"
   are_you_sure: "Are you sure?"
   by_deleting: "By deleting your account, all information associated with your account will be deleted forever. (You can't undo this later.)"
-  
+
   errors:
     messages:
       expired: "has expired. Please request a new one."
@@ -110,7 +112,7 @@ en:
       timeout: 'Your session expired. Please sign in again.'
       inactive: "Your account hasn't been activated yet."
     sessions:
-      signed_in: 'Signed in successfully.'
+      signed_in: 'You have signed in successfully.'
       signed_out: 'Signed out successfully.'
     passwords:
       send_instructions: "You'll receive an email in a few minutes explaining how to reset your password."

@@ -15,7 +15,7 @@ module ApplicationHelper
       ""
     end
   end
-  
+
   def gender_options
     [["Male", "male"], ["Female", "female"]]
   end
@@ -25,7 +25,7 @@ module ApplicationHelper
   end
 
   def marital_status_options
-    [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic_partnership"], ["Widowed", "widowed"]]
+    [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Domestic Partnership", "domestic"], ["Widowed", "widowed"]]
   end
 
   def pretty_time(time)
@@ -73,7 +73,6 @@ module ApplicationHelper
     end
   end
 
-  
   def session_timeout_message
     here = link_to(t('remain_logged_in'), url_for(params.reject{ |k,v| k == "no_keep_alive" }))
     content_tag :div, :id => 'inactivity_warning', :style=>"display:inline;", :class => "row" do
@@ -172,43 +171,44 @@ module ApplicationHelper
     meta ["http-equiv" => "X-XRDS-Location", :content => url_for(:action => 'xrds', :controller => controller_name, :protocol => 'https', :only_path => false, :format => :xml)]
     metamagic :title => title, :description => desc
   end
-  
+
+
   def flash_messages
     return nil if !flash[:error] && !flash.alert && !flash.notice
-    
+
     html = ''
     alert_name = 'alert-message'
     error_displayed = false
     if flash[:error]
-      html << content_tag(:div, :class => 'alert-box', :id => !error_displayed ? alert_name : nil, :tabindex => -3) do
+      html << content_tag(:div, :class => 'alert alert-danger', :id => !error_displayed ? alert_name : nil, :tabindex => -3) do
         flash[:error]
       end
       error_displayed = true
     end
-    
+
     if flash.alert
-      html << content_tag(:div, :class => 'alert-box', :id => !error_displayed ? alert_name : nil, :tabindex => -2) do
+      html << content_tag(:div, :class => 'alert alert-danger', :id => !error_displayed ? alert_name : nil, :tabindex => -2) do
         flash.alert
       end
       error_displayed = true
     end
-    
+
     if flash.notice
-      html << content_tag(:div, :class => 'alert-box blue', :id => !error_displayed ? alert_name : nil, :tabindex => -1) do
+      html << content_tag(:div, :class => 'alert alert-info', :id => !error_displayed ? alert_name : nil, :tabindex => -1) do
         flash.notice
       end
       error_displayed = true
     end
-    
+
     content_for :scripts do
       javascript_tag do
         "$( document ).ready( function() { $('html,body').scrollTo('##{alert_name}', 'slow'); $('##{alert_name}').focus(); } );".html_safe
       end
     end
-    
+
     html.html_safe
   end
-  
+
   # Use the same access keys throughout the application
   def access_keys
     {:submit => 's'}

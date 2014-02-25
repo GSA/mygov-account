@@ -37,6 +37,8 @@ gem 'capistrano-maintenance'
 gem 'resque', :git => 'https://github.com/resque/resque.git', :branch => '1-x-stable', :require => 'resque/server'
 gem 'resque_mailer'
 gem 'devise-async'
+gem 'simple-navigation'
+gem 'twilio-ruby'
 gem 'auto-session-timeout-warning'
 gem 'newrelic_rpm'
 gem 'roboto'
@@ -67,6 +69,9 @@ group :test, :development do
   gem 'pry'
   gem 'pry-nav'
   gem 'rspec-rails'
+  gem "zeus-parallel_tests"
+  gem "factory_girl_rails", "~> 4.0"
+  gem 'turnip'
 end
 
 group :development do

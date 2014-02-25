@@ -73,6 +73,53 @@ ActiveRecord::Schema.define(:version => 20131217210551) do
     t.boolean  "is_approved", :default => false
   end
 
+  create_table "delivery_types", :force => true do |t|
+    t.integer  "notification_id"
+    t.string   "name"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "filled_forms", :force => true do |t|
+    t.integer  "form_id"
+    t.integer  "user_id"
+    t.integer  "app_id"
+    t.text     "values"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "filled_forms", ["form_id"], :name => "index_filled_forms_on_form_id"
+  add_index "filled_forms", ["user_id"], :name => "index_filled_forms_on_user_id"
+
+  create_table "form_fields", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.text     "description"
+    t.string   "values"
+    t.integer  "form_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "forms", :force => true do |t|
+    t.string   "name"
+    t.string   "number"
+    t.string   "agency"
+    t.string   "landing_page_url"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "notification_settings", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "delivery_type"
+    t.string   "notification_type"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "app_id"
+  end
+
   create_table "notifications", :force => true do |t|
     t.string   "subject"
     t.text     "body"
@@ -83,6 +130,7 @@ ActiveRecord::Schema.define(:version => 20131217210551) do
     t.datetime "updated_at",  :null => false
     t.datetime "deleted_at"
     t.datetime "viewed_at"
+    t.string   "notification_type"
   end
 
   add_index "notifications", ["app_id"], :name => "index_messages_on_o_auth2_model_client_id"

@@ -17,7 +17,7 @@ describe "Account" do
         page.should have_content "Edit your profile"
         page.should have_content "Change your email address"
         page.should have_content "Change your password"
-        page.should have_content "Authentication providers"
+        page.should have_content "Other networks"
         page.should have_content "Delete your account"
       end
 
@@ -41,8 +41,13 @@ describe "Account" do
       it "should allow password change" do
         visit account_index_path(@user)
         click_link 'Change your password'
+        fill_in('user_password', :with => 'asdf')      # Fill in with invalid input to test validation
+        click_button('Change my password')
+        page.should have_content("Password must include at least one lower case letter, one upper case letter and one digit.")
+        page.should have_content("Password is too short (minimum is 8 characters)")
         new_password = get_random_password
         fill_in('user_password', :with => new_password) # Use valid password, different from create_confirmed_user pasword
+        fill_in('user_password_confirmation', :with => new_password)
         click_button('Change my password')
         page.should have_content("Your password was sucessfully updated.")
         click_link 'Sign out'                           # Sign out and sign back in

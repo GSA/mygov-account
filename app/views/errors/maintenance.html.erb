@@ -1,25 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>MyUSA Maintenance</title>
-    <style type="text/css">
-    body {
-        width: 400px;
-        margin: 100px auto;
-        font: 300 120% "OpenSans", "Helvetica Neue", "Helvetica", Arial, Verdana, sans-serif;
-    }
-
-    h1 {
-        font-weight: 300;
-    }
-    </style>
+  <link href="https://s3-us-west-2.amazonaws.com/myusa/application.css" media="all" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <h1>MyUSA Maintenance</h1>
+  <div id='wrap'>
+    <div id='header'>
+      <div class='nav-container group'>
+        <div class='row'>
+          <div class='six columns'>
+            <h1>
+              My<span>USA</span>
+            </h1>
+          </div>
+          <div class='six columns align-right'>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id='main'>
+      <div class='nav-container group'>
+        <div class='row'>
+          <div class='twelve columns'></div>
+        </div>
+      </div>
+      <div class='container group'>
 
-    <p>The system is down for <%= reason ? reason : "maintenance" %><br>
-           as of <%= Time.now.strftime("%H:%M %Z") %>.</p>
 
-    <p>It'll be back <%= deadline ? deadline : "shortly" %>.</p>
+        <div class="row">
+          <div class="six columns centered">
+            <div class="panel sidebar decorative style-one">
+              <div>
+                <span class="leader centered">
+                  We're Getting Back on the Trail in a Few Moments
+                </span>
+            <p>The system is down for
+              <%= reason ? reason : "maintenance" %>
+              <%= " as of #{Time.now.strftime('%H:%M %Z')}." %>
+              It'll be back
+              <%= "#{deadline ? deadline : 'shortly'}." %>
+            </p>
+            <img class="framed" alt="on the trail" src= "https://s3-us-west-2.amazonaws.com/myusa/onthetrail.jpg" />
+                <p class="source">
+                  <a href="http://memory.loc.gov/cgi-bin/query/h?ammem/aep:@field(NUMBER+@band(icuaep+ors50))"> American Environmental Photographs Collection, [AEP Image Number, e.g., AEP-MIN73], Department of Special Collections, University of Chicago Library.</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

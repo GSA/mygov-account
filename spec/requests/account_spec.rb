@@ -69,13 +69,23 @@ describe "Account" do
         page.body.should_not =~ /joe/
         @user.reload
         @user.unconfirmed_email.should eq 'jack@citizen.org'
-        email = ActionMailer::Base.deliveries.last
+        email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.count - 2]
         email.subject.should eq "Reconfirmation instructions"
-        email.body.raw_source.should have_content('Please reconfirm your email')
-         
+        email.body.raw_source.should have_content('Please reconfirm your email')         
         email.to.should eq ['jack@citizen.org']
         email.from.should eq [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
         expect(email.body).not_to include('joe@citizen.org')
+
+
+        email = ActionMailer::Base.deliveries.last
+        email.subject.should eq "You changed your email address"
+        email.body.raw_source.should have_content('You changed your email address.')         
+        email.to.should eq ['joe@citizen.org']
+        email.from.should eq [Mail::Address.new(DEFAULT_FROM_EMAIL).address]
+        expect(email.body).not_to include('jack@citizen.org')
+
+
+
       end
 
       it "should not allow the user change their email address to an invalid value" do

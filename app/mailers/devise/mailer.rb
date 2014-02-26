@@ -17,4 +17,7 @@ class Devise::Mailer < Devise.parent_mailer.constantize
     devise_mail(record, :reconfirmation_instructions, opts)
   end
 
+  def you_changed_your_email_address(record, opts={})
+    devise_mail(record, :you_changed_your_email_address, {to: record.email})
+  end
 end

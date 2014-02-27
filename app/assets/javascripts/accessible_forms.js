@@ -30,11 +30,3 @@ $("input#user_zip").keydown(function(e){
     return false;
   }
 });
-
-
-
-$("input#user_zip").qtip({
-  content: {
-    text: 'Entering your zipcode will enable us to send you alerts and content relevant to your location. Not required.'
-  }
-})

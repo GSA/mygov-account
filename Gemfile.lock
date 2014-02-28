@@ -43,14 +43,6 @@ GIT
     validates_email_format_of (1.5.3)
 
 GIT
-  remote: https://github.com/j-mcnally/capistrano-slack.git
-  revision: 3ed328fd2eb0c57baa44fc3e0663fc563deb20dc
-  specs:
-    capistrano-slack (1.2.0)
-      capistrano (< 3.0.0)
-      capistrano-log_with_awesome (~> 0.0.2)
-
-GIT
   remote: https://github.com/resque/resque.git
   revision: d74283759b8082656450e55c80325c5086ac8c7a
   branch: 1-x-stable
@@ -126,8 +118,6 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
-    capistrano-log_with_awesome (0.0.2)
-      capistrano (>= 2.5.14)
     capistrano-maintenance (0.0.4)
       capistrano (>= 2.0.0)
     capybara (1.1.4)
@@ -438,7 +428,6 @@ DEPENDENCIES
   capistrano
   capistrano-maintenance
   capistrano-resque (~> 0.1.0)!
-  capistrano-slack!
   capybara (~> 1.1.4)
   coffee-rails (~> 3.2.1)
   database_cleaner

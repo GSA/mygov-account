@@ -60,15 +60,22 @@ describe "OauthApps" do
 
   context "when logged in with a user who does not own the sandboxed app" do
     before {login(@user2)}
-    
     describe "Does not allow sandbox application installation by non owner" do
       it "code in params should not have a value" do
         visit(url_for(controller: 'oauth', action: 'authorize', response_type: 'code', client_id: @sandbox_client_auth.client_id, redirect_uri: 'http://localhost/'))
-        page.should have_content('The sandbox application wants to:')
-        click_button('Allow')
-        uri = URI.parse(current_url)
-        params = CGI::parse(uri.query)
-        params["error"].should have_content("access_denied")
+        page.should have_content("You are accessing an application that doesn't exist or hasn't given you sufficient access.")
+      end
+    end
+  end
+
+  context "when NON logged in with a user who does not own the sandboxed app" do    
+    describe "Does not allow sandbox application installation by non owner" do
+      it "code in params should not have a value" do
+        visit(url_for(controller: 'oauth', action: 'authorize', response_type: 'code', client_id: @sandbox_client_auth.client_id, redirect_uri: 'http://localhost/'))
+        page.should have_content("Please sign in or sign up before continuing.")
+        fill_in_email_and_password(:email => 'second@user.org')
+        click_button("Sign in")
+        page.should have_content("You are accessing an application that doesn't exist or hasn't given you sufficient access.")
       end
     end
   end
@@ -119,7 +126,7 @@ describe "OauthApps" do
                 response_type: 'code', client_id: 'xyz', redirect_uri: 'http://localhost/')
         )
         page.should have_content("We're Sorry")
-        page.should have_content("The app you are attempting to use is not known or is not properly identifying itself to MyUSA.")
+        page.should have_content("You are accessing an application that doesn't exist or hasn't given you sufficient access.")
       end
     end
   end

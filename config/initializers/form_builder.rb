@@ -47,7 +47,7 @@ module ActionView
         output  = capture(builder, &block)
 
         # Prepend an explanation for the * if a form has required fields.
-        output = ( "<span class='required_explanation' aria-hidden='true'>* Required Field</span>" + output).html_safe if !!output.match(/aria-required="true"/)
+        output = ( "<span class='required_explanation' aria-hidden='true'>* Required Field</span><br>" + output).html_safe if !!output.match(/aria-required="true"/)
         default_options = builder.multipart? ? { :multipart => true } : {}
         form_tag(options.delete(:url) || {}, default_options.merge!(options.delete(:html))) { output }
       end

@@ -102,13 +102,13 @@ describe "Users" do
       page.should have_link 'Sign up with VeriSign'
     end
 
-    it "should indicate which fields are required" do
+    it "should indicate which fields are required and have '* Required'" do
       visit sign_up_path
 
       page.should have_content "Email *" # Email is a required field
       page.should have_content "Zip"     # Zip is not.
       page.should_not have_content "Zip *"
-
+      page.should have_content "* Required Field"
       page.should have_selector("input[type=email][name='user[email]'][aria-required=true]")
       page.should have_selector("input[type=text][name='user[zip]']")
       page.should_not have_selector("input[type=text][name='user[zip]'][aria-required=true]")

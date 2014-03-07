@@ -29,6 +29,7 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
   border-radius: 0;
 }
 
+
 @-moz-document url-prefix() {
   input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
   padding: 0 .4em;
@@ -341,6 +342,12 @@ fieldset span {
 }
 
 form ol, fieldset ol {margin: 0 0 0 0; padding: 0;}
+
+.required_explanation{
+  color: #949494;
+  font-weight: bold;
+  font-style: italic;
+}
 
 fieldset li, form li {
   display: block;

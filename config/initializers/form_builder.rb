@@ -23,6 +23,35 @@ module ActionView
   module Helpers
     module FormHelper
 
+
+     def form_for(record, options = {}, &block)
+        raise ArgumentError, "Missing block" unless block_given?
+
+        options[:html] ||= {}
+
+        case record
+        when String, Symbol
+          object_name = record
+          object      = nil
+        else
+          object      = record.is_a?(Array) ? record.last : record
+          object_name = options[:as] || ActiveModel::Naming.param_key(object)
+          apply_form_for_options!(record, options)
+        end
+
+        options[:html][:remote] = options.delete(:remote) if options.has_key?(:remote)
+        options[:html][:method] = options.delete(:method) if options.has_key?(:method)
+        options[:html][:authenticity_token] = options.delete(:authenticity_token)
+
+        builder = options[:parent_builder] = instantiate_builder(object_name, object, options, &block)
+        output  = capture(builder, &block)
+
+        # Prepend an explanation for the * if a form has required fields.
+        output = ( "<span class='required_explanation' aria-hidden='true'>* Required Field</span>" + output).html_safe if !!output.match(/aria-required="true"/)
+        default_options = builder.multipart? ? { :multipart => true } : {}
+        form_tag(options.delete(:url) || {}, default_options.merge!(options.delete(:html))) { output }
+      end
+
       def text_field(object_name, method, options = {})
       	options.merge!({'aria-required' => true}) if options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
         InstanceTag.new(object_name, method, self, options.delete(:object)).to_input_field_tag("text", options)

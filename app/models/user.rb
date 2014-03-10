@@ -186,4 +186,14 @@ class User < ActiveRecord::Base
     UserMailer.account_deleted(self.email).deliver
   end
 
+  # Send confirmation instructions by email
+  def send_confirmation_instructions
+    ensure_confirmation_token!
+
+    opts = pending_reconfirmation? ? { :to => unconfirmed_email } : { }
+    send_devise_notification((pending_reconfirmation? ? :reconfirmation_instructions : :confirmation_instructions), opts)
+    send_devise_notification(:you_changed_your_email_address, opts) if pending_reconfirmation?
+  end
+
+
 end

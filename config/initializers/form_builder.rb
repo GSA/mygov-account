@@ -30,8 +30,9 @@ module ActionView
 
       def email_field(object_name, method, options = {})
         process(object_name, method, options) { [:to_input_field_tag, "email", options] }
+      end
 
-     def form_for(record, options = {}, &block)
+      def form_for(record, options = {}, &block)
         raise ArgumentError, "Missing block" unless block_given?
 
         options[:html] ||= {}

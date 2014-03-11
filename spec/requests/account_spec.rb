@@ -14,6 +14,8 @@ describe "Account" do
 
       it "should show the user links to various account options" do
         visit account_index_path
+        expect(page.html).to have_valid_html
+
         page.should have_content "Edit your profile"
         page.should have_content "Change your email address"
         page.should have_content "Change your password"
@@ -40,6 +42,8 @@ describe "Account" do
 
       it "should allow password change" do
         visit account_index_path(@user)
+        expect(page.html).to have_valid_html
+
         click_link 'Change your password'
         new_password = get_random_password
         fill_in('user_password', :with => new_password) # Use valid password, different from create_confirmed_user pasword
@@ -54,6 +58,8 @@ describe "Account" do
 
       it "should show the user a form with their current email address filled in" do
         visit edit_user_registration_path(@user)
+        expect(page.html).to have_valid_html
+
         email_field = find_field('Email')
         email_field[:value].should == 'joe@citizen.org'
       end

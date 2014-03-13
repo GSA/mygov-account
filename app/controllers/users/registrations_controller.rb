@@ -6,6 +6,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     if session[:omniauth] == nil
       if verify_recaptcha_if_needed
+        if !!session[:request_env_omniauth]
+          @user = User.find_for_open_id(session[:request_env_omniauth], current_user, params[:user][:terms_of_service])
+          sign_in_and_redirect @user, :event => :authentication
+          return
+        end
+
         super
         session[:omniauth] = nil unless @user.new_record?
         session[:account_created] = true if @user.valid?

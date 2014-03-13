@@ -199,7 +199,7 @@ describe User do
       it "should create a new user and authentication with the access token information" do
         User.count.should == 0
         Authentication.count.should == 0
-        user = User.find_for_open_id(@access_token)
+        user = User.find_for_open_id(@access_token, nil, '1')
         user.errors.should be_empty
         User.all.last.email.should == 'jane@citizen.org'
         User.count.should == 1

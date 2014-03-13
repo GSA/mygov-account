@@ -57,7 +57,6 @@ class User < ActiveRecord::Base
 
         user = User.new(:email => data['email'], :password => User.default_password)
         user.terms_of_service = terms_of_service
-        binding.pry 
         user.profile = Profile.new(:first_name => data["first_name"], :last_name => data["last_name"])
         user.skip_confirmation!
         user.authentications.new(:uid => access_token.uid, :provider => access_token.provider, :data => access_token)

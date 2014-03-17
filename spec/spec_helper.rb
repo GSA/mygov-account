@@ -39,7 +39,7 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-  
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
   end
@@ -51,10 +51,10 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-  
+
   config.before(:each) { GC.disable }
   config.after(:each) { GC.enable }
-  
+
   config.before(:all) do
     DeferredGarbageCollection.start
   end
@@ -62,14 +62,15 @@ RSpec.configure do |config|
   config.after(:all) do
     DeferredGarbageCollection.reconsider
   end
-  
+
   config.before(:each) do
     OauthScope.seed_data.each { |os| OauthScope.create os } if OauthScope.all.empty?
   end
-  
+
+  config.include DashboardSteps
   config.include IntegrationSpecHelper, :type => :request
   config.include Devise::TestHelpers, :type => :controller
-  
+
 end
 
 Capybara.default_host = "http://citizen.org"

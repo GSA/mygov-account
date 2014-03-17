@@ -14,34 +14,34 @@ describe "Notifications" do
       visit notifications_path
       page.should have_content 'Notifications'
     end
-    
+
     context "when the user has no notifications" do
       before {@user.notifications.destroy_all}
-      
+
       it "should inform the user they have no notifications" do
         visit notifications_path
         page.should have_content "You currently have no notifications."
       end
     end
-    
+
     context "when the user has notifications" do
       before do
         Notification.delete_all
         1.upto(14) do |index|
-          @notification = Notification.create!({:subject => "Notification ##{index}", :received_at => (Time.now - 1.hour + index.minutes), :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app1.id}, :as => :admin)
+          @notification = Notification.create!({:subject => "Notification ##{index}", :received_at => (Time.now - 1.hour + index.minutes), :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app1.id, :notification_type => 'myapp-identifier'}, :as => :admin)
         end
-        @other_user_notification = Notification.create!({:subject => 'Other User Notification', :received_at => (Time.now - 1.hour + 15.minutes), :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app1.id}, :as => :admin)
-        @other_app_notification = Notification.create!({:subject => 'Other App Notification', :received_at => (Time.now - 1.hour + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
-        @day_old_notification = Notification.create!({:subject => 'Day Old Notification', :received_at => (Time.now - 2.days + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
-        @month_old_notification = Notification.create!({:subject => 'Week Old Notification', :received_at => (DateTime.new(2013,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
-        @year_old_notification = Notification.create!({:subject => 'Year Old Notification', :received_at => (DateTime.new(2012,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
+        @other_user_notification = Notification.create!({:subject => 'Other User Notification', :received_at => (Time.now - 1.hour + 15.minutes), :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app1.id, :notification_type => 'myapp-identifier'}, :as => :admin)
+        @other_app_notification = Notification.create!({:subject => 'Other App Notification', :received_at => (Time.now - 1.hour + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :notification_type => 'myapp-identifier'}, :as => :admin)
+        @day_old_notification = Notification.create!({:subject => 'Day Old Notification', :received_at => (Time.now - 2.days + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :notification_type => 'myapp-identifier'}, :as => :admin)
+        @month_old_notification = Notification.create!({:subject => 'Week Old Notification', :received_at => (DateTime.new(2013,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :notification_type => 'myapp-identifier'}, :as => :admin)
+        @year_old_notification = Notification.create!({:subject => 'Year Old Notification', :received_at => (DateTime.new(2012,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id, :notification_type => 'myapp-identifier'}, :as => :admin)
       end
-      
+
       it "returns the date using words + 'ago' when the notification is less than a week old" do
         visit notification_path(@day_old_notification)
         page.should have_content '2 days ago'
       end
-      
+
       it "returns the date in 'Month DD' format when the notification is greater than a week but less than a year old" do
         visit notification_path(@month_old_notification)
         page.should have_content 'May 13'
@@ -54,21 +54,21 @@ describe "Notifications" do
 
       context "when notifications have been deleted" do
         it "does not display the deleted message in the notifications list" do
-          @user.notifications.first.destroy
+          Notification.delete_all
           visit dashboard_path(@year_old_notification)
           expect(page).to have_no_content "Year Old Notification"
         end
       end
-      
+
       context "when some notifications do not have an associated app" do
-        before {@user.notifications.create!(:subject => 'Appless notification', :received_at => Time.now)}
+        before {@user.notifications.create!(:subject => 'Appless notification', :received_at => Time.now, :notification_type => 'myapp-1' )}
 
         it "should load the page just fine" do
           visit notifications_path
           page.should have_content "Appless notification"
         end
       end
-      
+
       it "should display a paginated list of user's notifications" do
         visit notifications_path
         @user.notifications.not_deleted.newest_first.limit(10).each_with_index do |notification, index|
@@ -118,6 +118,17 @@ describe "Notifications" do
         page.should_not have_content "Notification #9"
       end
       
+      it "should automatically set the page to the lowest actual page value if there are no notifications for the page specified" do
+        visit notifications_path
+        click_link "2"
+        1.upto(8) do
+          page.should have_link 'Previous'
+          click_link 'Remove'
+        end
+        page.should_not have_link 'Previous'
+        page.should have_content "Notification #14"
+      end
+
       it "should automatically set the page to the lowest actual page value if there are no notifications for the page specified" do
         visit notifications_path
         click_link "2"

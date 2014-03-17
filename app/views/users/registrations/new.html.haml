@@ -1,55 +1,66 @@
 .row
-  .ten.columns.centered.banner
+  .col-md-12
+    = devise_error_messages!
+    = flash_messages
     %h2
       = t(:take_control)
+
 .row
-  .eight.columns
-    .panel
-      %fieldset.fancy
-        %legend
-          %span
-            %i{:class => "foundicon-star"}
-            %i{:class => "foundicon-star"}
-            %i{:class => "foundicon-star"}
-            %i{:class => "foundicon-star"}
-          Sign up
-          %span
-            %i{:class => "foundicon-star"}
-            %i{:class => "foundicon-star"}
-            %i{:class => "foundicon-star"}
-            %i{:class => "foundicon-star"}
-        %p
-          = form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {novalidate: true}) do |f|
-            = flash_messages
-            = devise_error_messages!
-            %ol
-              %li
-                = f.label :first_name
-                = f.text_field :first_name
-              %li
-                = f.label :last_name
-                = f.text_field :last_name
-              %li
-                = f.label :email
-                = f.email_field :email
-              %li
-                = f.label :password
-                = f.password_field :password, autocomplete: 'off'
+  .col-md-8
+    %p
+      = form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {novalidate: true}) do |f|
+        = flash_messages
+        = devise_error_messages!
+
+        %ol.inline.sign-in-panel
+          %li.row
+            .col-md-2
+              = f.label :first_name
+            .col-md-6
+              = f.text_field :first_name
+          %li.row
+            .col-md-2
+              = f.label :last_name
+            .col-md-6
+              = f.text_field :last_name
+          %li.row
+            .col-md-2
+              = f.label :email
+            .col-md-6
+              = f.email_field :email
+          %li.row
+            .col-md-2
+              = f.label :password
+            .col-md-6
+              = f.password_field :password, autocomplete: 'off'
+          %li.row
+            .col-md-2
+              = f.label :password_confirmation
+            .col-md-6
+              = f.password_field :password_confirmation, autocomplete: 'off'
+          %li.row
+            .col-md-2
+            .col-md-6
               %li
                 = f.label :zip
                 %span{:id=>'tip-zip', :class=>'tooltip'}
                   Entering your zip code will enable us to send you alerts and content relevant to your location.
                   %i (Not required)
                 = f.text_field :zip, {'aria-described-by'=>'tip-zip'}
-              %li
-                = f.label :terms_of_service do
-                  = f.check_box :terms_of_service
-                  = t(:i_agree_html, :terms_of_service_link => link_to(t(:terms_of_service), terms_of_service_path), :privacy_policy_link => link_to(t(:privacy_policy), privacy_policy_path))
-              %li
-                = recaptcha_tags display: {theme: 'clean'} if recaptcha_needed?
-              %li= f.submit t(:sign_up), :class => 'button positive', :accesskey => access_keys[:submit]
+          %li.row
+            .col-md-2
+            .col-md-6
+              = f.label :terms_of_service do
+                = f.check_box :terms_of_service
+                = t(:i_agree_html, :terms_of_service_link => link_to(t(:terms_of_service), terms_of_service_path), :privacy_policy_link => link_to(t(:privacy_policy), privacy_policy_path))
+          %li.row
+            .col-md-2
+            .col-md-6
+              = recaptcha_tags display: {theme: 'clean'} if recaptcha_needed?
+          %li.row
+            .col-md-2
+            .col-md-6
+              = f.submit t(:sign_up), :class => 'btn btn-primary btn-lg', :accesskey => access_keys[:submit]
 
-  .four.columns
-    .panel.side-panel
-      = render "devise/shared/provider_links"
-
+  .col-md-4
+    = render "devise/shared/provider_links"

@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe "Apps" do  
+describe "Apps" do
   before do
 
     @user = create_confirmed_user_with_profile
-    @user2 = create_confirmed_user_with_profile(email: 'jane@citizen.org', first_name: 'Jane')        
+    @user2 = create_confirmed_user_with_profile(email: 'jane@citizen.org', first_name: 'Jane')
     @app1 = @user.apps.create(name: 'Public App 1', :url => 'http://www.agency.gov/app1', :short_description => 'Public Application 1', :description => 'A public app 1', redirect_uri: "http://localhost/")
     @app1.is_public = true
     @app1.save!
-    
+
     @app3 = @user.apps.create(name: 'Public App 3', :url => Capybara.default_host, :short_description => 'Public Application 3', :description => 'A public app 3', redirect_uri: "http://localhost/")
     @app3.is_public = true
     @app3.save!
@@ -20,11 +20,11 @@ describe "Apps" do
     @app2 = @user2.apps.create(name: 'Public App 2', :url => 'http://www.agency.gov/app2', :short_description => 'Public Application 2', :description => 'A public app 2', redirect_uri: "http://localhost/")
     @app2.is_public = true
     @app2.save!
-    
+
     @sandboxed_app1 = @user.apps.create(name: 'Sandboxed App 1', :short_description => 'Sandboxed Application 1', redirect_uri: "http://localhost/")
     @sandboxed_app2 = @user2.apps.create(name: 'Sandboxed App 2', :short_description => 'Sandboxed Application 2', redirect_uri: "http://localhost/")
   end
-  
+
   describe "GET /apps" do
     context "when no user is logged in" do
       it "should display a list of public (non-sandboxed) apps" do
@@ -34,10 +34,10 @@ describe "Apps" do
         page.should have_no_content "Sandboxed App 1"
       end
     end
-    
+
     context "when a user is logged in" do
       before {login(@user)}
-      
+
       it "should not link to leaving page if app has no url" do
         visit apps_path
         click_link "Public App 4"
@@ -49,7 +49,7 @@ describe "Apps" do
         visit apps_path
         click_link "Public App 1"
         click_link "Public App 1"
-        
+
         page.should have_content I18n.t('leaving_myusa')
         page.should have_content I18n.t('not_part_of_myusa')
         page.should have_css  %Q/meta[content="#{Rails.application.config.apps_leaving_delay};#{URI.escape @app1.url}"]/, :visible => false
@@ -57,14 +57,14 @@ describe "Apps" do
         visit apps_path
         click_link "Public App 3"
         click_link "Public App 3"
-        
+
         page.should_not have_content I18n.t('leaving_myusa')
         page.should_not have_content I18n.t('not_part_of_myusa')
 
         page.should have_content I18n.t('apps_leaving')
 
       end
-      
+
       it "should show a list of public apps, and those sandboxed apps that are owned by the logged in user" do
         visit apps_path
         page.should have_content "Public App 1"
@@ -75,10 +75,10 @@ describe "Apps" do
         click_link "Public App 1"
         current_url.should have_content "apps/public-app-1"
       end
-      
+
       context "when the user has authorized an application" do
         before {@user.grant_access!(@app2.oauth2_client, scopes: ["profile"], duration: nil)}
-        
+
         it "should show that the user has authorized that app" do
           visit apps_path
           within('h3', :text => 'Public App 2') {page.should have_content 'Authorized'}
@@ -92,29 +92,29 @@ describe "Apps" do
       end
     end
   end
-  
+
   describe "GET /apps.json" do
-    it "should list all apps, not including info specific to the logged in user, not list Default App, and not list 'app' as root node" do  
+    it "should list all apps, not including info specific to the logged in user, not list Default App, and not list 'app' as root node" do
       get "/apps.json"
       parsed_response = JSON.parse(response.body)
       parsed_response.size.should == 4
     end
   end
-  
+
   describe "GET /apps/new" do
     context "when a user is not logged in" do
       it "should not show the page" do
         visit new_app_path
         page.should have_content "Please sign in or sign up before continuing."
-        fill_in_email_and_password
+        fill_in_email_and_password(with_password_confirmation:false)
         click_button 'Sign in'
         current_path.should match('apps')
       end
     end
-    
+
     context "when a user is signed in" do
       before {login(@user)}
-      
+
       it "should let a user create a new app, show them the the client id and secret id, and edit the app" do
         visit new_app_path
 
@@ -142,7 +142,7 @@ describe "Apps" do
         page.should have_content "An app$"
         page.should have_no_content "An app!"
       end
-      
+
       context "when the user selects scopes but not something else that's required" do
         it "should remember which scopes the user checked" do
           visit new_app_path
@@ -155,7 +155,7 @@ describe "Apps" do
           find("#app_app_oauth_scopes_attributes_#{profile_sub_scope_id}_oauth_scope_id").should be_checked
         end
       end
-      
+
       context "when the user does not select an OAuth Scope" do
         it "should not create the app and return the user to the form with an error message" do
           visit new_app_path
@@ -169,7 +169,7 @@ describe "Apps" do
       end
     end
   end
-  
+
   describe "GET /app/:slug" do
     it "should link to the app home page via an interstitial page that warns the user they are leaving MyUSA" do
       visit app_path @app1
@@ -178,7 +178,7 @@ describe "Apps" do
       page.should have_content "You are leaving MyUSA"
       page.should have_link @app1.url, :href => @app1.url
     end
-    
+
     context "when a user is not logged in" do
       context "for public apps" do
         it "should show the app page, but not provide a link to edit the app" do
@@ -188,7 +188,7 @@ describe "Apps" do
           page.should have_no_link 'Edit'
         end
       end
-      
+
       context "for sandboxed apps" do
         it "should redirect the user to the apps page" do
           visit app_path(@sandboxed_app1)
@@ -197,10 +197,10 @@ describe "Apps" do
         end
       end
     end
-    
+
     context "when a user is logged in" do
       before {login(@user)}
-      
+
       context "for the app owner" do
         context "for public apps" do
           it "should show the app page, and a link to edit the app" do
@@ -211,7 +211,7 @@ describe "Apps" do
             page.should have_link 'Edit app information'
           end
         end
-      
+
         context "for sandboxed apps" do
           it "show the app page, and a link to edit the app" do
             visit app_path @sandboxed_app1
@@ -222,7 +222,7 @@ describe "Apps" do
           end
         end
       end
-      
+
       context "for a non-owning user" do
         context "for public apps" do
           it "should show the app page, but not link to edit the app" do
@@ -232,7 +232,7 @@ describe "Apps" do
             page.should have_no_link 'Edit app information'
           end
         end
-      
+
         context "for sandboxed apps" do
           it "show the app page, redirect to the apps page" do
             visit app_path @sandboxed_app2
@@ -241,7 +241,7 @@ describe "Apps" do
           end
         end
       end
-      
+
       context "for an owner-user" do
         context "app can be deleted (not public and no logs)" do
           it "should allow a user to delete an app" do
@@ -254,7 +254,7 @@ describe "Apps" do
             page.should have_no_content @sandboxed_app1.name
           end
         end
-        
+
         context "app can be deleted and matches another deleted app" do
           before do
             @app1.destroy
@@ -262,7 +262,7 @@ describe "Apps" do
             @app1.is_public = true
             @app1.save!
           end
-          
+
           it "should allow a user to delete an app" do
             visit apps_path
             page.should have_content @sandboxed_app1.name
@@ -273,7 +273,7 @@ describe "Apps" do
             page.should have_no_content @sandboxed_app1.name
           end
         end
-        
+
         context "app cannot be deleted (is public)" do
           it "should not allow a user to delete an app" do
             visit app_path @app1

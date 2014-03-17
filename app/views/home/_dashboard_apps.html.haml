@@ -1,13 +1,43 @@
-.panel.group{"data-magellan-destination" => "apps"}
-  %a{:name => "apps"}
-  %h3
-    %i{:class => "foundicon-website"}
-    Apps
-  %p
-    Apps are services that use your MyUSA Account to make interacting with government easier.
-  .row
-    .eleven.columns
-      %p
-        Check out all available apps in the #{link_to 'App Gallery', apps_path}.
-      %p
-        Are you a developer? #{link_to 'Learn how to create your own MyUSA app', developer_path}.
+%a{:name => "apps"}
+
+%h3
+  %i{:class => "foundicon-website"}
+  Apps
+%p
+  Apps are services that use your MyUSA Account to make interacting with government easier.
+
+
+.panel.panel-default
+  .panel-heading
+    %h4
+      Here are some apps we're working on:
+
+  #app-gallery.panel-body
+    .row
+      .col-md-4
+        %h4
+          = link_to 'Benefits.gov', "#"
+        %a{:href=>'#', :class=>'thumbnail'}
+          %img{:src=>"/assets/app-logo-benefits-gov.jpg", :alt=>"...", :class=>""}
+        %p
+          An application description will go here. An application description will go here.
+        %p
+          = link_to "Read more", "#"
+
+        %p
+          = link_to "Deactivate this app", "#"
+
+      .col-md-4
+        %h4
+          = link_to 'Business USA', "#"
+        %a{:href=>'#', :class=>'thumbnail'}
+          %img{:src=>'/assets/app-logo-mybizusa-gov.jpg', :alt=>"...", :class=>""}
+        %p
+          An application description will go here.
+        %p
+          = link_to "Read more", "#"
+
+        %p
+          = link_to "Activate this app", "#"
+
+= link_to 'Learn how to create your own MyUSA app', developer_path

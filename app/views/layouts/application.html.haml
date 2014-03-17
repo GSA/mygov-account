@@ -5,72 +5,81 @@
     - if current_user && request.get? # If it's a post, then no redirect
       %noscript
         = refresh_meta_tag_conent
+
     = head_metadata(content_for?(:title) ? yield(:title) : "MyUSA", content_for?(:meta_description) ? yield(:meta_description) : t(:meta_description))
+
     = csrf_meta_tags
-    = stylesheet_link_tag "fonts", :media => "all"
-    = stylesheet_link_tag "application", :media => "all"
-    = stylesheet_link_tag "general_foundicons", :media => "all"
+
+    = stylesheet_link_tag "bootstrap", :media => "all"
+    = stylesheet_link_tag "dashboard", :media => "all"
+    = stylesheet_link_tag "signup", :media => "all"
+    = stylesheet_link_tag "forms", :media => "all"
+    = favicon_link_tag '/favicon.ico', :rel => 'shortcut icon'
+
+    %link{:href=>'https://fonts.googleapis.com/css?family=Raleway: 100, 200, 300,400,500,700', :rel=>'stylesheet', :type=>'text/css'}
     /[if !IE 7]
       = stylesheet_link_tag "ie7", :media => "all"
-    /[if lt IE 9]
-      = stylesheet_link_tag "general_foundicons_ie7", :media => "all"
-    = favicon_link_tag '/favicon.ico', :rel => 'shortcut icon'
-    = favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-    = favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :sizes => '72x72', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-    = favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :sizes => '114x114', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-    = favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :sizes => '144x144', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-    = javascript_include_tag 'modernizr'
 
-  %body
-    #wrap
-      #header
-        .nav-container.group
-          .row
-            .six.columns
-              %a{ :href => root_url }
+  %body.content
+    #navigation-region
+      .container
+        .row
+          %nav.navbar.col-md-6.navbar-default{role: "navigation"}
+            / Brand and toggle get grouped for better mobile display
+            .navbar-header
+              %a{:class=>"navbar-brand", :href=>"/"}
+                %img{:src => "/assets/shield.gif"}
                 %h1
-                  - if current_user and current_user.profile.first_name.present?
-                    %span.personal-name
-                      #{current_user.profile.first_name}'s
-                  My<span>USA</span>
-            .six.columns.align-right
-              - if !current_user && request.path != sign_in_path
-                %h3.tagline
-                  =t(:sign_in_prompt)
-                  =link_to t(:sign_in_link), sign_in_path
-              - if current_user
-                %h3.tagline
-                  = link_to 'MyUSA Dashboard', root_url
-                  |
-                  = link_to 'Account Settings', account_index_path
-                  |
-                  = link_to t(:sign_out), sign_out_path
-      #main
-        %a{:name => "top"}
-        .nav-container.group
-          .row
-            .twelve.columns
-        .container.group
-          %noscript
-            = session_about_to_timeout_message_no_script
-          = session_about_to_timeout_message
-          = yield
-        - unless current_user
-          .no-toolbar
+                  <span>My</span>USA
 
-      /
-        Javascripts
-        \==================================================
-      / Placed at the end of the document so the pages load faster
-      = javascript_include_tag "application"
-      :javascript
+          - if current_user
+            .collapse.navbar-collapse.navbar-ex1-collapse
+              = render_navigation(:context => :main)
 
-          if ($('#meta-refresh').length > 0) {
-            var mr = document.getElementById("meta-refresh");
-            console.log(mr);
-            mr.parentNode.removeChild(mr);
-          }
-      = content_for :scripts
-      = analytics_init if Rails.env.production?
-      - if current_user
-        = auto_session_timeout_js timeout:  User.timeout_in, frequency: Rails.application.config.session_check_frequency, start: 1, warning: Rails.application.config.session_timeout_warning_seconds
+          #sign-in-utility.col-md-5.text-right
+            - if !current_user && request.path != sign_in_path
+              =t('sign_in_prompt')
+              =link_to t('sign_in_link'), sign_in_path, class: 'btn btn-primary'
+
+          .col-md-1
+
+    #main
+      %a{:name => "top"}
+      .nav-container
+        .row
+          .col-md-12
+      .container
+        %noscript
+          = session_about_to_timeout_message_no_script
+        = session_about_to_timeout_message
+        - if params[:timeout].present?
+          = session_timeout_message
+        = yield
+
+        .row
+          .col-md-1
+          .col-md-11
+            - if current_user
+              = render :partial => 'home/administrative_settings'
+            - else
+              = render :partial => 'home/footer_links'
+
+    /
+      Javascripts
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    = javascript_include_tag "application"
+    = content_for :scripts
+    = analytics_init if Rails.env.production?
+
+
+    :javascript
+
+        if ($('#meta-refresh').length > 0) {
+          var mr = document.getElementById("meta-refresh");
+          console.log(mr);
+          mr.parentNode.removeChild(mr);
+        }
+    - if current_user
+      = auto_session_timeout_js timeout:  User.timeout_in, frequency: Rails.application.config.session_check_frequency, start: 1, warning: Rails.application.config.session_timeout_warning_seconds
+

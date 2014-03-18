@@ -1,6 +1,6 @@
 class ActionView::Helpers::FormBuilder
 	alias :orig_label :label
- 
+
 	# add a '*' after the field label if the field is required
 	def label(method, content_or_options = nil, options = nil, &block)
 		if content_or_options && content_or_options.class == Hash
@@ -10,6 +10,7 @@ class ActionView::Helpers::FormBuilder
 		end
     options ||= {}
 		required_mark = ''
+
 		required_mark = ' *'.html_safe if options[:required] != false && object.class.validators_on(method).map(&:class).include?(ActiveModel::Validations::PresenceValidator)
 
 		content ||= method.to_s.humanize
@@ -24,8 +25,16 @@ module ActionView
   module Helpers
     module FormHelper
 
+      def process(object_name, method, options)
+        options.merge!({'aria-required' => true}) if !options[:object].nil? && (options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator)
+        InstanceTag.new(object_name, method, self, options.delete(:object)).send(*yield)
+      end
 
-     def form_for(record, options = {}, &block)
+      def email_field(object_name, method, options = {})
+        process(object_name, method, options) { [:to_input_field_tag, "email", options] }
+      end
+
+      def form_for(record, options = {}, &block)
         raise ArgumentError, "Missing block" unless block_given?
 
         options[:html] ||= {}
@@ -59,43 +68,31 @@ module ActionView
       end
 
       def password_field(object_name, method, options = {})
-      	options.merge!({'aria-required' => true}) if options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
-        InstanceTag.new(object_name, method, self, options.delete(:object)).to_input_field_tag("password", { :value => nil }.merge!(options))
+        process(object_name, method, options) { [:to_input_field_tag, "password", { :value => nil }.merge!(options)] }
       end
 
       def text_area(object_name, method, options = {})
-      	options.merge!({'aria-required' => true}) if options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
-        InstanceTag.new(object_name, method, self, options.delete(:object)).to_text_area_tag(options)
+        process(object_name, method, options) { [:to_text_area_tag, options] }
       end
 
       def check_box(object_name, method, options = {}, checked_value = "1", unchecked_value = "0")
-      	options.merge!({'aria-required' => true}) if options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
-        InstanceTag.new(object_name, method, self, options.delete(:object)).to_check_box_tag(options, checked_value, unchecked_value)
+        process(object_name, method, options) { [:to_check_box_tag, options, checked_value, unchecked_value] }
       end
 
       def radio_button(object_name, method, tag_value, options = {})
-      	options.merge!({'aria-required' => true}) if options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
-        InstanceTag.new(object_name, method, self, options.delete(:object)).to_radio_button_tag(tag_value, options)
+        process(object_name, method, options) { [:to_radio_button_tag, tag_value, options] }
       end
 
       def url_field(object_name, method, options = {})
-      	options.merge!({'aria-required' => true}) if options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
-        InstanceTag.new(object_name, method, self, options.delete(:object)).to_input_field_tag("url", options)
-      end
-
-      def email_field(object_name, method, options = {})
-      	options.merge!({'aria-required' => true}) if options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
-        InstanceTag.new(object_name, method, self, options.delete(:object)).to_input_field_tag("email", options)
+        process(object_name, method, options) { [:to_input_field_tag, "url", options] }
       end
 
       def number_field(object_name, method, options = {})
-      	options.merge!({'aria-required' => true}) if options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
-        InstanceTag.new(object_name, method, self, options.delete(:object)).to_number_field_tag("number", options)
+        process(object_name, method, options) { [:to_number_field_tag, "number", options] }
       end
 
       def range_field(object_name, method, options = {})
-      	options.merge!({'aria-required' => true}) if options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
-        InstanceTag.new(object_name, method, self, options.delete(:object)).to_number_field_tag("range", options)
+        process(object_name, method, options) { [:to_number_field_tag, "range", options] }
       end
 
     end

@@ -1,11 +1,11 @@
 .row
-  .ten.columns.centered.banner
+  .col-md-10.text-center
     %h2
       = t(:take_control)
 
 .signup-form.margin-top
   .row
-    .six.columns.centered
+    .col-md-6.text-center
       %h3
         Try it out
       #signup-form
@@ -15,6 +15,6 @@
             = form.label :email
             = form.email_field :email
             = form.submit t(:sign_up), :class => 'large button positive '
-  
+
       %p.disclaimer
         %a.plain{:href => "http://myusa.tumblr.com/about"}= t(:read_more)

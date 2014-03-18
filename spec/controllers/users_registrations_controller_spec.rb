@@ -7,7 +7,7 @@ describe Users::RegistrationsController do
       before do
         controller.stub(:verify_recaptcha_if_needed).and_return(false)
       end
-      
+
       it "displays all error messages even when recaptcha is invalid" do
         @request.env["devise.mapping"] = Devise.mappings[:user]
         put :create, user: {}

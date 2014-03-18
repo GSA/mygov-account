@@ -34,34 +34,34 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
     else
       super
-      session[:omniauth] = nil unless @user.new_record? 
+      session[:omniauth] = nil unless @user.new_record?
     end
   end
 
   def thank_you
   end
-  
+
   protected
-  
+
   def after_inactive_sign_up_path_for(resource)
     thank_you_path
   end
-  
+
   def after_update_path_for(resource)
     edit_user_registration_path
   end
-  
+
   # Build a devise resource passing in the session. Useful to move
   # temporary session data to the newly created user.
   def build_resource(hash=nil)
     super(hash)
     self.resource.auto_approve = true if self.resource && session[:auto_approve_account] == true
   end
-  
+
   def recaptcha_needed?
     !!session[:account_created]
   end
-  
+
   def verify_recaptcha_if_needed
     recaptcha_needed? ? verify_recaptcha : true
   end

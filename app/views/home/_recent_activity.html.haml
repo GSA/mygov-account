@@ -1,0 +1,9 @@
+- unless @user.grouped_activity_logs.empty?
+  - @user.grouped_activity_logs.each do |group|
+    %ul
+      - group.last.first(5).each do |item|
+        %li= item
+  = link_to "View all account activity", activity_log_path
+
+- else
+  %p You do not have any recent activity.

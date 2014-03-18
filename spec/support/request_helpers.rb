@@ -51,9 +51,10 @@ def create_sandbox_app(user)
 end
 
 def fill_in_email_and_password(options = {})
-  options = options.reverse_merge({email:'joe@citizen.org', password:'Password1'})
+  options = options.reverse_merge({email:'joe@citizen.org', password:'Password1', with_password_confirmation:true})
   fill_in 'Email', :with => options[:email]
   fill_in 'Password', :with => options[:password]
+  fill_in 'Password confirmation', :with => options[:password] if options[:with_password_confirmation]
 end
 
 def lock_account
@@ -70,4 +71,4 @@ def create_public_app_for_user(user, name = 'Public App', url = 'http://www.agen
   app.save!
   app
 end
-  
+

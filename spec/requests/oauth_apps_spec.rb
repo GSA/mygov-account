@@ -12,19 +12,19 @@ describe "OauthApps" do
     @app_redirect_with_params.oauth_scopes << OauthScope.top_level_scopes
     @app_redirect_with_params.oauth_scopes << OauthScope.where('scope_name = "profile.email"').first
     @app_redirect_with_params_client_auth = @app_redirect_with_params.oauth2_client
-    
+
     @app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
     @app1.is_public = true
     @app1.save!
     @app1.oauth_scopes << OauthScope.top_level_scopes
     @app1.oauth_scopes << OauthScope.where('scope_name = "profile.email"').first
     @app1_client_auth = @app1.oauth2_client
-    
+
     app2 = App.create(name: 'App2'){|app| app.redirect_uri = "http://localhost/"}
     app2.is_public = true
     app2.save!
     @app2_client_auth = app2.oauth2_client
-    
+
     app3 = App.create(name:  'App3'){|app| app.redirect_uri = "http://localhost/"}
     app3.is_public = true
     app3.save!
@@ -33,10 +33,10 @@ describe "OauthApps" do
     @sandbox = App.create({name:  'sandbox', user_id: @user.id, redirect_uri: "http://localhost/"}, :as => :admin)
     @sandbox_client_auth = @sandbox.oauth2_client
   end
-  
+
   context "when logged in with a user who owns a sandboxed app" do
     before {login(@user)}
-    
+
     describe "Authorize sandbox application by owner" do
       it "should ask for authorization and redirect after clicking 'Allow'" do
         visit(url_for(controller: 'oauth', action: 'authorize', response_type: 'code', client_id: @sandbox_client_auth.client_id, redirect_uri: 'http://localhost/'))
@@ -68,12 +68,12 @@ describe "OauthApps" do
     end
   end
 
-  context "when NON logged in with a user who does not own the sandboxed app" do    
+  context "when NON logged in with a user who does not own the sandboxed app" do
     describe "Does not allow sandbox application installation by non owner" do
       it "code in params should not have a value" do
         visit(url_for(controller: 'oauth', action: 'authorize', response_type: 'code', client_id: @sandbox_client_auth.client_id, redirect_uri: 'http://localhost/'))
         page.should have_content("Please sign in or sign up before continuing.")
-        fill_in_email_and_password(:email => 'second@user.org')
+        fill_in_email_and_password(email:'second@user.org', with_password_confirmation:false)
         click_button("Sign in")
         page.should have_content("You are accessing an application that doesn't exist or hasn't given you sufficient access.")
       end
@@ -88,7 +88,7 @@ describe "OauthApps" do
         ).should redirect_to(sign_in_path)
       end
     end
-    
+
     context "when the app is sandboxed" do
       it "should allow the user to sign up whitelisted (without going through BetaSignup)" do
         visit(url_for(controller: 'oauth', action: 'authorize',
@@ -103,7 +103,7 @@ describe "OauthApps" do
         page.should have_content("I'm sorry, your account hasn't been approved yet.")
       end
     end
-    
+
     context "when the app is public" do
       it "should allow the user to sign up whitelisted (without going through BetaSignup)" do
         visit(url_for(controller: 'oauth', action: 'authorize',
@@ -133,7 +133,7 @@ describe "OauthApps" do
 
   context "when logged in" do
     before {login(@user)}
-    
+
     describe "Authorize application" do
       it "should ask for authorization and redirect after clicking 'Allow'" do
         visit(url_for(controller: 'oauth', action: 'authorize',
@@ -163,32 +163,32 @@ describe "OauthApps" do
 
     describe "Authorize application with scopes" do
 
-      it "should not allow requests that contain unauthorized scopes" do                    
+      it "should not allow requests that contain unauthorized scopes" do
         visit(url_for(controller: 'oauth', action: 'authorize',
-              response_type: 'code', scope: 'profile notifications profile.email profile.address', client_id: @app1.client_id, redirect_uri: 'http://localhost/'))   
+              response_type: 'code', scope: 'profile notifications profile.email profile.address', client_id: @app1.client_id, redirect_uri: 'http://localhost/'))
         CGI::unescape(current_url).should have_content("#{@app1.oauth2_client.redirect_uri}?error=access_denied&error_description=#{I18n.t('unauthorized_scope')}")
       end
-      
-      it "should maintain original redirect_uri parameters (if present) when redirecting with unauthorized scopes error" do                    
+
+      it "should maintain original redirect_uri parameters (if present) when redirecting with unauthorized scopes error" do
         visit(url_for(controller: 'oauth', action: 'authorize',
-              response_type: 'code', scope: 'profile notifications profile.email profile.address', client_id: @app_redirect_with_params.client_id, redirect_uri: 'http://localhost/'))   
+              response_type: 'code', scope: 'profile notifications profile.email profile.address', client_id: @app_redirect_with_params.client_id, redirect_uri: 'http://localhost/'))
         app_redirect_url = URI.parse(@app_redirect_with_params.oauth2_client.redirect_uri)
         app_redirect_url.query.should_not be_nil
         current_url.should have_content(app_redirect_url.query)
         current_url.should have_content("error=access_denied")
       end
-      
+
 
       it "should ask for authorization and redirect after clicking 'Allow'" do
         visit(url_for(controller: 'oauth', action: 'authorize',
               response_type: 'code', scope: 'profile notifications profile.email', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/'))
-    
+
         page.should have_content('The App1 application wants to:')
         page.should have_content('Read your profile information')
         page.should have_content('Send you notifications')
         page.should have_content('Read your email')
         page.should_not have_content('Read your address')
-    
+
         click_button('Allow')
         uri = URI.parse(current_url)
         params = CGI::parse(uri.query)
@@ -199,7 +199,7 @@ describe "OauthApps" do
         response.code.should == "200"
         response.body.should match /access_token/
       end
-      
+
       context "when the user does not approve" do
         it "should return an error when trying to authorize" do
           visit(url_for(controller: 'oauth', action: 'authorize',

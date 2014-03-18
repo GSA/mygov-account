@@ -5,25 +5,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google
     callback('google')
   end
-  
+
   def paypal
     callback('paypal')
   end
-  
+
   def verisign
     callback('verisign')
   end
-  
-  def ficamidp
-    callback('ficamidp')
-  end
-  
-  def testid
-    callback('testid')
-  end
-  
+
   private
-  
+
   def recaptcha_needed?
     false
   end

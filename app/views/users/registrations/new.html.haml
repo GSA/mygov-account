@@ -19,12 +19,6 @@
             %i{:class => "foundicon-star"}
             %i{:class => "foundicon-star"}
         %p
-          = request.env["omniauth.auth"]
-          - session[:request_env_omniauth] = request.env["omniauth.auth"]
-
-          %br
-
-          =params
           = form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {novalidate: true}) do |f|
             = flash_messages
             = devise_error_messages!
@@ -38,12 +32,9 @@
               %li
                 = f.label :email
                 = f.email_field :email
-              - if !!params[:error_return_to] || !!(params[:user] && params[:user][:password])
-                = f.password_field :password, type: 'hidden', value: 'Password1', autocomplete: 'off'
-              - else
-                %li
-                  = f.label :password, :required => !params[:error_return_to]
-                  = f.password_field :password, autocomplete: 'off'
+              %li
+                = f.label :password
+                = f.password_field :password, autocomplete: 'off'
               %li
                 = f.label :zip
                 = f.text_field :zip
@@ -52,8 +43,7 @@
                   = f.check_box :terms_of_service
                   = t(:i_agree_html, :terms_of_service_link => link_to(t(:terms_of_service), terms_of_service_path), :privacy_policy_link => link_to(t(:privacy_policy), privacy_policy_path))
               %li
-                / - if !!params[:user] || !!(params[:user] && params[:user][:password])
-                /   = recaptcha_tags display: {theme: 'clean'} if recaptcha_needed?
+                = recaptcha_tags display: {theme: 'clean'} if recaptcha_needed?
               %li= f.submit t(:sign_up), :class => 'button positive', :accesskey => access_keys[:submit]
                    
   .four.columns

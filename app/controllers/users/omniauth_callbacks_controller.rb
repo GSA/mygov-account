@@ -40,7 +40,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       elsif @user.errors[:email].include?('has already been taken')
         flash[:alert] = "There is another MyUSA account with that email. Please sign in with the service you used to create the account. You can also #{forgot_password_link('reset your password')}.".html_safe
       elsif @user.errors[:terms_of_service].include?("must be accepted")
-        @user[:password] = User.default_password
+
+        @user.attributes = {"password" => User.default_password}
+
+        if flash[:original_fullpath]
+          flash[:original_fullpath].keep
+        else
+          flash[:original_fullpath] = request.original_fullpath
+        end
         render 'users/registrations/new'
         return
       elsif @user.errors[:authentications].include?('is invalid')

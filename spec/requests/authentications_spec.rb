@@ -1,3 +1,4 @@
+
 require 'spec_helper'
 
 describe "Authentications" do
@@ -64,7 +65,69 @@ describe "Authentications" do
       end
     end
   end
-  
+
+  describe "attempting sign up with Google" do
+    context "when the user does not have a google authentication" do      
+      before do
+        oauth_query =  {
+          "error_return_to" => sign_in_url,
+          "openid.ns"=> "http://specs.openid.net/auth/2.0",
+          "openid.mode"=>"id_res",
+          "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud",
+          "openid.response_nonce"=>"2014-03-18T15:23:59Zpg4lojledCW-iQ",
+          "openid.return_to"=>"http://localhost:3000/auth/google/callback?error_return_to=http://localhost:3000/sign_in&_method=post",
+          "openid.assoc_handle"=>"1.AMlYA9UcRF11Mo8LQ9aQoqyujBb5zlTv97S0g44V8AZnCW-Q3hiPzVp-5H7_Bipi",
+          "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle,ns.ext1,ns.ext2,ext1.mode,ext1.type.ext0,ext1.value.ext0,ext2.auth_time,ext2.auth_policies",
+          "openid.sig"=>"TaTMnGlzqJkXdRTAXYWU5MiyhIw=",
+          "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawk9UamvIWRGXbZCtjhs0QunFSg5qzxoyME",
+          "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawk9UamvIWRGXbZCtjhs0QunFSg5qzxoyME",
+          "openid.ns.ext1"=>"http://openid.net/srv/ax/1.0",
+          "openid.ext1.mode"=>"fetch_response",
+          "openid.ext1.type.ext0"=>"http://axschema.org/contact/email&openid.ext1.value.ext0=joe.citizen@gmail.com",
+          "openid.ns.ext2"=>"http://specs.openid.net/extensions/pape/1.0",
+          "openid.ext2.auth_time"=>"2014-03-18T15:23:58Z",
+          "openid.ext2.auth_policies"=>"http://schemas.openid.net/pape/policies/2007/06/none",
+          "_method" => "post"
+        }.to_a.map{|x| "#{x[0]}=#{x[1]}"}.join("&")
+        @oauth_url = "/auth/google/callback?#{oauth_query}"
+        create_approved_beta_signup('joe.citizen@gmail.com')
+        logout
+
+      end
+
+      it "It should require user to agree to TOS before creating user account" do
+        visit sign_up_path
+        #visit "/auth/google/callback?error_return_to=#{sign_in_url}&_method=post&openid.ns=http://specs.openid.net/auth/2.0&openid.mode=id_res&openid.op_endpoint=https://www.google.com/accounts/o8/ud&openid.response_nonce=2014-03-18T15:23:59Zpg4lojledCW-iQ&openid.return_to=http://localhost:3000/auth/google/callback?error_return_to=http://localhost:3000/sign_in&_method=post&openid.assoc_handle=1.AMlYA9UcRF11Mo8LQ9aQoqyujBb5zlTv97S0g44V8AZnCW-Q3hiPzVp-5H7_Bipi&openid.signed=op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle,ns.ext1,ns.ext2,ext1.mode,ext1.type.ext0,ext1.value.ext0,ext2.auth_time,ext2.auth_policies&openid.sig=TaTMnGlzqJkXdRTAXYWU5MiyhIw=&openid.identity=https://www.google.com/accounts/o8/id?id=AItOawk9UamvIWRGXbZCtjhs0QunFSg5qzxoyME&openid.claimed_id=https://www.google.com/accounts/o8/id?id=AItOawk9UamvIWRGXbZCtjhs0QunFSg5qzxoyME&openid.ns.ext1=http://openid.net/srv/ax/1.0&openid.ext1.mode=fetch_response&openid.ext1.type.ext0=http://axschema.org/contact/email&openid.ext1.value.ext0=joe.citizen@gmail.com&openid.ns.ext2=http://specs.openid.net/extensions/pape/1.0&openid.ext2.auth_time=2014-03-18T15:23:58Z&openid.ext2.auth_policies=http://schemas.openid.net/pape/policies/2007/06/none" 
+
+
+        visit @oauth_url
+        #click_link 'Sign up with Google'
+        expect(page).to have_content "Terms of service must be accepted"
+        check('user_terms_of_service')
+
+        click_button 'Sign up'
+        #save_and_open_page
+        expect(page).to have_content "Sign out"
+        #save_and_open_page
+      
+      end
+
+      it "It should still create an account from openid provider return even if user doesn't agree tos first time around, but does second." do
+        visit sign_up_path
+        visit @oauth_url
+
+        # Click sign up before checking TOS
+        click_button 'Sign up'
+        expect(page).to have_content "Terms of service must be accepted"
+        # User is returned to sign up page
+        check('user_terms_of_service')
+
+        click_button 'Sign up'
+        expect(page).to have_content "Sign out"
+      end
+    end
+  end
+
   describe "attempting to log in from Google" do
     context "when the user does not have a google authentication but has an account with the same email" do
       before do
@@ -81,4 +144,11 @@ describe "Authentications" do
       end
     end
   end
+end
+
+def stub_env_for_omniauth
+  # This a Devise specific thing for functional tests. See https://github.com/plataformatec/devise/issues/closed#issue/608
+  request.env["devise.mapping"] = Devise.mappings[:user]
+  env = { "omniauth.auth" => { "provider" => "facebook", "uid" => "1234", "extra" => { "user_hash" => { "email" => "ghost@nobody.com" } } } }
+  @controller.stub!(:env).and_return(env)
 end

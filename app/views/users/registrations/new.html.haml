@@ -32,9 +32,12 @@
               %li
                 = f.label :email
                 = f.email_field :email
-              %li
-                = f.label :password
-                = f.password_field :password, autocomplete: 'off'
+              - if !!params[:error_return_to] || !!(params[:user] && params[:user][:password])
+                = f.password_field :password, type: 'hidden', value: 'Password1', autocomplete: 'off'
+              - else
+                %li
+                  = f.label :password, :required => !params[:error_return_to]
+                  = f.password_field :password, autocomplete: 'off'
               %li
                 = f.label :zip
                 %span{:id=>'tip-zip', :class=>'tooltip'}

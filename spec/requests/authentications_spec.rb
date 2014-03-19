@@ -76,11 +76,11 @@ describe "Authentications" do
           "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud",
           "openid.response_nonce"=>"2014-03-18T15:23:59Zpg4lojledCW-iQ",
           "openid.return_to"=>"http://localhost:3000/auth/google/callback?error_return_to=http://localhost:3000/sign_in&_method=post",
-          "openid.assoc_handle"=>"1.AMlYA9UcRF11Mo8LQ9aQoqyujBb5zlTv97S0g44V8AZnCW-Q3hiPzVp-5H7_Bipi",
+          "openid.assoc_handle"=>"1.12345",
           "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle,ns.ext1,ns.ext2,ext1.mode,ext1.type.ext0,ext1.value.ext0,ext2.auth_time,ext2.auth_policies",
-          "openid.sig"=>"TaTMnGlzqJkXdRTAXYWU5MiyhIw=",
-          "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawk9UamvIWRGXbZCtjhs0QunFSg5qzxoyME",
-          "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawk9UamvIWRGXbZCtjhs0QunFSg5qzxoyME",
+          "openid.sig"=>"12345=",
+          "openid.identity"=>"12345",
+          "openid.claimed_id"=>"12345",
           "openid.ns.ext1"=>"http://openid.net/srv/ax/1.0",
           "openid.ext1.mode"=>"fetch_response",
           "openid.ext1.type.ext0"=>"http://axschema.org/contact/email&openid.ext1.value.ext0=joe.citizen@gmail.com",
@@ -102,13 +102,18 @@ describe "Authentications" do
 
         visit @oauth_url
         #click_link 'Sign up with Google'
+        page.should_not have_content "Password *"
         expect(page).to have_content "Terms of service must be accepted"
         check('user_terms_of_service')
 
         click_button 'Sign up'
         #save_and_open_page
         expect(page).to have_content "Sign out"
-        #save_and_open_page
+        click_link 'Sign out'
+        visit sign_in_path
+        click_link 'Sign in with Google'
+        page.should_not have_content "There is another MyUSA account with that email"
+        expect(page).to have_content "Sign out"
       
       end
 

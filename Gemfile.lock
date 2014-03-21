@@ -85,10 +85,6 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     addressable (2.3.5)
-    airbrake (3.1.12)
-      activesupport
-      builder
-      json
     ar-octopus (0.8.0)
       activerecord (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -417,7 +413,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake
   ar-octopus
   auto-session-timeout
   auto-session-timeout-warning

@@ -18,7 +18,12 @@ describe "Authentications" do
         click_link 'Add an authentication provider to your account'
         click_link 'Google'
         page.should have_content "Successfully authenticated from Google account"
-        current_path.should eq authentications_path        
+        current_path.should eq authentications_path
+        # Make sure user can log back in with openid
+        click_link 'Sign out'
+        visit sign_in_path
+        click_link 'Sign in with Google'
+        current_path.should eq dashboard_path
       end
     end
     

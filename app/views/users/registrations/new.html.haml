@@ -32,14 +32,15 @@
               %li
                 = f.label :email
                 = f.email_field :email
-              - if !!params[:error_return_to] || !!(params[:user] && params[:user][:password])
+              - if @using_oauth
                 = f.password_field :password, type: 'hidden', value: 'Password1', autocomplete: 'off'
               - else
                 %li
-                  = f.label :password, :required => !params[:error_return_to]
+                  = f.label :password
                   = f.password_field :password, autocomplete: 'off'
               %li
                 = f.label :zip
+                %br
                 %span{:id=>'tip-zip', :class=>'tooltip'}
                   Entering your zip code will enable us to send you alerts and content relevant to your location.
                   %i (Not required)

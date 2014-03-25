@@ -4,16 +4,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   helper_method :recaptcha_needed?
 
   def create
+    @using_oauth = !!flash[:original_fullpath]
     if session[:omniauth] == nil
       if verify_recaptcha_if_needed
-        if flash[:original_fullpath]
+        if @using_oauth
           flash.keep(:original_fullpath)
           auth_hash = Authentication.auth_hash_from_uri(flash[:original_fullpath]) 
-          @user = User.find_for_open_id(auth_hash, current_user, params[:user][:terms_of_service] || false)
+          @user = User.find_for_open_id(auth_hash, current_user, params[:user])
           if @user.valid?
             sign_in_and_redirect @user, :event => :authentication if @user.valid?
           else
-            @user = User.find_for_open_id(auth_hash, current_user, params[:user][:terms_of_service] || false)
+            @user = User.find_for_open_id(auth_hash, current_user, params[:user])
             @user.attributes = {"password" => User.default_password}
             render :new
           end

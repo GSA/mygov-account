@@ -48,6 +48,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         else
           flash[:original_fullpath] = request.original_fullpath
         end
+        @using_oauth = true
         render 'users/registrations/new'
         return
       elsif @user.errors[:authentications].include?('is invalid')

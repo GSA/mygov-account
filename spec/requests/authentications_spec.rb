@@ -107,7 +107,7 @@ describe "Authentications" do
 
         visit @oauth_url
         #click_link 'Sign up with Google'
-        page.should_not have_content "Password *"
+        page.should_not have_content "Password"
         expect(page).to have_content "Terms of service must be accepted"
         check('user_terms_of_service')
 
@@ -129,6 +129,7 @@ describe "Authentications" do
         # Click sign up before checking TOS
         click_button 'Sign up'
         expect(page).to have_content "Terms of service must be accepted"
+        page.should_not have_content "Password"
         # User is returned to sign up page
         check('user_terms_of_service')
 

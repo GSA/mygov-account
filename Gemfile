@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem 'rails', '3.2.16'
+gem 'rails', '3.2.17'
 gem 'mysql2'
 gem 'domainatrix'
 gem 'auto-session-timeout'
@@ -16,7 +16,6 @@ gem 'cancan'
 gem 'google-analytics-rails'
 gem 'quiet_assets'
 gem 'coffee-rails', '~> 3.2.1'
-gem "airbrake"
 gem 'maruku'
 gem 'validates_email_format_of', :git => 'https://github.com/alexdunae/validates_email_format_of.git'
 # ar-octopus has to proceed permanent_records, or permanent_records #destroy(:force) call will not work

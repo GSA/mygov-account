@@ -28,16 +28,12 @@
               = f.label :email
             .col-md-6
               = f.email_field :email
-          %li.row
-            .col-md-2
-              = f.label :password
-            .col-md-6
+          - if !!params[:error_return_to] || !!(params[:user] && params[:user][:password])
+            = f.password_field :password, type: 'hidden', value: 'Password1', autocomplete: 'off'
+          - else
+            %li.row
+              = f.label :password, :required => !params[:error_return_to]
               = f.password_field :password, autocomplete: 'off'
-          %li.row
-            .col-md-2
-              = f.label :password_confirmation
-            .col-md-6
-              = f.password_field :password_confirmation, autocomplete: 'off'
           %li.row
             .col-md-2
             .col-md-6

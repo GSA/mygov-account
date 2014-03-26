@@ -1,0 +1,37 @@
+%p
+
+  - if @resource.profile.first_name.blank?
+    Thank you for updating your email address!
+  -else
+    Thank you for updating your email address, #{@resource.profile.first_name}!
+
+%p
+  Please reconfirm your email by clicking this
+  = succeed "." do
+    = link_to 'link', user_confirmation_url(:confirmation_token => @resource.confirmation_token)
+  
+  You may also cut and paste the following URL into your browser’s location bar:
+  = user_confirmation_url + "?confirmation_token=#{@resource.confirmation_token}"
+%p
+  = succeed "." do
+    If you did not initiate this action, please change your password and
+    = mail_to('projectmyusa@gsa.gov', 'get in touch with us')
+%p
+  Once you’ve signed in, don’t forget to
+  = succeed "," do
+    = link_to 'update your profile', edit_profile_url(:profile => @resource.profile)
+  
+  = succeed "," do
+    = link_to 'edit your notification settings', account_index_url
+
+  or browse the
+
+  = succeed "." do
+    = link_to 'MyUSA App Gallery', apps_url
+%p
+  Please
+  = mail_to('projectmyusa@gsa.gov', 'contact us')
+  with any questions!
+  %br
+    Team MyUSA
+

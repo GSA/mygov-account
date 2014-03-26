@@ -1,5 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_filter :verify_authenticity_token
+  helper_method :recaptcha_needed?
 
   def google
     callback('google')
@@ -15,6 +16,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   private
 
+  def recaptcha_needed?
+    false
+  end
+
   def callback(provider_name)
     @user = User.find_for_open_id(request.env["omniauth.auth"], current_user)
     if @user.persisted? && @user.errors.blank?
@@ -26,6 +31,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         flash[:alert] = "I'm sorry, your account hasn't been approved yet."
       elsif @user.errors[:email].include?('has already been taken')
         flash[:alert] = "There is another MyUSA account with that email. Please sign in with the service you used to create the account. You can also #{forgot_password_link('reset your password')}.".html_safe
+      elsif @user.errors[:terms_of_service].include?("must be accepted")
+
+        @user.attributes = {"password" => User.default_password}
+
+        if flash[:original_fullpath]
+          flash[:original_fullpath].keep
+        else
+          flash[:original_fullpath] = request.original_fullpath
+        end
+        render 'users/registrations/new'
+        return
       elsif @user.errors[:authentications].include?('is invalid')
         flash[:alert] = "This external account is already linked to another MyUSA account."
       else

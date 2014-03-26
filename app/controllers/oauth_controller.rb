@@ -12,6 +12,12 @@ class OauthController < ApplicationController
       redirect_to get_redirect_uri(@oauth2.client.owner.redirect_uri)
       return
     end
+
+    if @oauth2.client.owner.sandbox? && !current_user.nil? && (current_user != @oauth2.client.owner.user)  # Check that user is not nil and is sandbox app owner.
+      redirect_to unknown_app_path
+      return
+    end
+
     if @oauth2.redirect?
       redirect_to @oauth2.redirect_uri, :status => @oauth2.response_status
     else

@@ -8,6 +8,7 @@
 .zeus.sock
 .DS_store
 .rspec
+.vagrant
 
 # root files
 capybara-*.html
@@ -17,6 +18,8 @@ pickle-email-*.html
 rerun.txt
 zeus.json
 Guardfile
+Vagrantfile
+bootstrap.sh
 
 # folders
 config/*.yml

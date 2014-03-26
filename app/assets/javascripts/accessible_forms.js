@@ -10,7 +10,7 @@ $("input#user_zip").mouseover(function(){
 });
 
 $("input#user_zip").mouseleave(function(){
-  $("#tip-zip").attr("aria-hidden","true").removeClass("hiddenh");
+  $("#tip-zip").attr("aria-hidden","true").removeClass("hidden");
 });
 
 // Keyboard: Focus
@@ -24,7 +24,7 @@ $("input#user_zip").blur(function(){
 
 // Keyboard: Esc
 $("input#user_zip").keydown(function(e){
-  if (e.which ==27) {
+  if (e.which == 27) {
     $("#tip-zip").attr("aria-hidden","true");
     e.preventDefault();
     return false;

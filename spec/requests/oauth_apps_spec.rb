@@ -186,7 +186,7 @@ describe "OauthApps" do
         page.should have_content('The App1 application wants to:')
         page.should have_content('Read your profile information')
         page.should have_content('Send you notifications')
-        page.should have_content('Read your email')
+        page.should have_content('Read your email address')
         page.should_not have_content('Read your address')
     
         click_button('Allow')

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131217210551) do
+ActiveRecord::Schema.define(:version => 20140326165503) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20131217210551) do
     t.integer  "user_id"
     t.boolean  "is_public",         :default => false
     t.datetime "deleted_at"
+    t.string   "custom_text"
   end
 
   add_index "apps", ["slug"], :name => "index_apps_on_slug"

@@ -1,6 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_filter :verify_authenticity_token
-  helper_method :recaptcha_needed?
 
   def google
     callback('google')
@@ -23,10 +22,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
   
   private
-  
-  def recaptcha_needed?
-    false
-  end
 
   def callback(provider_name)
     @user = User.find_for_open_id(request.env["omniauth.auth"], current_user)

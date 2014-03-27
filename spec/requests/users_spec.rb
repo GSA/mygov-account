@@ -159,7 +159,7 @@ describe "Users" do
       context "when a user has been approved" do
         before { BetaSignup.find_by_email('joe@citizen.org').update_attribute(:is_approved, true) }
 
-        context "when the user does not accept the terms of serivce and privacy policy" do
+        context "when the user does not accept the terms of service and privacy policy" do
           context "when the user fills in everything else" do
             it "should not register the user and display an error message" do
               visit sign_up_path

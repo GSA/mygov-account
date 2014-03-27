@@ -1,8 +1,8 @@
 %p
   - if @notification.user.first_name.blank?
     Hello:
-  -else
-    Hello, #{@notification.user.profile.first_name}:
+  - else
+    Hello, #{@notification.user.first_name}:
 
 - if @notification.app.present?
   %p

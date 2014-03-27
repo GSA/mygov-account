@@ -36,7 +36,7 @@
                 = f.password_field :password, type: 'hidden', value: 'Password1', autocomplete: 'off'
               - else
                 %li
-                  = f.label :password
+                  = f.label :password, :required => !@using_oauth
                   = f.password_field :password, autocomplete: 'off'
               %li
                 = f.label :zip

@@ -6,9 +6,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @using_oauth = !!flash[:original_fullpath]
     if session[:omniauth] == nil
+      flash.keep(:original_fullpath) if @using_oauth
       if verify_recaptcha_if_needed
         if @using_oauth
-          flash.keep(:original_fullpath)
           auth_hash = Authentication.auth_hash_from_uri(flash[:original_fullpath]) 
           @user = User.find_for_open_id(auth_hash, current_user, params[:user])
           if @user.valid?

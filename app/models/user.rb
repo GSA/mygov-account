@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   class << self
 
 
-    def find_for_open_id(access_token, signed_in_resource = nil, terms_of_service = false)
+    def find_for_open_id(access_token, signed_in_resource = nil, user_params = nil)
       data = access_token.info
       authentications_scope = (signed_in_resource && signed_in_resource.authentications) || Authentication
       authentication = authentications_scope.find_by_uid_and_provider(access_token.uid, access_token.provider)
@@ -54,10 +54,10 @@ class User < ActiveRecord::Base
         signed_in_resource.save
         signed_in_resource
       else
-
-        user = User.new(:email => data['email'], :password => User.default_password)
-        user.terms_of_service = terms_of_service
-        user.profile = Profile.new(:first_name => data["first_name"], :last_name => data["last_name"])
+        user = User.new(:email => data['email'],  :password => User.default_password)
+        user.terms_of_service = (user_params && user_params[:terms_of_service]) || false
+        [:email, :password, :terms_of_service].each {|param| user_params.delete param} if user_params
+        user.profile = Profile.new(user_params || {:first_name => data["first_name"], :last_name => data["last_name"]})
         user.skip_confirmation!
         user.authentications.new(:uid => access_token.uid, :provider => access_token.provider, :data => access_token)
         user.save

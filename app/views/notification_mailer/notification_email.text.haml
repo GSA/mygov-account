@@ -1,9 +1,13 @@
-Hello, #{@notification.user.profile.first_name}:#{%Q{\r\n}}
+- if @notification.user.first_name.blank?
+  Hello:
+- else
+  Hello, #{@notification.user.first_name}:#{%Q{\r\n}}
+
 #{%Q{\r\n}}
 - if @notification.app.present?
-   The "#{@notification.app.name}" MyUSA application has sent you the following message:#{%Q{\r\n}}
+  The "#{@notification.app.name}" MyUSA application has sent you the following message:#{%Q{\r\n}}
 - else
-   A notification for you from MyUSA:#{%Q{\r\n}}
+  A notification for you from MyUSA:#{%Q{\r\n}}
 #{%Q{\r\n}}
 ===============================================#{%Q{\r\n}}
 #{%Q{\r\n}}

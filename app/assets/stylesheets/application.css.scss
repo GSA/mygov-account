@@ -29,6 +29,7 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
   border-radius: 0;
 }
 
+
 @-moz-document url-prefix() {
   input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
   padding: 0 .4em;
@@ -341,6 +342,12 @@ fieldset span {
 }
 
 form ol, fieldset ol {margin: 0 0 0 0; padding: 0;}
+
+.required_explanation{
+  color: #949494;
+  font-weight: bold;
+  font-style: italic;
+}
 
 fieldset li, form li {
   display: block;
@@ -1397,6 +1404,42 @@ li.official:last-child {border-bottom: none;}
 
 .official .social-media a span {
 display : none;
+}
+
+/*** Tooltip overrides ***/
+span[aria-hidden="true"] {display:none;}
+span[aria-hidden="false"] {display:block;}
+
+.tooltip {
+  float: left;
+  font-size: 0.9em;
+  margin-top: -10px;
+  margin-left: 40px;
+  line-height: 20px;
+  padding: 5px 10px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  background: rgb(18, 99, 134);
+  border: 0px solid rgb(255, 255, 255);
+  border-radius: 5px;
+  text-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 1px;
+  box-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 2px 0px;
+}
+
+.tooltip:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #126386 transparent transparent transparent;
+  top: 30px;
+  left: 50px;
+}
+
+.tooltip:hover {
+  color: #fff;
 }
 
 /*** Danger Will Robinson! ***/

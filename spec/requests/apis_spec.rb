@@ -272,7 +272,9 @@ describe "Apis" do
         context "when there are tasks for a user, some of which were created by the app making the request" do
           before do
             @task1 = Task.create!({:name => 'Task #1', :user_id => @user.id, :app_id => @app.id}, :as => :admin)
+            @task1.task_items << TaskItem.create!(:name => 'Task item 1 (no url)')
             @task2 = Task.create!({:name => 'Task #2', :user_id => @user.id, :app_id => @app.id + 1}, :as => :admin)
+            @task2.task_items << TaskItem.create!(:name => 'Task item 1 (with url)', :url => 'http://www.google.com')
           end
 
           it "should return the tasks that were created by the calling app" do
@@ -347,6 +349,7 @@ describe "Apis" do
       before do
         @task = Task.create!({:name => 'New Task', :user_id => @user.id, :app_id => @app.id}, :as => :admin)
         @task.task_items << TaskItem.new(:name => "Task Item #1")
+        @task.task_items << TaskItem.new(:name => "Task Item #2", :url => 'http://valid_url.com')
         @task.save!
       end
 
@@ -358,6 +361,7 @@ describe "Apis" do
           parsed_json.should_not be_nil
           parsed_json["name"].should == "New Task"
           parsed_json["task_items"].first["name"].should eq "Task Item #1"
+          parsed_json["task_items"].last["url"].should eq "http://valid_url.com"
         end
       end
 

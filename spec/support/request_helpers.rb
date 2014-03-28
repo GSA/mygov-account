@@ -54,7 +54,6 @@ def fill_in_email_and_password(options = {})
   options = options.reverse_merge({email:'joe@citizen.org', password:'Password1'})
   fill_in 'Email', :with => options[:email]
   fill_in 'Password', :with => options[:password]
-  fill_in 'Password confirmation', :with => options[:password]
 end
 
 def lock_account

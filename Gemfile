@@ -39,6 +39,7 @@ gem 'auto-session-timeout-warning'
 gem 'newrelic_rpm'
 gem 'roboto'
 gem 'awesome_print'
+gem 'attr_encrypted'
 
 group :production do
   gem 'rack-openid', :git => 'https://github.com/GSA/rack-openid.git', :branch => 'pape'
@@ -62,9 +63,9 @@ group :test, :development do
   gem 'guard'
   gem 'guard-rspec'
   gem "parallel_tests"
+  gem 'rspec-rails'
   gem 'pry'
   gem 'pry-nav'
-  gem 'rspec-rails'
 end
 
 group :development do

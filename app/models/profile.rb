@@ -11,10 +11,15 @@ class Profile < ActiveRecord::Base
   after_validation :set_errors
   
   PROFILE_FIELDS = [:title, :first_name, :middle_name, :last_name, :suffix, :address, :address2, :city, :state, :zip, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired]
+
   PROFILE_METHODS = [:email, :phone_number, :mobile_number]
   
   attr_accessible :title, :first_name, :middle_name, :last_name, :suffix, :address, :address2, :city, :state, :zip, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired, :as => [:default, :admin]
   attr_accessible :user_id, :phone, :mobile, :as => :admin
+
+  ENCRYPTED_PROFILE_FIELDS = PROFILE_FIELDS + [:mobile, :phone]
+
+  ENCRYPTED_PROFILE_FIELDS.map { |attrib| attr_encrypted attrib.to_sym, key: 'TUv9TUv9KYkBY928ewKYTUv9KYkBY928ewkBTUv9KYkBY928ewY928ew' }
   
   def name
     (first_name.blank? or last_name.blank?) ? nil : [first_name, last_name].join(" ")
@@ -54,7 +59,30 @@ class Profile < ActiveRecord::Base
       PROFILE_FIELDS.each{|field| fields << field if profile_scope_list.include?(field.to_s)}
       PROFILE_METHODS.each{|method| methods << method.to_s if profile_scope_list.include?(method.to_s)}
     end
-    super(:only => fields, :methods => methods)
+    options[:only], options[:methods] = fields, methods
+
+    attribute_names = attributes.keys.map {|k| k.gsub('encrypted_', '')}
+
+    if only = options[:only]
+      attribute_names &= Array(only).map(&:to_s)
+    elsif except = options[:except]
+      attribute_names -= Array(except).map(&:to_s)
+    end
+
+    hash = {}
+    attribute_names.each { |n| hash[n] = read_attribute_for_serialization(n) }
+
+    Array(options[:methods]).each { |m| hash[m.to_s] = send(m) if respond_to?(m) }
+
+    serializable_add_includes(options) do |association, records, opts|
+      hash[association.to_s] = if records.respond_to?(:to_ary)
+        records.to_ary.map { |a| a.serializable_hash(opts) }
+      else
+        records.serializable_hash(opts)
+      end
+    end
+
+    hash
   end
     
   def to_schema_dot_org_hash(scope_list = [])

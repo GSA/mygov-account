@@ -19,7 +19,7 @@ class Profile < ActiveRecord::Base
 
   ENCRYPTED_PROFILE_FIELDS = PROFILE_FIELDS + [:mobile, :phone]
 
-  ENCRYPTED_PROFILE_FIELDS.map { |attrib| attr_encrypted attrib.to_sym, key: 'TUv9TUv9KYkBY928ewKYTUv9KYkBY928ewkBTUv9KYkBY928ewY928ew' }
+  ENCRYPTED_PROFILE_FIELDS.map { |attrib| attr_encrypted attrib.to_sym, key: 'TUv9TUv9KYkBY928ewKYTUv9KYkBY928ewkBTUv9KYkBY928ewY928ew', marshal: true }
   
   def name
     (first_name.blank? or last_name.blank?) ? nil : [first_name, last_name].join(" ")

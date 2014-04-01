@@ -68,9 +68,9 @@ module ActionView
         InstanceTag.new(object_name, method, self, options.delete(:object)).to_text_area_tag(options)
       end
 
-      def check_box(object_name, method, options = {}, checked_value = "1", unchecked_value = "0")
+      def check_box(object_name, method, options = {}, checked_value = "1", unchecked_value = "0", checkbox_text = nil)
       	options.merge!({'aria-required' => true}) if options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
-        InstanceTag.new(object_name, method, self, options.delete(:object)).to_check_box_tag(options, checked_value, unchecked_value)
+        InstanceTag.new(object_name, method, self, options.delete(:object)).to_check_box_tag(options, checked_value, unchecked_value, checkbox_text)
       end
 
       def radio_button(object_name, method, tag_value, options = {})

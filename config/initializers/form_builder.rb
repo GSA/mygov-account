@@ -22,9 +22,26 @@ end
 
 module ActionView
   module Helpers
+    module ActiveModelInstanceTag
+      def tag(type, options, *)
+        checkbox_text = options.delete(:checkbox_text)
+        ss = OpenStruct.new(:super => super, :checkbox_text => checkbox_text)
+        tag_generate_errors?(options) ? error_wrapping(ss) : super
+      end
+
+      def error_wrapping(tag)
+        html_tag = tag.respond_to?(:super) ? tag.super : tag
+        if object_has_errors?
+          html_tag += tag.checkbox_text if tag.respond_to?(:checkbox_text)
+          Base.field_error_proc.call(html_tag, self)
+        else
+          html_tag
+        end
+      end
+
+    end
+
     module FormHelper
-
-
      def form_for(record, options = {}, &block)
         raise ArgumentError, "Missing block" unless block_given?
 
@@ -98,6 +115,37 @@ module ActionView
         InstanceTag.new(object_name, method, self, options.delete(:object)).to_number_field_tag("range", options)
       end
 
+    end
+
+    class InstanceTag
+      def to_check_box_tag(options = {}, checked_value = "1", unchecked_value = "0", checkbox_text = nil)
+        options = options.stringify_keys
+        options["type"]     = "checkbox"
+        options["value"]    = checked_value
+        if options.has_key?("checked")
+          cv = options.delete "checked"
+          checked = cv == true || cv == "checked"
+        else
+          checked = self.class.check_box_checked?(value(object), checked_value)
+        end
+        options["checked"] = "checked" if checked
+        if options["multiple"]
+          add_default_name_and_id_for_value(checked_value, options)
+          options.delete("multiple")
+        else
+          add_default_name_and_id(options)
+        end
+        hidden = unchecked_value ? tag("input", "name" => options["name"], "type" => "hidden", "value" => unchecked_value, "disabled" => options["disabled"]) : ""
+        options.merge!({:checkbox_text => checkbox_text})
+        checkbox = tag("input", options)
+        checkbox.match(/field_with_errors/)  ? (hidden + checkbox).html_safe : (hidden + checkbox + checkbox_text).html_safe
+      end
+    end
+
+    class FormBuilder
+      def check_box(method, options = {}, checked_value = "1", unchecked_value = "0", checkbox_text = nil)
+        @template.check_box(@object_name, method, objectify_options(options), checked_value, unchecked_value, checkbox_text)
+      end
     end
   end
 end

@@ -8,18 +8,18 @@ describe "OauthApps" do
     @user2 = User.create!(:email => 'second@user.org', :password => 'Password1')
     @user2.confirm!
     @user2.profile = Profile.new(:first_name => 'Joe', :last_name => 'Citizen', :name => 'Joe Citizen')
-    
-    app1 = App.create(name: 'App1', custom_text: 'Custom text for test'){|app| app.redirect_uri = "http://localhost/"}
+
+    app1 = App.create(name: 'App1', custom_text: 'Custom text for test'){|app| app.redirect_uri = "http://localhost/"; app.url="http://localhost"}
     app1.is_public = true
     app1.save!
     app1.oauth_scopes << OauthScope.all
     @app1_client_auth = app1.oauth2_client
-    
+
     app2 = App.create(name: 'App2'){|app| app.redirect_uri = "http://localhost/"}
     app2.is_public = true
     app2.save!
     @app2_client_auth = app2.oauth2_client
-    
+
     app3 = App.create(name:  'App3'){|app| app.redirect_uri = "http://localhost/"}
     app3.is_public = true
     app3.save!
@@ -28,10 +28,10 @@ describe "OauthApps" do
     @sandbox = App.create({name:  'sandbox', custom_text: 'Sandboxy custom message', user_id: @user.id, redirect_uri: "http://localhost/"}, :as => :admin)
     @sandbox_client_auth = @sandbox.oauth2_client
   end
-  
+
   context "when logged in with a user who owns a sandboxed app" do
     before {login(@user)}
-    
+
     describe "Authorize sandbox application by owner" do
       it "should ask for authorization and redirect after clicking 'Allow'" do
         visit(url_for(controller: 'oauth', action: 'authorize', response_type: 'code', client_id: @sandbox_client_auth.client_id, redirect_uri: 'http://localhost/'))
@@ -55,7 +55,7 @@ describe "OauthApps" do
 
   context "when logged in with a user who does not own the sandboxed app" do
     before {login(@user2)}
-    
+
     describe "Does not allow sandbox application installation by non owner" do
       it "code in params should not have a value" do
         visit(url_for(controller: 'oauth', action: 'authorize', response_type: 'code', client_id: @sandbox_client_auth.client_id, redirect_uri: 'http://localhost/'))
@@ -76,6 +76,8 @@ describe "OauthApps" do
         ).should redirect_to(sign_in_path)
         follow_redirect!
         expect(response.body).to include("Custom text for test")
+        # save_and_open_page
+        expect(response.body).to have_link("Return to App1")
       end
     end
 
@@ -92,7 +94,7 @@ describe "OauthApps" do
 
   context "when logged in" do
     before {login(@user)}
-    
+
     describe "Authorize application" do
       it "should ask for authorization and redirect after clicking 'Allow'" do
         visit(url_for(controller: 'oauth', action: 'authorize',
@@ -137,7 +139,7 @@ describe "OauthApps" do
         response.code.should == "200"
         response.body.should match /access_token/
       end
-      
+
       context "when the user does not approve" do
         it "should return an error when trying to authorize" do
           visit(url_for(controller: 'oauth', action: 'authorize',

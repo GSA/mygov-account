@@ -16,24 +16,37 @@ module ApplicationHelper
     end
   end
 
-  def custom_message
-    html = ""
+  def current_app
     client_id = session[:user_return_to]
     if client_id && (client_id.starts_with?("http:") || client_id.starts_with?("/"))
       client_id = URI.extract("http://#{client_id}").try(:first)
       client_id = URI.parse(client_id).try(:query) if client_id
       client_id = (CGI::parse(client_id) || {})['client_id'].try(:first) if client_id
     end
-#    client_id = params[:client_id] unless client_id
+    #    client_id = params[:client_id] unless client_id
     app_id = OAuth2::Model::Client.find_by_client_id(client_id).try(:oauth2_client_owner_id)
-    app = app_id && App.find(app_id)
+    app_id && App.find(app_id)
+  end
+  
+  def custom_message
+    html = ""
+    app = current_app
     return html unless app && !app.custom_text.blank?
     html << content_tag(:div) do
       app.custom_text
     end
     html.html_safe
   end
-  
+
+  def return_to_app_link
+    html = ""
+    app = current_app
+    return html unless app && !app.url.blank?
+    app_name = app.name || "External Application"
+    html << link_to("Return to #{app_name}", app.url)
+    html.html_safe
+  end
+
   def gender_options
     [["Male", "male"], ["Female", "female"]]
   end

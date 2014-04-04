@@ -76,8 +76,8 @@ describe "OauthApps" do
         ).should redirect_to(sign_in_path)
         follow_redirect!
         expect(response.body).to include("Custom text for test")
-        # save_and_open_page
         expect(response.body).to have_link("Return to App1")
+        expect(response.body).to include("MyUSA is currently in limited Beta use. Only Beta testers are currently able to sign up.")
       end
     end
 

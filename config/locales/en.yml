@@ -10,7 +10,8 @@ en:
   session_expiration_warning: "We noticed you haven't been very active in MyUSA. %{link}"
   mygov_greeting: ""
   beta_signup_error: "An error occurred during signup.  Please try again."
-  
+  beta_warning_message: "MyUSA is currently in limited Beta. Only users with a government (.gov) email address are allowed to sign up."
+
   errors:
     messages:
       expired: "has expired. Please request a new one."

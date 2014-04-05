@@ -182,7 +182,7 @@ module ApplicationHelper
   end
 
   def yes_or_no(value)
-    value ? "Yes" : "No"
+    ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include?(value) ? "Yes" : "No"
   end
 
   def head_metadata(title,desc)

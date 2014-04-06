@@ -8,6 +8,24 @@ describe Profile do
     }
   end
 
+  it 'responds to encrypted & unencrypted versions of its methods' do
+    p = Profile.new
+
+    # encrypted
+    Profile::ENCRYPTED_FIELDS.each do |f|
+      expect(p).to respond_to(f)
+    end
+
+    # unencrypted
+    Profile::ENCRYPTED_FIELDS.each do |f|
+      expect(p).to respond_to(f)
+    end
+  end
+
+  it 'encrypts sensitive fields defined in the ENCRYPTED_FIELDS constant' do
+    pending
+  end
+
   it "should strip all dashes out of phone numbers" do
     Profile.create!(@valid_attributes.merge(:phone_number => '123-456-7890')).phone.should == '1234567890'
   end

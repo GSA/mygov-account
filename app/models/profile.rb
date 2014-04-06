@@ -11,11 +11,11 @@ class Profile < ActiveRecord::Base
   
   after_validation :set_errors
   
-  PROFILE_FIELDS = [:title, :first_name, :middle_name, :last_name, :suffix, :address, :address2, :city, :state, :zip, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired]
-  PROFILE_METHODS = [:email, :phone_number, :mobile_number]
+  FIELDS = [:title, :first_name, :middle_name, :last_name, :suffix, :address, :address2, :city, :state, :zip, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired]
+  METHODS = [:email, :phone_number, :mobile_number]
 
-  ENCRYPTED_PROFILE_FIELDS = PROFILE_FIELDS + [:mobile, :phone]
-  ENCRYPTED_PROFILE_FIELDS.map { |attrib| attr_encrypted attrib.to_sym, key: :key, marshal: true }
+  ENCRYPTED_FIELDS = FIELDS + [:mobile, :phone]
+  ENCRYPTED_FIELDS.map { |attrib| attr_encrypted attrib.to_sym, key: :key, marshal: true }
   
   attr_accessible :title, :first_name, :middle_name, :last_name, :suffix, :address, :address2, :city, :state, :zip, :phone_number, :mobile_number, :gender, :marital_status, :is_parent, :is_student, :is_veteran, :is_retired, :as => [:default, :admin]
   attr_accessible :user_id, :phone, :mobile, :as => :admin
@@ -51,12 +51,12 @@ class Profile < ActiveRecord::Base
   def as_json(options = {})
     fields, methods = [], []
     if (options[:scope_list] and options[:scope_list].include?("profile")) or options[:scope_list].nil?
-      fields += PROFILE_FIELDS
-      methods += PROFILE_METHODS.collect{|method| method.to_s}
+      fields += FIELDS
+      methods += METHODS.collect{|method| method.to_s}
     else
       profile_scope_list = options[:scope_list].collect{|scope| scope.starts_with?('profile') ? scope.split('.').last : nil}.compact
-      PROFILE_FIELDS.each{|field| fields << field if profile_scope_list.include?(field.to_s)}
-      PROFILE_METHODS.each{|method| methods << method.to_s if profile_scope_list.include?(method.to_s)}
+      FIELDS.each{|field| fields << field if profile_scope_list.include?(field.to_s)}
+      METHODS.each{|method| methods << method.to_s if profile_scope_list.include?(method.to_s)}
     end
     options[:only], options[:methods] = fields, methods
 

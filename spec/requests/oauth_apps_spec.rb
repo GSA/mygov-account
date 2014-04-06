@@ -13,7 +13,7 @@ describe "OauthApps" do
     @app_redirect_with_params.oauth_scopes << OauthScope.where('scope_name = "profile.email"').first
     @app_redirect_with_params_client_auth = @app_redirect_with_params.oauth2_client
     
-    @app1 = App.create(name: 'App1'){|app| app.redirect_uri = "http://localhost/"}
+    @app1 = App.create(name: 'App1', custom_text: 'Custom text for test'){|app| app.redirect_uri = "http://localhost/"}
     @app1.is_public = true
     @app1.save!
     @app1.oauth_scopes << OauthScope.top_level_scopes
@@ -30,7 +30,7 @@ describe "OauthApps" do
     app3.save!
     @app3_client_auth = app3.oauth2_client
 
-    @sandbox = App.create({name:  'sandbox', user_id: @user.id, redirect_uri: "http://localhost/"}, :as => :admin)
+    @sandbox = App.create({name:  'sandbox', custom_text: 'Sandboxy custom message', user_id: @user.id, redirect_uri: "http://localhost/"}, :as => :admin)
     @sandbox_client_auth = @sandbox.oauth2_client
   end
   
@@ -86,6 +86,8 @@ describe "OauthApps" do
         get(url_for(controller: 'oauth', action: 'authorize',
                 response_type: 'code', client_id: @app1_client_auth.client_id, redirect_uri: 'http://localhost/')
         ).should redirect_to(sign_in_path)
+        follow_redirect!
+        expect(response.body).to include("Custom text for test")
       end
     end
     
@@ -186,7 +188,7 @@ describe "OauthApps" do
         page.should have_content('The App1 application wants to:')
         page.should have_content('Read your profile information')
         page.should have_content('Send you notifications')
-        page.should have_content('Read your email')
+        page.should have_content('Read your email address')
         page.should_not have_content('Read your address')
     
         click_button('Allow')

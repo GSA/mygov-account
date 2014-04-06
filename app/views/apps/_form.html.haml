@@ -24,6 +24,9 @@
     = f.label :logo
     = f.file_field :logo
   %li
+    = f.label :custom_text
+    = f.text_field :custom_text
+  %li
     = label_tag 'app_oauth_scopes' do
       %p
         Select which parts of the MyUSA API your application will use:

@@ -1,5 +1,8 @@
 %p
-  Hello, #{@notification.user.profile.first_name}:
+  - if @notification.user.first_name.blank?
+    Hello:
+  - else
+    Hello, #{@notification.user.first_name}:
 
 - if @notification.app.present?
   %p
@@ -8,5 +11,6 @@
   %p
     A notification for you from MyUSA:
     
+
 %div{:style => 'margin-left: 5em;'}
   = raw @notification.body

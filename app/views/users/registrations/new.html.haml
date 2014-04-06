@@ -27,18 +27,22 @@
             .col-md-2
               = f.label :email
             .col-md-6
-              = f.email_field :email
-          - if !!params[:error_return_to] || !!(params[:user] && params[:user][:password])
+          = f.email_field :email
+          - if @using_oauth
             = f.password_field :password, type: 'hidden', value: 'Password1', autocomplete: 'off'
           - else
-            %li.row
-              = f.label :password, :required => !params[:error_return_to]
+            %li
+              = f.label :password, :required => !@using_oauth
               = f.password_field :password, autocomplete: 'off'
           %li.row
             .col-md-2
             .col-md-6
               = f.label :zip
-              = f.text_field :zip
+              %br
+              %span{:id=>'tip-zip', :class=>'tooltip'}
+                Entering your zip code will enable us to send you alerts and content relevant to your location.
+                %i (Not required)
+              = f.text_field :zip, {'aria-described-by'=>'tip-zip'}
           %li.row
             .col-md-2
             .col-md-6

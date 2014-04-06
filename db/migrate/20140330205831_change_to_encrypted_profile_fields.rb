@@ -34,7 +34,7 @@ class ChangeToEncryptedProfileFields < ActiveRecord::Migration
 private
   
   def encrypted_fields
-    Profile::PROFILE_FIELDS + [:phone, :mobile]
+    Profile::FIELDS + [:phone, :mobile]
   end
 
   def add_encrypted_columns

@@ -60,7 +60,7 @@ class Profile < ActiveRecord::Base
     end
     options[:only], options[:methods] = fields, methods
 
-    attribute_names = attributes.keys.map {|k| k.gsub('encrypted_', '')}
+    attribute_names = attributes.keys.map {|k| k.gsub(Profile.encrypted_column_prefix, '')}
 
     if only = options[:only]
       attribute_names &= Array(only).map(&:to_s)

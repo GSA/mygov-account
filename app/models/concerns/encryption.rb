@@ -14,4 +14,10 @@ module Encryption
     end
   end
 
+  module ClassMethods
+    def encrypted_column_prefix
+      self::attr_encrypted_options[:prefix] ? self::attr_encrypted_options[:prefix] : 'encrypted_'
+    end
+  end
+
 end

@@ -7,7 +7,7 @@ class ChangeToEncryptedProfileFields < ActiveRecord::Migration
     # encrypt existing profiles
     Profile.all.each do |profile|
       encrypted_fields.each do |field|
-        profile.send("#{field}=".to_sym, profile.send("encrypted_#{field}".to_sym)) if profile.send("encrypted_#{field}".to_sym)
+        profile.send("#{field}=".to_sym, profile.send("#{Profile.encrypted_column_prefix}#{field}".to_sym)) if profile.send("#{Profile.encrypted_column_prefix}#{field}".to_sym)
       end
       profile.save
     end
@@ -23,7 +23,7 @@ class ChangeToEncryptedProfileFields < ActiveRecord::Migration
     # decrypt existing profiles
     Profile.all.each do |profile|
       encrypted_fields.each do |field|
-        profile.send("encrypted_#{field}=".to_sym, profile.send(field_name.to_s)) if profile.send("encrypted_#{field}".to_sym)
+        profile.send("encrypted_#{field}=".to_sym, profile.send(field_name.to_s)) if profile.send("#{Profile.encrypted_column_prefix}#{field}".to_sym)
       end
       profile.save
     end
@@ -39,12 +39,12 @@ private
 
   def add_encrypted_columns
     # add column names with 'encrypted_' prefix
-    encrypted_fields.each { |field| add_column :profiles, "encrypted_#{field}", :string }
+    encrypted_fields.each { |field| add_column :profiles, "#{Profile.encrypted_column_prefix}#{field}", :string }
   end
 
   def remove_encrypted_columns
     # remove column names without 'encrypted_' prefix
-    encrypted_fields.each { |field| remove_column :profiles, "encrypted_#{field}" } 
+    encrypted_fields.each { |field| remove_column :profiles, "#{Profile.encrypted_column_prefix}#{field}" } 
   end
 
   def add_unencrypted_columns

@@ -77,7 +77,7 @@ describe "OauthApps" do
         follow_redirect!
         expect(response.body).to include("Custom text for test")
         expect(response.body).to have_link("Return to App1")
-        expect(response.body).to include("MyUSA is currently in limited Beta use. Only Beta testers are currently able to sign up.")
+        expect(response.body).to include("MyUSA is currently in limited Beta. Only users with a government (.gov) email address are allowed to sign up.")
       end
     end
 

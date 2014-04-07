@@ -1,7 +1,7 @@
 - if current_app
   #beta-modal.reveal-modal{"data-reveal" => ""}
     %h2 Beta Notice:
-    %p.lead MyUSA is currently in limited Beta use. Only Beta testers are currently able to sign up.
+    %p.lead #{t('beta_warning_message')}
     %a.close-reveal-modal &#215;
   - content_for :scripts do
     = javascript_tag do
@@ -21,7 +21,6 @@
         - if flash.alert
           .alert-box
             = flash.alert
-        = custom_message
         %fieldset.plain
           %ol.inline
             %li
@@ -43,6 +42,9 @@
           = current_app ? "&nbsp; or &nbsp; #{return_to_app_link}".html_safe : nil
     .four.columns
   .four.columns
+    - if custom_message.present?
+      .panel.side-panel
+        = custom_message
     .panel.side-panel
       = render "devise/shared/links"
   .four.columns

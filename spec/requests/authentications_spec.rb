@@ -139,6 +139,7 @@ describe "Authentications" do
         # Click sign up before checking TOS
         click_button 'Sign up'
         page.should have_content "Terms of service must be accepted"
+        page.should have_xpath("//label[@for='user_terms_of_service']//div[@class='field_with_errors']//a[@href='/terms-of-service']")
         page.should_not have_content "Password"
         # User is returned to sign up page
         check('user_terms_of_service')

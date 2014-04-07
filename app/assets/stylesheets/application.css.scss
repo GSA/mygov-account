@@ -1456,6 +1456,8 @@ span[aria-hidden="false"] {display:block;}
   color: #fff;
 }
 
+label div.field_with_errors a{color: #fff; text-decoration: underline}  // Customization for checkbox label with errors
+label div.field_with_errors a:hover{color: #fff;}  // Customization for checkbox label with errors
 label div.field_with_errors {color: #fff; text-shadow: none; margin: 0; padding: .2em; }  // Customization for checkbox label with errors
 .field_with_errors { background: #961D19; }
 .field_with_errors label {color: #fff; text-shadow: none; margin: 0; padding: .2em; }

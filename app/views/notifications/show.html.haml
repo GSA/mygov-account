@@ -16,6 +16,6 @@
           - else
             From: MyUSA
       = content_tag(:p, (@notification.app ? @notification.body : @notification.body.html_safe))
-      = link_to notification_path(@notification), :method => :delete, :class => 'small button' do
+      = link_to notification_path(@notification), :method => :delete, :class => 'small alert button' do
         %i{:class => 'foundicon-remove'}
         Remove

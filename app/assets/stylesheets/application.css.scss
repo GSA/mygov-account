@@ -276,6 +276,7 @@ html.no-borderimage #wrap input.button.positive {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.button.alert:hover { text-decoration: none; }
 .button:hover,
 .button:active {
   background: #1A6485;

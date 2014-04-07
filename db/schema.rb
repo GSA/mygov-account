@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131217210551) do
+ActiveRecord::Schema.define(:version => 20140326165503) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"
@@ -48,9 +48,18 @@ ActiveRecord::Schema.define(:version => 20131217210551) do
     t.integer  "user_id"
     t.boolean  "is_public",         :default => false
     t.datetime "deleted_at"
+    t.string   "custom_text"
   end
 
   add_index "apps", ["slug"], :name => "index_apps_on_slug"
+
+  create_table "apps_oauth_scopes", :id => false, :force => true do |t|
+    t.integer "app_id"
+    t.integer "oauth_scope_id"
+  end
+
+  add_index "apps_oauth_scopes", ["app_id"], :name => "index_apps_oauth_scopes_on_app_id"
+  add_index "apps_oauth_scopes", ["oauth_scope_id"], :name => "index_apps_oauth_scopes_on_oauth_scope_id"
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -126,8 +135,8 @@ ActiveRecord::Schema.define(:version => 20131217210551) do
     t.datetime "received_at"
     t.integer  "app_id"
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.datetime "deleted_at"
     t.datetime "viewed_at"
     t.string   "notification_type"
@@ -181,6 +190,30 @@ ActiveRecord::Schema.define(:version => 20131217210551) do
 
   add_index "oauth_scopes", ["scope_name"], :name => "index_oauth_scopes_on_scope_name"
 
+  create_table "pdf_fields", :force => true do |t|
+    t.string   "name"
+    t.integer  "x",                  :default => 0
+    t.integer  "y",                  :default => 0
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.integer  "pdf_id"
+    t.string   "profile_field_name"
+    t.integer  "page_number"
+  end
+
+  add_index "pdf_fields", ["pdf_id"], :name => "index_pdf_fields_on_pdf_id"
+
+  create_table "pdfs", :force => true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.string   "slug"
+    t.integer  "x_offset",    :default => 0
+    t.integer  "y_offset",    :default => 0
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.boolean  "is_fillable"
+  end
+
   create_table "profiles", :force => true do |t|
     t.string   "title",          :limit => 10
     t.string   "first_name"
@@ -207,6 +240,19 @@ ActiveRecord::Schema.define(:version => 20131217210551) do
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
+  create_table "rails_admin_histories", :force => true do |t|
+    t.text     "message"
+    t.string   "username"
+    t.integer  "item"
+    t.string   "table"
+    t.integer  "month",      :limit => 2
+    t.integer  "year",       :limit => 8
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
   create_table "related_urls", :force => true do |t|
     t.string   "url"
     t.string   "other_url"
@@ -226,6 +272,18 @@ ActiveRecord::Schema.define(:version => 20131217210551) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "submitted_forms", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "app_id"
+    t.string   "form_number"
+    t.string   "data_url"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "submitted_forms", ["app_id"], :name => "index_submitted_forms_on_app_id"
+  add_index "submitted_forms", ["user_id"], :name => "index_submitted_forms_on_user_id"
 
   create_table "task_items", :force => true do |t|
     t.string   "name"

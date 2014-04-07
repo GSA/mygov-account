@@ -24,7 +24,6 @@ gem "permanent_records", "~> 2.3.0"
 gem "httparty"
 gem "paperclip", "~> 3.0"
 gem "rabl"
-gem 'rb-readline', '~> 0.4.2'
 gem 'omniauth-openid', :git => 'https://github.com/GSA/omniauth-openid.git', :branch => 'pape'
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'secure_headers'

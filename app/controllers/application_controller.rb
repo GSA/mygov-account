@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   after_filter :set_response_headers, :cors_set_access_control_headers
   before_filter :set_session_will_expire, :cors_preflight_check
+  helper_method :recaptcha_needed?
 
   auto_session_timeout User.timeout_in.seconds
 
@@ -36,9 +37,13 @@ class ApplicationController < ActionController::Base
 
   protected
 
-    def set_no_keep_alive
-      request.env["devise.skip_trackable"] = true unless params[:no_keep_alive].blank?
-    end
+  def recaptcha_needed?
+    !!session[:account_created]
+  end
+
+  def set_no_keep_alive
+    request.env["devise.skip_trackable"] = true unless params[:no_keep_alive].blank?
+  end
 
   def set_session_will_expire
     # Devise.setup { |config| config.timeout_in = 20 }                # For testing

@@ -16,6 +16,23 @@ module ApplicationHelper
     end
   end
 
+  def custom_message
+    html = ""
+    client_id = session[:user_return_to]
+    if client_id && (client_id.starts_with?("http:") || client_id.starts_with?("/"))
+      client_id = URI.extract("http://#{client_id}").try(:first)
+      client_id = URI.parse(client_id).try(:query) if client_id
+      client_id = (CGI::parse(client_id) || {})['client_id'].try(:first) if client_id
+    end
+    app_id = OAuth2::Model::Client.find_by_client_id(client_id).try(:oauth2_client_owner_id)
+    app = app_id && App.find(app_id)
+    return html unless app && !app.custom_text.blank?
+    html << content_tag(:div) do
+      app.custom_text
+    end
+    html.html_safe
+  end
+
   def gender_options
     [["Male", "male"], ["Female", "female"]]
   end

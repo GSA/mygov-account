@@ -335,7 +335,7 @@ describe "Users" do
     it "should lock the account if the user fails to login five times" do
       visit sign_in_path
       lock_account
-      page.should have_content "Your account is locked."
+      page.should have_content "There are problems with that email address. You will receive an email if your account has been locked. Otherwise, try resetting your password."
       @user.reload
       @user.unlock_token.should_not be_nil
       ActionMailer::Base.deliveries.last.to.should eq ['joe@citizen.org']

@@ -84,7 +84,7 @@ module ApplicationHelper
       content_tag :div, :id => 'inactivity_warning', :style=>"display:inline;", :class => "row" do
         content_tag :div, :class => "twelve columns" do
           content_tag :div, :class => "alert-box blue" do
-            content_tag('div', t('session_expiration_warning_no_script', link: here.html_safe, time: pluralize(Rails.application.config.session_timeout_warning_seconds, 'second')).html_safe) + "\n" +
+            content_tag('div', t('session_expiration_warning_no_script_html', link: here, time: pluralize(Rails.application.config.session_timeout_warning_seconds, 'second'))) + "\n" +
             link_to("&times;".html_safe, nil, class: 'close')
           end.html_safe
         end
@@ -97,7 +97,7 @@ module ApplicationHelper
     content_tag :div, :id => 'inactivity_warning', :style=>"display:none;", :class => "row" do
       content_tag :div, :class => "twelve columns" do
         content_tag :div, :class => "alert-box blue" do
-          content_tag('div', t('session_expiration_warning', link: here.html_safe, time: pluralize(Rails.application.config.session_timeout_warning_seconds, 'second')).html_safe) + "\n" +
+          content_tag('div', t('session_expiration_warning_html', link: here, time: pluralize(Rails.application.config.session_timeout_warning_seconds, 'second'))) + "\n" +
           link_to("&times;".html_safe, nil, class: 'close')
         end.html_safe
       end
@@ -110,7 +110,7 @@ module ApplicationHelper
     content_tag :div, :id => 'inactivity_warning', :style=>"display:inline;", :class => "row" do
       content_tag :div, :class => "twelve columns" do
         content_tag :div, :class => "alert-box blue" do
-          content_tag('div', t('custom_session_timeout', link: here.html_safe, time: pluralize(Rails.application.config.session_timeout_warning_seconds, 'second')).html_safe) + "\n" +
+          content_tag('div', t('custom_session_timeout')) + "\n" +
           link_to("&times;".html_safe, nil, class: 'close')
         end.html_safe
       end
@@ -219,7 +219,7 @@ module ApplicationHelper
     
     if flash.alert
       html << content_tag(:div, :class => 'alert-box', :id => !error_displayed ? alert_name : nil, :tabindex => -2) do
-        flash.alert
+        flash.alert.html_safe
       end
       error_displayed = true
     end

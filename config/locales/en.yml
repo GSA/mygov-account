@@ -19,8 +19,8 @@ en:
   delete: "Delete"
 
   remain_logged_in: "Remain signed in."
-  session_expiration_warning_no_script: "We noticed you have not been very active in MyUSA. %{link}"
-  session_expiration_warning: "We noticed you haven't been very active in MyUSA. %{link}"
+  session_expiration_warning_no_script_html: "We noticed you have not been very active in MyUSA. %{link}"
+  session_expiration_warning_html: "We noticed you haven't been very active in MyUSA. %{link}"
   beta_signup_error: "An error occurred during signup.  Please try again."
   beta_warning_message: "MyUSA is currently in limited Beta. Only users with a government (.gov) email address are allowed to sign up."
   apps_leaving: "In a few seconds, you will be redirected to"
@@ -104,7 +104,7 @@ en:
       already_authenticated: "You're already signed in."
       unauthenticated: 'Please sign in or sign up before continuing.'
       unconfirmed: 'First we ask that you confirm your account. Please refer to the email we sent you.'
-      locked: 'Your account is locked.'
+      locked: "There are problems with that email address. You will receive an email if your account has been locked. Otherwise, try <a href='/password/new'>resetting</a> your password."
       invalid: "We don't recognize that email or password."
       not_found_in_database: "We don't recognize that email or password."
       invalid_token: "We don't recognize this. Please visit try again."

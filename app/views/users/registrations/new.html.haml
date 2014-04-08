@@ -46,9 +46,9 @@
                   %i (Not required)
                 = f.text_field :zip, {'aria-described-by'=>'tip-zip'}
               %li
-                = f.label :terms_of_service do
-                  = f.check_box :terms_of_service
-                  = t(:i_agree_html, :terms_of_service_link => link_to(t(:terms_of_service), terms_of_service_path), :privacy_policy_link => link_to(t(:privacy_policy), privacy_policy_path))
+                = f.label :terms_of_service do 
+                  = f.check_box :terms_of_service, {}, "1", "0", t(:i_agree_html, :terms_of_service_link => link_to(t(:terms_of_service), terms_of_service_path), :privacy_policy_link => link_to(t(:privacy_policy), privacy_policy_path))
+                  
               %li
                 = recaptcha_tags display: {theme: 'clean'} if recaptcha_needed?
               %li= f.submit t(:sign_up), :class => 'button positive', :accesskey => access_keys[:submit]

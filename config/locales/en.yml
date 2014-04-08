@@ -19,8 +19,8 @@ en:
   delete: "Delete"
 
   remain_logged_in: "Remain signed in."
-  session_expiration_warning_no_script: "We noticed you have not been very active in MyUSA. %{link}"
-  session_expiration_warning: "We noticed you haven't been very active in MyUSA. %{link}"
+  session_expiration_warning_no_script_html: "We noticed you have not been very active in MyUSA. %{link}"
+  session_expiration_warning_html: "We noticed you haven't been very active in MyUSA. %{link}"
   beta_signup_error: "An error occurred during signup.  Please try again."
   beta_warning_message: "MyUSA is currently in limited Beta. Only users with a government (.gov) email address are allowed to sign up."
   apps_leaving: "In a few seconds, you will be redirected to"

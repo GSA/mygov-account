@@ -104,7 +104,7 @@ en:
       already_authenticated: "You're already signed in."
       unauthenticated: 'Please sign in or sign up before continuing.'
       unconfirmed: 'First we ask that you confirm your account. Please refer to the email we sent you.'
-      locked: 'Your account is locked.'
+      locked: "There are problems with that email address. You will receive an email if your account has been locked. Otherwise, try <a href='/password/new'>resetting</a> your password."
       invalid: "We don't recognize that email or password."
       not_found_in_database: "We don't recognize that email or password."
       invalid_token: "We don't recognize this. Please visit try again."

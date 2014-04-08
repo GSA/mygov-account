@@ -219,7 +219,7 @@ module ApplicationHelper
     
     if flash.alert
       html << content_tag(:div, :class => 'alert-box', :id => !error_displayed ? alert_name : nil, :tabindex => -2) do
-        flash.alert
+        flash.alert.html_safe
       end
       error_displayed = true
     end

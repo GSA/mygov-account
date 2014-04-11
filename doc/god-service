@@ -8,7 +8,7 @@
 #
  
 CONF_FILE=/etc/god/master.god
-DAEMON=`which bootup_god`
+DAEMON=`which god`
 PIDFILE=/var/run/god.pid
 LOGFILE=/var/log/god.log
 SERVICENAME=god-service

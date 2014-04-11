@@ -622,6 +622,11 @@ ul.dashboard-navigation li a.apps {background-image: image-url("sprite.png")  0%
 ul.dashboard-navigation li a.forms {background-image: image-url("sprite.png")  0% -109px no-repeat;}
 
 /*** Desktop / tablet view for dashboard navigation ***/
+@media only screen and (max-width: 1100px) and (min-width: 768px) {
+
+  .one.columns.navigation div a {color:transparent;}
+  .one.columns.navigation div a i {color:white;}
+}
 
 @media only screen and (min-width: 768px) {
 
@@ -979,6 +984,7 @@ html.backgroundsize .sign-up .logo h1 {
 .panel.secondary {background: rgba(0,0,0,.02); margin: 0 0 1em 0; border: none; }
 .panel.secondary h4 {border-bottom: 1px solid rgba(0,0,0,.15); padding-bottom: .25em;}
 .panel.tertiary {background: none; border: none;  -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;}
+.panel.tertiary {background: none; border: none;  -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; text-align:center;}
 .panel.decorative {position: relative;}
 
 .panel.decorative.style-one {background: #eee; background: rgba(255,255,255,.65);}

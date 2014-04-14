@@ -33,7 +33,7 @@
                 = f.label :email
                 = f.email_field :email
               - if @using_oauth
-                = f.password_field :password, type: 'hidden', value: 'Password1', autocomplete: 'off'
+                = f.password_field :password, type: 'hidden', value: '1PlaceHolder', autocomplete: 'off'
               - else
                 %li
                   = f.label :password, :required => !@using_oauth

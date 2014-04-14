@@ -2,15 +2,15 @@ class Api::V1::TasksController < Api::ApiController
   before_filter :oauthorize_scope
 
   def index
-    tasks = @user.tasks.where(:app_id => @app.id)
-    render :json => tasks, :status => 200
+    tasks = @user.tasks.where(:app_id => @app.id).joins(:task_items)
+    render :json => tasks.to_json(:include => :task_items), :status => 200
   end
 
   def create
     task = @user.tasks.build(params[:task] || {})
     task.app_id = @app.id
     if task.save
-      render :json => task, :status => 200
+      render :json => task.to_json(:include => :task_items), :status => 200
     else
       render :json => {:message => task.errors}, :status => 400
     end
@@ -24,10 +24,10 @@ class Api::V1::TasksController < Api::ApiController
   def update
     task = @user.tasks.find(params[:id])
     if task
-      task.update_attributes(params[:task])
+      task.assign_attributes(params[:task], :as => :admin)
       task.complete! if params[:completed]
     end
-    render :json => task.to_json
+    render :json => task.to_json(:include => :task_items)
   end
 
   protected

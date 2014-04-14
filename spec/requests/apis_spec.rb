@@ -284,6 +284,13 @@ describe "Apis" do
             parsed_json.size.should == 1
             parsed_json.first["name"].should == "Task #1"
           end
+
+          it "should return the task and task items" do
+            get "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token}" }
+            parsed_json = JSON.parse(response.body)
+            binding.pry
+            parsed_json.first['task_items'].first['name'].should == "Task item 1 (no url)"
+          end
         end
       end
 
@@ -342,6 +349,27 @@ describe "Apis" do
           parsed_json = JSON.parse(response.body)
           parsed_json["message"].should == "Invalid token"
         end
+      end
+    end
+
+    describe "PUT /api/tasks:id.json" do
+      context "when the caller has a valid token" do
+        before do
+          @task = Task.create!({:name => "Mega task", :user_id => @user.id, :app_id => @app.id, :task_items_attributes => [{ :name => "Task item one" }]}, :as =>:admin)
+        end
+        context "when valid parameters are used" do
+          it "should update the task and task items" do
+            put "/api/tasks/#{@task.id}", {:task => { :name => 'New Task' , :task_items_attributes => [{ :id => @task.task_items.first.id, :name => "new task item one" }] }}, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
+            response.code.should == "200"
+            parsed_json = JSON.parse(response.body)
+            parsed_json['name'].should == "New Task"
+            parsed_json['task_items'].first['name'].should == 'new task item one'
+          end
+        end
+      end
+
+      context "when the caller does not have a valid token" do
+
       end
     end
 

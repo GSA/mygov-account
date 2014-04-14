@@ -22,12 +22,16 @@ class Api::V1::TasksController < Api::ApiController
   end
 
   def update
-    task = @user.tasks.find(params[:id])
-    if task
-      task.assign_attributes(params[:task], :as => :admin)
-      task.complete! if params[:completed]
+    begin
+      task = @user.tasks.find(params[:id])
+      if task
+        task.assign_attributes(params[:task], :as => :admin)
+        task.complete! if params[:task][:completed]
+      end
+      render :json => task.to_json(:include => :task_items)
+    rescue ActiveRecord::RecordNotFound
+      render :json => { :message => "Invalid parameters. Check your values and try again."}, :status => 422
     end
-    render :json => task.to_json(:include => :task_items)
   end
 
   protected

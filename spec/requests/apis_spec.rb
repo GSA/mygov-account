@@ -288,7 +288,6 @@ describe "Apis" do
           it "should return the task and task items" do
             get "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token}" }
             parsed_json = JSON.parse(response.body)
-            binding.pry
             parsed_json.first['task_items'].first['name'].should == "Task item 1 (no url)"
           end
         end
@@ -366,10 +365,28 @@ describe "Apis" do
             parsed_json['task_items'].first['name'].should == 'new task item one'
           end
         end
+
+        context "when invalid parameters are used" do
+          it "should return meaningful errors" do
+            put "/api/tasks/#{@task.id}", {:task => { :name => 'New Task' , :task_items_attributes => [{ :id => "chicken", :name => "updated task item name" }] }}, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
+            response.code.should == "422"
+            parsed_json = JSON.parse(response.body)
+            parsed_json['message'].should == "Invalid parameters. Check your values and try again."
+          end
+        end
       end
 
       context "when the caller does not have a valid token" do
+        before do
+          @task = Task.create!({:name => "Super task", :user_id => @user.id, :app_id => @app.id, :task_items_attributes => [{ :name => "Task item one" }]}, :as =>:admin)
+        end
 
+        it "should return authorization error" do
+          put "/api/tasks/#{@task.id}", {:task => { :name => 'New Task' , :task_items_attributes => [{ :id => @task.task_items.first.id, :name => "new task item one" }] }}, {'HTTP_AUTHORIZATION' => "Bearer #{@token}_"}
+          response.code.should == "401"
+          parsed_json = JSON.parse(response.body)
+          parsed_json["message"].should == "Invalid token"
+        end
       end
     end
 

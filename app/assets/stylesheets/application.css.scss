@@ -115,16 +115,16 @@ h3.tagline a { margin: 0.3em; }
 
 @media only screen and (max-width: 767px) {
   #header h3.tagline {
-  font-size: .8em;
-  display: block;
-  float: right;
-  width: 35%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  text-align: right;
-}
-
+    font-size: .8em;
+    display: block;
+    float: right;
+    width: 35%;
+    min-width:200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+  }
   #header h3.tagline em {display: block;}
 }
 
@@ -549,7 +549,6 @@ span.jujitsu {
 
   .nav-bar li.profile a {background: image-url("sprite.png") 0% -229px no-repeat; border-left: none; }
   .nav-bar li.sign-out a {background: image-url("sprite.png") 0% -350px no-repeat;}
-
 }
 
 @media (min-width: 768px) and (min--moz-device-pixel-ratio: 2),

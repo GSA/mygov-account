@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140330205831) do
+ActiveRecord::Schema.define(:version => 20140417172412) do
 
   create_table "app_activity_logs", :force => true do |t|
     t.integer  "app_id"

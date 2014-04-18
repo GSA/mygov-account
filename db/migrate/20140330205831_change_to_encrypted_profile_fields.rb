@@ -1,32 +1,19 @@
 class ChangeToEncryptedProfileFields < ActiveRecord::Migration
   
-  
   def up
-    add_encrypted_columns
+    add_encrypted_columns && Profile.connection.schema_cache.clear! && Profile.reset_column_information
 
-    # encrypt existing profiles
-    Profile.all.each do |profile|
-      encrypted_fields.each do |field|
-        profile.send("#{field}=".to_sym, profile.send("#{Profile.encrypted_column_prefix}#{field}".to_sym)) if profile.send("#{Profile.encrypted_column_prefix}#{field}".to_sym)
-      end
-      profile.save
-    end
+    # encrypt existing profiles and update records
+    Profile.all.map { |profile| add_encrypted_data(profile) }
 
     remove_unencrypted_columns
   end
 
   def down
-    add_unencrypted_columns
+    add_unencrypted_columns && Profile.reset_column_information
 
-    # TODO: need to test to make sure this restores properly.
-
-    # decrypt existing profiles
-    Profile.all.each do |profile|
-      encrypted_fields.each do |field|
-        profile.send("encrypted_#{field}=".to_sym, profile.send(field_name.to_s)) if profile.send("#{Profile.encrypted_column_prefix}#{field}".to_sym)
-      end
-      profile.save
-    end
+    # decrypt existing profiles and update records
+    Profile.all.map { |profile| add_unencrypted_data(profile) }
 
     remove_encrypted_columns
   end
@@ -55,6 +42,29 @@ private
   def remove_unencrypted_columns
     # remove column names without 'encrypted_' prefix
     encrypted_fields.each { |field| remove_column :profiles, field }
+  end
+
+  def add_encrypted_data(profile)
+    updated_fields = []
+
+    encrypted_fields.each do |field|
+      unless profile.attributes[field.to_s].blank?
+        profile.send("#{field}=".to_sym, profile.attributes[field.to_s])
+        updated_fields << "encrypted_#{field} = '#{profile.send('encrypted_'+field.to_s)}'"
+      end
+    end
+    insert "UPDATE profiles SET #{updated_fields.join(',')} WHERE id = #{profile.id}"
+  end
+
+  def add_unencrypted_data(profile)
+    updated_fields = []
+    
+    encrypted_fields.each do |field|
+      unless profile.send(field).blank?
+        updated_fields << "#{field} = '#{profile.send(field)}'"
+      end
+    end
+    insert "UPDATE profiles SET #{updated_fields.join(',')} WHERE id = #{profile.id}"
   end
 
 end

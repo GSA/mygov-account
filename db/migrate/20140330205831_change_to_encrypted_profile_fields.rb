@@ -1,7 +1,7 @@
 class ChangeToEncryptedProfileFields < ActiveRecord::Migration
   
   def up
-    add_encrypted_columns && Profile.connection.schema_cache.clear! && Profile.reset_column_information
+    add_encrypted_columns
 
     # encrypt existing profiles and update records
     Profile.all.map { |profile| add_encrypted_data(profile) }
@@ -10,7 +10,7 @@ class ChangeToEncryptedProfileFields < ActiveRecord::Migration
   end
 
   def down
-    add_unencrypted_columns && Profile.reset_column_information
+    add_unencrypted_columns
 
     # decrypt existing profiles and update records
     Profile.all.map { |profile| add_unencrypted_data(profile) }

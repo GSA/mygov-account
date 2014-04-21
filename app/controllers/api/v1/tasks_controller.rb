@@ -27,6 +27,7 @@ class Api::V1::TasksController < Api::ApiController
       if task
         task.assign_attributes(params[:task], :as => :admin)
         task.complete! if params[:task][:completed]
+        task.save
       end
       render :json => task.to_json(:include => :task_items)
     rescue ActiveRecord::RecordNotFound

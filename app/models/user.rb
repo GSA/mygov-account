@@ -39,7 +39,11 @@ class User < ActiveRecord::Base
   def self.default_password
     "13#{Devise.friendly_token[0,20]}"
   end
-
+  
+  def authorized_apps
+    self.oauth2_authorizations.all.collect{ |a| a.client.try(:owner)}
+  end
+  
   class << self
 
 
@@ -198,6 +202,4 @@ class User < ActiveRecord::Base
     send_devise_notification((pending_reconfirmation? ? :reconfirmation_instructions : :confirmation_instructions), opts)
     send_devise_notification(:you_changed_your_email_address, opts) if pending_reconfirmation?
   end
-
-
 end

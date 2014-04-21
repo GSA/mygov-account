@@ -10,7 +10,31 @@ class ApplicationController < ActionController::Base
 
   auto_session_timeout User.timeout_in.seconds
 
+  def xss_options_request
+    render :text => ""
+  end
+
+  protected
+  
+  def valid_url?(uri)
+    !!((uri =~ URI::regexp(["http", "https"])) && URI.parse(uri).host =~ /^(localhost|(([0-9]{1,3}\.){3}[0-9]{1,3})|([a-z0-9]+\.)+[a-z]{2,5})$/i)
+  rescue URI::InvalidURIError
+    false
+  end
+  
+  def member_subdomain?(url_list, url)
+    url_list.any? do |list_url|
+      list_host = URI.parse(list_url).host
+      url_host = URI.parse(url).host
+      list_host == url_host || url_host.ends_with?(".#{list_host}")
+    end
+  end
+  
   def after_sign_out_path_for(resource_or_scope)
+    url = params[:continue]
+    if !url.blank? && valid_url?(url) && current_user && member_subdomain?(current_user.authorized_apps.map(&:url), url)
+      return url
+    end
     sign_in_path
   end
 
@@ -24,12 +48,6 @@ class ApplicationController < ActionController::Base
         super(resource)
       end
   end
-
-  def xss_options_request
-    render :text => ""
-  end
-
-  protected
 
   def recaptcha_needed?
     !!session[:account_created]

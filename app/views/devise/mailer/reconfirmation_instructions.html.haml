@@ -18,13 +18,10 @@
     = mail_to('projectmyusa@gsa.gov', 'get in touch with us')
 %p
   Once you’ve signed in, don’t forget to
-  = succeed "," do
-    = link_to 'update your profile', edit_profile_url(:profile => @resource.profile)
   
-  = succeed "," do
-    = link_to 'edit your notification settings', account_index_url
+  = link_to 'update your profile', edit_profile_url(:profile => @resource.profile)
 
-  or browse the
+  and browse the
 
   = succeed "." do
     = link_to 'MyUSA App Gallery', apps_url

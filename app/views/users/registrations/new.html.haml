@@ -39,16 +39,16 @@
                   = f.label :password, :required => !@using_oauth
                   = f.password_field :password, autocomplete: 'off'
               %li
-                = f.label :zip
-                %br
                 %span{:id=>'tip-zip', :class=>'tooltip'}
                   Entering your zip code will enable us to send you alerts and content relevant to your location.
                   %i (Not required)
+                = f.label :zip
+                %br
                 = f.text_field :zip, {'aria-described-by'=>'tip-zip'}
               %li
-                = f.label :terms_of_service do 
+                = f.label :terms_of_service do
                   = f.check_box :terms_of_service, {}, "1", "0", t(:i_agree_html, :terms_of_service_link => link_to(t(:terms_of_service), terms_of_service_path), :privacy_policy_link => link_to(t(:privacy_policy), privacy_policy_path))
-                  
+
               %li
                 = recaptcha_tags display: {theme: 'clean'} if recaptcha_needed?
               %li= f.submit t(:sign_up), :class => 'button positive', :accesskey => access_keys[:submit]
@@ -56,4 +56,3 @@
   .four.columns
     .panel.side-panel
       = render "devise/shared/provider_links"
-

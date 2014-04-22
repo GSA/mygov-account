@@ -105,6 +105,7 @@ describe "Users" do
       visit sign_up_path
       page.should have_link 'Sign up with Google'
       page.should have_link 'Sign up with VeriSign'
+      page.should have_selector("span#tip-password")
     end
 
     it "should indicate which fields are required and have '* Required'" do

@@ -36,6 +36,8 @@
                 = f.password_field :password, type: 'hidden', value: '1PlaceHolder', autocomplete: 'off'
               - else
                 %li
+                  %span{:id=>'tip-password', :class=>'tooltip'}
+                    Password must include at least one lower case letter, one upper case letter and one digit, and be at least 8 characters long.
                   = f.label :password, :required => !@using_oauth
                   = f.password_field :password, autocomplete: 'off'
               %li

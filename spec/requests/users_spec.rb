@@ -105,6 +105,7 @@ describe "Users" do
       visit sign_up_path
       page.should have_link 'Sign up with Google'
       page.should have_link 'Sign up with VeriSign'
+      page.should have_selector("span#tip-password")
     end
 
     it "should indicate which fields are required and have '* Required'" do
@@ -223,7 +224,7 @@ describe "Users" do
             email.body.encoded.should have_link('MyUSA App Gallery', href: apps_url(host_params))
             email.body.raw_source.should have_link('contact us')
             email.body.raw_source.should have_link('link', href: user_confirmation_url(host_params.merge(confirmation_token: user.confirmation_token)))
-            email.body.raw_source.should have_link('edit your notification settings', href: account_index_url(host_params))
+            email.body.raw_source.should_not have_link('edit your notification settings', href: account_index_url(host_params))
             email.body.raw_source.should have_link('update your profile', href: edit_profile_url(host_params.merge(profile: user.profile)))
             email.body.raw_source.should have_content("confirmation?confirmation_token=#{user.confirmation_token}")
           end

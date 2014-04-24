@@ -101,7 +101,9 @@ module ActionView
       end
 
       def email_field(object_name, method, options = {})
-      	options.merge!({'aria-required' => true}) if options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
+        unless options[:explanation_not_required] #68815858  No need to specify that email is a required field on the beta list sign up page
+        	options.merge!({'aria-required' => true}) if options[:object].class.validators_on(method).map(&:class).include? ActiveModel::Validations::PresenceValidator
+        end
         InstanceTag.new(object_name, method, self, options.delete(:object)).to_input_field_tag("email", options)
       end
 

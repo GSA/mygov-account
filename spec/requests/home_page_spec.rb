@@ -32,6 +32,7 @@ describe "HomePage" do
         it "should not let a user sign up for the beta without providing their email address" do
           visit root_path
           page.should have_content("Take control of how you interact with government.")
+          page.should_not have_content("* Required Field")  #68815858  No need to specify that email is a required field on the beta list sign up page
           fill_in 'Email', :with => ''
           click_button "Sign up"
           page.should_not have_content("Thanks for signing up")

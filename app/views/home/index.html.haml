@@ -13,7 +13,7 @@
           = form_for @beta_signup, html: {novalidate: true} do |form|
             = flash_messages
             = form.label :email
-            = form.email_field :email
+            = form.email_field :email, explanation_not_required: true
             = form.submit t(:sign_up), :class => 'large button positive '
   
       %p.disclaimer

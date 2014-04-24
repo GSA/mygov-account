@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   end
   
   def authorized_apps
-    self.oauth2_authorizations.all.collect{ |a| a.client.try(:owner)}
+    self.oauth2_authorizations.all.collect{ |a| a.client.try(:owner) }.compact
   end
   
   class << self

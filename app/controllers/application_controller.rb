@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   protected
   
   def valid_url?(uri)
-    !!((uri =~ URI::regexp(["http", "https"])) && URI.parse(uri).host =~ /^(localhost|(([0-9]{1,3}\.){3}[0-9]{1,3})|([a-z0-9]+\.)+[a-z]{2,5})$/i)
+    !!((uri =~ URI::regexp(["http", "https"])))
   rescue URI::InvalidURIError
     false
   end

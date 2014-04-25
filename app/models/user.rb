@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   before_validation :generate_uid
   after_create :create_profile
+  before_create :set_notification_settings
   after_create :create_default_notification
   after_destroy :send_account_deleted_notification
   
@@ -24,7 +25,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :trackable, :validatable, :omniauthable, :lockable, :timeoutable, :confirmable, :async
 
-  attr_accessible :email, :password, :remember_me, :terms_of_service, :unconfirmed_email, :as => [:default, :admin]
+  attr_accessible :email, :password, :remember_me, :terms_of_service, :notify_me, :unconfirmed_email, :as => [:default, :admin]
 
   WHITELISTED_DOMAINS = %w{ .gov .mil usps.com }
   attr_accessible :first_name, :last_name, :zip, :as => [:default]
@@ -155,6 +156,10 @@ class User < ActiveRecord::Base
   
   def create_profile
     self.profile = Profile.new(:first_name => @first_name, :last_name => @last_name, :zip => @zip) unless self.profile
+  end
+
+  def set_notification_settings
+    self.notify_me = true
   end
   
   def valid_email?

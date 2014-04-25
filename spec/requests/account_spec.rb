@@ -18,7 +18,19 @@ describe "Account" do
         page.should have_content "Change your email address"
         page.should have_content "Change your password"
         page.should have_content "Authentication providers"
+
+        page.should have_content I18n.t('update_your_notification_settings')
         page.should have_content "Delete your account"
+      end
+
+
+      it "should allow the user to update their notification settings" do
+        visit account_index_path
+        click_link I18n.t('update_your_notification_settings')
+
+        check("Send me notifications") 
+        click_button I18n.t('update_your_notification_settings')
+        page.should have_content I18n.t('notifications_updated')
       end
 
 

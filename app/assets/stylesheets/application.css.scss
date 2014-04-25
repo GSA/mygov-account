@@ -72,9 +72,9 @@ p a {text-decoration: underline;}
   background: #fff asset-url('logo.png', image) 29% 50% no-repeat;
 }
 
-@media only screen and (min-width: 420px) {
+@media only screen and (min-width: 350px) {
   #header h1 {text-align: left; background: #fff asset-url('logo.png', image) center left no-repeat; padding: .65em 2em .5em 52px;}
-
+  background: #fff asset-url('logo-2x.png', image) center left no-repeat;
 }
 
 @media (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {

@@ -1,0 +1,150 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>MyUSA API Documentation</title><link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200"><style>/* Highlight.js Theme Tomorrow */
+.hljs-comment,.hljs-title{color:#8e908c}.hljs-variable,.hljs-attribute,.hljs-tag,.hljs-regexp,.ruby .hljs-constant,.xml .hljs-tag .hljs-title,.xml .hljs-pi,.xml .hljs-doctype,.html .hljs-doctype,.css .hljs-id,.css .hljs-class,.css .hljs-pseudo{color:#c82829}.hljs-number,.hljs-preprocessor,.hljs-pragma,.hljs-built_in,.hljs-literal,.hljs-params,.hljs-constant{color:#f5871f}.ruby .hljs-class .hljs-title,.css .hljs-rules .hljs-attribute{color:#eab700}.hljs-string,.hljs-value,.hljs-inheritance,.hljs-header,.ruby .hljs-symbol,.xml .hljs-cdata{color:#718c00}.css .hljs-hexcolor{color:#3e999f}.hljs-function,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword,.perl .hljs-sub,.javascript .hljs-title,.coffeescript .hljs-title{color:#4271ae}.hljs-keyword,.javascript .hljs-function{color:#8959a8}.hljs{display:block;background:white;color:#4d4d4c;padding:.5em}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .javascript,.xml .vbscript,.xml .css,.xml .hljs-cdata{opacity:.5}</style><style>body,
+h4,
+h5 {
+  font-family: 'Roboto' sans-serif !important;
+}
+h1,
+h2,
+h3,
+.aglio {
+  font-family: 'Raleway' sans-serif !important;
+}
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a {
+  display: none;
+}
+h1:hover a,
+h2:hover a,
+h3:hover a,
+h4:hover a,
+h5:hover a {
+  display: inline;
+}
+code {
+  color: #444;
+  background-color: #ddd;
+  font-family: 'Inconsolata' monospace !important;
+}
+a[data-target] {
+  cursor: pointer;
+}
+h4 {
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.back-to-top {
+  position: fixed;
+  z-index: 1;
+  bottom: 0px;
+  right: 24px;
+  padding: 4px 8px;
+  background-color: #eee;
+  text-decoration: none !important;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  border-left: 1px solid rgba(0,0,0,0.1);
+  border-right: 1px solid rgba(0,0,0,0.1);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.panel {
+  overflow: hidden;
+}
+.panel-heading code {
+  color: #c7254e;
+  background-color: transparent;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.panel-heading h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+a.list-group-item {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+a.list-group-item.heading {
+  background-color: #f5f5f5;
+}
+.list-group-item.collapse {
+  display: none;
+}
+.list-group-item.collapse.in {
+  display: block;
+}
+#nav {
+  margin-top: 38px;
+  min-width: 255px;
+  top: 0;
+  bottom: 0;
+  padding-right: 12px;
+  padding-bottom: 12px;
+  overflow-y: auto;
+}
+@media (max-width: 1199px) {
+  #nav {
+    min-width: 212px;
+  }
+}
+</style></head><body><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><div class="col-md-3"><nav id="nav" class="hidden-sm hidden-xs affix nav"><div class="list-group"><a href="#users" class="list-group-item heading">Users</a><a href="#users-get-user-profile-data" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Get user profile data</a></div><div class="list-group"><a href="#notifications" class="list-group-item heading">Notifications</a><a href="#notifications-create-a-notification" class="list-group-item"><i class="fa fa-plus-square"></i>&nbsp;Create a notification</a></div><div class="list-group"><a href="#tasks" class="list-group-item heading">Tasks</a><a href="#tasks-tasks" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Tasks</a><a href="#tasks-create-a-task" class="list-group-item"><i class="fa fa-plus-square"></i>&nbsp;Create a task</a><a href="#tasks-get-a-single-task" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Get a single task</a><a href="#tasks-update-a-task" class="list-group-item"><i class="fa fa-pencil"></i>&nbsp;Update a task</a></div><p style="text-align: center"><a href="https://myusa.gov/developers/api">https://myusa.gov/developers/api</a></p></nav></div><div class="col-md-9"><div><header><div class="page-header"><h1 id="top">MyUSA API Documentation</h1></div></header><div class="description"></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="users">Users&nbsp;<a href="#users"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>This is a description of the user group</p>
+<h4 id="users-get-user-profile-data">Get user profile data&nbsp;<a href="#users-get-user-profile-data"><i class="fa fa-link"></i></a></h4><p>Returns the authorizing user’s profile information</p>
+<section id="users-get-user-profile-data-get" class="panel panel-info"><div class="panel-heading"><div style="float:left"><a href="#users-get-user-profile-data-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/api/profile</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>name</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>schema</span></span></dd><dt>required</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>N</span></span></dd><dt>Type</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>String</span></span></dd><dt>description</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>true</span></span><p>Set this to ‘true’ to get results in Schema.org Person format</p>
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request</strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="notifications">Notifications&nbsp;<a href="#notifications"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>This is a description of the notification group</p>
+<h4 id="notifications-create-a-notification">Create a notification&nbsp;<a href="#notifications-create-a-notification"><i class="fa fa-link"></i></a></h4><p>Delivers a notification message to the authorizing user.</p>
+<section id="notifications-create-a-notification-post" class="panel panel-success"><div class="panel-heading"><div style="float:left"><a href="#notifications-create-a-notification-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/api/notification</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>name</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>schema</span></span></dd><dt>required</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>N</span></span></dd><dt>Type</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>String</span></span></dd><dt>description</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>true</span></span><p>The subject line of the notification.</p>
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#f3c10036532398f29c74e580b00c8a95" class="pull-right">Toggle</a></li><li id="f3c10036532398f29c74e580b00c8a95" class="list-group-item panel-collapse collapse"><div class="description"></div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>  [
+    {
+      "<span class="hljs-attribute">Name</span>": <span class="hljs-value"><span class="hljs-string">"subject"</span></span>,
+      "<span class="hljs-attribute">Required</span>": <span class="hljs-value"><span class="hljs-string">"Y"</span></span>,
+      "<span class="hljs-attribute">Type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">Description</span>": <span class="hljs-value"><span class="hljs-string">"The subject line of the notification."</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">Name</span>": <span class="hljs-value"><span class="hljs-string">"body"</span></span>,
+      "<span class="hljs-attribute">Required</span>": <span class="hljs-value"><span class="hljs-string">"N"</span></span>,
+      "<span class="hljs-attribute">Type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">Description</span>": <span class="hljs-value"><span class="hljs-string">"The body of the notification."</span>
+    </span>}
+  ]
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="tasks">Tasks&nbsp;<a href="#tasks"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>This is a description of the tasks group</p>
+<h4 id="tasks-tasks">Tasks&nbsp;<a href="#tasks-tasks"><i class="fa fa-link"></i></a></h4><section id="tasks-tasks-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Get a list of tasks</span></div><div style="float:left"><a href="#tasks-tasks-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/api/tasks/:id</code></div></div><div class="panel-body"><p>List all the tasks created by the calling application.</p>
+</div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section><h4 id="tasks-create-a-task">Create a task&nbsp;<a href="#tasks-create-a-task"><i class="fa fa-link"></i></a></h4><section id="tasks-create-a-task-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create a task</span></div><div style="float:left"><a href="#tasks-create-a-task-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/api/tasks</code></div></div><div class="panel-body"><p>Create a new task for the user for this application.</p>
+</div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>name</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>schema</span></span></dd><dt>required</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>N</span></span></dd><dt>Type</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>String</span></span></dd><dt>description</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>true</span></span><p>The name for the task that is being created.</p>
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#9355de9fc2570a083df0ac3a981225f8" class="pull-right">Toggle</a></li><li id="9355de9fc2570a083df0ac3a981225f8" class="list-group-item panel-collapse collapse"><div class="description"></div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>  [
+    {
+      "<span class="hljs-attribute">Name</span>": <span class="hljs-value"><span class="hljs-string">"task[name]"</span></span>,
+      "<span class="hljs-attribute">Required</span>": <span class="hljs-value"><span class="hljs-string">"Y"</span></span>,
+      "<span class="hljs-attribute">Type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">Description</span>": <span class="hljs-value"><span class="hljs-string">"The name for the task that is being created."</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">Name</span>": <span class="hljs-value"><span class="hljs-string">"task[task_items_attributes]"</span></span>,
+      "<span class="hljs-attribute">Required</span>": <span class="hljs-value"><span class="hljs-string">"Y"</span></span>,
+      "<span class="hljs-attribute">Type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">Description</span>": <span class="hljs-value"><span class="hljs-string">"A list of task items to be associated with the task.  Task Items are pointers to forms using a form_id."</span>
+    </span>}
+  ]
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section><h4 id="tasks-get-a-single-task">Get a single task&nbsp;<a href="#tasks-get-a-single-task"><i class="fa fa-link"></i></a></h4><section id="tasks-get-a-single-task-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Get a single task</span></div><div style="float:left"><a href="#tasks-get-a-single-task-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/api/task/:id</code></div></div><div class="panel-body"><p>List all the tasks created by the calling application.</p>
+</div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section><h4 id="tasks-update-a-task">Update a task&nbsp;<a href="#tasks-update-a-task"><i class="fa fa-link"></i></a></h4><section id="tasks-update-a-task-put" class="panel panel-warning"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Update a task</span></div><div style="float:left"><a href="#tasks-update-a-task-put" class="btn btn-xs btn-warning">PUT</a></div><div style="overflow:hidden"><code>/api/task/:id</code></div></div><div class="panel-body"><p>Update task.</p>
+</div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 28 Apr 2014</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+
+</div></body><script src="//code.jquery.com/jquery-1.11.0.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script>(function() {
+  if (location.protocol === 'file:') {
+    document.getElementById('localFile').style.display = 'block';
+  }
+
+}).call(this);
+</script><script>(function() {
+  $('table').addClass('table');
+
+}).call(this);
+</script></html>

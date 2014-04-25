@@ -29,6 +29,8 @@ Mygov::Application.routes.draw do
     collection do
       get 'edit_password'
       put 'update_password'
+      get 'edit_notification_settings'
+      put 'update_notification_settings'
     end
   end
   resources :account, :only => [:index] do
@@ -46,7 +48,6 @@ Mygov::Application.routes.draw do
     end
   end
   resources :task_items, :only => [:update, :destroy]
-
   get 'dashboard' => "home#dashboard"
   get 'developer' => "home#developer"
   get 'privacy-policy' => "home#privacy_policy", :as => :privacy_policy

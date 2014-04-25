@@ -15,6 +15,22 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def edit_notification_settings
+    @user = current_user
+  end
+
+  def update_notification_settings
+    @user = User.find(current_user.id)
+    new_params =  {notify_me: params[:user][:notify_me]}
+    if @user.update_attributes(new_params)
+      flash[:notice] = t(:notifications_updated)
+      redirect_to account_index_path
+    else
+      @user
+      render 'edit_notification_settings'
+    end
+  end
+
   def update_password
     @user = User.find(current_user.id)
     new_params =  {password: params[:user][:password]}

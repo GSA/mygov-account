@@ -1,0 +1,17 @@
+.row
+  .twelve.columns
+    %h2
+      = t(:change_your_password)
+    .eight.columns
+      .panel
+        = form_for(@user, :url => { :action => "update_notification_settings" } ) do |f|
+          = error_messages_for(@user)
+          %div
+            = f.label :notify_me do
+              = f.check_box :notify_me, {}, "1", "0", t(:notify_me)
+          %div
+            = f.submit t(:update_your_notification_settings), class: 'large button positive', :accesskey => access_keys[:submit]
+            = link_to 'Cancel', account_index_path
+
+
+

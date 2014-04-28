@@ -57,6 +57,8 @@ en:
   thank_you_for_signing_up: "Thank you for signing up"
   we_sent_you_an_email: "We've sent you an email to verify you're a person and not a robot. Please follow the instructions in the email, and we'll see you back here shortly."
 
+  edit_notification_settings: "Edit notification settings"
+  update_your_notification_settings: "Update your notification settings"
   your_profile: "Your profile"
   edit_your_profile: "Edit your profile"
   name: "Name"
@@ -81,7 +83,8 @@ en:
   veteran: "Veteran"
   update_profile: "Update profile"
   email: "Email"
-
+  notify_me: "Send me notifications"
+  notifications_updated: "Your notification settings were sucessfully updated."
   your_account: "Your account"
   account_activity: "Account activity"
   authentication_providers: "Authentication providers"

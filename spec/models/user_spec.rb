@@ -16,6 +16,7 @@ describe User do
 
     it "should create a new User with a unique ID" do
       user = User.create!(@valid_attributes)
+      user.notify_me.should == true # New user should have notify_me default to true. #50370923
       user.errors.should be_empty
       user.uid.should_not be_empty
       user.uid.length.should >= 36

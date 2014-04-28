@@ -13,6 +13,8 @@
         %li
           = link_to t(:change_your_password), edit_password_user_path
         %li
+          = link_to t(:update_your_notification_settings), edit_notification_settings_user_path          
+        %li
           = link_to t(:authentication_providers), authentications_path
         %li
           = link_to '#', {:"data-reveal-id" => 'confirm-delete-modal'} do

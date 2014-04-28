@@ -53,7 +53,7 @@ private
         updated_fields << "encrypted_#{field} = '#{profile.send('encrypted_'+field.to_s)}'"
       end
     end
-    insert "UPDATE profiles SET #{updated_fields.join(',')} WHERE id = #{profile.id}"
+    insert "UPDATE profiles SET #{updated_fields.join(',')} WHERE id = #{profile.id}" unless updated_fields.blank?
   end
 
   def add_unencrypted_data(profile)
@@ -64,7 +64,7 @@ private
         updated_fields << "#{field} = '#{profile.send(field)}'"
       end
     end
-    insert "UPDATE profiles SET #{updated_fields.join(',')} WHERE id = #{profile.id}"
+    insert "UPDATE profiles SET #{updated_fields.join(',')} WHERE id = #{profile.id}" unless updated_fields.blank?
   end
 
 end

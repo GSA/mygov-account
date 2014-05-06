@@ -354,7 +354,7 @@ describe "Apis" do
     describe "PUT /api/tasks:id.json" do
       context "when the caller has a valid token" do
         before do
-          @task = Task.create!({:name => "Mega task", :user_id => @user.id, :app_id => @app.id, :task_items_attributes => [{ :name => "Task item one" }]}, :as =>:admin)
+          @task = Task.create!({:name => "Mega task", :completed_at => Time.now-1.day, :user_id => @user.id, :app_id => @app.id, :task_items_attributes => [{ :name => "Task item one" }]}, :as =>:admin)
         end
         context "when valid parameters are used" do
           it "should update the task and task items" do
@@ -362,6 +362,20 @@ describe "Apis" do
             response.code.should == "200"
             parsed_json = JSON.parse(response.body)
             parsed_json['name'].should == "New Task"
+            parsed_json['task_items'].first['name'].should == 'new task item one'
+          end
+        end
+
+        context "when updating a task marked as completed" do
+           before do
+            @task = Task.create!({:name => "Mega completed task", :user_id => @user.id, :app_id => @app.id, :task_items_attributes => [{ :name => "Task item one" }]}, :as =>:admin)
+            @task.complete!
+          end
+          it "should no longer be marked as complete when specified" do
+            put "/api/tasks/#{@task.id}", {:task => { :name => 'New Incomplete Task', :completed_at => nil, :task_items_attributes => [{ :id => @task.task_items.first.id, :name => "new task item one" }] }}, {'HTTP_AUTHORIZATION' => "Bearer #{@token}"}
+            response.code.should == "200"
+            parsed_json = JSON.parse(response.body)
+            parsed_json['name'].should == "New Incomplete Task"
             parsed_json['task_items'].first['name'].should == 'new task item one'
           end
         end

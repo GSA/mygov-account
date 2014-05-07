@@ -95,7 +95,7 @@ a.list-group-item.heading {
     min-width: 212px;
   }
 }
-</style></head><body><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><div class="col-md-3"><nav id="nav" class="hidden-sm hidden-xs affix nav"><div class="list-group"><a href="#users" class="list-group-item heading">Users</a><a href="#users-get-user-profile-data" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Get user profile data</a></div><div class="list-group"><a href="#notifications" class="list-group-item heading">Notifications</a><a href="#notifications-create-a-notification" class="list-group-item"><i class="fa fa-plus-square"></i>&nbsp;Create a notification</a></div><div class="list-group"><a href="#tasks" class="list-group-item heading">Tasks</a><a href="#tasks-tasks" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Tasks</a><a href="#tasks-create-a-task" class="list-group-item"><i class="fa fa-plus-square"></i>&nbsp;Create a task</a><a href="#tasks-get-a-single-task" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Get a single task</a><a href="#tasks-update-a-task" class="list-group-item"><i class="fa fa-pencil"></i>&nbsp;Update a task</a></div><p style="text-align: center"><a href="https://myusa.gov/developers/api">https://myusa.gov/developers/api</a></p></nav></div><div class="col-md-9"><div><header><div class="page-header"><h1 id="top">MyUSA API Documentation</h1></div></header><div class="description"></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="users">Users&nbsp;<a href="#users"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>This is a description of the user group</p>
+</style></head><body><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><div class="col-md-3"><nav id="nav" class="hidden-sm hidden-xs affix nav"><div class="list-group"><a href="#users" class="list-group-item heading">Users</a><a href="#users-get-user-profile-data" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Get user profile data</a></div><div class="list-group"><a href="#notifications" class="list-group-item heading">Notifications</a><a href="#notifications-create-a-notification" class="list-group-item"><i class="fa fa-plus-square"></i>&nbsp;Create a notification</a></div><div class="list-group"><a href="#tasks" class="list-group-item heading">Tasks</a><a href="#tasks-tasks" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Tasks</a><a href="#tasks-create-a-task" class="list-group-item"><i class="fa fa-plus-square"></i>&nbsp;Create a task</a><a href="#tasks-get-a-single-task" class="list-group-item"><i class="fa fa-arrow-circle-down"></i>&nbsp;Get a single task</a><a href="#tasks-update-a-task" class="list-group-item"><i class="fa fa-pencil"></i>&nbsp;Update a task</a></div><div class="list-group"><a href="#authentication" class="list-group-item heading">Authentication</a></div><p style="text-align: center"><a href="https://myusa.gov/developers/api">https://myusa.gov/developers/api</a></p></nav></div><div class="col-md-9"><div><header><div class="page-header"><h1 id="top">MyUSA API Documentation</h1></div></header><div class="description"></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="users">Users&nbsp;<a href="#users"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>This is a description of the user group</p>
 <h4 id="users-get-user-profile-data">Get user profile data&nbsp;<a href="#users-get-user-profile-data"><i class="fa fa-link"></i></a></h4><p>Returns the authorizing user’s profile information</p>
 <section id="users-get-user-profile-data-get" class="panel panel-info"><div class="panel-heading"><div style="float:left"><a href="#users-get-user-profile-data-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/api/profile</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>name</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>schema</span></span></dd><dt>required</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>N</span></span></dd><dt>Type</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>String</span></span></dd><dt>description</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>true</span></span><p>Set this to ‘true’ to get results in Schema.org Person format</p>
 </dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request</strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="notifications">Notifications&nbsp;<a href="#notifications"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>This is a description of the notification group</p>
@@ -135,7 +135,109 @@ a.list-group-item.heading {
   ]
 </code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section><h4 id="tasks-get-a-single-task">Get a single task&nbsp;<a href="#tasks-get-a-single-task"><i class="fa fa-link"></i></a></h4><section id="tasks-get-a-single-task-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Get a single task</span></div><div style="float:left"><a href="#tasks-get-a-single-task-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/api/task/:id</code></div></div><div class="panel-body"><p>List all the tasks created by the calling application.</p>
 </div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section><h4 id="tasks-update-a-task">Update a task&nbsp;<a href="#tasks-update-a-task"><i class="fa fa-link"></i></a></h4><section id="tasks-update-a-task-put" class="panel panel-warning"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Update a task</span></div><div style="float:left"><a href="#tasks-update-a-task-put" class="btn btn-xs btn-warning">PUT</a></div><div style="overflow:hidden"><code>/api/task/:id</code></div></div><div class="panel-body"><p>Update task.</p>
-</div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 28 Apr 2014</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+</div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="authentication">Authentication&nbsp;<a href="#authentication"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><h1 id="passport-myusa">passport-myusa</h1>
+<p><a href="https://github.com/jaredhanson/passport">Passport</a> Authentication Strategy for
+MyUSA (my.usa.gov) using the OAuth 2.0 API.</p>
+<p>This module lets you authenticate using MyUSA in your Node.js applications.
+By plugging into Passport, MyUSA authentication can be easily and
+unobtrusively integrated into any application or framework that supports
+<a href="http://www.senchalabs.org/connect/">Connect</a>-style middleware, including
+<a href="http://expressjs.com/">Express</a> and <a href="http://www.sailsjs.org">Sails</a>.</p>
+<h2 id="install">Install</h2>
+<pre><code><span class="hljs-variable">$ </span>npm install passport-myusa
+</code></pre><h4 id="development-install">Development Install</h4>
+<pre><code><span class="hljs-variable">$ </span>git clone <span class="hljs-symbol">git:</span>/<span class="hljs-regexp">/github.com:Innovation-Toolkit/passport</span>-myusa.git
+<span class="hljs-variable">$ </span>cd passport-myusa
+<span class="hljs-variable">$ </span>sudo npm link
+change to your project<span class="hljs-string">'s directory
+$ npm link passport-myusa</span>
+</code></pre><h2 id="usage">Usage</h2>
+<h4 id="configure-strategy">Configure Strategy</h4>
+<p>The MyUSA authentication strategy authenticates users using an MyUSA
+account and OAuth 2.0 tokens.  The strategy requires a <code>verify</code> callback, which
+accepts these credentials and calls <code>done</code> providing a user, as well as
+<code>options</code> specifying a client ID, client secret, and callback URL.</p>
+<p>Note that the <code>callbackURL</code> must match <strong>exactly</strong> the callback registered
+for your application at <a href="https://my.usa.gov/apps">MyUSA</a>.</p>
+<pre><code>passport.<span class="hljs-keyword">use</span>(<span class="hljs-keyword">new</span> MyUSAStrategy({
+    clientID: MYUSA_CLIENT_ID,
+    clientSecret: MYUSA_CLIENT_SECRET,
+    callbackURL: <span class="hljs-string">"http://localhost:3000/auth/myusa/callback"</span>
+  },
+  <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(accessToken, refreshToken, profile, done)</span> {</span>
+    User.findOrCreate({ myusaId: profile.id }, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(err, user)</span> {</span>
+      <span class="hljs-keyword">return</span> done(err, user);
+    });
+  }
+));
+</code></pre><p>The fields available in the profile are defined by <a href="http://passportjs.org/guide/profile/">Passport’s Standard Profile</a>.  Two extra fields are included in the profile: <code>_raw</code> and <code>_json</code>.  <code>_raw</code> is the raw response from the MyUSA server, whereas <code>_json</code> is the JSON-parsed representation of the raw response.</p>
+<h4 id="authenticate-requests">Authenticate Requests</h4>
+<p>Use <code>passport.authenticate()</code>, specifying the <code>&#39;myusa&#39;</code> strategy, to
+authenticate requests.  Set the requested scope, such as <code>profile</code>,
+in the optional parameters during the authenticate phase.</p>
+<p>For example, as route middleware in an <a href="http://expressjs.com/">Express</a>
+application:</p>
+<pre><code>app.<span class="hljs-keyword">get</span>(<span class="hljs-string">'/auth/myusa'</span>,
+  passport.authenticate(<span class="hljs-string">'myusa'</span>, { scope: [<span class="hljs-string">'profile.email'</span>] }));
+
+app.<span class="hljs-keyword">get</span>(<span class="hljs-string">'/auth/myusa/callback'</span>,
+  passport.authenticate(<span class="hljs-string">'myusa'</span>, { failureRedirect: <span class="hljs-string">'/login'</span> }),
+  <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> {</span>
+    <span class="hljs-comment">// Successful authentication, redirect home.</span>
+    res.redirect(<span class="hljs-string">'/'</span>);
+  });
+</code></pre><h2 id="examples">Examples</h2>
+<p>For a complete, working example, refer to the <a href="https://github.com/Innovation-Toolkit/passport-myusa/tree/master/examples/login">login example</a>.</p>
+<h2 id="tests">Tests</h2>
+<p><a href="https://travis-ci.org/Innovation-Toolkit/passport-myusa"><img src="https://travis-ci.org/Innovation-Toolkit/passport-myusa.png?branch=master" alt="Build Status"></a> <a href="https://gemnasium.com/Innovation-Toolkit/passport-myusa"><img src="https://gemnasium.com/Innovation-Toolkit/passport-myusa.png" alt="Dependency Status"></a></p>
+<pre><code><span class="hljs-variable">$ </span>npm install --dev
+<span class="hljs-variable">$ </span>make test
+</code></pre><h2 id="notes-on-myusa-authentication">Notes on MyUSA Authentication</h2>
+<p>Register your application with <a href="https://my.usa.gov/apps">MyUSA</a> and save your Client ID and Secret.  Select the scopes that your application requires. Valid scopes are:</p>
+<ul>
+<li>profile.email</li>
+<li>profile.title</li>
+<li>profile.first_name</li>
+<li>profile.middle_name</li>
+<li>profile.last_name</li>
+<li>profile.suffix</li>
+<li>profile.address</li>
+<li>profile.address2</li>
+<li>profile.city</li>
+<li>profile.state</li>
+<li>profile.zip</li>
+<li>profile.phone_number</li>
+<li>profile.mobile_number</li>
+<li>profile.gender</li>
+<li>profile.marital_status</li>
+<li>profile.is_parent</li>
+<li>profile.is_student</li>
+<li>profile.is_veteran</li>
+<li>profile.is_retired</li>
+<li>tasks</li>
+<li>notifications</li>
+<li>submit_forms</li>
+</ul>
+<p>The user authentication URL and token exchange URL for MyUSA are <code>https://my.usa.gov/oauth/authenticate</code></p>
+<p>The REST API for profile information is <code>https://my.usa.gov/api/profile</code></p>
+<p>All API calls, including GET requests, must include the <code>Authorization: Bearer &lt;token&gt;</code> HTTP header. MyUSA does <strong>not</strong> support GET requests with the authorization token specified using a query string.</p>
+<p>An example using <a href="https://github.com/ciaranj/node-oauth">node-oauth</a>:</p>
+<pre><code><span class="hljs-keyword">var</span> OAuth2 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'oauth'</span>).OAuth2;
+<span class="hljs-keyword">var</span> oauth = <span class="hljs-keyword">new</span> OAuth2(CLIENT_ID, CLIENT_SECRET, <span class="hljs-string">''</span>,
+    AUTHORIZATION_URL, TOKEN_URL, <span class="hljs-literal">null</span>);
+<span class="hljs-comment">// Use authorization headers for GET, not query string</span>
+oauth.useAuthorizationHeaderforGET(<span class="hljs-literal">true</span>);
+<span class="hljs-comment">// Make request</span>
+oauth2.get(PROFILE_URL, ACCESS_TOKEN, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(err, body, res)</span> {</span>
+    <span class="hljs-comment">// parse profile</span>
+});
+</code></pre><h2 id="credits">Credits</h2>
+<ul>
+<li><a href="http://github.com/polastre">Joe Polastre</a></li>
+</ul>
+<h2 id="license">License</h2>
+<p>You may use this project under <a href="http://opensource.org/licenses/MIT">The MIT License</a>.</p>
+</div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 02 May 2014</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
 
 </div></body><script src="//code.jquery.com/jquery-1.11.0.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script>(function() {
   if (location.protocol === 'file:') {

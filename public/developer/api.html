@@ -135,109 +135,61 @@ a.list-group-item.heading {
   ]
 </code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section><h4 id="tasks-get-a-single-task">Get a single task&nbsp;<a href="#tasks-get-a-single-task"><i class="fa fa-link"></i></a></h4><section id="tasks-get-a-single-task-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Get a single task</span></div><div style="float:left"><a href="#tasks-get-a-single-task-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/api/task/:id</code></div></div><div class="panel-body"><p>List all the tasks created by the calling application.</p>
 </div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section><h4 id="tasks-update-a-task">Update a task&nbsp;<a href="#tasks-update-a-task"><i class="fa fa-link"></i></a></h4><section id="tasks-update-a-task-put" class="panel panel-warning"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Update a task</span></div><div style="float:left"><a href="#tasks-update-a-task-put" class="btn btn-xs btn-warning">PUT</a></div><div style="overflow:hidden"><code>/api/task/:id</code></div></div><div class="panel-body"><p>Update task.</p>
-</div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="authentication">Authentication&nbsp;<a href="#authentication"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><h1 id="passport-myusa">passport-myusa</h1>
-<p><a href="https://github.com/jaredhanson/passport">Passport</a> Authentication Strategy for
-MyUSA (my.usa.gov) using the OAuth 2.0 API.</p>
-<p>This module lets you authenticate using MyUSA in your Node.js applications.
-By plugging into Passport, MyUSA authentication can be easily and
-unobtrusively integrated into any application or framework that supports
-<a href="http://www.senchalabs.org/connect/">Connect</a>-style middleware, including
-<a href="http://expressjs.com/">Express</a> and <a href="http://www.sailsjs.org">Sails</a>.</p>
-<h2 id="install">Install</h2>
-<pre><code><span class="hljs-variable">$ </span>npm install passport-myusa
-</code></pre><h4 id="development-install">Development Install</h4>
-<pre><code><span class="hljs-variable">$ </span>git clone <span class="hljs-symbol">git:</span>/<span class="hljs-regexp">/github.com:Innovation-Toolkit/passport</span>-myusa.git
-<span class="hljs-variable">$ </span>cd passport-myusa
-<span class="hljs-variable">$ </span>sudo npm link
-change to your project<span class="hljs-string">'s directory
-$ npm link passport-myusa</span>
-</code></pre><h2 id="usage">Usage</h2>
-<h4 id="configure-strategy">Configure Strategy</h4>
-<p>The MyUSA authentication strategy authenticates users using an MyUSA
-account and OAuth 2.0 tokens.  The strategy requires a <code>verify</code> callback, which
-accepts these credentials and calls <code>done</code> providing a user, as well as
-<code>options</code> specifying a client ID, client secret, and callback URL.</p>
-<p>Note that the <code>callbackURL</code> must match <strong>exactly</strong> the callback registered
-for your application at <a href="https://my.usa.gov/apps">MyUSA</a>.</p>
-<pre><code>passport.<span class="hljs-keyword">use</span>(<span class="hljs-keyword">new</span> MyUSAStrategy({
-    clientID: MYUSA_CLIENT_ID,
-    clientSecret: MYUSA_CLIENT_SECRET,
-    callbackURL: <span class="hljs-string">"http://localhost:3000/auth/myusa/callback"</span>
-  },
-  <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(accessToken, refreshToken, profile, done)</span> {</span>
-    User.findOrCreate({ myusaId: profile.id }, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(err, user)</span> {</span>
-      <span class="hljs-keyword">return</span> done(err, user);
-    });
-  }
-));
-</code></pre><p>The fields available in the profile are defined by <a href="http://passportjs.org/guide/profile/">Passport’s Standard Profile</a>.  Two extra fields are included in the profile: <code>_raw</code> and <code>_json</code>.  <code>_raw</code> is the raw response from the MyUSA server, whereas <code>_json</code> is the JSON-parsed representation of the raw response.</p>
-<h4 id="authenticate-requests">Authenticate Requests</h4>
-<p>Use <code>passport.authenticate()</code>, specifying the <code>&#39;myusa&#39;</code> strategy, to
-authenticate requests.  Set the requested scope, such as <code>profile</code>,
-in the optional parameters during the authenticate phase.</p>
-<p>For example, as route middleware in an <a href="http://expressjs.com/">Express</a>
-application:</p>
-<pre><code>app.<span class="hljs-keyword">get</span>(<span class="hljs-string">'/auth/myusa'</span>,
-  passport.authenticate(<span class="hljs-string">'myusa'</span>, { scope: [<span class="hljs-string">'profile.email'</span>] }));
-
-app.<span class="hljs-keyword">get</span>(<span class="hljs-string">'/auth/myusa/callback'</span>,
-  passport.authenticate(<span class="hljs-string">'myusa'</span>, { failureRedirect: <span class="hljs-string">'/login'</span> }),
-  <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> {</span>
-    <span class="hljs-comment">// Successful authentication, redirect home.</span>
-    res.redirect(<span class="hljs-string">'/'</span>);
-  });
-</code></pre><h2 id="examples">Examples</h2>
-<p>For a complete, working example, refer to the <a href="https://github.com/Innovation-Toolkit/passport-myusa/tree/master/examples/login">login example</a>.</p>
-<h2 id="tests">Tests</h2>
-<p><a href="https://travis-ci.org/Innovation-Toolkit/passport-myusa"><img src="https://travis-ci.org/Innovation-Toolkit/passport-myusa.png?branch=master" alt="Build Status"></a> <a href="https://gemnasium.com/Innovation-Toolkit/passport-myusa"><img src="https://gemnasium.com/Innovation-Toolkit/passport-myusa.png" alt="Dependency Status"></a></p>
-<pre><code><span class="hljs-variable">$ </span>npm install --dev
-<span class="hljs-variable">$ </span>make test
-</code></pre><h2 id="notes-on-myusa-authentication">Notes on MyUSA Authentication</h2>
-<p>Register your application with <a href="https://my.usa.gov/apps">MyUSA</a> and save your Client ID and Secret.  Select the scopes that your application requires. Valid scopes are:</p>
-<ul>
-<li>profile.email</li>
-<li>profile.title</li>
-<li>profile.first_name</li>
-<li>profile.middle_name</li>
-<li>profile.last_name</li>
-<li>profile.suffix</li>
-<li>profile.address</li>
-<li>profile.address2</li>
-<li>profile.city</li>
-<li>profile.state</li>
-<li>profile.zip</li>
-<li>profile.phone_number</li>
-<li>profile.mobile_number</li>
-<li>profile.gender</li>
-<li>profile.marital_status</li>
-<li>profile.is_parent</li>
-<li>profile.is_student</li>
-<li>profile.is_veteran</li>
-<li>profile.is_retired</li>
-<li>tasks</li>
-<li>notifications</li>
-<li>submit_forms</li>
-</ul>
-<p>The user authentication URL and token exchange URL for MyUSA are <code>https://my.usa.gov/oauth/authenticate</code></p>
-<p>The REST API for profile information is <code>https://my.usa.gov/api/profile</code></p>
-<p>All API calls, including GET requests, must include the <code>Authorization: Bearer &lt;token&gt;</code> HTTP header. MyUSA does <strong>not</strong> support GET requests with the authorization token specified using a query string.</p>
-<p>An example using <a href="https://github.com/ciaranj/node-oauth">node-oauth</a>:</p>
-<pre><code><span class="hljs-keyword">var</span> OAuth2 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'oauth'</span>).OAuth2;
-<span class="hljs-keyword">var</span> oauth = <span class="hljs-keyword">new</span> OAuth2(CLIENT_ID, CLIENT_SECRET, <span class="hljs-string">''</span>,
-    AUTHORIZATION_URL, TOKEN_URL, <span class="hljs-literal">null</span>);
-<span class="hljs-comment">// Use authorization headers for GET, not query string</span>
-oauth.useAuthorizationHeaderforGET(<span class="hljs-literal">true</span>);
-<span class="hljs-comment">// Make request</span>
-oauth2.get(PROFILE_URL, ACCESS_TOKEN, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(err, body, res)</span> {</span>
-    <span class="hljs-comment">// parse profile</span>
-});
-</code></pre><h2 id="credits">Credits</h2>
-<ul>
-<li><a href="http://github.com/polastre">Joe Polastre</a></li>
-</ul>
-<h2 id="license">License</h2>
-<p>You may use this project under <a href="http://opensource.org/licenses/MIT">The MIT License</a>.</p>
-</div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 02 May 2014</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+</div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="authentication">Authentication&nbsp;<a href="#authentication"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><h1 id="omniauth-strategies-myusa">OmniAuth::Strategies::Myusa</h1>
+<p>This gem contains the MyUSA strategy for OmniAuth.</p>
+<p>MyUSA uses OAuth 2.0. To find out more information about MyUSA and how to create your own application visit the <a href="https://my.usa.gov/developer">developers</a> section of MyUSA.</p>
+<p>View the OmniAuth 1.0 docs for more information about strategy implementation: <a href="https://github.com/intridea/omniauth">https://github.com/intridea/omniauth</a>.</p>
+<h2 id="before-you-begin">Before You Begin</h2>
+<p>Sign in to <a href="https://my.usa.gov/developer">MyUSA</a> and register an application. You will need to provide a redirect URI which is “YOUR_SITE/auth/myusa/callback” by default. Take note of your Consumer Key and Consumer Secret.</p>
+<h2 id="using-this-strategy">Using This Strategy</h2>
+<p>First start by adding this gem to your Gemfile:</p>
+<pre><code class="lang-ruby">gem <span class="hljs-string">'omniauth-myusa'</span>, <span class="hljs-symbol">:git</span> =&gt; <span class="hljs-string">'https://github.com/GSA-OCSIT/omniauth-myusa.git'</span>
+</code></pre>
+<p>Next, tell OmniAuth about this provider. For a Rails app, your <code>config/initializers/omniauth.rb</code> file should look like this:</p>
+<pre><code class="lang-ruby">provider <span class="hljs-symbol">:myusa</span>, <span class="hljs-string">"CONSUMER_KEY"</span>, <span class="hljs-string">"CONSUMER_SECRET"</span>, <span class="hljs-symbol">:scope</span> =&gt; <span class="hljs-string">"profile tasks submit_forms notifications"</span>
+</code></pre>
+<p>Replace CONSUMER_KEY and CONSUMER_SECRET with the appropriate values you obtained from <a href="https://my.usa.gov/apps">MyUSA</a> earlier.</p>
+<h2 id="authentication-hash">Authentication Hash</h2>
+<p>An example auth hash available in <code>request.env[&#39;omniauth.auth&#39;]</code>:</p>
+<pre><code class="lang-ruby">{<span class="hljs-string">"provider"</span>=&gt;<span class="hljs-string">"myusa"</span>,
+ <span class="hljs-string">"uid"</span>=&gt;<span class="hljs-string">"r03Ke0000000000FrqOOFlq0DeNc9q1QQQQQQQQC"</span>,
+ <span class="hljs-string">"info"</span>=&gt;{<span class="hljs-string">"email"</span>=&gt;<span class="hljs-string">"johnq@bloggs.com"</span>},
+ <span class="hljs-string">"credentials"</span>=&gt;{<span class="hljs-string">"token"</span>=&gt;<span class="hljs-string">"3gnsgg14ymf54mquevfry38ao"</span>, <span class="hljs-string">"expires"</span>=&gt;<span class="hljs-keyword">false</span>},
+ <span class="hljs-string">"extra"</span>=&gt;
+  {<span class="hljs-string">"raw_info"</span>=&gt;
+    {<span class="hljs-string">"title"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"first_name"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"middle_name"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"last_name"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"suffix"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"address"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"address2"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"city"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"state"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"zip"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"phone_number"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"mobile_number"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"gender"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"marital_status"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"is_parent"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"is_retired"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"is_veteran"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"is_student"</span>=&gt;<span class="hljs-keyword">nil</span>,
+     <span class="hljs-string">"email"</span>=&gt;<span class="hljs-string">"johnq@bloggs.com
+     "</span>uid<span class="hljs-string">"=&gt;"</span>r03Ke0000000000FrqOOFlq0DeNc9q1QQQk390QC<span class="hljs-string">"}}}</span>
+</code></pre>
+<h2 id="watch-the-railscast">Watch the RailsCast</h2>
+<p>Ryan Bates has put together an excellent RailsCast on OmniAuth:</p>
+<p><a href="http://railscasts.com/episodes/241-simple-omniauth-revised"><img src="http://railscasts.com/static/episodes/stills/241-simple-omniauth-revised.png" alt="RailsCast #241" title="RailsCast #241 - Simple OmniAuth (revised)"></a></p>
+<h2 id="contributing">Contributing</h2>
+<ol>
+<li>Fork it</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am &#39;Add some feature&#39;</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol>
+</div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 07 May 2014</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
 
 </div></body><script src="//code.jquery.com/jquery-1.11.0.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script>(function() {
   if (location.protocol === 'file:') {

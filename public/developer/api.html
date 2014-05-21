@@ -146,38 +146,20 @@ a.list-group-item.heading {
 <pre><code class="lang-ruby">gem <span class="hljs-string">'omniauth-myusa'</span>, <span class="hljs-symbol">:git</span> =&gt; <span class="hljs-string">'https://github.com/GSA-OCSIT/omniauth-myusa.git'</span>
 </code></pre>
 <p>Next, tell OmniAuth about this provider. For a Rails app, your <code>config/initializers/omniauth.rb</code> file should look like this:</p>
-<pre><code class="lang-ruby">provider <span class="hljs-symbol">:myusa</span>, <span class="hljs-string">"CONSUMER_KEY"</span>, <span class="hljs-string">"CONSUMER_SECRET"</span>, <span class="hljs-symbol">:scope</span> =&gt; <span class="hljs-string">"profile tasks submit_forms notifications"</span>
+<pre><code class="lang-ruby"><span class="hljs-constant">Rails</span>.application.config.middleware.use <span class="hljs-constant">OmniAuth::Builder</span> <span class="hljs-keyword">do</span>
+  <span class="hljs-constant">MYGOV_CLIENT_ID</span> = <span class="hljs-string">"YOURKEY"</span>
+  <span class="hljs-constant">MYGOV_SECRET_ID</span> = <span class="hljs-string">"YOURSECRETKEY"</span>
+  <span class="hljs-constant">MYGOV_HOME</span> = <span class="hljs-string">'http://my.usa.gov'</span>
+  <span class="hljs-constant">SCOPES</span> = <span class="hljs-string">"profile.email"</span>
+  provider <span class="hljs-symbol">:myusa</span>, <span class="hljs-constant">MYGOV_CLIENT_ID</span>, <span class="hljs-constant">MYGOV_SECRET_ID</span>, <span class="hljs-symbol">:scope</span> =&gt; <span class="hljs-constant">SCOPES</span>
+<span class="hljs-keyword">end</span>
 </code></pre>
-<p>Replace CONSUMER_KEY and CONSUMER_SECRET with the appropriate values you obtained from <a href="https://my.usa.gov/apps">MyUSA</a> earlier.</p>
-<h2 id="authentication-hash">Authentication Hash</h2>
-<p>An example auth hash available in <code>request.env[&#39;omniauth.auth&#39;]</code>:</p>
-<pre><code class="lang-ruby">{<span class="hljs-string">"provider"</span>=&gt;<span class="hljs-string">"myusa"</span>,
- <span class="hljs-string">"uid"</span>=&gt;<span class="hljs-string">"r03Ke0000000000FrqOOFlq0DeNc9q1QQQQQQQQC"</span>,
- <span class="hljs-string">"info"</span>=&gt;{<span class="hljs-string">"email"</span>=&gt;<span class="hljs-string">"johnq@bloggs.com"</span>},
- <span class="hljs-string">"credentials"</span>=&gt;{<span class="hljs-string">"token"</span>=&gt;<span class="hljs-string">"3gnsgg14ymf54mquevfry38ao"</span>, <span class="hljs-string">"expires"</span>=&gt;<span class="hljs-keyword">false</span>},
- <span class="hljs-string">"extra"</span>=&gt;
-  {<span class="hljs-string">"raw_info"</span>=&gt;
-    {<span class="hljs-string">"title"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"first_name"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"middle_name"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"last_name"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"suffix"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"address"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"address2"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"city"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"state"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"zip"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"phone_number"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"mobile_number"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"gender"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"marital_status"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"is_parent"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"is_retired"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"is_veteran"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"is_student"</span>=&gt;<span class="hljs-keyword">nil</span>,
-     <span class="hljs-string">"email"</span>=&gt;<span class="hljs-string">"johnq@bloggs.com
-     "</span>uid<span class="hljs-string">"=&gt;"</span>r03Ke0000000000FrqOOFlq0DeNc9q1QQQk390QC<span class="hljs-string">"}}}</span>
-</code></pre>
+<p>Set SCOPES equal to a comma separated string of your scopes that you requested when you created the app. In the future, we will generate this for you.
+Replace CONSUMER_KEY and CONSUMER_SECRET with the appropriate values you obtained from <a href="https://my.usa.gov/apps">MyUSA</a> earlier.</p>
+<p>Don’t forget to create a route to handle the callback. For example:</p>
+<pre><code><span class="hljs-built_in">get</span> <span class="hljs-string">'/auth/:provider/callback'</span>, <span class="hljs-built_in">to</span>: <span class="hljs-string">'sessions#create’</span>
+</code></pre><p>The sessions controller in this example calls a create method that logs in the user.</p>
+<p>Further reading:</p>
 <h2 id="watch-the-railscast">Watch the RailsCast</h2>
 <p>Ryan Bates has put together an excellent RailsCast on OmniAuth:</p>
 <p><a href="http://railscasts.com/episodes/241-simple-omniauth-revised"><img src="http://railscasts.com/static/episodes/stills/241-simple-omniauth-revised.png" alt="RailsCast #241" title="RailsCast #241 - Simple OmniAuth (revised)"></a></p>
@@ -189,7 +171,7 @@ a.list-group-item.heading {
 <li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
 <li>Create new Pull Request</li>
 </ol>
-</div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 07 May 2014</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+</div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 20 May 2014</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
 
 </div></body><script src="//code.jquery.com/jquery-1.11.0.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script>(function() {
   if (location.protocol === 'file:') {

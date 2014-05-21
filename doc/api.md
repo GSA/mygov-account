@@ -175,42 +175,28 @@ gem 'omniauth-myusa', :git => 'https://github.com/GSA-OCSIT/omniauth-myusa.git'
 Next, tell OmniAuth about this provider. For a Rails app, your `config/initializers/omniauth.rb` file should look like this:
 
 ```ruby
-provider :myusa, "CONSUMER_KEY", "CONSUMER_SECRET", :scope => "profile tasks submit_forms notifications"
+Rails.application.config.middleware.use OmniAuth::Builder do
+  MYGOV_CLIENT_ID = "YOURKEY"
+  MYGOV_SECRET_ID = "YOURSECRETKEY"
+  MYGOV_HOME = 'http://my.usa.gov'
+  SCOPES = "profile.email"
+  provider :myusa, MYGOV_CLIENT_ID, MYGOV_SECRET_ID, :scope => SCOPES
+end
 ```
-
+Set SCOPES equal to a comma separated string of your scopes that you requested when you created the app. In the future, we will generate this for you.
 Replace CONSUMER_KEY and CONSUMER_SECRET with the appropriate values you obtained from [MyUSA](https://my.usa.gov/apps) earlier.
 
-## Authentication Hash
-An example auth hash available in `request.env['omniauth.auth']`:
+Don't forget to create a route to handle the callback. For example:
 
-```ruby
-{"provider"=>"myusa",
- "uid"=>"r03Ke0000000000FrqOOFlq0DeNc9q1QQQQQQQQC",
- "info"=>{"email"=>"johnq@bloggs.com"},
- "credentials"=>{"token"=>"3gnsgg14ymf54mquevfry38ao", "expires"=>false},
- "extra"=>
-  {"raw_info"=>
-    {"title"=>nil,
-     "first_name"=>nil,
-     "middle_name"=>nil,
-     "last_name"=>nil,
-     "suffix"=>nil,
-     "address"=>nil,
-     "address2"=>nil,
-     "city"=>nil,
-     "state"=>nil,
-     "zip"=>nil,
-     "phone_number"=>nil,
-     "mobile_number"=>nil,
-     "gender"=>nil,
-     "marital_status"=>nil,
-     "is_parent"=>nil,
-     "is_retired"=>nil,
-     "is_veteran"=>nil,
-     "is_student"=>nil,
-     "email"=>"johnq@bloggs.com
-     "uid"=>"r03Ke0000000000FrqOOFlq0DeNc9q1QQQk390QC"}}}
 ```
+get '/auth/:provider/callback', to: 'sessions#create’
+```
+
+The sessions controller in this example calls a create method that logs in the user.
+
+
+
+Further reading:
 
 ## Watch the RailsCast
 

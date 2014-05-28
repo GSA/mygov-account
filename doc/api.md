@@ -162,7 +162,7 @@ View the OmniAuth 1.0 docs for more information about strategy implementation: h
 
 ## Before You Begin
 
-Sign in to [MyUSA](https://my.usa.gov/developer) and register an application. You will need to provide a redirect URI which is "YOUR_SITE/auth/myusa/callback" by default. Take note of your Consumer Key and Consumer Secret.
+Sign in to [MyUSA](https://my.usa.gov/developer) and register an application. You will need to provide a redirect URI which is `YOUR_SITE/auth/myusa/callback` by default. Take note of your Consumer Key and Consumer Secret.
 
 ## Using This Strategy
 
@@ -205,6 +205,7 @@ Ryan Bates has put together an excellent RailsCast on OmniAuth:
 [![RailsCast #241](http://railscasts.com/static/episodes/stills/241-simple-omniauth-revised.png "RailsCast #241 - Simple OmniAuth (revised)")](http://railscasts.com/episodes/241-simple-omniauth-revised)
 
 
+
 ## Contributing
 
 1. Fork it
@@ -212,3 +213,4 @@ Ryan Bates has put together an excellent RailsCast on OmniAuth:
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+

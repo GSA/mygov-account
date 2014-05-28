@@ -179,11 +179,11 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   MYGOV_CLIENT_ID = "YOURKEY"
   MYGOV_SECRET_ID = "YOURSECRETKEY"
   MYGOV_HOME = 'http://my.usa.gov'
-  SCOPES = "profile.email"
+  SCOPES = "profile.email profile.title profile.first_name"
   provider :myusa, MYGOV_CLIENT_ID, MYGOV_SECRET_ID, :scope => SCOPES
 end
 ```
-Set SCOPES equal to a comma separated string of your scopes that you requested when you created the app. In the future, we will generate this for you.
+Set SCOPES equal to a space separated string of your scopes that you requested when you created the app. In the future, we will generate this for you.
 Replace CONSUMER_KEY and CONSUMER_SECRET with the appropriate values you obtained from [MyUSA](https://my.usa.gov/apps) earlier.
 
 Don't forget to create a route to handle the callback. For example:

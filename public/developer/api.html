@@ -150,11 +150,11 @@ a.list-group-item.heading {
   <span class="hljs-constant">MYGOV_CLIENT_ID</span> = <span class="hljs-string">"YOURKEY"</span>
   <span class="hljs-constant">MYGOV_SECRET_ID</span> = <span class="hljs-string">"YOURSECRETKEY"</span>
   <span class="hljs-constant">MYGOV_HOME</span> = <span class="hljs-string">'http://my.usa.gov'</span>
-  <span class="hljs-constant">SCOPES</span> = <span class="hljs-string">"profile.email"</span>
+  <span class="hljs-constant">SCOPES</span> = <span class="hljs-string">"profile.email profile.title profile.first_name"</span>
   provider <span class="hljs-symbol">:myusa</span>, <span class="hljs-constant">MYGOV_CLIENT_ID</span>, <span class="hljs-constant">MYGOV_SECRET_ID</span>, <span class="hljs-symbol">:scope</span> =&gt; <span class="hljs-constant">SCOPES</span>
 <span class="hljs-keyword">end</span>
 </code></pre>
-<p>Set SCOPES equal to a comma separated string of your scopes that you requested when you created the app. In the future, we will generate this for you.
+<p>Set SCOPES equal to a space separated string of your scopes that you requested when you created the app. In the future, we will generate this for you.
 Replace CONSUMER_KEY and CONSUMER_SECRET with the appropriate values you obtained from <a href="https://my.usa.gov/apps">MyUSA</a> earlier.</p>
 <p>Don’t forget to create a route to handle the callback. For example:</p>
 <pre><code><span class="hljs-built_in">get</span> <span class="hljs-string">'/auth/:provider/callback'</span>, <span class="hljs-built_in">to</span>: <span class="hljs-string">'sessions#create’</span>

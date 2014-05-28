@@ -33,7 +33,7 @@ describe "Notifications" do
         @other_user_notification = Notification.create!({:subject => 'Other User Notification', :received_at => (Time.now - 1.hour + 15.minutes), :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app1.id}, :as => :admin)
         @other_app_notification = Notification.create!({:subject => 'Other App Notification', :received_at => (Time.now - 1.hour + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
         @day_old_notification = Notification.create!({:subject => 'Day Old Notification', :received_at => (Time.now - 2.days + 16.minutes), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
-        @month_old_notification = Notification.create!({:subject => 'Week Old Notification', :received_at => (DateTime.new(2013,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
+        @month_old_notification = Notification.create!({:subject => 'Week Old Notification', :received_at => (Time.now - 2.weeks), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
         @year_old_notification = Notification.create!({:subject => 'Year Old Notification', :received_at => (DateTime.new(2012,05,13)), :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
       end
       
@@ -44,10 +44,11 @@ describe "Notifications" do
       
       it "returns the date in 'Month DD' format when the notification is greater than a week but less than a year old" do
         visit notification_path(@month_old_notification)
-        page.should have_content 'May 13'
+        two_weeks_ago = 2.weeks.ago
+        page.should have_content  "#{Date::MONTHNAMES[two_weeks_ago.month]} #{two_weeks_ago.day}"
       end
 
-      it "returns the date in 'MM/DD/YYYY' format when the notification is greater than a week but less than a year old" do
+      it "returns the date in 'MM/DD/YYYY' format when the notification is more than a year old" do
         visit notification_path(@year_old_notification)
         page.should have_content '05/13/2012'
       end

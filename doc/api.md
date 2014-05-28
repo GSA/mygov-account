@@ -150,3 +150,65 @@ Update task.
 + Response 200
 
 + Parameters
+
+# Group Authentication
+# OmniAuth::Strategies::Myusa
+
+This gem contains the MyUSA strategy for OmniAuth.
+
+MyUSA uses OAuth 2.0. To find out more information about MyUSA and how to create your own application visit the [developers](https://my.usa.gov/developer) section of MyUSA.
+
+View the OmniAuth 1.0 docs for more information about strategy implementation: https://github.com/intridea/omniauth.
+
+## Before You Begin
+
+Sign in to [MyUSA](https://my.usa.gov/developer) and register an application. You will need to provide a redirect URI which is "YOUR_SITE/auth/myusa/callback" by default. Take note of your Consumer Key and Consumer Secret.
+
+## Using This Strategy
+
+First start by adding this gem to your Gemfile:
+
+```ruby
+gem 'omniauth-myusa', :git => 'https://github.com/GSA-OCSIT/omniauth-myusa.git'
+```
+
+Next, tell OmniAuth about this provider. For a Rails app, your `config/initializers/omniauth.rb` file should look like this:
+
+```ruby
+Rails.application.config.middleware.use OmniAuth::Builder do
+  MYGOV_CLIENT_ID = "YOURKEY"
+  MYGOV_SECRET_ID = "YOURSECRETKEY"
+  MYGOV_HOME = 'http://my.usa.gov'
+  SCOPES = "profile.email"
+  provider :myusa, MYGOV_CLIENT_ID, MYGOV_SECRET_ID, :scope => SCOPES
+end
+```
+Set SCOPES equal to a comma separated string of your scopes that you requested when you created the app. In the future, we will generate this for you.
+Replace CONSUMER_KEY and CONSUMER_SECRET with the appropriate values you obtained from [MyUSA](https://my.usa.gov/apps) earlier.
+
+Don't forget to create a route to handle the callback. For example:
+
+```
+get '/auth/:provider/callback', to: 'sessions#create’
+```
+
+The sessions controller in this example calls a create method that logs in the user.
+
+
+
+Further reading:
+
+## Watch the RailsCast
+
+Ryan Bates has put together an excellent RailsCast on OmniAuth:
+
+[![RailsCast #241](http://railscasts.com/static/episodes/stills/241-simple-omniauth-revised.png "RailsCast #241 - Simple OmniAuth (revised)")](http://railscasts.com/episodes/241-simple-omniauth-revised)
+
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request

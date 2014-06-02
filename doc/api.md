@@ -22,9 +22,37 @@ The scopes you define when you setup your app on MyUSA.gov define what informati
 
 ## Before You Begin
 
-Sign in to [MyUSA](https://my.usa.gov/developer) and register an application. You will need to provide a redirect URI which is `YOUR_SITE/auth/myusa/callback` by default. Take note of your Consumer Key and Consumer Secret.
+1. Sign in to [MyUSA](https://my.usa.gov/developer) to register an application. 
+2. Provide a redirect URI which is `YOUR_SITE/auth/myusa/callback` by default. 
+3. Select the scopes you wish to recieve about user data. Sample scopes are email first_name and phone_number.
+4. Take note of your Consumer Key and Consumer Secret.
 
 ## Your Application
+
+First, direct your user to https://my.usa.gov/auth/myusa with the following parameters:
+
+```
+  MYGOV_CLIENT_ID 
+  REDIRECT_URI 
+  TYPE : CODE
+```
+
+At this point, the user will be presented with the myusa login page. When they login, they will be redirected back to your application via the redriect URI that you specified when you setup the application. If your redirect uri was www.ryan.com/test, MyUSA would redirect to:
+
+```
+https://www.ryan.com/test?code=12345abcde
+```
+
+### Handling the response
+
+Your application should have an end point to recieve the redirect at this url. 
+
+### Long Live Token
+
+Now that you have a valid code, you can make a server to server request to `api.my.usa.gov` to get a long live token to keep users logged in. 
+
+
+## Example Rails configuration
 
 First start by adding this gem to your Gemfile:
 
@@ -43,6 +71,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :myusa, MYGOV_CLIENT_ID, MYGOV_SECRET_ID, :scope => SCOPES
 end
 ```
+
 Set SCOPES equal to a space separated string of your scopes that you requested when you created the app. In the future, we will generate this for you.
 Replace CONSUMER_KEY and CONSUMER_SECRET with the appropriate values you obtained from [MyUSA](https://my.usa.gov/apps) earlier.
 
@@ -53,7 +82,6 @@ get '/auth/:provider/callback', to: 'sessions#create’
 ```
 
 The sessions controller in this example calls a create method that logs in the user.
-
 
 
 Further reading:

@@ -40,14 +40,14 @@ First, direct your user to https://my.usa.gov/auth/myusa with the following para
 At this point, the user will be presented with the myusa login page. When they login, they will be redirected back to your application via the redriect URI that you specified when you setup the application. If your redirect uri was www.ryan.com/test, MyUSA would redirect to:
 
 ```
-https://www.ryan.com/test?code=12345abcde
+https://www.example.com/test?code=12345abcde
 ```
 
 ### Handling the response
 
 Your application should have an end point to recieve the redirect at this url. 
 
-### Long Live Token
+### Long Lived Token
 
 Now that you have a valid code, you can make a server to server request to `api.my.usa.gov` to get a long live token to keep users logged in. 
 

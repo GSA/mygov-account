@@ -31,7 +31,7 @@ https://help.github.com/articles/set-up-git
 
     4.  bundle install
 
-      Change into the directory (it would be 'cd mygov' from wherever you executed the above command) and do the following:
+      Change into the directory (it would be 'cd mygov-account' from wherever you executed the above command) and do the following:
 
         bundle install
 
@@ -78,9 +78,9 @@ Chrome, reexamine your life) and visit:
 
     http://localhost:3000/
 
-Hopefully you now have the site running.  However, to be practical, you must perform 
-one additional step with the current code base.  You need to approve yourself as 
-a user.  Utilize the site to sign up with an email that you want to use.  Click on 
+Hopefully you now have the site running.  However, to be practical, you must perform
+one additional step with the current code base.  You need to approve yourself as
+a user.  Utilize the site to sign up with an email that you want to use.  Click on
 the confirmation link presented to you.  Then execute in MySQL in the mygov_development database:
 
      update beta_signups set is_approved = 1 where id=1;

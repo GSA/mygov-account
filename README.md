@@ -56,6 +56,10 @@ https://help.github.com/articles/set-up-git
         bundle exec rake db:create RAILS_ENV=test
         bundle exec rake db:schema:load RAILS_ENV=test
 
+      Seed the development database
+
+        bundle exec rake db:seed
+
 That should be it!  You are ready to develop.
 
 ## Running the app locally
